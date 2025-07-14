@@ -1,21 +1,13 @@
 # typed: strong
 
 module MoonbaseSDK
-  Collection = MoonbaseSDK::Models::Collection
-
-  CollectionListParams = MoonbaseSDK::Models::CollectionListParams
-
-  CollectionRetrieveParams = MoonbaseSDK::Models::CollectionRetrieveParams
-
-  Collections = MoonbaseSDK::Models::Collections
-
   Error = MoonbaseSDK::Models::Error
-
-  Field = MoonbaseSDK::Models::Field
 
   Program = MoonbaseSDK::Models::Program
 
   ProgramListParams = MoonbaseSDK::Models::ProgramListParams
+
+  ProgramMessageSendParams = MoonbaseSDK::Models::ProgramMessageSendParams
 
   ProgramRetrieveParams = MoonbaseSDK::Models::ProgramRetrieveParams
 
@@ -25,6 +17,4 @@ module MoonbaseSDK
 
   ProgramTemplateRetrieveParams =
     MoonbaseSDK::Models::ProgramTemplateRetrieveParams
-
-  View = MoonbaseSDK::Models::View
 end

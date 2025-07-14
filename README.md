@@ -220,23 +220,23 @@ moonbase.program_templates.list(**params)
 Since this library does not depend on `sorbet-runtime`, it cannot provide [`T::Enum`](https://sorbet.org/docs/tenum) instances. Instead, we provide "tagged symbols" instead, which is always a primitive at runtime:
 
 ```ruby
-# :table
-puts(MoonbaseSDK::View::ViewType::TABLE)
+# :draft
+puts(MoonbaseSDK::Program::Status::DRAFT)
 
-# Revealed type: `T.all(MoonbaseSDK::View::ViewType, Symbol)`
-T.reveal_type(MoonbaseSDK::View::ViewType::TABLE)
+# Revealed type: `T.all(MoonbaseSDK::Program::Status, Symbol)`
+T.reveal_type(MoonbaseSDK::Program::Status::DRAFT)
 ```
 
 Enum parameters have a "relaxed" type, so you can either pass in enum constants or their literal value:
 
 ```ruby
-MoonbaseSDK::View.new(
-  view_type: MoonbaseSDK::View::ViewType::TABLE,
+MoonbaseSDK::Program.new(
+  status: MoonbaseSDK::Program::Status::DRAFT,
   # …
 )
 
-MoonbaseSDK::View.new(
-  view_type: :table,
+MoonbaseSDK::Program.new(
+  status: :draft,
   # …
 )
 ```
