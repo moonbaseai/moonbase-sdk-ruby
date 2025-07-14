@@ -6,28 +6,28 @@ module Moonbase
       # @api private
       #
       # @example
-      #   # `value` is a `Moonbase::Value`
-      #   case value
-      #   when Moonbase::SingleLineTextValue
-      #     puts(value.text)
-      #   when Moonbase::MultiLineTextValue
-      #     puts(value.type)
-      #   when Moonbase::IntegerValue
-      #     puts(value.number)
+      #   # `activity` is a `Moonbase::Activity`
+      #   case activity
+      #   when Moonbase::Activity::ActivityCallOccurred
+      #     puts(activity.id)
+      #   when Moonbase::Activity::ActivityFormSubmitted
+      #     puts(activity.links)
+      #   when Moonbase::Activity::ActivityInboxMessageSent
+      #     puts(activity.occurred_at)
       #   else
-      #     puts(value)
+      #     puts(activity)
       #   end
       #
       # @example
-      #   case value
-      #   in {type: :"value/text/single_line", text: text}
-      #     puts(text)
-      #   in {type: :"value/text/multi_line", text: text}
-      #     puts(text)
-      #   in {type: :"value/number/unitless_integer", number: number}
-      #     puts(number)
+      #   case activity
+      #   in {type: :"activity/call_occurred", id: id, links: links, occurred_at: occurred_at}
+      #     puts(id)
+      #   in {type: :"activity/form_submitted", id: id, links: links, occurred_at: occurred_at}
+      #     puts(links)
+      #   in {type: :"activity/inbox_message_sent", id: id, links: links, occurred_at: occurred_at}
+      #     puts(occurred_at)
       #   else
-      #     puts(value)
+      #     puts(activity)
       #   end
       module Union
         include Moonbase::Internal::Type::Converter

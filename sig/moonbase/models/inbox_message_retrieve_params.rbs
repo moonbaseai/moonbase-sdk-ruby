@@ -1,0 +1,42 @@
+module Moonbase
+  module Models
+    type inbox_message_retrieve_params =
+      {
+        include: ::Array[Moonbase::Models::InboxMessageRetrieveParams::include_]
+      }
+      & Moonbase::Internal::Type::request_parameters
+
+    class InboxMessageRetrieveParams < Moonbase::Internal::Type::BaseModel
+      extend Moonbase::Internal::Type::RequestParameters::Converter
+      include Moonbase::Internal::Type::RequestParameters
+
+      attr_reader include: ::Array[Moonbase::Models::InboxMessageRetrieveParams::include_]?
+
+      def include=: (
+        ::Array[Moonbase::Models::InboxMessageRetrieveParams::include_]
+      ) -> ::Array[Moonbase::Models::InboxMessageRetrieveParams::include_]
+
+      def initialize: (
+        ?include: ::Array[Moonbase::Models::InboxMessageRetrieveParams::include_],
+        ?request_options: Moonbase::request_opts
+      ) -> void
+
+      def to_hash: -> {
+        include: ::Array[Moonbase::Models::InboxMessageRetrieveParams::include_],
+        request_options: Moonbase::RequestOptions
+      }
+
+      type include_ = :addresses | :attachments | :conversation
+
+      module Include
+        extend Moonbase::Internal::Type::Enum
+
+        ADDRESSES: :addresses
+        ATTACHMENTS: :attachments
+        CONVERSATION: :conversation
+
+        def self?.values: -> ::Array[Moonbase::Models::InboxMessageRetrieveParams::include_]
+      end
+    end
+  end
+end

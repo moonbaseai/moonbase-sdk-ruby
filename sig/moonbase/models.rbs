@@ -1,5 +1,19 @@
 module Moonbase
+  module Activity = Moonbase::Models::Activity
+
+  class ActivityListParams = Moonbase::Models::ActivityListParams
+
+  class ActivityRetrieveParams = Moonbase::Models::ActivityRetrieveParams
+
+  class Address = Moonbase::Models::Address
+
+  class Attendee = Moonbase::Models::Attendee
+
   class BooleanValue = Moonbase::Models::BooleanValue
+
+  class Call = Moonbase::Models::Call
+
+  class CallCreateParams = Moonbase::Models::CallCreateParams
 
   class Choice = Moonbase::Models::Choice
 
@@ -17,6 +31,8 @@ module Moonbase
 
   class DomainValue = Moonbase::Models::DomainValue
 
+  class EmailMessage = Moonbase::Models::EmailMessage
+
   class EmailValue = Moonbase::Models::EmailValue
 
   class Error = Moonbase::Models::Error
@@ -25,11 +41,37 @@ module Moonbase
 
   module FieldValue = Moonbase::Models::FieldValue
 
+  class FileListParams = Moonbase::Models::FileListParams
+
+  class FileRetrieveParams = Moonbase::Models::FileRetrieveParams
+
   class FloatValue = Moonbase::Models::FloatValue
+
+  class Form = Moonbase::Models::Form
+
+  class FormListParams = Moonbase::Models::FormListParams
+
+  class FormRetrieveParams = Moonbase::Models::FormRetrieveParams
 
   class FunnelStep = Moonbase::Models::FunnelStep
 
   class GeoValue = Moonbase::Models::GeoValue
+
+  class Inbox = Moonbase::Models::Inbox
+
+  class InboxConversation = Moonbase::Models::InboxConversation
+
+  class InboxConversationListParams = Moonbase::Models::InboxConversationListParams
+
+  class InboxConversationRetrieveParams = Moonbase::Models::InboxConversationRetrieveParams
+
+  class InboxListParams = Moonbase::Models::InboxListParams
+
+  class InboxMessageListParams = Moonbase::Models::InboxMessageListParams
+
+  class InboxMessageRetrieveParams = Moonbase::Models::InboxMessageRetrieveParams
+
+  class InboxRetrieveParams = Moonbase::Models::InboxRetrieveParams
 
   class IntegerValue = Moonbase::Models::IntegerValue
 
@@ -45,9 +87,25 @@ module Moonbase
 
   class ItemUpsertParams = Moonbase::Models::ItemUpsertParams
 
+  class Meeting = Moonbase::Models::Meeting
+
+  class MeetingListParams = Moonbase::Models::MeetingListParams
+
+  class MeetingRetrieveParams = Moonbase::Models::MeetingRetrieveParams
+
   class MonetaryValue = Moonbase::Models::MonetaryValue
 
+  class MoonbaseFile = Moonbase::Models::MoonbaseFile
+
   class MultiLineTextValue = Moonbase::Models::MultiLineTextValue
+
+  class Note = Moonbase::Models::Note
+
+  class NoteListParams = Moonbase::Models::NoteListParams
+
+  class NoteRetrieveParams = Moonbase::Models::NoteRetrieveParams
+
+  class Organizer = Moonbase::Models::Organizer
 
   class PercentageValue = Moonbase::Models::PercentageValue
 
@@ -73,6 +131,12 @@ module Moonbase
 
   class SocialXValue = Moonbase::Models::SocialXValue
 
+  class Tagset = Moonbase::Models::Tagset
+
+  class TagsetListParams = Moonbase::Models::TagsetListParams
+
+  class TagsetRetrieveParams = Moonbase::Models::TagsetRetrieveParams
+
   class TelephoneNumber = Moonbase::Models::TelephoneNumber
 
   class URLValue = Moonbase::Models::URLValue
@@ -80,4 +144,8 @@ module Moonbase
   module Value = Moonbase::Models::Value
 
   class View = Moonbase::Models::View
+
+  class ViewRetrieveParams = Moonbase::Models::ViewRetrieveParams
+
+  module Views = Moonbase::Models::Views
 end

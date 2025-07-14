@@ -1,0 +1,15 @@
+module Moonbase
+  module Models
+    type file_retrieve_params =
+      {  } & Moonbase::Internal::Type::request_parameters
+
+    class FileRetrieveParams < Moonbase::Internal::Type::BaseModel
+      extend Moonbase::Internal::Type::RequestParameters::Converter
+      include Moonbase::Internal::Type::RequestParameters
+
+      def initialize: (?request_options: Moonbase::request_opts) -> void
+
+      def to_hash: -> { request_options: Moonbase::RequestOptions }
+    end
+  end
+end

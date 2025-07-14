@@ -1,0 +1,21 @@
+module Moonbase
+  module Resources
+    class Forms
+      def retrieve: (
+        String id,
+        ?include: ::Array[Moonbase::Models::FormRetrieveParams::include_],
+        ?request_options: Moonbase::request_opts
+      ) -> Moonbase::Form
+
+      def list: (
+        ?after: String,
+        ?before: String,
+        ?include: ::Array[Moonbase::Models::FormListParams::include_],
+        ?limit: Integer,
+        ?request_options: Moonbase::request_opts
+      ) -> Moonbase::Internal::CursorPage[Moonbase::Form]
+
+      def initialize: (client: Moonbase::Client) -> void
+    end
+  end
+end

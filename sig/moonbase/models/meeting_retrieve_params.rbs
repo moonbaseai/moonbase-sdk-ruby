@@ -1,0 +1,39 @@
+module Moonbase
+  module Models
+    type meeting_retrieve_params =
+      { include: ::Array[Moonbase::Models::MeetingRetrieveParams::include_] }
+      & Moonbase::Internal::Type::request_parameters
+
+    class MeetingRetrieveParams < Moonbase::Internal::Type::BaseModel
+      extend Moonbase::Internal::Type::RequestParameters::Converter
+      include Moonbase::Internal::Type::RequestParameters
+
+      attr_reader include: ::Array[Moonbase::Models::MeetingRetrieveParams::include_]?
+
+      def include=: (
+        ::Array[Moonbase::Models::MeetingRetrieveParams::include_]
+      ) -> ::Array[Moonbase::Models::MeetingRetrieveParams::include_]
+
+      def initialize: (
+        ?include: ::Array[Moonbase::Models::MeetingRetrieveParams::include_],
+        ?request_options: Moonbase::request_opts
+      ) -> void
+
+      def to_hash: -> {
+        include: ::Array[Moonbase::Models::MeetingRetrieveParams::include_],
+        request_options: Moonbase::RequestOptions
+      }
+
+      type include_ = :organizer | :attendees
+
+      module Include
+        extend Moonbase::Internal::Type::Enum
+
+        ORGANIZER: :organizer
+        ATTENDEES: :attendees
+
+        def self?.values: -> ::Array[Moonbase::Models::MeetingRetrieveParams::include_]
+      end
+    end
+  end
+end
