@@ -59,13 +59,17 @@ module MoonbaseSDK
 
   class MultiLineTextValue = MoonbaseSDK::Models::MultiLineTextValue
 
+  class Note = MoonbaseSDK::Models::Note
+
+  class NoteListParams = MoonbaseSDK::Models::NoteListParams
+
+  class NoteRetrieveParams = MoonbaseSDK::Models::NoteRetrieveParams
+
   class PercentageValue = MoonbaseSDK::Models::PercentageValue
 
   class Program = MoonbaseSDK::Models::Program
 
   class ProgramListParams = MoonbaseSDK::Models::ProgramListParams
-
-  class ProgramMessageSendParams = MoonbaseSDK::Models::ProgramMessageSendParams
 
   class ProgramRetrieveParams = MoonbaseSDK::Models::ProgramRetrieveParams
 
