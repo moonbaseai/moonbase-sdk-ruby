@@ -11,7 +11,7 @@ GIT
 PATH
   remote: .
   specs:
-    moonbase-sdk (0.0.1.pre.alpha.0)
+    moonbase (0.0.1.pre.alpha.0)
       connection_pool
 
 GEM
@@ -194,7 +194,7 @@ DEPENDENCIES
   minitest-hooks
   minitest-proveit
   minitest-rg
-  moonbase-sdk!
+  moonbase!
   rake
   rbs
   redcarpet

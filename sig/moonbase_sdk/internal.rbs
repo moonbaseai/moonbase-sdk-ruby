@@ -1,9 +1,0 @@
-module MoonbaseSDK
-  module Internal
-    extend MoonbaseSDK::Internal::Util::SorbetRuntimeSupport
-
-    type file_input = Pathname | StringIO | IO | String | MoonbaseSDK::FilePart
-
-    OMIT: Object
-  end
-end

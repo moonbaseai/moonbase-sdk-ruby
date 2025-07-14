@@ -1,0 +1,36 @@
+module Moonbase
+  module Internal
+    class CursorPage[Elem]
+      include Moonbase::Internal::Type::BasePage[Elem]
+
+      attr_accessor data: ::Array[Elem]?
+
+      attr_accessor meta: Meta
+
+      def inspect: -> String
+
+      type meta = { cursor: Meta::Cursor }
+      class Meta < Moonbase::Internal::Type::BaseModel
+        attr_reader cursor: Meta::Cursor?
+
+        def cursor=: (Meta::Cursor) -> Meta::Cursor
+
+        def initialize: (?cursor: Meta::Cursor) -> void
+
+        def to_hash: -> { cursor: Meta::Cursor }
+
+        type cursor = { next_: String }
+
+        class Cursor < Moonbase::Internal::Type::BaseModel
+          attr_reader next_: String?
+
+          def next_=: (String) -> String
+
+          def initialize: (?next_: String) -> void
+
+          def to_hash: -> { next_: String }
+        end
+      end
+    end
+  end
+end
