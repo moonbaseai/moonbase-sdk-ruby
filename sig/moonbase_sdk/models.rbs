@@ -1,19 +1,11 @@
 module MoonbaseSDK
-  class Collection = MoonbaseSDK::Models::Collection
-
-  class CollectionListParams = MoonbaseSDK::Models::CollectionListParams
-
-  class CollectionRetrieveParams = MoonbaseSDK::Models::CollectionRetrieveParams
-
-  module Collections = MoonbaseSDK::Models::Collections
-
   class Error = MoonbaseSDK::Models::Error
-
-  class Field = MoonbaseSDK::Models::Field
 
   class Program = MoonbaseSDK::Models::Program
 
   class ProgramListParams = MoonbaseSDK::Models::ProgramListParams
+
+  class ProgramMessageSendParams = MoonbaseSDK::Models::ProgramMessageSendParams
 
   class ProgramRetrieveParams = MoonbaseSDK::Models::ProgramRetrieveParams
 
@@ -22,6 +14,4 @@ module MoonbaseSDK
   class ProgramTemplateListParams = MoonbaseSDK::Models::ProgramTemplateListParams
 
   class ProgramTemplateRetrieveParams = MoonbaseSDK::Models::ProgramTemplateRetrieveParams
-
-  class View = MoonbaseSDK::Models::View
 end

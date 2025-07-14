@@ -39,21 +39,13 @@ module MoonbaseSDK
     mod.define_sorbet_constant!(const) { T.type_alias { mod.to_sorbet_type } }
   end
 
-  Collection = MoonbaseSDK::Models::Collection
-
-  CollectionListParams = MoonbaseSDK::Models::CollectionListParams
-
-  CollectionRetrieveParams = MoonbaseSDK::Models::CollectionRetrieveParams
-
-  Collections = MoonbaseSDK::Models::Collections
-
   Error = MoonbaseSDK::Models::Error
-
-  Field = MoonbaseSDK::Models::Field
 
   Program = MoonbaseSDK::Models::Program
 
   ProgramListParams = MoonbaseSDK::Models::ProgramListParams
+
+  ProgramMessageSendParams = MoonbaseSDK::Models::ProgramMessageSendParams
 
   ProgramRetrieveParams = MoonbaseSDK::Models::ProgramRetrieveParams
 
@@ -62,6 +54,4 @@ module MoonbaseSDK
   ProgramTemplateListParams = MoonbaseSDK::Models::ProgramTemplateListParams
 
   ProgramTemplateRetrieveParams = MoonbaseSDK::Models::ProgramTemplateRetrieveParams
-
-  View = MoonbaseSDK::Models::View
 end
