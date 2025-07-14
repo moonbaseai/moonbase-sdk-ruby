@@ -24,8 +24,6 @@ module MoonbaseSDK
 
     attr_reader programs: MoonbaseSDK::Resources::Programs
 
-    attr_reader tagsets: MoonbaseSDK::Resources::Tagsets
-
     attr_reader views: MoonbaseSDK::Resources::Views
 
     private def auth_headers: -> ::Hash[String, String]

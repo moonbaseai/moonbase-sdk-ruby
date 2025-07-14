@@ -35,9 +35,6 @@ module MoonbaseSDK
     sig { returns(MoonbaseSDK::Resources::Programs) }
     attr_reader :programs
 
-    sig { returns(MoonbaseSDK::Resources::Tagsets) }
-    attr_reader :tagsets
-
     sig { returns(MoonbaseSDK::Resources::Views) }
     attr_reader :views
 

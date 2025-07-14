@@ -87,12 +87,6 @@ module MoonbaseSDK
 
   class SocialXValue = MoonbaseSDK::Models::SocialXValue
 
-  class Tagset = MoonbaseSDK::Models::Tagset
-
-  class TagsetListParams = MoonbaseSDK::Models::TagsetListParams
-
-  class TagsetRetrieveParams = MoonbaseSDK::Models::TagsetRetrieveParams
-
   class TelephoneNumber = MoonbaseSDK::Models::TelephoneNumber
 
   class URLValue = MoonbaseSDK::Models::URLValue
