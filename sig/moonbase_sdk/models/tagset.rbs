@@ -1,0 +1,89 @@
+module MoonbaseSDK
+  module Models
+    type tagset =
+      {
+        id: String,
+        links: MoonbaseSDK::Tagset::Links,
+        name: String,
+        type: :tagset,
+        created_at: Time,
+        description: String,
+        tags: ::Array[MoonbaseSDK::Tagset::Tag],
+        updated_at: Time
+      }
+
+    class Tagset < MoonbaseSDK::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor links: MoonbaseSDK::Tagset::Links
+
+      attr_accessor name: String
+
+      attr_accessor type: :tagset
+
+      attr_reader created_at: Time?
+
+      def created_at=: (Time) -> Time
+
+      attr_reader description: String?
+
+      def description=: (String) -> String
+
+      attr_reader tags: ::Array[MoonbaseSDK::Tagset::Tag]?
+
+      def tags=: (
+        ::Array[MoonbaseSDK::Tagset::Tag]
+      ) -> ::Array[MoonbaseSDK::Tagset::Tag]
+
+      attr_reader updated_at: Time?
+
+      def updated_at=: (Time) -> Time
+
+      def initialize: (
+        id: String,
+        links: MoonbaseSDK::Tagset::Links,
+        name: String,
+        ?created_at: Time,
+        ?description: String,
+        ?tags: ::Array[MoonbaseSDK::Tagset::Tag],
+        ?updated_at: Time,
+        ?type: :tagset
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        links: MoonbaseSDK::Tagset::Links,
+        name: String,
+        type: :tagset,
+        created_at: Time,
+        description: String,
+        tags: ::Array[MoonbaseSDK::Tagset::Tag],
+        updated_at: Time
+      }
+
+      type links = { self_: String }
+
+      class Links < MoonbaseSDK::Internal::Type::BaseModel
+        attr_accessor self_: String
+
+        def initialize: (self_: String) -> void
+
+        def to_hash: -> { self_: String }
+      end
+
+      type tag = { id: String, name: String, type: :tag }
+
+      class Tag < MoonbaseSDK::Internal::Type::BaseModel
+        attr_accessor id: String
+
+        attr_accessor name: String
+
+        attr_accessor type: :tag
+
+        def initialize: (id: String, name: String, ?type: :tag) -> void
+
+        def to_hash: -> { id: String, name: String, type: :tag }
+      end
+    end
+  end
+end

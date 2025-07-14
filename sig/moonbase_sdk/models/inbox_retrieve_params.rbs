@@ -1,0 +1,38 @@
+module MoonbaseSDK
+  module Models
+    type inbox_retrieve_params =
+      { include: MoonbaseSDK::Models::InboxRetrieveParams::include_ }
+      & MoonbaseSDK::Internal::Type::request_parameters
+
+    class InboxRetrieveParams < MoonbaseSDK::Internal::Type::BaseModel
+      extend MoonbaseSDK::Internal::Type::RequestParameters::Converter
+      include MoonbaseSDK::Internal::Type::RequestParameters
+
+      attr_reader include: MoonbaseSDK::Models::InboxRetrieveParams::include_?
+
+      def include=: (
+        MoonbaseSDK::Models::InboxRetrieveParams::include_
+      ) -> MoonbaseSDK::Models::InboxRetrieveParams::include_
+
+      def initialize: (
+        ?include: MoonbaseSDK::Models::InboxRetrieveParams::include_,
+        ?request_options: MoonbaseSDK::request_opts
+      ) -> void
+
+      def to_hash: -> {
+        include: MoonbaseSDK::Models::InboxRetrieveParams::include_,
+        request_options: MoonbaseSDK::RequestOptions
+      }
+
+      type include_ = :tagset
+
+      module Include
+        extend MoonbaseSDK::Internal::Type::Enum
+
+        TAGSET: :tagset
+
+        def self?.values: -> ::Array[MoonbaseSDK::Models::InboxRetrieveParams::include_]
+      end
+    end
+  end
+end

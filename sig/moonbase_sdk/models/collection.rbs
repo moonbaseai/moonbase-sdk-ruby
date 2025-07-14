@@ -1,0 +1,85 @@
+module MoonbaseSDK
+  module Models
+    type collection =
+      {
+        id: String,
+        links: MoonbaseSDK::Collection::Links,
+        name: String,
+        ref: String,
+        type: :collection,
+        created_at: Time,
+        description: String,
+        fields: ::Array[MoonbaseSDK::Field],
+        updated_at: Time,
+        views: ::Array[MoonbaseSDK::View]
+      }
+
+    class Collection < MoonbaseSDK::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor links: MoonbaseSDK::Collection::Links
+
+      attr_accessor name: String
+
+      attr_accessor ref: String
+
+      attr_accessor type: :collection
+
+      attr_reader created_at: Time?
+
+      def created_at=: (Time) -> Time
+
+      attr_reader description: String?
+
+      def description=: (String) -> String
+
+      attr_reader fields: ::Array[MoonbaseSDK::Field]?
+
+      def fields=: (::Array[MoonbaseSDK::Field]) -> ::Array[MoonbaseSDK::Field]
+
+      attr_reader updated_at: Time?
+
+      def updated_at=: (Time) -> Time
+
+      attr_reader views: ::Array[MoonbaseSDK::View]?
+
+      def views=: (::Array[MoonbaseSDK::View]) -> ::Array[MoonbaseSDK::View]
+
+      def initialize: (
+        id: String,
+        links: MoonbaseSDK::Collection::Links,
+        name: String,
+        ref: String,
+        ?created_at: Time,
+        ?description: String,
+        ?fields: ::Array[MoonbaseSDK::Field],
+        ?updated_at: Time,
+        ?views: ::Array[MoonbaseSDK::View],
+        ?type: :collection
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        links: MoonbaseSDK::Collection::Links,
+        name: String,
+        ref: String,
+        type: :collection,
+        created_at: Time,
+        description: String,
+        fields: ::Array[MoonbaseSDK::Field],
+        updated_at: Time,
+        views: ::Array[MoonbaseSDK::View]
+      }
+
+      type links = { self_: String }
+
+      class Links < MoonbaseSDK::Internal::Type::BaseModel
+        attr_accessor self_: String
+
+        def initialize: (self_: String) -> void
+
+        def to_hash: -> { self_: String }
+      end
+    end
+  end
+end

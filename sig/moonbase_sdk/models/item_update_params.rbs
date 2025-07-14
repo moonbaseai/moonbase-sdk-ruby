@@ -1,0 +1,67 @@
+module MoonbaseSDK
+  module Models
+    type item_update_params =
+      {
+        values: ::Hash[Symbol, MoonbaseSDK::Models::field_value?],
+        update_many_strategy: MoonbaseSDK::Models::ItemUpdateParams::update_many_strategy,
+        update_one_strategy: MoonbaseSDK::Models::ItemUpdateParams::update_one_strategy
+      }
+      & MoonbaseSDK::Internal::Type::request_parameters
+
+    class ItemUpdateParams < MoonbaseSDK::Internal::Type::BaseModel
+      extend MoonbaseSDK::Internal::Type::RequestParameters::Converter
+      include MoonbaseSDK::Internal::Type::RequestParameters
+
+      attr_accessor values: ::Hash[Symbol, MoonbaseSDK::Models::field_value?]
+
+      attr_reader update_many_strategy: MoonbaseSDK::Models::ItemUpdateParams::update_many_strategy?
+
+      def update_many_strategy=: (
+        MoonbaseSDK::Models::ItemUpdateParams::update_many_strategy
+      ) -> MoonbaseSDK::Models::ItemUpdateParams::update_many_strategy
+
+      attr_reader update_one_strategy: MoonbaseSDK::Models::ItemUpdateParams::update_one_strategy?
+
+      def update_one_strategy=: (
+        MoonbaseSDK::Models::ItemUpdateParams::update_one_strategy
+      ) -> MoonbaseSDK::Models::ItemUpdateParams::update_one_strategy
+
+      def initialize: (
+        values: ::Hash[Symbol, MoonbaseSDK::Models::field_value?],
+        ?update_many_strategy: MoonbaseSDK::Models::ItemUpdateParams::update_many_strategy,
+        ?update_one_strategy: MoonbaseSDK::Models::ItemUpdateParams::update_one_strategy,
+        ?request_options: MoonbaseSDK::request_opts
+      ) -> void
+
+      def to_hash: -> {
+        values: ::Hash[Symbol, MoonbaseSDK::Models::field_value?],
+        update_many_strategy: MoonbaseSDK::Models::ItemUpdateParams::update_many_strategy,
+        update_one_strategy: MoonbaseSDK::Models::ItemUpdateParams::update_one_strategy,
+        request_options: MoonbaseSDK::RequestOptions
+      }
+
+      type update_many_strategy = :replace | :preserve | :merge
+
+      module UpdateManyStrategy
+        extend MoonbaseSDK::Internal::Type::Enum
+
+        REPLACE: :replace
+        PRESERVE: :preserve
+        MERGE: :merge
+
+        def self?.values: -> ::Array[MoonbaseSDK::Models::ItemUpdateParams::update_many_strategy]
+      end
+
+      type update_one_strategy = :replace | :preserve
+
+      module UpdateOneStrategy
+        extend MoonbaseSDK::Internal::Type::Enum
+
+        REPLACE: :replace
+        PRESERVE: :preserve
+
+        def self?.values: -> ::Array[MoonbaseSDK::Models::ItemUpdateParams::update_one_strategy]
+      end
+    end
+  end
+end

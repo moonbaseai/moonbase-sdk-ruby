@@ -1,0 +1,38 @@
+module MoonbaseSDK
+  module Models
+    type funnel_step =
+      { step: MoonbaseSDK::FunnelStep::Step, type: :"value/funnel_step" }
+
+    class FunnelStep < MoonbaseSDK::Internal::Type::BaseModel
+      attr_accessor step: MoonbaseSDK::FunnelStep::Step
+
+      attr_accessor type: :"value/funnel_step"
+
+      def initialize: (
+        step: MoonbaseSDK::FunnelStep::Step,
+        ?type: :"value/funnel_step"
+      ) -> void
+
+      def to_hash: -> {
+        step: MoonbaseSDK::FunnelStep::Step,
+        type: :"value/funnel_step"
+      }
+
+      type step = { id: String, type: :funnel_step, name: String }
+
+      class Step < MoonbaseSDK::Internal::Type::BaseModel
+        attr_accessor id: String
+
+        attr_accessor type: :funnel_step
+
+        attr_reader name: String?
+
+        def name=: (String) -> String
+
+        def initialize: (id: String, ?name: String, ?type: :funnel_step) -> void
+
+        def to_hash: -> { id: String, type: :funnel_step, name: String }
+      end
+    end
+  end
+end

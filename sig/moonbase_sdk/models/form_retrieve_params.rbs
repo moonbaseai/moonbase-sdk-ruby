@@ -1,0 +1,38 @@
+module MoonbaseSDK
+  module Models
+    type form_retrieve_params =
+      { include: ::Array[MoonbaseSDK::Models::FormRetrieveParams::include_] }
+      & MoonbaseSDK::Internal::Type::request_parameters
+
+    class FormRetrieveParams < MoonbaseSDK::Internal::Type::BaseModel
+      extend MoonbaseSDK::Internal::Type::RequestParameters::Converter
+      include MoonbaseSDK::Internal::Type::RequestParameters
+
+      attr_reader include: ::Array[MoonbaseSDK::Models::FormRetrieveParams::include_]?
+
+      def include=: (
+        ::Array[MoonbaseSDK::Models::FormRetrieveParams::include_]
+      ) -> ::Array[MoonbaseSDK::Models::FormRetrieveParams::include_]
+
+      def initialize: (
+        ?include: ::Array[MoonbaseSDK::Models::FormRetrieveParams::include_],
+        ?request_options: MoonbaseSDK::request_opts
+      ) -> void
+
+      def to_hash: -> {
+        include: ::Array[MoonbaseSDK::Models::FormRetrieveParams::include_],
+        request_options: MoonbaseSDK::RequestOptions
+      }
+
+      type include_ = :"collection.fields"
+
+      module Include
+        extend MoonbaseSDK::Internal::Type::Enum
+
+        COLLECTION_FIELDS: :"collection.fields"
+
+        def self?.values: -> ::Array[MoonbaseSDK::Models::FormRetrieveParams::include_]
+      end
+    end
+  end
+end

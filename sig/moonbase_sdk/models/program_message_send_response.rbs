@@ -1,0 +1,55 @@
+module MoonbaseSDK
+  module Models
+    type program_message_send_response =
+      {
+        id: String,
+        created_at: Time,
+        links: MoonbaseSDK::Models::ProgramMessageSendResponse::Links,
+        program_template: MoonbaseSDK::ProgramTemplate,
+        type: :program_message,
+        updated_at: Time
+      }
+
+    class ProgramMessageSendResponse < MoonbaseSDK::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor created_at: Time
+
+      attr_accessor links: MoonbaseSDK::Models::ProgramMessageSendResponse::Links
+
+      attr_accessor program_template: MoonbaseSDK::ProgramTemplate
+
+      attr_accessor type: :program_message
+
+      attr_accessor updated_at: Time
+
+      def initialize: (
+        id: String,
+        created_at: Time,
+        links: MoonbaseSDK::Models::ProgramMessageSendResponse::Links,
+        program_template: MoonbaseSDK::ProgramTemplate,
+        updated_at: Time,
+        ?type: :program_message
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        created_at: Time,
+        links: MoonbaseSDK::Models::ProgramMessageSendResponse::Links,
+        program_template: MoonbaseSDK::ProgramTemplate,
+        type: :program_message,
+        updated_at: Time
+      }
+
+      type links = { program_template: String }
+
+      class Links < MoonbaseSDK::Internal::Type::BaseModel
+        attr_accessor program_template: String
+
+        def initialize: (program_template: String) -> void
+
+        def to_hash: -> { program_template: String }
+      end
+    end
+  end
+end

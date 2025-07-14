@@ -1,0 +1,30 @@
+module MoonbaseSDK
+  module Models
+    type value =
+      MoonbaseSDK::SingleLineTextValue
+      | MoonbaseSDK::MultiLineTextValue
+      | MoonbaseSDK::IntegerValue
+      | MoonbaseSDK::FloatValue
+      | MoonbaseSDK::MonetaryValue
+      | MoonbaseSDK::PercentageValue
+      | MoonbaseSDK::BooleanValue
+      | MoonbaseSDK::EmailValue
+      | MoonbaseSDK::URLValue
+      | MoonbaseSDK::DomainValue
+      | MoonbaseSDK::SocialXValue
+      | MoonbaseSDK::SocialLinkedInValue
+      | MoonbaseSDK::TelephoneNumber
+      | MoonbaseSDK::GeoValue
+      | MoonbaseSDK::DateValue
+      | MoonbaseSDK::DatetimeValue
+      | MoonbaseSDK::Choice
+      | MoonbaseSDK::FunnelStep
+      | MoonbaseSDK::RelationValue
+
+    module Value
+      extend MoonbaseSDK::Internal::Type::Union
+
+      def self?.variants: -> ::Array[MoonbaseSDK::Models::value]
+    end
+  end
+end

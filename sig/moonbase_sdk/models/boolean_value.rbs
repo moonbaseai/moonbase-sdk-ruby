@@ -1,0 +1,15 @@
+module MoonbaseSDK
+  module Models
+    type boolean_value = { boolean: bool, type: :"value/boolean" }
+
+    class BooleanValue < MoonbaseSDK::Internal::Type::BaseModel
+      attr_accessor boolean: bool
+
+      attr_accessor type: :"value/boolean"
+
+      def initialize: (boolean: bool, ?type: :"value/boolean") -> void
+
+      def to_hash: -> { boolean: bool, type: :"value/boolean" }
+    end
+  end
+end

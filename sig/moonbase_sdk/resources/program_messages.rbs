@@ -1,0 +1,14 @@
+module MoonbaseSDK
+  module Resources
+    class ProgramMessages
+      def send_: (
+        person: MoonbaseSDK::ProgramMessageSendParams::Person,
+        program_template_id: String,
+        ?custom_variables: ::Hash[Symbol, top],
+        ?request_options: MoonbaseSDK::request_opts
+      ) -> MoonbaseSDK::Models::ProgramMessageSendResponse
+
+      def initialize: (client: MoonbaseSDK::Client) -> void
+    end
+  end
+end
