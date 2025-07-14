@@ -1,0 +1,88 @@
+module Moonbase
+  module Models
+    type address =
+      {
+        id: String,
+        email: String,
+        links: Moonbase::Address::Links,
+        type: :address,
+        created_at: Time,
+        role: Moonbase::Models::Address::role,
+        updated_at: Time
+      }
+
+    class Address < Moonbase::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor email: String
+
+      attr_accessor links: Moonbase::Address::Links
+
+      attr_accessor type: :address
+
+      attr_reader created_at: Time?
+
+      def created_at=: (Time) -> Time
+
+      attr_reader role: Moonbase::Models::Address::role?
+
+      def role=: (
+        Moonbase::Models::Address::role
+      ) -> Moonbase::Models::Address::role
+
+      attr_reader updated_at: Time?
+
+      def updated_at=: (Time) -> Time
+
+      def initialize: (
+        id: String,
+        email: String,
+        links: Moonbase::Address::Links,
+        ?created_at: Time,
+        ?role: Moonbase::Models::Address::role,
+        ?updated_at: Time,
+        ?type: :address
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        email: String,
+        links: Moonbase::Address::Links,
+        type: :address,
+        created_at: Time,
+        role: Moonbase::Models::Address::role,
+        updated_at: Time
+      }
+
+      type links = { organization: String, person: String }
+
+      class Links < Moonbase::Internal::Type::BaseModel
+        attr_reader organization: String?
+
+        def organization=: (String) -> String
+
+        attr_reader person: String?
+
+        def person=: (String) -> String
+
+        def initialize: (?organization: String, ?person: String) -> void
+
+        def to_hash: -> { organization: String, person: String }
+      end
+
+      type role = :from | :reply_to | :to | :cc | :bcc
+
+      module Role
+        extend Moonbase::Internal::Type::Enum
+
+        FROM: :from
+        REPLY_TO: :reply_to
+        TO: :to
+        CC: :cc
+        BCC: :bcc
+
+        def self?.values: -> ::Array[Moonbase::Models::Address::role]
+      end
+    end
+  end
+end

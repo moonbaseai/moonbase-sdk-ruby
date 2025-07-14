@@ -1,0 +1,70 @@
+module Moonbase
+  module Models
+    type inbox =
+      {
+        id: String,
+        links: Moonbase::Inbox::Links,
+        name: String,
+        type: :inbox,
+        created_at: Time,
+        tagset: Moonbase::Tagset,
+        updated_at: Time
+      }
+
+    class Inbox < Moonbase::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor links: Moonbase::Inbox::Links
+
+      attr_accessor name: String
+
+      attr_accessor type: :inbox
+
+      attr_reader created_at: Time?
+
+      def created_at=: (Time) -> Time
+
+      attr_reader tagset: Moonbase::Tagset?
+
+      def tagset=: (Moonbase::Tagset) -> Moonbase::Tagset
+
+      attr_reader updated_at: Time?
+
+      def updated_at=: (Time) -> Time
+
+      def initialize: (
+        id: String,
+        links: Moonbase::Inbox::Links,
+        name: String,
+        ?created_at: Time,
+        ?tagset: Moonbase::Tagset,
+        ?updated_at: Time,
+        ?type: :inbox
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        links: Moonbase::Inbox::Links,
+        name: String,
+        type: :inbox,
+        created_at: Time,
+        tagset: Moonbase::Tagset,
+        updated_at: Time
+      }
+
+      type links = { self_: String, tagset: String }
+
+      class Links < Moonbase::Internal::Type::BaseModel
+        attr_accessor self_: String
+
+        attr_reader tagset: String?
+
+        def tagset=: (String) -> String
+
+        def initialize: (self_: String, ?tagset: String) -> void
+
+        def to_hash: -> { self_: String, tagset: String }
+      end
+    end
+  end
+end

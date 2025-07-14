@@ -10,15 +10,37 @@ module Moonbase
 
     attr_reader api_key: String
 
+    attr_reader activities: Moonbase::Resources::Activities
+
+    attr_reader calls: Moonbase::Resources::Calls
+
     attr_reader collections: Moonbase::Resources::Collections
 
+    attr_reader files: Moonbase::Resources::Files
+
+    attr_reader forms: Moonbase::Resources::Forms
+
+    attr_reader inbox_conversations: Moonbase::Resources::InboxConversations
+
+    attr_reader inbox_messages: Moonbase::Resources::InboxMessages
+
+    attr_reader inboxes: Moonbase::Resources::Inboxes
+
     attr_reader items: Moonbase::Resources::Items
+
+    attr_reader meetings: Moonbase::Resources::Meetings
+
+    attr_reader notes: Moonbase::Resources::Notes
 
     attr_reader program_messages: Moonbase::Resources::ProgramMessages
 
     attr_reader program_templates: Moonbase::Resources::ProgramTemplates
 
     attr_reader programs: Moonbase::Resources::Programs
+
+    attr_reader tagsets: Moonbase::Resources::Tagsets
+
+    attr_reader views: Moonbase::Resources::Views
 
     private def auth_headers: -> ::Hash[String, String]
 

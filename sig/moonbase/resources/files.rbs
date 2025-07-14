@@ -1,0 +1,19 @@
+module Moonbase
+  module Resources
+    class Files
+      def retrieve: (
+        String id,
+        ?request_options: Moonbase::request_opts
+      ) -> Moonbase::MoonbaseFile
+
+      def list: (
+        ?after: String,
+        ?before: String,
+        ?limit: Integer,
+        ?request_options: Moonbase::request_opts
+      ) -> Moonbase::Internal::CursorPage[Moonbase::MoonbaseFile]
+
+      def initialize: (client: Moonbase::Client) -> void
+    end
+  end
+end

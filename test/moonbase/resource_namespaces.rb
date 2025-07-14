@@ -5,6 +5,9 @@ module Moonbase
     module Resources
       module Collections
       end
+
+      module Views
+      end
     end
   end
 end

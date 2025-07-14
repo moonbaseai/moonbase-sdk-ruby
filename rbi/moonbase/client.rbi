@@ -14,11 +14,38 @@ module Moonbase
     sig { returns(String) }
     attr_reader :api_key
 
+    sig { returns(Moonbase::Resources::Activities) }
+    attr_reader :activities
+
+    sig { returns(Moonbase::Resources::Calls) }
+    attr_reader :calls
+
     sig { returns(Moonbase::Resources::Collections) }
     attr_reader :collections
 
+    sig { returns(Moonbase::Resources::Files) }
+    attr_reader :files
+
+    sig { returns(Moonbase::Resources::Forms) }
+    attr_reader :forms
+
+    sig { returns(Moonbase::Resources::InboxConversations) }
+    attr_reader :inbox_conversations
+
+    sig { returns(Moonbase::Resources::InboxMessages) }
+    attr_reader :inbox_messages
+
+    sig { returns(Moonbase::Resources::Inboxes) }
+    attr_reader :inboxes
+
     sig { returns(Moonbase::Resources::Items) }
     attr_reader :items
+
+    sig { returns(Moonbase::Resources::Meetings) }
+    attr_reader :meetings
+
+    sig { returns(Moonbase::Resources::Notes) }
+    attr_reader :notes
 
     sig { returns(Moonbase::Resources::ProgramMessages) }
     attr_reader :program_messages
@@ -28,6 +55,12 @@ module Moonbase
 
     sig { returns(Moonbase::Resources::Programs) }
     attr_reader :programs
+
+    sig { returns(Moonbase::Resources::Tagsets) }
+    attr_reader :tagsets
+
+    sig { returns(Moonbase::Resources::Views) }
+    attr_reader :views
 
     # @api private
     sig { override.returns(T::Hash[String, String]) }

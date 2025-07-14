@@ -1,0 +1,77 @@
+module Moonbase
+  module Models
+    type inbox_message_list_params =
+      {
+        after: String,
+        before: String,
+        conversation: ::Array[String],
+        inbox: ::Array[String],
+        include: ::Array[Moonbase::Models::InboxMessageListParams::include_],
+        limit: Integer
+      }
+      & Moonbase::Internal::Type::request_parameters
+
+    class InboxMessageListParams < Moonbase::Internal::Type::BaseModel
+      extend Moonbase::Internal::Type::RequestParameters::Converter
+      include Moonbase::Internal::Type::RequestParameters
+
+      attr_reader after: String?
+
+      def after=: (String) -> String
+
+      attr_reader before: String?
+
+      def before=: (String) -> String
+
+      attr_reader conversation: ::Array[String]?
+
+      def conversation=: (::Array[String]) -> ::Array[String]
+
+      attr_reader inbox: ::Array[String]?
+
+      def inbox=: (::Array[String]) -> ::Array[String]
+
+      attr_reader include: ::Array[Moonbase::Models::InboxMessageListParams::include_]?
+
+      def include=: (
+        ::Array[Moonbase::Models::InboxMessageListParams::include_]
+      ) -> ::Array[Moonbase::Models::InboxMessageListParams::include_]
+
+      attr_reader limit: Integer?
+
+      def limit=: (Integer) -> Integer
+
+      def initialize: (
+        ?after: String,
+        ?before: String,
+        ?conversation: ::Array[String],
+        ?inbox: ::Array[String],
+        ?include: ::Array[Moonbase::Models::InboxMessageListParams::include_],
+        ?limit: Integer,
+        ?request_options: Moonbase::request_opts
+      ) -> void
+
+      def to_hash: -> {
+        after: String,
+        before: String,
+        conversation: ::Array[String],
+        inbox: ::Array[String],
+        include: ::Array[Moonbase::Models::InboxMessageListParams::include_],
+        limit: Integer,
+        request_options: Moonbase::RequestOptions
+      }
+
+      type include_ = :addresses | :attachments | :conversation
+
+      module Include
+        extend Moonbase::Internal::Type::Enum
+
+        ADDRESSES: :addresses
+        ATTACHMENTS: :attachments
+        CONVERSATION: :conversation
+
+        def self?.values: -> ::Array[Moonbase::Models::InboxMessageListParams::include_]
+      end
+    end
+  end
+end
