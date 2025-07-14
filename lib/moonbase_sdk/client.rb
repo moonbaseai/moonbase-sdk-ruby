@@ -28,15 +28,6 @@ module MoonbaseSDK
     # @return [MoonbaseSDK::Resources::Files]
     attr_reader :files
 
-    # @return [MoonbaseSDK::Resources::InboxConversations]
-    attr_reader :inbox_conversations
-
-    # @return [MoonbaseSDK::Resources::InboxMessages]
-    attr_reader :inbox_messages
-
-    # @return [MoonbaseSDK::Resources::Inboxes]
-    attr_reader :inboxes
-
     # @return [MoonbaseSDK::Resources::Items]
     attr_reader :items
 
@@ -111,9 +102,6 @@ module MoonbaseSDK
       @calls = MoonbaseSDK::Resources::Calls.new(client: self)
       @collections = MoonbaseSDK::Resources::Collections.new(client: self)
       @files = MoonbaseSDK::Resources::Files.new(client: self)
-      @inbox_conversations = MoonbaseSDK::Resources::InboxConversations.new(client: self)
-      @inbox_messages = MoonbaseSDK::Resources::InboxMessages.new(client: self)
-      @inboxes = MoonbaseSDK::Resources::Inboxes.new(client: self)
       @items = MoonbaseSDK::Resources::Items.new(client: self)
       @meetings = MoonbaseSDK::Resources::Meetings.new(client: self)
       @notes = MoonbaseSDK::Resources::Notes.new(client: self)

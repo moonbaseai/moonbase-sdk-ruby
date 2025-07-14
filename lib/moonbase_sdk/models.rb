@@ -39,8 +39,6 @@ module MoonbaseSDK
     mod.define_sorbet_constant!(const) { T.type_alias { mod.to_sorbet_type } }
   end
 
-  Address = MoonbaseSDK::Models::Address
-
   Attendee = MoonbaseSDK::Models::Attendee
 
   BooleanValue = MoonbaseSDK::Models::BooleanValue
@@ -65,8 +63,6 @@ module MoonbaseSDK
 
   DomainValue = MoonbaseSDK::Models::DomainValue
 
-  EmailMessage = MoonbaseSDK::Models::EmailMessage
-
   EmailValue = MoonbaseSDK::Models::EmailValue
 
   Error = MoonbaseSDK::Models::Error
@@ -84,22 +80,6 @@ module MoonbaseSDK
   FunnelStep = MoonbaseSDK::Models::FunnelStep
 
   GeoValue = MoonbaseSDK::Models::GeoValue
-
-  Inbox = MoonbaseSDK::Models::Inbox
-
-  InboxConversation = MoonbaseSDK::Models::InboxConversation
-
-  InboxConversationListParams = MoonbaseSDK::Models::InboxConversationListParams
-
-  InboxConversationRetrieveParams = MoonbaseSDK::Models::InboxConversationRetrieveParams
-
-  InboxListParams = MoonbaseSDK::Models::InboxListParams
-
-  InboxMessageListParams = MoonbaseSDK::Models::InboxMessageListParams
-
-  InboxMessageRetrieveParams = MoonbaseSDK::Models::InboxMessageRetrieveParams
-
-  InboxRetrieveParams = MoonbaseSDK::Models::InboxRetrieveParams
 
   IntegerValue = MoonbaseSDK::Models::IntegerValue
 
