@@ -88,8 +88,4 @@ module MoonbaseSDK
   module Value = MoonbaseSDK::Models::Value
 
   class View = MoonbaseSDK::Models::View
-
-  class ViewListItemsParams = MoonbaseSDK::Models::ViewListItemsParams
-
-  class ViewRetrieveParams = MoonbaseSDK::Models::ViewRetrieveParams
 end
