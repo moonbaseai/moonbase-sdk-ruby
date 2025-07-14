@@ -31,8 +31,8 @@ module MoonbaseSDK
     # @return [MoonbaseSDK::Resources::Items]
     attr_reader :items
 
-    # @return [MoonbaseSDK::Resources::ProgramMessages]
-    attr_reader :program_messages
+    # @return [MoonbaseSDK::Resources::Notes]
+    attr_reader :notes
 
     # @return [MoonbaseSDK::Resources::ProgramTemplates]
     attr_reader :program_templates
@@ -97,7 +97,7 @@ module MoonbaseSDK
       @collections = MoonbaseSDK::Resources::Collections.new(client: self)
       @files = MoonbaseSDK::Resources::Files.new(client: self)
       @items = MoonbaseSDK::Resources::Items.new(client: self)
-      @program_messages = MoonbaseSDK::Resources::ProgramMessages.new(client: self)
+      @notes = MoonbaseSDK::Resources::Notes.new(client: self)
       @program_templates = MoonbaseSDK::Resources::ProgramTemplates.new(client: self)
       @programs = MoonbaseSDK::Resources::Programs.new(client: self)
       @tagsets = MoonbaseSDK::Resources::Tagsets.new(client: self)
