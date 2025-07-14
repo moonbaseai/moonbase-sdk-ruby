@@ -19,9 +19,6 @@ module MoonbaseSDK
     # @return [String]
     attr_reader :api_key
 
-    # @return [MoonbaseSDK::Resources::Calls]
-    attr_reader :calls
-
     # @return [MoonbaseSDK::Resources::Collections]
     attr_reader :collections
 
@@ -75,7 +72,6 @@ module MoonbaseSDK
         max_retry_delay: max_retry_delay
       )
 
-      @calls = MoonbaseSDK::Resources::Calls.new(client: self)
       @collections = MoonbaseSDK::Resources::Collections.new(client: self)
       @items = MoonbaseSDK::Resources::Items.new(client: self)
     end

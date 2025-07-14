@@ -41,10 +41,6 @@ module MoonbaseSDK
 
   BooleanValue = MoonbaseSDK::Models::BooleanValue
 
-  Call = MoonbaseSDK::Models::Call
-
-  CallCreateParams = MoonbaseSDK::Models::CallCreateParams
-
   Choice = MoonbaseSDK::Models::Choice
 
   Collection = MoonbaseSDK::Models::Collection

@@ -1,10 +1,6 @@
 module MoonbaseSDK
   class BooleanValue = MoonbaseSDK::Models::BooleanValue
 
-  class Call = MoonbaseSDK::Models::Call
-
-  class CallCreateParams = MoonbaseSDK::Models::CallCreateParams
-
   class Choice = MoonbaseSDK::Models::Choice
 
   class Collection = MoonbaseSDK::Models::Collection
