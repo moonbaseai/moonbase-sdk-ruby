@@ -1,10 +1,4 @@
 module MoonbaseSDK
-  module Activity = MoonbaseSDK::Models::Activity
-
-  class ActivityListParams = MoonbaseSDK::Models::ActivityListParams
-
-  class ActivityRetrieveParams = MoonbaseSDK::Models::ActivityRetrieveParams
-
   class Address = MoonbaseSDK::Models::Address
 
   class Attendee = MoonbaseSDK::Models::Attendee

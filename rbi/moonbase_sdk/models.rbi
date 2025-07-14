@@ -1,12 +1,6 @@
 # typed: strong
 
 module MoonbaseSDK
-  Activity = MoonbaseSDK::Models::Activity
-
-  ActivityListParams = MoonbaseSDK::Models::ActivityListParams
-
-  ActivityRetrieveParams = MoonbaseSDK::Models::ActivityRetrieveParams
-
   Address = MoonbaseSDK::Models::Address
 
   Attendee = MoonbaseSDK::Models::Attendee
