@@ -63,19 +63,6 @@ module MoonbaseSDK
 
   PercentageValue = MoonbaseSDK::Models::PercentageValue
 
-  Program = MoonbaseSDK::Models::Program
-
-  ProgramListParams = MoonbaseSDK::Models::ProgramListParams
-
-  ProgramRetrieveParams = MoonbaseSDK::Models::ProgramRetrieveParams
-
-  ProgramTemplate = MoonbaseSDK::Models::ProgramTemplate
-
-  ProgramTemplateListParams = MoonbaseSDK::Models::ProgramTemplateListParams
-
-  ProgramTemplateRetrieveParams =
-    MoonbaseSDK::Models::ProgramTemplateRetrieveParams
-
   RelationValue = MoonbaseSDK::Models::RelationValue
 
   SingleLineTextValue = MoonbaseSDK::Models::SingleLineTextValue

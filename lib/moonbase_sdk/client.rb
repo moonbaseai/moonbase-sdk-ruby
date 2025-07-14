@@ -31,12 +31,6 @@ module MoonbaseSDK
     # @return [MoonbaseSDK::Resources::Items]
     attr_reader :items
 
-    # @return [MoonbaseSDK::Resources::ProgramTemplates]
-    attr_reader :program_templates
-
-    # @return [MoonbaseSDK::Resources::Programs]
-    attr_reader :programs
-
     # @api private
     #
     # @return [Hash{String=>String}]
@@ -88,8 +82,6 @@ module MoonbaseSDK
       @collections = MoonbaseSDK::Resources::Collections.new(client: self)
       @files = MoonbaseSDK::Resources::Files.new(client: self)
       @items = MoonbaseSDK::Resources::Items.new(client: self)
-      @program_templates = MoonbaseSDK::Resources::ProgramTemplates.new(client: self)
-      @programs = MoonbaseSDK::Resources::Programs.new(client: self)
     end
   end
 end
