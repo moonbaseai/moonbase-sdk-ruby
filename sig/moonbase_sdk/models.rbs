@@ -29,10 +29,6 @@ module MoonbaseSDK
 
   module FieldValue = MoonbaseSDK::Models::FieldValue
 
-  class FileListParams = MoonbaseSDK::Models::FileListParams
-
-  class FileRetrieveParams = MoonbaseSDK::Models::FileRetrieveParams
-
   class FloatValue = MoonbaseSDK::Models::FloatValue
 
   class FunnelStep = MoonbaseSDK::Models::FunnelStep
@@ -54,8 +50,6 @@ module MoonbaseSDK
   class ItemUpsertParams = MoonbaseSDK::Models::ItemUpsertParams
 
   class MonetaryValue = MoonbaseSDK::Models::MonetaryValue
-
-  class MoonbaseFile = MoonbaseSDK::Models::MoonbaseFile
 
   class MultiLineTextValue = MoonbaseSDK::Models::MultiLineTextValue
 

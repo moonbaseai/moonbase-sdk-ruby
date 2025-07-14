@@ -25,9 +25,6 @@ module MoonbaseSDK
     # @return [MoonbaseSDK::Resources::Collections]
     attr_reader :collections
 
-    # @return [MoonbaseSDK::Resources::Files]
-    attr_reader :files
-
     # @return [MoonbaseSDK::Resources::Items]
     attr_reader :items
 
@@ -80,7 +77,6 @@ module MoonbaseSDK
 
       @calls = MoonbaseSDK::Resources::Calls.new(client: self)
       @collections = MoonbaseSDK::Resources::Collections.new(client: self)
-      @files = MoonbaseSDK::Resources::Files.new(client: self)
       @items = MoonbaseSDK::Resources::Items.new(client: self)
     end
   end
