@@ -41,12 +41,6 @@ module MoonbaseSDK
 
   class FloatValue = MoonbaseSDK::Models::FloatValue
 
-  class Form = MoonbaseSDK::Models::Form
-
-  class FormListParams = MoonbaseSDK::Models::FormListParams
-
-  class FormRetrieveParams = MoonbaseSDK::Models::FormRetrieveParams
-
   class FunnelStep = MoonbaseSDK::Models::FunnelStep
 
   class GeoValue = MoonbaseSDK::Models::GeoValue

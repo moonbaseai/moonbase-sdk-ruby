@@ -81,12 +81,6 @@ module MoonbaseSDK
 
   FloatValue = MoonbaseSDK::Models::FloatValue
 
-  Form = MoonbaseSDK::Models::Form
-
-  FormListParams = MoonbaseSDK::Models::FormListParams
-
-  FormRetrieveParams = MoonbaseSDK::Models::FormRetrieveParams
-
   FunnelStep = MoonbaseSDK::Models::FunnelStep
 
   GeoValue = MoonbaseSDK::Models::GeoValue

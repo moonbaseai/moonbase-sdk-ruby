@@ -16,8 +16,6 @@ module MoonbaseSDK
 
     attr_reader files: MoonbaseSDK::Resources::Files
 
-    attr_reader forms: MoonbaseSDK::Resources::Forms
-
     attr_reader inbox_conversations: MoonbaseSDK::Resources::InboxConversations
 
     attr_reader inbox_messages: MoonbaseSDK::Resources::InboxMessages
