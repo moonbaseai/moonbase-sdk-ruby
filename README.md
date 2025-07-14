@@ -220,25 +220,25 @@ moonbase.collections.list(**params)
 Since this library does not depend on `sorbet-runtime`, it cannot provide [`T::Enum`](https://sorbet.org/docs/tenum) instances. Instead, we provide "tagged symbols" instead, which is always a primitive at runtime:
 
 ```ruby
-# :replace
-puts(MoonbaseSDK::ItemUpdateParams::UpdateManyStrategy::REPLACE)
+# :incoming
+puts(MoonbaseSDK::CallCreateParams::Direction::INCOMING)
 
-# Revealed type: `T.all(MoonbaseSDK::ItemUpdateParams::UpdateManyStrategy, Symbol)`
-T.reveal_type(MoonbaseSDK::ItemUpdateParams::UpdateManyStrategy::REPLACE)
+# Revealed type: `T.all(MoonbaseSDK::CallCreateParams::Direction, Symbol)`
+T.reveal_type(MoonbaseSDK::CallCreateParams::Direction::INCOMING)
 ```
 
 Enum parameters have a "relaxed" type, so you can either pass in enum constants or their literal value:
 
 ```ruby
 # Using the enum constants preserves the tagged type information:
-moonbase.items.update(
-  update_many_strategy: MoonbaseSDK::ItemUpdateParams::UpdateManyStrategy::REPLACE,
+moonbase.calls.create(
+  direction: MoonbaseSDK::CallCreateParams::Direction::INCOMING,
   # …
 )
 
 # Literal values are also permissible:
-moonbase.items.update(
-  update_many_strategy: :replace,
+moonbase.calls.create(
+  direction: :incoming,
   # …
 )
 ```

@@ -2,6 +2,7 @@
 
 module MoonbaseSDK
   module Models
+    # @see MoonbaseSDK::Resources::Calls#create
     class Call < MoonbaseSDK::Internal::Type::BaseModel
       # @!attribute id
       #   Unique identifier for the object.
