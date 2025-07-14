@@ -1,6 +1,4 @@
 module MoonbaseSDK
-  class Address = MoonbaseSDK::Models::Address
-
   class Attendee = MoonbaseSDK::Models::Attendee
 
   class BooleanValue = MoonbaseSDK::Models::BooleanValue
@@ -25,8 +23,6 @@ module MoonbaseSDK
 
   class DomainValue = MoonbaseSDK::Models::DomainValue
 
-  class EmailMessage = MoonbaseSDK::Models::EmailMessage
-
   class EmailValue = MoonbaseSDK::Models::EmailValue
 
   class Error = MoonbaseSDK::Models::Error
@@ -44,22 +40,6 @@ module MoonbaseSDK
   class FunnelStep = MoonbaseSDK::Models::FunnelStep
 
   class GeoValue = MoonbaseSDK::Models::GeoValue
-
-  class Inbox = MoonbaseSDK::Models::Inbox
-
-  class InboxConversation = MoonbaseSDK::Models::InboxConversation
-
-  class InboxConversationListParams = MoonbaseSDK::Models::InboxConversationListParams
-
-  class InboxConversationRetrieveParams = MoonbaseSDK::Models::InboxConversationRetrieveParams
-
-  class InboxListParams = MoonbaseSDK::Models::InboxListParams
-
-  class InboxMessageListParams = MoonbaseSDK::Models::InboxMessageListParams
-
-  class InboxMessageRetrieveParams = MoonbaseSDK::Models::InboxMessageRetrieveParams
-
-  class InboxRetrieveParams = MoonbaseSDK::Models::InboxRetrieveParams
 
   class IntegerValue = MoonbaseSDK::Models::IntegerValue
 
