@@ -14,6 +14,9 @@ module MoonbaseSDK
     sig { returns(String) }
     attr_reader :api_key
 
+    sig { returns(MoonbaseSDK::Resources::Views) }
+    attr_reader :views
+
     sig { returns(MoonbaseSDK::Resources::Calls) }
     attr_reader :calls
 
@@ -31,9 +34,6 @@ module MoonbaseSDK
 
     sig { returns(MoonbaseSDK::Resources::Programs) }
     attr_reader :programs
-
-    sig { returns(MoonbaseSDK::Resources::Views) }
-    attr_reader :views
 
     # @api private
     sig { override.returns(T::Hash[String, String]) }

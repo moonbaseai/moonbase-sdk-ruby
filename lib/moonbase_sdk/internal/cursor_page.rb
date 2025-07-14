@@ -10,8 +10,8 @@ module MoonbaseSDK
     #   end
     #
     # @example
-    #   cursor_page.auto_paging_each do |collection|
-    #     puts(collection)
+    #   cursor_page.auto_paging_each do |view|
+    #     puts(view)
     #   end
     class CursorPage
       include MoonbaseSDK::Internal::Type::BasePage

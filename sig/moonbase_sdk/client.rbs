@@ -10,6 +10,8 @@ module MoonbaseSDK
 
     attr_reader api_key: String
 
+    attr_reader views: MoonbaseSDK::Resources::Views
+
     attr_reader calls: MoonbaseSDK::Resources::Calls
 
     attr_reader collections: MoonbaseSDK::Resources::Collections
@@ -21,8 +23,6 @@ module MoonbaseSDK
     attr_reader program_templates: MoonbaseSDK::Resources::ProgramTemplates
 
     attr_reader programs: MoonbaseSDK::Resources::Programs
-
-    attr_reader views: MoonbaseSDK::Resources::Views
 
     private def auth_headers: -> ::Hash[String, String]
 
