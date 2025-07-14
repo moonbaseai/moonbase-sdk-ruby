@@ -2,21 +2,26 @@
 
 module Moonbase
   module Models
-    class ProgramMessageSendParams < Moonbase::Internal::Type::BaseModel
+    class ProgramMessageCreateParams < Moonbase::Internal::Type::BaseModel
       extend Moonbase::Internal::Type::RequestParameters::Converter
       include Moonbase::Internal::Type::RequestParameters
 
       OrHash =
         T.type_alias do
-          T.any(Moonbase::ProgramMessageSendParams, Moonbase::Internal::AnyHash)
+          T.any(
+            Moonbase::ProgramMessageCreateParams,
+            Moonbase::Internal::AnyHash
+          )
         end
 
       # The person to send the message to.
-      sig { returns(Moonbase::ProgramMessageSendParams::Person) }
+      sig { returns(Moonbase::ProgramMessageCreateParams::Person) }
       attr_reader :person
 
       sig do
-        params(person: Moonbase::ProgramMessageSendParams::Person::OrHash).void
+        params(
+          person: Moonbase::ProgramMessageCreateParams::Person::OrHash
+        ).void
       end
       attr_writer :person
 
@@ -33,7 +38,7 @@ module Moonbase
 
       sig do
         params(
-          person: Moonbase::ProgramMessageSendParams::Person::OrHash,
+          person: Moonbase::ProgramMessageCreateParams::Person::OrHash,
           program_template_id: String,
           custom_variables: T::Hash[Symbol, T.anything],
           request_options: Moonbase::RequestOptions::OrHash
@@ -53,7 +58,7 @@ module Moonbase
       sig do
         override.returns(
           {
-            person: Moonbase::ProgramMessageSendParams::Person,
+            person: Moonbase::ProgramMessageCreateParams::Person,
             program_template_id: String,
             custom_variables: T::Hash[Symbol, T.anything],
             request_options: Moonbase::RequestOptions
@@ -67,7 +72,7 @@ module Moonbase
         OrHash =
           T.type_alias do
             T.any(
-              Moonbase::ProgramMessageSendParams::Person,
+              Moonbase::ProgramMessageCreateParams::Person,
               Moonbase::Internal::AnyHash
             )
           end

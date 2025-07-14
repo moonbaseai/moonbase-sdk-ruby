@@ -1,21 +1,21 @@
 module Moonbase
   module Models
-    type program_message_send_response =
+    type program_message_create_response =
       {
         id: String,
         created_at: Time,
-        links: Moonbase::Models::ProgramMessageSendResponse::Links,
+        links: Moonbase::Models::ProgramMessageCreateResponse::Links,
         program_template: Moonbase::ProgramTemplate,
         type: :program_message,
         updated_at: Time
       }
 
-    class ProgramMessageSendResponse < Moonbase::Internal::Type::BaseModel
+    class ProgramMessageCreateResponse < Moonbase::Internal::Type::BaseModel
       attr_accessor id: String
 
       attr_accessor created_at: Time
 
-      attr_accessor links: Moonbase::Models::ProgramMessageSendResponse::Links
+      attr_accessor links: Moonbase::Models::ProgramMessageCreateResponse::Links
 
       attr_accessor program_template: Moonbase::ProgramTemplate
 
@@ -26,7 +26,7 @@ module Moonbase
       def initialize: (
         id: String,
         created_at: Time,
-        links: Moonbase::Models::ProgramMessageSendResponse::Links,
+        links: Moonbase::Models::ProgramMessageCreateResponse::Links,
         program_template: Moonbase::ProgramTemplate,
         updated_at: Time,
         ?type: :program_message
@@ -35,7 +35,7 @@ module Moonbase
       def to_hash: -> {
         id: String,
         created_at: Time,
-        links: Moonbase::Models::ProgramMessageSendResponse::Links,
+        links: Moonbase::Models::ProgramMessageCreateResponse::Links,
         program_template: Moonbase::ProgramTemplate,
         type: :program_message,
         updated_at: Time

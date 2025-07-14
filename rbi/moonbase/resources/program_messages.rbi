@@ -6,13 +6,13 @@ module Moonbase
       # Sends a message using a program template.
       sig do
         params(
-          person: Moonbase::ProgramMessageSendParams::Person::OrHash,
+          person: Moonbase::ProgramMessageCreateParams::Person::OrHash,
           program_template_id: String,
           custom_variables: T::Hash[Symbol, T.anything],
           request_options: Moonbase::RequestOptions::OrHash
-        ).returns(Moonbase::Models::ProgramMessageSendResponse)
+        ).returns(Moonbase::Models::ProgramMessageCreateResponse)
       end
-      def send_(
+      def create(
         # The person to send the message to.
         person:,
         # The ID of the `ProgramTemplate` to use for sending the message.

@@ -2,11 +2,11 @@
 
 module Moonbase
   module Models
-    class ProgramMessageSendResponse < Moonbase::Internal::Type::BaseModel
+    class ProgramMessageCreateResponse < Moonbase::Internal::Type::BaseModel
       OrHash =
         T.type_alias do
           T.any(
-            Moonbase::Models::ProgramMessageSendResponse,
+            Moonbase::Models::ProgramMessageCreateResponse,
             Moonbase::Internal::AnyHash
           )
         end
@@ -20,12 +20,12 @@ module Moonbase
       sig { returns(Time) }
       attr_accessor :created_at
 
-      sig { returns(Moonbase::Models::ProgramMessageSendResponse::Links) }
+      sig { returns(Moonbase::Models::ProgramMessageCreateResponse::Links) }
       attr_reader :links
 
       sig do
         params(
-          links: Moonbase::Models::ProgramMessageSendResponse::Links::OrHash
+          links: Moonbase::Models::ProgramMessageCreateResponse::Links::OrHash
         ).void
       end
       attr_writer :links
@@ -50,7 +50,7 @@ module Moonbase
         params(
           id: String,
           created_at: Time,
-          links: Moonbase::Models::ProgramMessageSendResponse::Links::OrHash,
+          links: Moonbase::Models::ProgramMessageCreateResponse::Links::OrHash,
           program_template: Moonbase::ProgramTemplate::OrHash,
           updated_at: Time,
           type: Symbol
@@ -77,7 +77,7 @@ module Moonbase
           {
             id: String,
             created_at: Time,
-            links: Moonbase::Models::ProgramMessageSendResponse::Links,
+            links: Moonbase::Models::ProgramMessageCreateResponse::Links,
             program_template: Moonbase::ProgramTemplate,
             type: Symbol,
             updated_at: Time
@@ -91,7 +91,7 @@ module Moonbase
         OrHash =
           T.type_alias do
             T.any(
-              Moonbase::Models::ProgramMessageSendResponse::Links,
+              Moonbase::Models::ProgramMessageCreateResponse::Links,
               Moonbase::Internal::AnyHash
             )
           end
