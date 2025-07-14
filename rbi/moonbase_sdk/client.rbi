@@ -23,9 +23,6 @@ module MoonbaseSDK
     sig { returns(MoonbaseSDK::Resources::Files) }
     attr_reader :files
 
-    sig { returns(MoonbaseSDK::Resources::Forms) }
-    attr_reader :forms
-
     sig { returns(MoonbaseSDK::Resources::InboxConversations) }
     attr_reader :inbox_conversations
 
