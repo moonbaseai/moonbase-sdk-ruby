@@ -19,6 +19,12 @@ module Moonbase
     # @return [String]
     attr_reader :api_key
 
+    # @return [Moonbase::Resources::Collections]
+    attr_reader :collections
+
+    # @return [Moonbase::Resources::Items]
+    attr_reader :items
+
     # @return [Moonbase::Resources::ProgramMessages]
     attr_reader :program_messages
 
@@ -75,6 +81,8 @@ module Moonbase
         max_retry_delay: max_retry_delay
       )
 
+      @collections = Moonbase::Resources::Collections.new(client: self)
+      @items = Moonbase::Resources::Items.new(client: self)
       @program_messages = Moonbase::Resources::ProgramMessages.new(client: self)
       @program_templates = Moonbase::Resources::ProgramTemplates.new(client: self)
       @programs = Moonbase::Resources::Programs.new(client: self)

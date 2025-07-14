@@ -1,0 +1,34 @@
+module Moonbase
+  module Models
+    type item =
+      {
+        id: String,
+        type: :item,
+        values: ::Hash[Symbol, Moonbase::Models::field_value?]
+      }
+
+    class Item < Moonbase::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor type: :item
+
+      attr_reader values: ::Hash[Symbol, Moonbase::Models::field_value?]?
+
+      def values=: (
+        ::Hash[Symbol, Moonbase::Models::field_value?]
+      ) -> ::Hash[Symbol, Moonbase::Models::field_value?]
+
+      def initialize: (
+        id: String,
+        ?values: ::Hash[Symbol, Moonbase::Models::field_value?],
+        ?type: :item
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        type: :item,
+        values: ::Hash[Symbol, Moonbase::Models::field_value?]
+      }
+    end
+  end
+end

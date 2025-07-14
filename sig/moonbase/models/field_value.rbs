@@ -1,0 +1,33 @@
+module Moonbase
+  module Models
+    type field_value =
+      Moonbase::SingleLineTextValue
+      | Moonbase::MultiLineTextValue
+      | Moonbase::IntegerValue
+      | Moonbase::FloatValue
+      | Moonbase::MonetaryValue
+      | Moonbase::PercentageValue
+      | Moonbase::BooleanValue
+      | Moonbase::EmailValue
+      | Moonbase::URLValue
+      | Moonbase::DomainValue
+      | Moonbase::SocialXValue
+      | Moonbase::SocialLinkedInValue
+      | Moonbase::TelephoneNumber
+      | Moonbase::GeoValue
+      | Moonbase::DateValue
+      | Moonbase::DatetimeValue
+      | Moonbase::Choice
+      | Moonbase::FunnelStep
+      | Moonbase::RelationValue
+      | ::Array[Moonbase::Models::value]
+
+    module FieldValue
+      extend Moonbase::Internal::Type::Union
+
+      def self?.variants: -> ::Array[Moonbase::Models::field_value]
+
+      ValueArray: Moonbase::Internal::Type::Converter
+    end
+  end
+end

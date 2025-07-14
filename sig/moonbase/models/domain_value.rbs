@@ -1,0 +1,15 @@
+module Moonbase
+  module Models
+    type domain_value = { domain: String, type: :"value/uri/domain" }
+
+    class DomainValue < Moonbase::Internal::Type::BaseModel
+      attr_accessor domain: String
+
+      attr_accessor type: :"value/uri/domain"
+
+      def initialize: (domain: String, ?type: :"value/uri/domain") -> void
+
+      def to_hash: -> { domain: String, type: :"value/uri/domain" }
+    end
+  end
+end

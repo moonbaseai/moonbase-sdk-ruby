@@ -1,0 +1,15 @@
+module Moonbase
+  module Models
+    type datetime_value = { datetime: Time, type: :"value/datetime" }
+
+    class DatetimeValue < Moonbase::Internal::Type::BaseModel
+      attr_accessor datetime: Time
+
+      attr_accessor type: :"value/datetime"
+
+      def initialize: (datetime: Time, ?type: :"value/datetime") -> void
+
+      def to_hash: -> { datetime: Time, type: :"value/datetime" }
+    end
+  end
+end

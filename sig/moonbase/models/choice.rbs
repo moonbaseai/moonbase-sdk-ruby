@@ -1,0 +1,41 @@
+module Moonbase
+  module Models
+    type choice = { option: Moonbase::Choice::Option, type: :"value/choice" }
+
+    class Choice < Moonbase::Internal::Type::BaseModel
+      attr_accessor option: Moonbase::Choice::Option
+
+      attr_accessor type: :"value/choice"
+
+      def initialize: (
+        option: Moonbase::Choice::Option,
+        ?type: :"value/choice"
+      ) -> void
+
+      def to_hash: -> {
+        option: Moonbase::Choice::Option,
+        type: :"value/choice"
+      }
+
+      type option = { id: String, type: :field_option, label: String }
+
+      class Option < Moonbase::Internal::Type::BaseModel
+        attr_accessor id: String
+
+        attr_accessor type: :field_option
+
+        attr_reader label: String?
+
+        def label=: (String) -> String
+
+        def initialize: (
+          id: String,
+          ?label: String,
+          ?type: :field_option
+        ) -> void
+
+        def to_hash: -> { id: String, type: :field_option, label: String }
+      end
+    end
+  end
+end

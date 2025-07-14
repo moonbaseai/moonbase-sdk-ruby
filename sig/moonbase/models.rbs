@@ -1,5 +1,55 @@
 module Moonbase
+  class BooleanValue = Moonbase::Models::BooleanValue
+
+  class Choice = Moonbase::Models::Choice
+
+  class Collection = Moonbase::Models::Collection
+
+  class CollectionListParams = Moonbase::Models::CollectionListParams
+
+  class CollectionRetrieveParams = Moonbase::Models::CollectionRetrieveParams
+
+  module Collections = Moonbase::Models::Collections
+
+  class DatetimeValue = Moonbase::Models::DatetimeValue
+
+  class DateValue = Moonbase::Models::DateValue
+
+  class DomainValue = Moonbase::Models::DomainValue
+
+  class EmailValue = Moonbase::Models::EmailValue
+
   class Error = Moonbase::Models::Error
+
+  class Field = Moonbase::Models::Field
+
+  module FieldValue = Moonbase::Models::FieldValue
+
+  class FloatValue = Moonbase::Models::FloatValue
+
+  class FunnelStep = Moonbase::Models::FunnelStep
+
+  class GeoValue = Moonbase::Models::GeoValue
+
+  class IntegerValue = Moonbase::Models::IntegerValue
+
+  class Item = Moonbase::Models::Item
+
+  class ItemCreateParams = Moonbase::Models::ItemCreateParams
+
+  class ItemDeleteParams = Moonbase::Models::ItemDeleteParams
+
+  class ItemRetrieveParams = Moonbase::Models::ItemRetrieveParams
+
+  class ItemUpdateParams = Moonbase::Models::ItemUpdateParams
+
+  class ItemUpsertParams = Moonbase::Models::ItemUpsertParams
+
+  class MonetaryValue = Moonbase::Models::MonetaryValue
+
+  class MultiLineTextValue = Moonbase::Models::MultiLineTextValue
+
+  class PercentageValue = Moonbase::Models::PercentageValue
 
   class Program = Moonbase::Models::Program
 
@@ -14,4 +64,20 @@ module Moonbase
   class ProgramTemplateListParams = Moonbase::Models::ProgramTemplateListParams
 
   class ProgramTemplateRetrieveParams = Moonbase::Models::ProgramTemplateRetrieveParams
+
+  class RelationValue = Moonbase::Models::RelationValue
+
+  class SingleLineTextValue = Moonbase::Models::SingleLineTextValue
+
+  class SocialLinkedInValue = Moonbase::Models::SocialLinkedInValue
+
+  class SocialXValue = Moonbase::Models::SocialXValue
+
+  class TelephoneNumber = Moonbase::Models::TelephoneNumber
+
+  class URLValue = Moonbase::Models::URLValue
+
+  module Value = Moonbase::Models::Value
+
+  class View = Moonbase::Models::View
 end

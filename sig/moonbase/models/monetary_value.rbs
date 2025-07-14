@@ -1,0 +1,48 @@
+module Moonbase
+  module Models
+    type monetary_value =
+      {
+        amount: Moonbase::MonetaryValue::Amount,
+        type: :"value/number/monetary"
+      }
+
+    class MonetaryValue < Moonbase::Internal::Type::BaseModel
+      attr_accessor amount: Moonbase::MonetaryValue::Amount
+
+      attr_accessor type: :"value/number/monetary"
+
+      def initialize: (
+        amount: Moonbase::MonetaryValue::Amount,
+        ?type: :"value/number/monetary"
+      ) -> void
+
+      def to_hash: -> {
+        amount: Moonbase::MonetaryValue::Amount,
+        type: :"value/number/monetary"
+      }
+
+      type amount =
+        { amount_in_minor_units: Integer, currency: String, type: :currency }
+
+      class Amount < Moonbase::Internal::Type::BaseModel
+        attr_accessor amount_in_minor_units: Integer
+
+        attr_accessor currency: String
+
+        attr_accessor type: :currency
+
+        def initialize: (
+          amount_in_minor_units: Integer,
+          currency: String,
+          ?type: :currency
+        ) -> void
+
+        def to_hash: -> {
+          amount_in_minor_units: Integer,
+          currency: String,
+          type: :currency
+        }
+      end
+    end
+  end
+end

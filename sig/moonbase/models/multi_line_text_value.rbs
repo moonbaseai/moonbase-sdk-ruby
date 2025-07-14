@@ -1,0 +1,16 @@
+module Moonbase
+  module Models
+    type multi_line_text_value =
+      { text: String, type: :"value/text/multi_line" }
+
+    class MultiLineTextValue < Moonbase::Internal::Type::BaseModel
+      attr_accessor text: String
+
+      attr_accessor type: :"value/text/multi_line"
+
+      def initialize: (text: String, ?type: :"value/text/multi_line") -> void
+
+      def to_hash: -> { text: String, type: :"value/text/multi_line" }
+    end
+  end
+end
