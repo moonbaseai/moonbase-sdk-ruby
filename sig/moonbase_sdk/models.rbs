@@ -1,6 +1,4 @@
 module MoonbaseSDK
-  class Attendee = MoonbaseSDK::Models::Attendee
-
   class BooleanValue = MoonbaseSDK::Models::BooleanValue
 
   class Call = MoonbaseSDK::Models::Call
@@ -55,25 +53,11 @@ module MoonbaseSDK
 
   class ItemUpsertParams = MoonbaseSDK::Models::ItemUpsertParams
 
-  class Meeting = MoonbaseSDK::Models::Meeting
-
-  class MeetingListParams = MoonbaseSDK::Models::MeetingListParams
-
-  class MeetingRetrieveParams = MoonbaseSDK::Models::MeetingRetrieveParams
-
   class MonetaryValue = MoonbaseSDK::Models::MonetaryValue
 
   class MoonbaseFile = MoonbaseSDK::Models::MoonbaseFile
 
   class MultiLineTextValue = MoonbaseSDK::Models::MultiLineTextValue
-
-  class Note = MoonbaseSDK::Models::Note
-
-  class NoteListParams = MoonbaseSDK::Models::NoteListParams
-
-  class NoteRetrieveParams = MoonbaseSDK::Models::NoteRetrieveParams
-
-  class Organizer = MoonbaseSDK::Models::Organizer
 
   class PercentageValue = MoonbaseSDK::Models::PercentageValue
 

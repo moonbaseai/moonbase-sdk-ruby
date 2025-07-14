@@ -1,8 +1,6 @@
 # typed: strong
 
 module MoonbaseSDK
-  Attendee = MoonbaseSDK::Models::Attendee
-
   BooleanValue = MoonbaseSDK::Models::BooleanValue
 
   Call = MoonbaseSDK::Models::Call
@@ -57,25 +55,11 @@ module MoonbaseSDK
 
   ItemUpsertParams = MoonbaseSDK::Models::ItemUpsertParams
 
-  Meeting = MoonbaseSDK::Models::Meeting
-
-  MeetingListParams = MoonbaseSDK::Models::MeetingListParams
-
-  MeetingRetrieveParams = MoonbaseSDK::Models::MeetingRetrieveParams
-
   MonetaryValue = MoonbaseSDK::Models::MonetaryValue
 
   MoonbaseFile = MoonbaseSDK::Models::MoonbaseFile
 
   MultiLineTextValue = MoonbaseSDK::Models::MultiLineTextValue
-
-  Note = MoonbaseSDK::Models::Note
-
-  NoteListParams = MoonbaseSDK::Models::NoteListParams
-
-  NoteRetrieveParams = MoonbaseSDK::Models::NoteRetrieveParams
-
-  Organizer = MoonbaseSDK::Models::Organizer
 
   PercentageValue = MoonbaseSDK::Models::PercentageValue
 
