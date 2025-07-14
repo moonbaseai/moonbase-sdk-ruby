@@ -1,0 +1,204 @@
+module MoonbaseSDK
+  module Models
+    type program =
+      {
+        id: String,
+        links: MoonbaseSDK::Program::Links,
+        status: MoonbaseSDK::Models::Program::status,
+        trigger: MoonbaseSDK::Models::Program::trigger,
+        type: :program,
+        activity_metrics: MoonbaseSDK::Program::ActivityMetrics,
+        created_at: Time,
+        display_name: String,
+        program_template: MoonbaseSDK::ProgramTemplate,
+        scheduled_at: Time,
+        track_clicks: bool,
+        track_opens: bool,
+        updated_at: Time
+      }
+
+    class Program < MoonbaseSDK::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor links: MoonbaseSDK::Program::Links
+
+      attr_accessor status: MoonbaseSDK::Models::Program::status
+
+      attr_accessor trigger: MoonbaseSDK::Models::Program::trigger
+
+      attr_accessor type: :program
+
+      attr_reader activity_metrics: MoonbaseSDK::Program::ActivityMetrics?
+
+      def activity_metrics=: (
+        MoonbaseSDK::Program::ActivityMetrics
+      ) -> MoonbaseSDK::Program::ActivityMetrics
+
+      attr_reader created_at: Time?
+
+      def created_at=: (Time) -> Time
+
+      attr_reader display_name: String?
+
+      def display_name=: (String) -> String
+
+      attr_reader program_template: MoonbaseSDK::ProgramTemplate?
+
+      def program_template=: (
+        MoonbaseSDK::ProgramTemplate
+      ) -> MoonbaseSDK::ProgramTemplate
+
+      attr_reader scheduled_at: Time?
+
+      def scheduled_at=: (Time) -> Time
+
+      attr_reader track_clicks: bool?
+
+      def track_clicks=: (bool) -> bool
+
+      attr_reader track_opens: bool?
+
+      def track_opens=: (bool) -> bool
+
+      attr_reader updated_at: Time?
+
+      def updated_at=: (Time) -> Time
+
+      def initialize: (
+        id: String,
+        links: MoonbaseSDK::Program::Links,
+        status: MoonbaseSDK::Models::Program::status,
+        trigger: MoonbaseSDK::Models::Program::trigger,
+        ?activity_metrics: MoonbaseSDK::Program::ActivityMetrics,
+        ?created_at: Time,
+        ?display_name: String,
+        ?program_template: MoonbaseSDK::ProgramTemplate,
+        ?scheduled_at: Time,
+        ?track_clicks: bool,
+        ?track_opens: bool,
+        ?updated_at: Time,
+        ?type: :program
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        links: MoonbaseSDK::Program::Links,
+        status: MoonbaseSDK::Models::Program::status,
+        trigger: MoonbaseSDK::Models::Program::trigger,
+        type: :program,
+        activity_metrics: MoonbaseSDK::Program::ActivityMetrics,
+        created_at: Time,
+        display_name: String,
+        program_template: MoonbaseSDK::ProgramTemplate,
+        scheduled_at: Time,
+        track_clicks: bool,
+        track_opens: bool,
+        updated_at: Time
+      }
+
+      type links = { program_template: String, self_: String }
+
+      class Links < MoonbaseSDK::Internal::Type::BaseModel
+        attr_accessor program_template: String
+
+        attr_accessor self_: String
+
+        def initialize: (program_template: String, self_: String) -> void
+
+        def to_hash: -> { program_template: String, self_: String }
+      end
+
+      type status = :draft | :published | :paused | :archived
+
+      module Status
+        extend MoonbaseSDK::Internal::Type::Enum
+
+        DRAFT: :draft
+        PUBLISHED: :published
+        PAUSED: :paused
+        ARCHIVED: :archived
+
+        def self?.values: -> ::Array[MoonbaseSDK::Models::Program::status]
+      end
+
+      type trigger = :api | :broadcast
+
+      module Trigger
+        extend MoonbaseSDK::Internal::Type::Enum
+
+        API: :api
+        BROADCAST: :broadcast
+
+        def self?.values: -> ::Array[MoonbaseSDK::Models::Program::trigger]
+      end
+
+      type activity_metrics =
+        {
+          bounced: Integer,
+          clicked: Integer,
+          complained: Integer,
+          failed: Integer,
+          opened: Integer,
+          sent: Integer,
+          shielded: Integer,
+          unsubscribed: Integer
+        }
+
+      class ActivityMetrics < MoonbaseSDK::Internal::Type::BaseModel
+        attr_reader bounced: Integer?
+
+        def bounced=: (Integer) -> Integer
+
+        attr_reader clicked: Integer?
+
+        def clicked=: (Integer) -> Integer
+
+        attr_reader complained: Integer?
+
+        def complained=: (Integer) -> Integer
+
+        attr_reader failed: Integer?
+
+        def failed=: (Integer) -> Integer
+
+        attr_reader opened: Integer?
+
+        def opened=: (Integer) -> Integer
+
+        attr_reader sent: Integer?
+
+        def sent=: (Integer) -> Integer
+
+        attr_reader shielded: Integer?
+
+        def shielded=: (Integer) -> Integer
+
+        attr_reader unsubscribed: Integer?
+
+        def unsubscribed=: (Integer) -> Integer
+
+        def initialize: (
+          ?bounced: Integer,
+          ?clicked: Integer,
+          ?complained: Integer,
+          ?failed: Integer,
+          ?opened: Integer,
+          ?sent: Integer,
+          ?shielded: Integer,
+          ?unsubscribed: Integer
+        ) -> void
+
+        def to_hash: -> {
+          bounced: Integer,
+          clicked: Integer,
+          complained: Integer,
+          failed: Integer,
+          opened: Integer,
+          sent: Integer,
+          shielded: Integer,
+          unsubscribed: Integer
+        }
+      end
+    end
+  end
+end

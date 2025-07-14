@@ -12,7 +12,9 @@ module MoonbaseSDK
 
     attr_reader collections: MoonbaseSDK::Resources::Collections
 
-    attr_reader items: MoonbaseSDK::Resources::Items
+    attr_reader program_templates: MoonbaseSDK::Resources::ProgramTemplates
+
+    attr_reader programs: MoonbaseSDK::Resources::Programs
 
     private def auth_headers: -> ::Hash[String, String]
 

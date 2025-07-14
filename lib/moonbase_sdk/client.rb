@@ -22,8 +22,11 @@ module MoonbaseSDK
     # @return [MoonbaseSDK::Resources::Collections]
     attr_reader :collections
 
-    # @return [MoonbaseSDK::Resources::Items]
-    attr_reader :items
+    # @return [MoonbaseSDK::Resources::ProgramTemplates]
+    attr_reader :program_templates
+
+    # @return [MoonbaseSDK::Resources::Programs]
+    attr_reader :programs
 
     # @api private
     #
@@ -73,7 +76,8 @@ module MoonbaseSDK
       )
 
       @collections = MoonbaseSDK::Resources::Collections.new(client: self)
-      @items = MoonbaseSDK::Resources::Items.new(client: self)
+      @program_templates = MoonbaseSDK::Resources::ProgramTemplates.new(client: self)
+      @programs = MoonbaseSDK::Resources::Programs.new(client: self)
     end
   end
 end
