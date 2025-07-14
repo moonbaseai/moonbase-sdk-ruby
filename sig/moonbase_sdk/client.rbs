@@ -18,8 +18,6 @@ module MoonbaseSDK
 
     attr_reader items: MoonbaseSDK::Resources::Items
 
-    attr_reader notes: MoonbaseSDK::Resources::Notes
-
     attr_reader program_templates: MoonbaseSDK::Resources::ProgramTemplates
 
     attr_reader programs: MoonbaseSDK::Resources::Programs

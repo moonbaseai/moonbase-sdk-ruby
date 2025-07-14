@@ -26,9 +26,6 @@ module MoonbaseSDK
     sig { returns(MoonbaseSDK::Resources::Items) }
     attr_reader :items
 
-    sig { returns(MoonbaseSDK::Resources::Notes) }
-    attr_reader :notes
-
     sig { returns(MoonbaseSDK::Resources::ProgramTemplates) }
     attr_reader :program_templates
 
