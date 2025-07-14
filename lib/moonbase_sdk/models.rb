@@ -39,12 +39,6 @@ module MoonbaseSDK
     mod.define_sorbet_constant!(const) { T.type_alias { mod.to_sorbet_type } }
   end
 
-  Activity = MoonbaseSDK::Models::Activity
-
-  ActivityListParams = MoonbaseSDK::Models::ActivityListParams
-
-  ActivityRetrieveParams = MoonbaseSDK::Models::ActivityRetrieveParams
-
   Address = MoonbaseSDK::Models::Address
 
   Attendee = MoonbaseSDK::Models::Attendee

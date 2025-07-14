@@ -6,28 +6,28 @@ module MoonbaseSDK
       # @api private
       #
       # @example
-      #   # `activity` is a `MoonbaseSDK::Activity`
-      #   case activity
-      #   when MoonbaseSDK::Activity::ActivityCallOccurred
-      #     puts(activity.id)
-      #   when MoonbaseSDK::Activity::ActivityFormSubmitted
-      #     puts(activity.links)
-      #   when MoonbaseSDK::Activity::ActivityInboxMessageSent
-      #     puts(activity.occurred_at)
+      #   # `value` is a `MoonbaseSDK::Value`
+      #   case value
+      #   when MoonbaseSDK::SingleLineTextValue
+      #     puts(value.text)
+      #   when MoonbaseSDK::MultiLineTextValue
+      #     puts(value.type)
+      #   when MoonbaseSDK::IntegerValue
+      #     puts(value.number)
       #   else
-      #     puts(activity)
+      #     puts(value)
       #   end
       #
       # @example
-      #   case activity
-      #   in {type: :"activity/call_occurred", id: id, links: links, occurred_at: occurred_at}
-      #     puts(id)
-      #   in {type: :"activity/form_submitted", id: id, links: links, occurred_at: occurred_at}
-      #     puts(links)
-      #   in {type: :"activity/inbox_message_sent", id: id, links: links, occurred_at: occurred_at}
-      #     puts(occurred_at)
+      #   case value
+      #   in {type: :"value/text/single_line", text: text}
+      #     puts(text)
+      #   in {type: :"value/text/multi_line", text: text}
+      #     puts(text)
+      #   in {type: :"value/number/unitless_integer", number: number}
+      #     puts(number)
       #   else
-      #     puts(activity)
+      #     puts(value)
       #   end
       module Union
         include MoonbaseSDK::Internal::Type::Converter
