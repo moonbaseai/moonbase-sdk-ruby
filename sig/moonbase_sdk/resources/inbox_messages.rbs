@@ -1,0 +1,23 @@
+module MoonbaseSDK
+  module Resources
+    class InboxMessages
+      def retrieve: (
+        String id,
+        ?include: ::Array[MoonbaseSDK::Models::InboxMessageRetrieveParams::include_],
+        ?request_options: MoonbaseSDK::request_opts
+      ) -> MoonbaseSDK::EmailMessage
+
+      def list: (
+        ?after: String,
+        ?before: String,
+        ?conversation: ::Array[String],
+        ?inbox: ::Array[String],
+        ?include: ::Array[MoonbaseSDK::Models::InboxMessageListParams::include_],
+        ?limit: Integer,
+        ?request_options: MoonbaseSDK::request_opts
+      ) -> MoonbaseSDK::Internal::CursorPage[MoonbaseSDK::EmailMessage]
+
+      def initialize: (client: MoonbaseSDK::Client) -> void
+    end
+  end
+end

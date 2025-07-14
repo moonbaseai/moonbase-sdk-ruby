@@ -1,0 +1,22 @@
+module MoonbaseSDK
+  module Models
+    type telephone_number =
+      { telephone_number: String, type: :"value/telephone_number" }
+
+    class TelephoneNumber < MoonbaseSDK::Internal::Type::BaseModel
+      attr_accessor telephone_number: String
+
+      attr_accessor type: :"value/telephone_number"
+
+      def initialize: (
+        telephone_number: String,
+        ?type: :"value/telephone_number"
+      ) -> void
+
+      def to_hash: -> {
+        telephone_number: String,
+        type: :"value/telephone_number"
+      }
+    end
+  end
+end

@@ -1,0 +1,40 @@
+module MoonbaseSDK
+  module Resources
+    class Items
+      def create: (
+        collection_id: String,
+        values: ::Hash[Symbol, MoonbaseSDK::Models::field_value?],
+        ?request_options: MoonbaseSDK::request_opts
+      ) -> MoonbaseSDK::Item
+
+      def retrieve: (
+        String id,
+        ?request_options: MoonbaseSDK::request_opts
+      ) -> MoonbaseSDK::Item
+
+      def update: (
+        String id,
+        values: ::Hash[Symbol, MoonbaseSDK::Models::field_value?],
+        ?update_many_strategy: MoonbaseSDK::Models::ItemUpdateParams::update_many_strategy,
+        ?update_one_strategy: MoonbaseSDK::Models::ItemUpdateParams::update_one_strategy,
+        ?request_options: MoonbaseSDK::request_opts
+      ) -> MoonbaseSDK::Item
+
+      def delete: (
+        String id,
+        ?request_options: MoonbaseSDK::request_opts
+      ) -> MoonbaseSDK::Item
+
+      def upsert: (
+        collection_id: String,
+        identifiers: ::Hash[Symbol, MoonbaseSDK::Models::field_value?],
+        values: ::Hash[Symbol, MoonbaseSDK::Models::field_value?],
+        ?update_many_strategy: MoonbaseSDK::Models::ItemUpsertParams::update_many_strategy,
+        ?update_one_strategy: MoonbaseSDK::Models::ItemUpsertParams::update_one_strategy,
+        ?request_options: MoonbaseSDK::request_opts
+      ) -> MoonbaseSDK::Item
+
+      def initialize: (client: MoonbaseSDK::Client) -> void
+    end
+  end
+end

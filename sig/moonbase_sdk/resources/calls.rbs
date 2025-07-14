@@ -1,0 +1,20 @@
+module MoonbaseSDK
+  module Resources
+    class Calls
+      def create: (
+        direction: MoonbaseSDK::Models::CallCreateParams::direction,
+        participants: ::Array[MoonbaseSDK::CallCreateParams::Participant],
+        provider: String,
+        provider_id: String,
+        start_at: Time,
+        status: MoonbaseSDK::Models::CallCreateParams::status,
+        ?answered_at: Time,
+        ?end_at: Time,
+        ?provider_metadata: ::Hash[Symbol, top],
+        ?request_options: MoonbaseSDK::request_opts
+      ) -> MoonbaseSDK::Call
+
+      def initialize: (client: MoonbaseSDK::Client) -> void
+    end
+  end
+end

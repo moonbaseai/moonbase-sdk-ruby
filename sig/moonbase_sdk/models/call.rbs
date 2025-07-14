@@ -1,0 +1,194 @@
+module MoonbaseSDK
+  module Models
+    type call =
+      {
+        id: String,
+        direction: MoonbaseSDK::Models::Call::direction,
+        participants: ::Array[MoonbaseSDK::Call::Participant],
+        provider: String,
+        provider_id: String,
+        start_at: Time,
+        status: MoonbaseSDK::Models::Call::status,
+        type: :call,
+        answered_at: Time,
+        created_at: Time,
+        end_at: Time,
+        provider_metadata: ::Hash[Symbol, top],
+        updated_at: Time
+      }
+
+    class Call < MoonbaseSDK::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor direction: MoonbaseSDK::Models::Call::direction
+
+      attr_accessor participants: ::Array[MoonbaseSDK::Call::Participant]
+
+      attr_accessor provider: String
+
+      attr_accessor provider_id: String
+
+      attr_accessor start_at: Time
+
+      attr_accessor status: MoonbaseSDK::Models::Call::status
+
+      attr_accessor type: :call
+
+      attr_reader answered_at: Time?
+
+      def answered_at=: (Time) -> Time
+
+      attr_reader created_at: Time?
+
+      def created_at=: (Time) -> Time
+
+      attr_reader end_at: Time?
+
+      def end_at=: (Time) -> Time
+
+      attr_reader provider_metadata: ::Hash[Symbol, top]?
+
+      def provider_metadata=: (::Hash[Symbol, top]) -> ::Hash[Symbol, top]
+
+      attr_reader updated_at: Time?
+
+      def updated_at=: (Time) -> Time
+
+      def initialize: (
+        id: String,
+        direction: MoonbaseSDK::Models::Call::direction,
+        participants: ::Array[MoonbaseSDK::Call::Participant],
+        provider: String,
+        provider_id: String,
+        start_at: Time,
+        status: MoonbaseSDK::Models::Call::status,
+        ?answered_at: Time,
+        ?created_at: Time,
+        ?end_at: Time,
+        ?provider_metadata: ::Hash[Symbol, top],
+        ?updated_at: Time,
+        ?type: :call
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        direction: MoonbaseSDK::Models::Call::direction,
+        participants: ::Array[MoonbaseSDK::Call::Participant],
+        provider: String,
+        provider_id: String,
+        start_at: Time,
+        status: MoonbaseSDK::Models::Call::status,
+        type: :call,
+        answered_at: Time,
+        created_at: Time,
+        end_at: Time,
+        provider_metadata: ::Hash[Symbol, top],
+        updated_at: Time
+      }
+
+      type direction = :incoming | :outgoing
+
+      module Direction
+        extend MoonbaseSDK::Internal::Type::Enum
+
+        INCOMING: :incoming
+        OUTGOING: :outgoing
+
+        def self?.values: -> ::Array[MoonbaseSDK::Models::Call::direction]
+      end
+
+      type participant =
+        {
+          id: String,
+          phone: String,
+          role: MoonbaseSDK::Models::Call::Participant::role,
+          type: :participant,
+          created_at: Time,
+          updated_at: Time
+        }
+
+      class Participant < MoonbaseSDK::Internal::Type::BaseModel
+        attr_accessor id: String
+
+        attr_accessor phone: String
+
+        attr_accessor role: MoonbaseSDK::Models::Call::Participant::role
+
+        attr_accessor type: :participant
+
+        attr_reader created_at: Time?
+
+        def created_at=: (Time) -> Time
+
+        attr_reader updated_at: Time?
+
+        def updated_at=: (Time) -> Time
+
+        def initialize: (
+          id: String,
+          phone: String,
+          role: MoonbaseSDK::Models::Call::Participant::role,
+          ?created_at: Time,
+          ?updated_at: Time,
+          ?type: :participant
+        ) -> void
+
+        def to_hash: -> {
+          id: String,
+          phone: String,
+          role: MoonbaseSDK::Models::Call::Participant::role,
+          type: :participant,
+          created_at: Time,
+          updated_at: Time
+        }
+
+        type role = :caller | :callee | :other
+
+        module Role
+          extend MoonbaseSDK::Internal::Type::Enum
+
+          CALLER: :caller
+          CALLEE: :callee
+          OTHER: :other
+
+          def self?.values: -> ::Array[MoonbaseSDK::Models::Call::Participant::role]
+        end
+      end
+
+      type status =
+        :queued
+        | :initiated
+        | :ringing
+        | :in_progress
+        | :completed
+        | :busy
+        | :failed
+        | :no_answer
+        | :canceled
+        | :missed
+        | :answered
+        | :forwarded
+        | :abandoned
+
+      module Status
+        extend MoonbaseSDK::Internal::Type::Enum
+
+        QUEUED: :queued
+        INITIATED: :initiated
+        RINGING: :ringing
+        IN_PROGRESS: :in_progress
+        COMPLETED: :completed
+        BUSY: :busy
+        FAILED: :failed
+        NO_ANSWER: :no_answer
+        CANCELED: :canceled
+        MISSED: :missed
+        ANSWERED: :answered
+        FORWARDED: :forwarded
+        ABANDONED: :abandoned
+
+        def self?.values: -> ::Array[MoonbaseSDK::Models::Call::status]
+      end
+    end
+  end
+end

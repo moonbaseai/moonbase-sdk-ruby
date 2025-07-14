@@ -1,0 +1,15 @@
+module MoonbaseSDK
+  module Models
+    type url_value = { type: :"value/uri/url", url: String }
+
+    class URLValue < MoonbaseSDK::Internal::Type::BaseModel
+      attr_accessor type: :"value/uri/url"
+
+      attr_accessor url: String
+
+      def initialize: (url: String, ?type: :"value/uri/url") -> void
+
+      def to_hash: -> { type: :"value/uri/url", url: String }
+    end
+  end
+end
