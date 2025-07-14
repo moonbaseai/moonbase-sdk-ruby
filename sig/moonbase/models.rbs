@@ -1,0 +1,17 @@
+module Moonbase
+  class Error = Moonbase::Models::Error
+
+  class Program = Moonbase::Models::Program
+
+  class ProgramListParams = Moonbase::Models::ProgramListParams
+
+  class ProgramMessageSendParams = Moonbase::Models::ProgramMessageSendParams
+
+  class ProgramRetrieveParams = Moonbase::Models::ProgramRetrieveParams
+
+  class ProgramTemplate = Moonbase::Models::ProgramTemplate
+
+  class ProgramTemplateListParams = Moonbase::Models::ProgramTemplateListParams
+
+  class ProgramTemplateRetrieveParams = Moonbase::Models::ProgramTemplateRetrieveParams
+end
