@@ -10,6 +10,10 @@ module Moonbase
 
     attr_reader api_key: String
 
+    attr_reader collections: Moonbase::Resources::Collections
+
+    attr_reader items: Moonbase::Resources::Items
+
     attr_reader program_messages: Moonbase::Resources::ProgramMessages
 
     attr_reader program_templates: Moonbase::Resources::ProgramTemplates

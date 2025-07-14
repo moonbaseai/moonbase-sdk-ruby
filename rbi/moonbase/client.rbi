@@ -14,6 +14,12 @@ module Moonbase
     sig { returns(String) }
     attr_reader :api_key
 
+    sig { returns(Moonbase::Resources::Collections) }
+    attr_reader :collections
+
+    sig { returns(Moonbase::Resources::Items) }
+    attr_reader :items
+
     sig { returns(Moonbase::Resources::ProgramMessages) }
     attr_reader :program_messages
 
