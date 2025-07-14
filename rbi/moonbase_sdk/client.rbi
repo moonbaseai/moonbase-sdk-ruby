@@ -26,12 +26,6 @@ module MoonbaseSDK
     sig { returns(MoonbaseSDK::Resources::Items) }
     attr_reader :items
 
-    sig { returns(MoonbaseSDK::Resources::Meetings) }
-    attr_reader :meetings
-
-    sig { returns(MoonbaseSDK::Resources::Notes) }
-    attr_reader :notes
-
     sig { returns(MoonbaseSDK::Resources::ProgramMessages) }
     attr_reader :program_messages
 
