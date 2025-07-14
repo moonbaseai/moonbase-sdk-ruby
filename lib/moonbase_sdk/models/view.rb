@@ -2,7 +2,6 @@
 
 module MoonbaseSDK
   module Models
-    # @see MoonbaseSDK::Resources::Views#retrieve
     class View < MoonbaseSDK::Internal::Type::BaseModel
       # @!attribute id
       #   Unique identifier for the object.
