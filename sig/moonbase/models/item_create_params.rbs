@@ -3,7 +3,7 @@ module Moonbase
     type item_create_params =
       {
         collection_id: String,
-        values: ::Hash[Symbol, Moonbase::Models::field_value?]
+        values: ::Hash[Symbol, Moonbase::Models::field_value]
       }
       & Moonbase::Internal::Type::request_parameters
 
@@ -13,17 +13,17 @@ module Moonbase
 
       attr_accessor collection_id: String
 
-      attr_accessor values: ::Hash[Symbol, Moonbase::Models::field_value?]
+      attr_accessor values: ::Hash[Symbol, Moonbase::Models::field_value]
 
       def initialize: (
         collection_id: String,
-        values: ::Hash[Symbol, Moonbase::Models::field_value?],
+        values: ::Hash[Symbol, Moonbase::Models::field_value],
         ?request_options: Moonbase::request_opts
       ) -> void
 
       def to_hash: -> {
         collection_id: String,
-        values: ::Hash[Symbol, Moonbase::Models::field_value?],
+        values: ::Hash[Symbol, Moonbase::Models::field_value],
         request_options: Moonbase::RequestOptions
       }
     end

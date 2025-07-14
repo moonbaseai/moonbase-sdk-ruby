@@ -2,7 +2,7 @@ module Moonbase
   module Models
     type item_update_params =
       {
-        values: ::Hash[Symbol, Moonbase::Models::field_value?],
+        values: ::Hash[Symbol, Moonbase::Models::field_value],
         update_many_strategy: Moonbase::Models::ItemUpdateParams::update_many_strategy,
         update_one_strategy: Moonbase::Models::ItemUpdateParams::update_one_strategy
       }
@@ -12,7 +12,7 @@ module Moonbase
       extend Moonbase::Internal::Type::RequestParameters::Converter
       include Moonbase::Internal::Type::RequestParameters
 
-      attr_accessor values: ::Hash[Symbol, Moonbase::Models::field_value?]
+      attr_accessor values: ::Hash[Symbol, Moonbase::Models::field_value]
 
       attr_reader update_many_strategy: Moonbase::Models::ItemUpdateParams::update_many_strategy?
 
@@ -27,14 +27,14 @@ module Moonbase
       ) -> Moonbase::Models::ItemUpdateParams::update_one_strategy
 
       def initialize: (
-        values: ::Hash[Symbol, Moonbase::Models::field_value?],
+        values: ::Hash[Symbol, Moonbase::Models::field_value],
         ?update_many_strategy: Moonbase::Models::ItemUpdateParams::update_many_strategy,
         ?update_one_strategy: Moonbase::Models::ItemUpdateParams::update_one_strategy,
         ?request_options: Moonbase::request_opts
       ) -> void
 
       def to_hash: -> {
-        values: ::Hash[Symbol, Moonbase::Models::field_value?],
+        values: ::Hash[Symbol, Moonbase::Models::field_value],
         update_many_strategy: Moonbase::Models::ItemUpdateParams::update_many_strategy,
         update_one_strategy: Moonbase::Models::ItemUpdateParams::update_one_strategy,
         request_options: Moonbase::RequestOptions

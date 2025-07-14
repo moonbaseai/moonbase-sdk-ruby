@@ -16,14 +16,10 @@ module Moonbase
 
       # A hash where keys are the `ref` of a `Field` and values are the data stored for
       # that field.
-      sig do
-        returns(T.nilable(T::Hash[Symbol, T.nilable(Moonbase::FieldValue)]))
-      end
+      sig { returns(T.nilable(T::Hash[Symbol, Moonbase::FieldValue])) }
       attr_reader :values
 
-      sig do
-        params(values: T::Hash[Symbol, T.nilable(Moonbase::FieldValue)]).void
-      end
+      sig { params(values: T::Hash[Symbol, Moonbase::FieldValue]).void }
       attr_writer :values
 
       # An Item represents a single record or row within a Collection. It holds a set of
@@ -31,7 +27,7 @@ module Moonbase
       sig do
         params(
           id: String,
-          values: T::Hash[Symbol, T.nilable(Moonbase::FieldValue)],
+          values: T::Hash[Symbol, Moonbase::FieldValue],
           type: Symbol
         ).returns(T.attached_class)
       end
@@ -51,7 +47,7 @@ module Moonbase
           {
             id: String,
             type: Symbol,
-            values: T::Hash[Symbol, T.nilable(Moonbase::FieldValue)]
+            values: T::Hash[Symbol, Moonbase::FieldValue]
           }
         )
       end
