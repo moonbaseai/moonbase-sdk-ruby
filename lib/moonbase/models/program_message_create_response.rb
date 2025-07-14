@@ -2,8 +2,8 @@
 
 module Moonbase
   module Models
-    # @see Moonbase::Resources::ProgramMessages#send_
-    class ProgramMessageSendResponse < Moonbase::Internal::Type::BaseModel
+    # @see Moonbase::Resources::ProgramMessages#create
+    class ProgramMessageCreateResponse < Moonbase::Internal::Type::BaseModel
       # @!attribute id
       #   Unique identifier for the object.
       #
@@ -19,8 +19,8 @@ module Moonbase
 
       # @!attribute links
       #
-      #   @return [Moonbase::Models::ProgramMessageSendResponse::Links]
-      required :links, -> { Moonbase::Models::ProgramMessageSendResponse::Links }
+      #   @return [Moonbase::Models::ProgramMessageCreateResponse::Links]
+      required :links, -> { Moonbase::Models::ProgramMessageCreateResponse::Links }
 
       # @!attribute program_template
       #   The `ProgramTemplate` used to generate this message.
@@ -42,7 +42,7 @@ module Moonbase
 
       # @!method initialize(id:, created_at:, links:, program_template:, updated_at:, type: :program_message)
       #   Some parameter documentations has been truncated, see
-      #   {Moonbase::Models::ProgramMessageSendResponse} for more details.
+      #   {Moonbase::Models::ProgramMessageCreateResponse} for more details.
       #
       #   Represents a single message sent as part of a `Program`.
       #
@@ -50,7 +50,7 @@ module Moonbase
       #
       #   @param created_at [Time] Time at which the message was created and enqueued for sending, as an RFC 3339 t
       #
-      #   @param links [Moonbase::Models::ProgramMessageSendResponse::Links]
+      #   @param links [Moonbase::Models::ProgramMessageCreateResponse::Links]
       #
       #   @param program_template [Moonbase::Models::ProgramTemplate] The `ProgramTemplate` used to generate this message.
       #
@@ -58,7 +58,7 @@ module Moonbase
       #
       #   @param type [Symbol, :program_message] String representing the object’s type. Always `program_message` for this object.
 
-      # @see Moonbase::Models::ProgramMessageSendResponse#links
+      # @see Moonbase::Models::ProgramMessageCreateResponse#links
       class Links < Moonbase::Internal::Type::BaseModel
         # @!attribute program_template
         #   A link to the `ProgramTemplate` used.

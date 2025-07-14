@@ -153,7 +153,7 @@ module Moonbase
 
   ProgramListParams = Moonbase::Models::ProgramListParams
 
-  ProgramMessageSendParams = Moonbase::Models::ProgramMessageSendParams
+  ProgramMessageCreateParams = Moonbase::Models::ProgramMessageCreateParams
 
   ProgramRetrieveParams = Moonbase::Models::ProgramRetrieveParams
 
