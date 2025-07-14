@@ -14,9 +14,6 @@ module MoonbaseSDK
     sig { returns(String) }
     attr_reader :api_key
 
-    sig { returns(MoonbaseSDK::Resources::Calls) }
-    attr_reader :calls
-
     sig { returns(MoonbaseSDK::Resources::Collections) }
     attr_reader :collections
 
