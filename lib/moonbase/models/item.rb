@@ -20,8 +20,8 @@ module Moonbase
       #   A hash where keys are the `ref` of a `Field` and values are the data stored for
       #   that field.
       #
-      #   @return [Hash{Symbol=>Moonbase::Models::FieldValue, nil}, nil]
-      optional :values, -> { Moonbase::Internal::Type::HashOf[union: Moonbase::FieldValue, nil?: true] }
+      #   @return [Hash{Symbol=>Moonbase::Models::FieldValue}, nil]
+      optional :values, -> { Moonbase::Internal::Type::HashOf[union: Moonbase::FieldValue] }
 
       # @!method initialize(id:, values: nil, type: :item)
       #   Some parameter documentations has been truncated, see {Moonbase::Models::Item}
@@ -32,7 +32,7 @@ module Moonbase
       #
       #   @param id [String] Unique identifier for the object.
       #
-      #   @param values [Hash{Symbol=>Moonbase::Models::FieldValue, nil}] A hash where keys are the `ref` of a `Field` and values are the data stored for
+      #   @param values [Hash{Symbol=>Moonbase::Models::FieldValue}] A hash where keys are the `ref` of a `Field` and values are the data stored for
       #
       #   @param type [Symbol, :item] String representing the object’s type. Always `item` for this object.
     end
