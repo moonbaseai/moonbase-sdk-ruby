@@ -19,6 +19,9 @@ module MoonbaseSDK
     # @return [String]
     attr_reader :api_key
 
+    # @return [MoonbaseSDK::Resources::Views]
+    attr_reader :views
+
     # @return [MoonbaseSDK::Resources::Calls]
     attr_reader :calls
 
@@ -36,9 +39,6 @@ module MoonbaseSDK
 
     # @return [MoonbaseSDK::Resources::Programs]
     attr_reader :programs
-
-    # @return [MoonbaseSDK::Resources::Views]
-    attr_reader :views
 
     # @api private
     #
@@ -87,13 +87,13 @@ module MoonbaseSDK
         max_retry_delay: max_retry_delay
       )
 
+      @views = MoonbaseSDK::Resources::Views.new(client: self)
       @calls = MoonbaseSDK::Resources::Calls.new(client: self)
       @collections = MoonbaseSDK::Resources::Collections.new(client: self)
       @files = MoonbaseSDK::Resources::Files.new(client: self)
       @items = MoonbaseSDK::Resources::Items.new(client: self)
       @program_templates = MoonbaseSDK::Resources::ProgramTemplates.new(client: self)
       @programs = MoonbaseSDK::Resources::Programs.new(client: self)
-      @views = MoonbaseSDK::Resources::Views.new(client: self)
     end
   end
 end
