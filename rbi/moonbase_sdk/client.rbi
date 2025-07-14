@@ -20,9 +20,6 @@ module MoonbaseSDK
     sig { returns(MoonbaseSDK::Resources::Collections) }
     attr_reader :collections
 
-    sig { returns(MoonbaseSDK::Resources::Files) }
-    attr_reader :files
-
     sig { returns(MoonbaseSDK::Resources::Items) }
     attr_reader :items
 
