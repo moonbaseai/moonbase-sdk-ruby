@@ -4,31 +4,6 @@ module MoonbaseSDK
   module Internal
     module Type
       # @api private
-      #
-      # @example
-      #   # `value` is a `MoonbaseSDK::Value`
-      #   case value
-      #   when MoonbaseSDK::SingleLineTextValue
-      #     puts(value.text)
-      #   when MoonbaseSDK::MultiLineTextValue
-      #     puts(value.type)
-      #   when MoonbaseSDK::IntegerValue
-      #     puts(value.number)
-      #   else
-      #     puts(value)
-      #   end
-      #
-      # @example
-      #   case value
-      #   in {type: :"value/text/single_line", text: text}
-      #     puts(text)
-      #   in {type: :"value/text/multi_line", text: text}
-      #     puts(text)
-      #   in {type: :"value/number/unitless_integer", number: number}
-      #     puts(number)
-      #   else
-      #     puts(value)
-      #   end
       module Union
         include MoonbaseSDK::Internal::Type::Converter
         include MoonbaseSDK::Internal::Util::SorbetRuntimeSupport

@@ -17,8 +17,11 @@ module MoonbaseSDK
     sig { returns(MoonbaseSDK::Resources::Collections) }
     attr_reader :collections
 
-    sig { returns(MoonbaseSDK::Resources::Items) }
-    attr_reader :items
+    sig { returns(MoonbaseSDK::Resources::ProgramTemplates) }
+    attr_reader :program_templates
+
+    sig { returns(MoonbaseSDK::Resources::Programs) }
+    attr_reader :programs
 
     # @api private
     sig { override.returns(T::Hash[String, String]) }

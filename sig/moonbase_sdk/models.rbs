@@ -1,8 +1,4 @@
 module MoonbaseSDK
-  class BooleanValue = MoonbaseSDK::Models::BooleanValue
-
-  class Choice = MoonbaseSDK::Models::Choice
-
   class Collection = MoonbaseSDK::Models::Collection
 
   class CollectionListParams = MoonbaseSDK::Models::CollectionListParams
@@ -11,59 +7,21 @@ module MoonbaseSDK
 
   module Collections = MoonbaseSDK::Models::Collections
 
-  class DatetimeValue = MoonbaseSDK::Models::DatetimeValue
-
-  class DateValue = MoonbaseSDK::Models::DateValue
-
-  class DomainValue = MoonbaseSDK::Models::DomainValue
-
-  class EmailValue = MoonbaseSDK::Models::EmailValue
-
   class Error = MoonbaseSDK::Models::Error
 
   class Field = MoonbaseSDK::Models::Field
 
-  module FieldValue = MoonbaseSDK::Models::FieldValue
+  class Program = MoonbaseSDK::Models::Program
 
-  class FloatValue = MoonbaseSDK::Models::FloatValue
+  class ProgramListParams = MoonbaseSDK::Models::ProgramListParams
 
-  class FunnelStep = MoonbaseSDK::Models::FunnelStep
+  class ProgramRetrieveParams = MoonbaseSDK::Models::ProgramRetrieveParams
 
-  class GeoValue = MoonbaseSDK::Models::GeoValue
+  class ProgramTemplate = MoonbaseSDK::Models::ProgramTemplate
 
-  class IntegerValue = MoonbaseSDK::Models::IntegerValue
+  class ProgramTemplateListParams = MoonbaseSDK::Models::ProgramTemplateListParams
 
-  class Item = MoonbaseSDK::Models::Item
-
-  class ItemCreateParams = MoonbaseSDK::Models::ItemCreateParams
-
-  class ItemDeleteParams = MoonbaseSDK::Models::ItemDeleteParams
-
-  class ItemRetrieveParams = MoonbaseSDK::Models::ItemRetrieveParams
-
-  class ItemUpdateParams = MoonbaseSDK::Models::ItemUpdateParams
-
-  class ItemUpsertParams = MoonbaseSDK::Models::ItemUpsertParams
-
-  class MonetaryValue = MoonbaseSDK::Models::MonetaryValue
-
-  class MultiLineTextValue = MoonbaseSDK::Models::MultiLineTextValue
-
-  class PercentageValue = MoonbaseSDK::Models::PercentageValue
-
-  class RelationValue = MoonbaseSDK::Models::RelationValue
-
-  class SingleLineTextValue = MoonbaseSDK::Models::SingleLineTextValue
-
-  class SocialLinkedInValue = MoonbaseSDK::Models::SocialLinkedInValue
-
-  class SocialXValue = MoonbaseSDK::Models::SocialXValue
-
-  class TelephoneNumber = MoonbaseSDK::Models::TelephoneNumber
-
-  class URLValue = MoonbaseSDK::Models::URLValue
-
-  module Value = MoonbaseSDK::Models::Value
+  class ProgramTemplateRetrieveParams = MoonbaseSDK::Models::ProgramTemplateRetrieveParams
 
   class View = MoonbaseSDK::Models::View
 end

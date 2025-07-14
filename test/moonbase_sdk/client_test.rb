@@ -35,55 +35,55 @@ class MoonbaseSDKTest < Minitest::Test
   end
 
   def test_client_default_request_default_retry_attempts
-    stub_request(:get, "http://localhost/collections").to_return_json(status: 500, body: {})
+    stub_request(:get, "http://localhost/program_templates").to_return_json(status: 500, body: {})
 
     moonbase = MoonbaseSDK::Client.new(base_url: "http://localhost", api_key: "My API Key")
 
     assert_raises(MoonbaseSDK::Errors::InternalServerError) do
-      moonbase.collections.list
+      moonbase.program_templates.list
     end
 
     assert_requested(:any, /./, times: 3)
   end
 
   def test_client_given_request_default_retry_attempts
-    stub_request(:get, "http://localhost/collections").to_return_json(status: 500, body: {})
+    stub_request(:get, "http://localhost/program_templates").to_return_json(status: 500, body: {})
 
     moonbase = MoonbaseSDK::Client.new(base_url: "http://localhost", api_key: "My API Key", max_retries: 3)
 
     assert_raises(MoonbaseSDK::Errors::InternalServerError) do
-      moonbase.collections.list
+      moonbase.program_templates.list
     end
 
     assert_requested(:any, /./, times: 4)
   end
 
   def test_client_default_request_given_retry_attempts
-    stub_request(:get, "http://localhost/collections").to_return_json(status: 500, body: {})
+    stub_request(:get, "http://localhost/program_templates").to_return_json(status: 500, body: {})
 
     moonbase = MoonbaseSDK::Client.new(base_url: "http://localhost", api_key: "My API Key")
 
     assert_raises(MoonbaseSDK::Errors::InternalServerError) do
-      moonbase.collections.list(request_options: {max_retries: 3})
+      moonbase.program_templates.list(request_options: {max_retries: 3})
     end
 
     assert_requested(:any, /./, times: 4)
   end
 
   def test_client_given_request_given_retry_attempts
-    stub_request(:get, "http://localhost/collections").to_return_json(status: 500, body: {})
+    stub_request(:get, "http://localhost/program_templates").to_return_json(status: 500, body: {})
 
     moonbase = MoonbaseSDK::Client.new(base_url: "http://localhost", api_key: "My API Key", max_retries: 3)
 
     assert_raises(MoonbaseSDK::Errors::InternalServerError) do
-      moonbase.collections.list(request_options: {max_retries: 4})
+      moonbase.program_templates.list(request_options: {max_retries: 4})
     end
 
     assert_requested(:any, /./, times: 5)
   end
 
   def test_client_retry_after_seconds
-    stub_request(:get, "http://localhost/collections").to_return_json(
+    stub_request(:get, "http://localhost/program_templates").to_return_json(
       status: 500,
       headers: {"retry-after" => "1.3"},
       body: {}
@@ -92,7 +92,7 @@ class MoonbaseSDKTest < Minitest::Test
     moonbase = MoonbaseSDK::Client.new(base_url: "http://localhost", api_key: "My API Key", max_retries: 1)
 
     assert_raises(MoonbaseSDK::Errors::InternalServerError) do
-      moonbase.collections.list
+      moonbase.program_templates.list
     end
 
     assert_requested(:any, /./, times: 2)
@@ -100,7 +100,7 @@ class MoonbaseSDKTest < Minitest::Test
   end
 
   def test_client_retry_after_date
-    stub_request(:get, "http://localhost/collections").to_return_json(
+    stub_request(:get, "http://localhost/program_templates").to_return_json(
       status: 500,
       headers: {"retry-after" => (Time.now + 10).httpdate},
       body: {}
@@ -110,7 +110,7 @@ class MoonbaseSDKTest < Minitest::Test
 
     assert_raises(MoonbaseSDK::Errors::InternalServerError) do
       Thread.current.thread_variable_set(:time_now, Time.now)
-      moonbase.collections.list
+      moonbase.program_templates.list
       Thread.current.thread_variable_set(:time_now, nil)
     end
 
@@ -119,7 +119,7 @@ class MoonbaseSDKTest < Minitest::Test
   end
 
   def test_client_retry_after_ms
-    stub_request(:get, "http://localhost/collections").to_return_json(
+    stub_request(:get, "http://localhost/program_templates").to_return_json(
       status: 500,
       headers: {"retry-after-ms" => "1300"},
       body: {}
@@ -128,7 +128,7 @@ class MoonbaseSDKTest < Minitest::Test
     moonbase = MoonbaseSDK::Client.new(base_url: "http://localhost", api_key: "My API Key", max_retries: 1)
 
     assert_raises(MoonbaseSDK::Errors::InternalServerError) do
-      moonbase.collections.list
+      moonbase.program_templates.list
     end
 
     assert_requested(:any, /./, times: 2)
@@ -136,12 +136,12 @@ class MoonbaseSDKTest < Minitest::Test
   end
 
   def test_retry_count_header
-    stub_request(:get, "http://localhost/collections").to_return_json(status: 500, body: {})
+    stub_request(:get, "http://localhost/program_templates").to_return_json(status: 500, body: {})
 
     moonbase = MoonbaseSDK::Client.new(base_url: "http://localhost", api_key: "My API Key")
 
     assert_raises(MoonbaseSDK::Errors::InternalServerError) do
-      moonbase.collections.list
+      moonbase.program_templates.list
     end
 
     3.times do
@@ -150,12 +150,12 @@ class MoonbaseSDKTest < Minitest::Test
   end
 
   def test_omit_retry_count_header
-    stub_request(:get, "http://localhost/collections").to_return_json(status: 500, body: {})
+    stub_request(:get, "http://localhost/program_templates").to_return_json(status: 500, body: {})
 
     moonbase = MoonbaseSDK::Client.new(base_url: "http://localhost", api_key: "My API Key")
 
     assert_raises(MoonbaseSDK::Errors::InternalServerError) do
-      moonbase.collections.list(request_options: {extra_headers: {"x-stainless-retry-count" => nil}})
+      moonbase.program_templates.list(request_options: {extra_headers: {"x-stainless-retry-count" => nil}})
     end
 
     assert_requested(:any, /./, times: 3) do
@@ -164,19 +164,19 @@ class MoonbaseSDKTest < Minitest::Test
   end
 
   def test_overwrite_retry_count_header
-    stub_request(:get, "http://localhost/collections").to_return_json(status: 500, body: {})
+    stub_request(:get, "http://localhost/program_templates").to_return_json(status: 500, body: {})
 
     moonbase = MoonbaseSDK::Client.new(base_url: "http://localhost", api_key: "My API Key")
 
     assert_raises(MoonbaseSDK::Errors::InternalServerError) do
-      moonbase.collections.list(request_options: {extra_headers: {"x-stainless-retry-count" => "42"}})
+      moonbase.program_templates.list(request_options: {extra_headers: {"x-stainless-retry-count" => "42"}})
     end
 
     assert_requested(:any, /./, headers: {"x-stainless-retry-count" => "42"}, times: 3)
   end
 
   def test_client_redirect_307
-    stub_request(:get, "http://localhost/collections").to_return_json(
+    stub_request(:get, "http://localhost/program_templates").to_return_json(
       status: 307,
       headers: {"location" => "/redirected"},
       body: {}
@@ -189,7 +189,7 @@ class MoonbaseSDKTest < Minitest::Test
     moonbase = MoonbaseSDK::Client.new(base_url: "http://localhost", api_key: "My API Key")
 
     assert_raises(MoonbaseSDK::Errors::APIConnectionError) do
-      moonbase.collections.list(request_options: {extra_headers: {}})
+      moonbase.program_templates.list(request_options: {extra_headers: {}})
     end
 
     recorded, = WebMock::RequestRegistry.instance.requested_signatures.hash.first
@@ -205,7 +205,7 @@ class MoonbaseSDKTest < Minitest::Test
   end
 
   def test_client_redirect_303
-    stub_request(:get, "http://localhost/collections").to_return_json(
+    stub_request(:get, "http://localhost/program_templates").to_return_json(
       status: 303,
       headers: {"location" => "/redirected"},
       body: {}
@@ -218,7 +218,7 @@ class MoonbaseSDKTest < Minitest::Test
     moonbase = MoonbaseSDK::Client.new(base_url: "http://localhost", api_key: "My API Key")
 
     assert_raises(MoonbaseSDK::Errors::APIConnectionError) do
-      moonbase.collections.list(request_options: {extra_headers: {}})
+      moonbase.program_templates.list(request_options: {extra_headers: {}})
     end
 
     assert_requested(:get, "http://localhost/redirected", times: MoonbaseSDK::Client::MAX_REDIRECTS) do
@@ -229,7 +229,7 @@ class MoonbaseSDKTest < Minitest::Test
   end
 
   def test_client_redirect_auth_keep_same_origin
-    stub_request(:get, "http://localhost/collections").to_return_json(
+    stub_request(:get, "http://localhost/program_templates").to_return_json(
       status: 307,
       headers: {"location" => "/redirected"},
       body: {}
@@ -242,7 +242,7 @@ class MoonbaseSDKTest < Minitest::Test
     moonbase = MoonbaseSDK::Client.new(base_url: "http://localhost", api_key: "My API Key")
 
     assert_raises(MoonbaseSDK::Errors::APIConnectionError) do
-      moonbase.collections.list(request_options: {extra_headers: {"authorization" => "Bearer xyz"}})
+      moonbase.program_templates.list(request_options: {extra_headers: {"authorization" => "Bearer xyz"}})
     end
 
     recorded, = WebMock::RequestRegistry.instance.requested_signatures.hash.first
@@ -256,7 +256,7 @@ class MoonbaseSDKTest < Minitest::Test
   end
 
   def test_client_redirect_auth_strip_cross_origin
-    stub_request(:get, "http://localhost/collections").to_return_json(
+    stub_request(:get, "http://localhost/program_templates").to_return_json(
       status: 307,
       headers: {"location" => "https://example.com/redirected"},
       body: {}
@@ -269,7 +269,7 @@ class MoonbaseSDKTest < Minitest::Test
     moonbase = MoonbaseSDK::Client.new(base_url: "http://localhost", api_key: "My API Key")
 
     assert_raises(MoonbaseSDK::Errors::APIConnectionError) do
-      moonbase.collections.list(request_options: {extra_headers: {"authorization" => "Bearer xyz"}})
+      moonbase.program_templates.list(request_options: {extra_headers: {"authorization" => "Bearer xyz"}})
     end
 
     assert_requested(:any, "https://example.com/redirected", times: MoonbaseSDK::Client::MAX_REDIRECTS) do
@@ -279,11 +279,11 @@ class MoonbaseSDKTest < Minitest::Test
   end
 
   def test_default_headers
-    stub_request(:get, "http://localhost/collections").to_return_json(status: 200, body: {})
+    stub_request(:get, "http://localhost/program_templates").to_return_json(status: 200, body: {})
 
     moonbase = MoonbaseSDK::Client.new(base_url: "http://localhost", api_key: "My API Key")
 
-    moonbase.collections.list
+    moonbase.program_templates.list
 
     assert_requested(:any, /./) do |req|
       headers = req.headers.transform_keys(&:downcase).fetch_values("accept", "content-type")
