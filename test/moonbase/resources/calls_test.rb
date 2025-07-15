@@ -7,11 +7,11 @@ class Moonbase::Test::Resources::CallsTest < Moonbase::Test::ResourceTest
     response =
       @moonbase.calls.create(
         direction: :incoming,
-        participants: [{phone: "+14155551212", role: :caller}, {phone: "+16505551212", role: :callee}],
-        provider: "openphone",
-        provider_id: "openphone_id_000000000002",
-        start_at: "2025-07-12T02:19:39.553Z",
-        status: :completed
+        participants: [{phone: "phone", role: :caller}],
+        provider: "provider",
+        provider_id: "provider_id",
+        start_at: "2019-12-27T18:11:19.117Z",
+        status: :queued
       )
 
     assert_pattern do
