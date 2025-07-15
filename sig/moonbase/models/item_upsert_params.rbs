@@ -3,8 +3,8 @@ module Moonbase
     type item_upsert_params =
       {
         collection_id: String,
-        identifiers: ::Hash[Symbol, Moonbase::Models::field_value],
-        values: ::Hash[Symbol, Moonbase::Models::field_value],
+        identifiers: ::Hash[Symbol, Moonbase::Models::field_value?],
+        values: ::Hash[Symbol, Moonbase::Models::field_value?],
         update_many_strategy: Moonbase::Models::ItemUpsertParams::update_many_strategy,
         update_one_strategy: Moonbase::Models::ItemUpsertParams::update_one_strategy
       }
@@ -16,9 +16,9 @@ module Moonbase
 
       attr_accessor collection_id: String
 
-      attr_accessor identifiers: ::Hash[Symbol, Moonbase::Models::field_value]
+      attr_accessor identifiers: ::Hash[Symbol, Moonbase::Models::field_value?]
 
-      attr_accessor values: ::Hash[Symbol, Moonbase::Models::field_value]
+      attr_accessor values: ::Hash[Symbol, Moonbase::Models::field_value?]
 
       attr_reader update_many_strategy: Moonbase::Models::ItemUpsertParams::update_many_strategy?
 
@@ -34,8 +34,8 @@ module Moonbase
 
       def initialize: (
         collection_id: String,
-        identifiers: ::Hash[Symbol, Moonbase::Models::field_value],
-        values: ::Hash[Symbol, Moonbase::Models::field_value],
+        identifiers: ::Hash[Symbol, Moonbase::Models::field_value?],
+        values: ::Hash[Symbol, Moonbase::Models::field_value?],
         ?update_many_strategy: Moonbase::Models::ItemUpsertParams::update_many_strategy,
         ?update_one_strategy: Moonbase::Models::ItemUpsertParams::update_one_strategy,
         ?request_options: Moonbase::request_opts
@@ -43,8 +43,8 @@ module Moonbase
 
       def to_hash: -> {
         collection_id: String,
-        identifiers: ::Hash[Symbol, Moonbase::Models::field_value],
-        values: ::Hash[Symbol, Moonbase::Models::field_value],
+        identifiers: ::Hash[Symbol, Moonbase::Models::field_value?],
+        values: ::Hash[Symbol, Moonbase::Models::field_value?],
         update_many_strategy: Moonbase::Models::ItemUpsertParams::update_many_strategy,
         update_one_strategy: Moonbase::Models::ItemUpsertParams::update_one_strategy,
         request_options: Moonbase::RequestOptions

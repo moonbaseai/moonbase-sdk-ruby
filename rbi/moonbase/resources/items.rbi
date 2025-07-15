@@ -10,27 +10,29 @@ module Moonbase
           values:
             T::Hash[
               Symbol,
-              T.any(
-                Moonbase::SingleLineTextValue::OrHash,
-                Moonbase::MultiLineTextValue::OrHash,
-                Moonbase::IntegerValue::OrHash,
-                Moonbase::FloatValue::OrHash,
-                Moonbase::MonetaryValue::OrHash,
-                Moonbase::PercentageValue::OrHash,
-                Moonbase::BooleanValue::OrHash,
-                Moonbase::EmailValue::OrHash,
-                Moonbase::URLValue::OrHash,
-                Moonbase::DomainValue::OrHash,
-                Moonbase::SocialXValue::OrHash,
-                Moonbase::SocialLinkedInValue::OrHash,
-                Moonbase::TelephoneNumber::OrHash,
-                Moonbase::GeoValue::OrHash,
-                Moonbase::DateValue::OrHash,
-                Moonbase::DatetimeValue::OrHash,
-                Moonbase::Choice::OrHash,
-                Moonbase::FunnelStep::OrHash,
-                Moonbase::RelationValue,
-                T::Array[Moonbase::Value]
+              T.nilable(
+                T.any(
+                  Moonbase::SingleLineTextValue::OrHash,
+                  Moonbase::MultiLineTextValue::OrHash,
+                  Moonbase::IntegerValue::OrHash,
+                  Moonbase::FloatValue::OrHash,
+                  Moonbase::MonetaryValue::OrHash,
+                  Moonbase::PercentageValue::OrHash,
+                  Moonbase::BooleanValue::OrHash,
+                  Moonbase::EmailValue::OrHash,
+                  Moonbase::URLValue::OrHash,
+                  Moonbase::DomainValue::OrHash,
+                  Moonbase::SocialXValue::OrHash,
+                  Moonbase::SocialLinkedInValue::OrHash,
+                  Moonbase::TelephoneNumber::OrHash,
+                  Moonbase::GeoValue::OrHash,
+                  Moonbase::DateValue::OrHash,
+                  Moonbase::DatetimeValue::OrHash,
+                  Moonbase::Choice::OrHash,
+                  Moonbase::FunnelStep::OrHash,
+                  Moonbase::RelationValue,
+                  T::Array[Moonbase::Value]
+                )
               )
             ],
           request_options: Moonbase::RequestOptions::OrHash
@@ -66,27 +68,29 @@ module Moonbase
           values:
             T::Hash[
               Symbol,
-              T.any(
-                Moonbase::SingleLineTextValue::OrHash,
-                Moonbase::MultiLineTextValue::OrHash,
-                Moonbase::IntegerValue::OrHash,
-                Moonbase::FloatValue::OrHash,
-                Moonbase::MonetaryValue::OrHash,
-                Moonbase::PercentageValue::OrHash,
-                Moonbase::BooleanValue::OrHash,
-                Moonbase::EmailValue::OrHash,
-                Moonbase::URLValue::OrHash,
-                Moonbase::DomainValue::OrHash,
-                Moonbase::SocialXValue::OrHash,
-                Moonbase::SocialLinkedInValue::OrHash,
-                Moonbase::TelephoneNumber::OrHash,
-                Moonbase::GeoValue::OrHash,
-                Moonbase::DateValue::OrHash,
-                Moonbase::DatetimeValue::OrHash,
-                Moonbase::Choice::OrHash,
-                Moonbase::FunnelStep::OrHash,
-                Moonbase::RelationValue,
-                T::Array[Moonbase::Value]
+              T.nilable(
+                T.any(
+                  Moonbase::SingleLineTextValue::OrHash,
+                  Moonbase::MultiLineTextValue::OrHash,
+                  Moonbase::IntegerValue::OrHash,
+                  Moonbase::FloatValue::OrHash,
+                  Moonbase::MonetaryValue::OrHash,
+                  Moonbase::PercentageValue::OrHash,
+                  Moonbase::BooleanValue::OrHash,
+                  Moonbase::EmailValue::OrHash,
+                  Moonbase::URLValue::OrHash,
+                  Moonbase::DomainValue::OrHash,
+                  Moonbase::SocialXValue::OrHash,
+                  Moonbase::SocialLinkedInValue::OrHash,
+                  Moonbase::TelephoneNumber::OrHash,
+                  Moonbase::GeoValue::OrHash,
+                  Moonbase::DateValue::OrHash,
+                  Moonbase::DatetimeValue::OrHash,
+                  Moonbase::Choice::OrHash,
+                  Moonbase::FunnelStep::OrHash,
+                  Moonbase::RelationValue,
+                  T::Array[Moonbase::Value]
+                )
               )
             ],
           update_many_strategy:
@@ -138,53 +142,57 @@ module Moonbase
           identifiers:
             T::Hash[
               Symbol,
-              T.any(
-                Moonbase::SingleLineTextValue::OrHash,
-                Moonbase::MultiLineTextValue::OrHash,
-                Moonbase::IntegerValue::OrHash,
-                Moonbase::FloatValue::OrHash,
-                Moonbase::MonetaryValue::OrHash,
-                Moonbase::PercentageValue::OrHash,
-                Moonbase::BooleanValue::OrHash,
-                Moonbase::EmailValue::OrHash,
-                Moonbase::URLValue::OrHash,
-                Moonbase::DomainValue::OrHash,
-                Moonbase::SocialXValue::OrHash,
-                Moonbase::SocialLinkedInValue::OrHash,
-                Moonbase::TelephoneNumber::OrHash,
-                Moonbase::GeoValue::OrHash,
-                Moonbase::DateValue::OrHash,
-                Moonbase::DatetimeValue::OrHash,
-                Moonbase::Choice::OrHash,
-                Moonbase::FunnelStep::OrHash,
-                Moonbase::RelationValue,
-                T::Array[Moonbase::Value]
+              T.nilable(
+                T.any(
+                  Moonbase::SingleLineTextValue::OrHash,
+                  Moonbase::MultiLineTextValue::OrHash,
+                  Moonbase::IntegerValue::OrHash,
+                  Moonbase::FloatValue::OrHash,
+                  Moonbase::MonetaryValue::OrHash,
+                  Moonbase::PercentageValue::OrHash,
+                  Moonbase::BooleanValue::OrHash,
+                  Moonbase::EmailValue::OrHash,
+                  Moonbase::URLValue::OrHash,
+                  Moonbase::DomainValue::OrHash,
+                  Moonbase::SocialXValue::OrHash,
+                  Moonbase::SocialLinkedInValue::OrHash,
+                  Moonbase::TelephoneNumber::OrHash,
+                  Moonbase::GeoValue::OrHash,
+                  Moonbase::DateValue::OrHash,
+                  Moonbase::DatetimeValue::OrHash,
+                  Moonbase::Choice::OrHash,
+                  Moonbase::FunnelStep::OrHash,
+                  Moonbase::RelationValue,
+                  T::Array[Moonbase::Value]
+                )
               )
             ],
           values:
             T::Hash[
               Symbol,
-              T.any(
-                Moonbase::SingleLineTextValue::OrHash,
-                Moonbase::MultiLineTextValue::OrHash,
-                Moonbase::IntegerValue::OrHash,
-                Moonbase::FloatValue::OrHash,
-                Moonbase::MonetaryValue::OrHash,
-                Moonbase::PercentageValue::OrHash,
-                Moonbase::BooleanValue::OrHash,
-                Moonbase::EmailValue::OrHash,
-                Moonbase::URLValue::OrHash,
-                Moonbase::DomainValue::OrHash,
-                Moonbase::SocialXValue::OrHash,
-                Moonbase::SocialLinkedInValue::OrHash,
-                Moonbase::TelephoneNumber::OrHash,
-                Moonbase::GeoValue::OrHash,
-                Moonbase::DateValue::OrHash,
-                Moonbase::DatetimeValue::OrHash,
-                Moonbase::Choice::OrHash,
-                Moonbase::FunnelStep::OrHash,
-                Moonbase::RelationValue,
-                T::Array[Moonbase::Value]
+              T.nilable(
+                T.any(
+                  Moonbase::SingleLineTextValue::OrHash,
+                  Moonbase::MultiLineTextValue::OrHash,
+                  Moonbase::IntegerValue::OrHash,
+                  Moonbase::FloatValue::OrHash,
+                  Moonbase::MonetaryValue::OrHash,
+                  Moonbase::PercentageValue::OrHash,
+                  Moonbase::BooleanValue::OrHash,
+                  Moonbase::EmailValue::OrHash,
+                  Moonbase::URLValue::OrHash,
+                  Moonbase::DomainValue::OrHash,
+                  Moonbase::SocialXValue::OrHash,
+                  Moonbase::SocialLinkedInValue::OrHash,
+                  Moonbase::TelephoneNumber::OrHash,
+                  Moonbase::GeoValue::OrHash,
+                  Moonbase::DateValue::OrHash,
+                  Moonbase::DatetimeValue::OrHash,
+                  Moonbase::Choice::OrHash,
+                  Moonbase::FunnelStep::OrHash,
+                  Moonbase::RelationValue,
+                  T::Array[Moonbase::Value]
+                )
               )
             ],
           update_many_strategy:
