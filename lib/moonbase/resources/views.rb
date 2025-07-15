@@ -19,7 +19,7 @@ module Moonbase
       #
       # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
       #
-      # @return [Moonbase::Models::ViewRetrieveResponse]
+      # @return [Moonbase::Models::View]
       #
       # @see Moonbase::Models::ViewRetrieveParams
       def retrieve(id, params = {})
@@ -28,7 +28,7 @@ module Moonbase
           method: :get,
           path: ["views/%1$s", id],
           query: parsed,
-          model: Moonbase::Models::ViewRetrieveResponse,
+          model: Moonbase::View,
           options: options
         )
       end

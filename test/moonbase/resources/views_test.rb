@@ -7,17 +7,17 @@ class Moonbase::Test::Resources::ViewsTest < Moonbase::Test::ResourceTest
     response = @moonbase.views.retrieve("id")
 
     assert_pattern do
-      response => Moonbase::Models::ViewRetrieveResponse
+      response => Moonbase::View
     end
 
     assert_pattern do
       response => {
         id: String,
-        links: Moonbase::Models::ViewRetrieveResponse::Links,
+        links: Moonbase::View::Links,
         name: String,
         type: Symbol,
         collection: Moonbase::Collection | nil,
-        view_type: Moonbase::Models::ViewRetrieveResponse::ViewType | nil
+        view_type: Moonbase::View::ViewType | nil
       }
     end
   end

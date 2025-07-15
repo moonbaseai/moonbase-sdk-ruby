@@ -21,7 +21,7 @@ class Moonbase::Test::Resources::CollectionsTest < Moonbase::Test::ResourceTest
         description: String | nil,
         fields: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Field]) | nil,
         updated_at: Time | nil,
-        views: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Internal::Type::Unknown]) | nil
+        views: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::View]) | nil
       }
     end
   end
@@ -51,7 +51,7 @@ class Moonbase::Test::Resources::CollectionsTest < Moonbase::Test::ResourceTest
         description: String | nil,
         fields: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Field]) | nil,
         updated_at: Time | nil,
-        views: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Internal::Type::Unknown]) | nil
+        views: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::View]) | nil
       }
     end
   end

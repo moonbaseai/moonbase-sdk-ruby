@@ -143,6 +143,8 @@ module Moonbase
 
   module Value = Moonbase::Models::Value
 
+  class View = Moonbase::Models::View
+
   class ViewRetrieveParams = Moonbase::Models::ViewRetrieveParams
 
   module Views = Moonbase::Models::Views

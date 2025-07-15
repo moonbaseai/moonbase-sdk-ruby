@@ -3,7 +3,7 @@
 module Moonbase
   module Models
     # @see Moonbase::Resources::Views#retrieve
-    class ViewRetrieveResponse < Moonbase::Internal::Type::BaseModel
+    class View < Moonbase::Internal::Type::BaseModel
       # @!attribute id
       #   Unique identifier for the object.
       #
@@ -12,8 +12,8 @@ module Moonbase
 
       # @!attribute links
       #
-      #   @return [Moonbase::Models::ViewRetrieveResponse::Links]
-      required :links, -> { Moonbase::Models::ViewRetrieveResponse::Links }
+      #   @return [Moonbase::Models::View::Links]
+      required :links, -> { Moonbase::View::Links }
 
       # @!attribute name
       #   The name of the view.
@@ -36,8 +36,8 @@ module Moonbase
       # @!attribute view_type
       #   The type of view, such as `table` or `board`.
       #
-      #   @return [Symbol, Moonbase::Models::ViewRetrieveResponse::ViewType, nil]
-      optional :view_type, enum: -> { Moonbase::Models::ViewRetrieveResponse::ViewType }
+      #   @return [Symbol, Moonbase::Models::View::ViewType, nil]
+      optional :view_type, enum: -> { Moonbase::View::ViewType }
 
       # @!method initialize(id:, links:, name:, collection: nil, view_type: nil, type: :view)
       #   A View represents a saved configuration for displaying items in a collection,
@@ -45,17 +45,17 @@ module Moonbase
       #
       #   @param id [String] Unique identifier for the object.
       #
-      #   @param links [Moonbase::Models::ViewRetrieveResponse::Links]
+      #   @param links [Moonbase::Models::View::Links]
       #
       #   @param name [String] The name of the view.
       #
       #   @param collection [Moonbase::Models::Collection] The `Collection` this view belongs to.
       #
-      #   @param view_type [Symbol, Moonbase::Models::ViewRetrieveResponse::ViewType] The type of view, such as `table` or `board`.
+      #   @param view_type [Symbol, Moonbase::Models::View::ViewType] The type of view, such as `table` or `board`.
       #
       #   @param type [Symbol, :view] String representing the object’s type. Always `view` for this object.
 
-      # @see Moonbase::Models::ViewRetrieveResponse#links
+      # @see Moonbase::Models::View#links
       class Links < Moonbase::Internal::Type::BaseModel
         # @!attribute collection
         #   A link to the `Collection` this view belongs to.
@@ -85,7 +85,7 @@ module Moonbase
 
       # The type of view, such as `table` or `board`.
       #
-      # @see Moonbase::Models::ViewRetrieveResponse#view_type
+      # @see Moonbase::Models::View#view_type
       module ViewType
         extend Moonbase::Internal::Type::Enum
 

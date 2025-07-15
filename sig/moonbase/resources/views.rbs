@@ -7,7 +7,7 @@ module Moonbase
         String id,
         ?include: ::Array[Moonbase::Models::ViewRetrieveParams::include_],
         ?request_options: Moonbase::request_opts
-      ) -> Moonbase::Models::ViewRetrieveResponse
+      ) -> Moonbase::View
 
       def initialize: (client: Moonbase::Client) -> void
     end
