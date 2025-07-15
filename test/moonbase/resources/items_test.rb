@@ -6,10 +6,10 @@ class Moonbase::Test::Resources::ItemsTest < Moonbase::Test::ResourceTest
   def test_create_required_params
     response =
       @moonbase.items.create(
-        collection_id: "1CR2QLsnhwrJX7Z33jnyGV",
+        collection_id: "1CR8ZUPSRgSsYUg8HVzSV6",
         values: {
           name: {text: "Aperture Science", type: :"value/text/single_line"},
-          ceo: {item: {id: "1CR2QLtx9doK4wFiFB7VAS", type: :item}, type: :"value/relation"}
+          ceo: {item: {id: "1CR8ZUQk3g9D6v8bvQPh7U", type: :item}, type: :"value/relation"}
         }
       )
 
@@ -43,7 +43,8 @@ class Moonbase::Test::Resources::ItemsTest < Moonbase::Test::ResourceTest
   end
 
   def test_update_required_params
-    response = @moonbase.items.update("id", values: {foo: {text: "text", type: :"value/text/single_line"}})
+    response =
+      @moonbase.items.update("id", values: {name: {text: "Jony Appleseed", type: :"value/text/single_line"}})
 
     assert_pattern do
       response => Moonbase::Item
@@ -77,7 +78,7 @@ class Moonbase::Test::Resources::ItemsTest < Moonbase::Test::ResourceTest
   def test_upsert_required_params
     response =
       @moonbase.items.upsert(
-        collection_id: "1CR2QLbeMAqKQ6PvQu39pZ",
+        collection_id: "1CR8ZTkjJggbDcKLRBk8FL",
         identifiers: {domain: []},
         values: {
           name: {text: "Aperture Science", type: :"value/text/single_line"},
