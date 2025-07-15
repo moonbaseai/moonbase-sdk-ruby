@@ -61,10 +61,10 @@ module Moonbase
       attr_writer :updated_at
 
       # A list of saved `View` objects for presenting the collection's data.
-      sig { returns(T.nilable(T::Array[Moonbase::View])) }
+      sig { returns(T.nilable(T::Array[T.anything])) }
       attr_reader :views
 
-      sig { params(views: T::Array[Moonbase::View]).void }
+      sig { params(views: T::Array[T.anything]).void }
       attr_writer :views
 
       # A Collection is a container for structured data, similar to a database table or
@@ -80,7 +80,7 @@ module Moonbase
           description: String,
           fields: T::Array[Moonbase::Field::OrHash],
           updated_at: Time,
-          views: T::Array[Moonbase::View],
+          views: T::Array[T.anything],
           type: Symbol
         ).returns(T.attached_class)
       end
@@ -121,7 +121,7 @@ module Moonbase
             description: String,
             fields: T::Array[Moonbase::Field],
             updated_at: Time,
-            views: T::Array[Moonbase::View]
+            views: T::Array[T.anything]
           }
         )
       end

@@ -12,7 +12,7 @@ module Moonbase
           id: String,
           include: T::Array[Moonbase::ViewRetrieveParams::Include::OrSymbol],
           request_options: Moonbase::RequestOptions::OrHash
-        ).returns(Moonbase::View)
+        ).returns(Moonbase::Models::ViewRetrieveResponse)
       end
       def retrieve(
         # The ID of the view to retrieve.

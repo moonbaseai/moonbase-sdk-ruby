@@ -62,8 +62,8 @@ module Moonbase
       # @!attribute views
       #   A list of saved `View` objects for presenting the collection's data.
       #
-      #   @return [Array<Moonbase::Models::View>, nil]
-      optional :views, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::View] }
+      #   @return [Array<Object>, nil]
+      optional :views, Moonbase::Internal::Type::ArrayOf[Moonbase::Internal::Type::Unknown]
 
       # @!method initialize(id:, links:, name:, ref:, created_at: nil, description: nil, fields: nil, updated_at: nil, views: nil, type: :collection)
       #   Some parameter documentations has been truncated, see
@@ -89,7 +89,7 @@ module Moonbase
       #
       #   @param updated_at [Time] Time at which the object was last updated, as an RFC 3339 timestamp.
       #
-      #   @param views [Array<Moonbase::Models::View>] A list of saved `View` objects for presenting the collection's data.
+      #   @param views [Array<Object>] A list of saved `View` objects for presenting the collection's data.
       #
       #   @param type [Symbol, :collection] String representing the object’s type. Always `collection` for this object.
 

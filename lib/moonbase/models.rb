@@ -183,8 +183,6 @@ module Moonbase
 
   Value = Moonbase::Models::Value
 
-  View = Moonbase::Models::View
-
   ViewRetrieveParams = Moonbase::Models::ViewRetrieveParams
 
   Views = Moonbase::Models::Views
