@@ -11,7 +11,7 @@ module Moonbase
         description: String,
         fields: ::Array[Moonbase::Field],
         updated_at: Time,
-        views: ::Array[top]
+        views: ::Array[Moonbase::View]
       }
 
     class Collection < Moonbase::Internal::Type::BaseModel
@@ -41,9 +41,9 @@ module Moonbase
 
       def updated_at=: (Time) -> Time
 
-      attr_reader views: ::Array[top]?
+      attr_reader views: ::Array[Moonbase::View]?
 
-      def views=: (::Array[top]) -> ::Array[top]
+      def views=: (::Array[Moonbase::View]) -> ::Array[Moonbase::View]
 
       def initialize: (
         id: String,
@@ -54,7 +54,7 @@ module Moonbase
         ?description: String,
         ?fields: ::Array[Moonbase::Field],
         ?updated_at: Time,
-        ?views: ::Array[top],
+        ?views: ::Array[Moonbase::View],
         ?type: :collection
       ) -> void
 
@@ -68,7 +68,7 @@ module Moonbase
         description: String,
         fields: ::Array[Moonbase::Field],
         updated_at: Time,
-        views: ::Array[top]
+        views: ::Array[Moonbase::View]
       }
 
       type links = { self_: String }

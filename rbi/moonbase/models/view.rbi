@@ -2,27 +2,18 @@
 
 module Moonbase
   module Models
-    class ViewRetrieveResponse < Moonbase::Internal::Type::BaseModel
+    class View < Moonbase::Internal::Type::BaseModel
       OrHash =
-        T.type_alias do
-          T.any(
-            Moonbase::Models::ViewRetrieveResponse,
-            Moonbase::Internal::AnyHash
-          )
-        end
+        T.type_alias { T.any(Moonbase::View, Moonbase::Internal::AnyHash) }
 
       # Unique identifier for the object.
       sig { returns(String) }
       attr_accessor :id
 
-      sig { returns(Moonbase::Models::ViewRetrieveResponse::Links) }
+      sig { returns(Moonbase::View::Links) }
       attr_reader :links
 
-      sig do
-        params(
-          links: Moonbase::Models::ViewRetrieveResponse::Links::OrHash
-        ).void
-      end
+      sig { params(links: Moonbase::View::Links::OrHash).void }
       attr_writer :links
 
       # The name of the view.
@@ -37,24 +28,14 @@ module Moonbase
       sig { returns(T.nilable(Moonbase::Collection)) }
       attr_reader :collection
 
-      sig { params(collection: Moonbase::Collection::OrHash).void }
+      sig { params(collection: Moonbase::Collection).void }
       attr_writer :collection
 
       # The type of view, such as `table` or `board`.
-      sig do
-        returns(
-          T.nilable(
-            Moonbase::Models::ViewRetrieveResponse::ViewType::TaggedSymbol
-          )
-        )
-      end
+      sig { returns(T.nilable(Moonbase::View::ViewType::TaggedSymbol)) }
       attr_reader :view_type
 
-      sig do
-        params(
-          view_type: Moonbase::Models::ViewRetrieveResponse::ViewType::OrSymbol
-        ).void
-      end
+      sig { params(view_type: Moonbase::View::ViewType::OrSymbol).void }
       attr_writer :view_type
 
       # A View represents a saved configuration for displaying items in a collection,
@@ -62,10 +43,10 @@ module Moonbase
       sig do
         params(
           id: String,
-          links: Moonbase::Models::ViewRetrieveResponse::Links::OrHash,
+          links: Moonbase::View::Links::OrHash,
           name: String,
-          collection: Moonbase::Collection::OrHash,
-          view_type: Moonbase::Models::ViewRetrieveResponse::ViewType::OrSymbol,
+          collection: Moonbase::Collection,
+          view_type: Moonbase::View::ViewType::OrSymbol,
           type: Symbol
         ).returns(T.attached_class)
       end
@@ -88,12 +69,11 @@ module Moonbase
         override.returns(
           {
             id: String,
-            links: Moonbase::Models::ViewRetrieveResponse::Links,
+            links: Moonbase::View::Links,
             name: String,
             type: Symbol,
             collection: Moonbase::Collection,
-            view_type:
-              Moonbase::Models::ViewRetrieveResponse::ViewType::TaggedSymbol
+            view_type: Moonbase::View::ViewType::TaggedSymbol
           }
         )
       end
@@ -103,10 +83,7 @@ module Moonbase
       class Links < Moonbase::Internal::Type::BaseModel
         OrHash =
           T.type_alias do
-            T.any(
-              Moonbase::Models::ViewRetrieveResponse::Links,
-              Moonbase::Internal::AnyHash
-            )
+            T.any(Moonbase::View::Links, Moonbase::Internal::AnyHash)
           end
 
         # A link to the `Collection` this view belongs to.
@@ -147,29 +124,14 @@ module Moonbase
       module ViewType
         extend Moonbase::Internal::Type::Enum
 
-        TaggedSymbol =
-          T.type_alias do
-            T.all(Symbol, Moonbase::Models::ViewRetrieveResponse::ViewType)
-          end
+        TaggedSymbol = T.type_alias { T.all(Symbol, Moonbase::View::ViewType) }
         OrSymbol = T.type_alias { T.any(Symbol, String) }
 
-        TABLE =
-          T.let(
-            :table,
-            Moonbase::Models::ViewRetrieveResponse::ViewType::TaggedSymbol
-          )
-        BOARD =
-          T.let(
-            :board,
-            Moonbase::Models::ViewRetrieveResponse::ViewType::TaggedSymbol
-          )
+        TABLE = T.let(:table, Moonbase::View::ViewType::TaggedSymbol)
+        BOARD = T.let(:board, Moonbase::View::ViewType::TaggedSymbol)
 
         sig do
-          override.returns(
-            T::Array[
-              Moonbase::Models::ViewRetrieveResponse::ViewType::TaggedSymbol
-            ]
-          )
+          override.returns(T::Array[Moonbase::View::ViewType::TaggedSymbol])
         end
         def self.values
         end
