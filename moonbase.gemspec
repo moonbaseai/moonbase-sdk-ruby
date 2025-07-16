@@ -3,7 +3,7 @@
 require_relative "lib/moonbase/version"
 
 Gem::Specification.new do |s|
-  s.name = "moonbase_sdk"
+  s.name = "moonbase-sdk"
   s.version = Moonbase::VERSION
   s.summary = "Ruby library to access the Moonbase API"
   s.authors = ["Moonbase"]

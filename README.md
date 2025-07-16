@@ -13,7 +13,7 @@ Documentation for releases of this gem can be found [on RubyDoc](https://gemdocs
 To use this gem, install via Bundler by adding the following to your application's `Gemfile`:
 
 ```ruby
-gem "moonbase_sdk", "~> 0.0.1.pre.alpha.0"
+gem "moonbase-sdk", "~> 0.0.1.pre.alpha.0"
 ```
 
 ## Usage
