@@ -1,0 +1,38 @@
+module Moonbase
+  module Models
+    type collection_list_params =
+      { after: String, before: String, limit: Integer }
+      & Moonbase::Internal::Type::request_parameters
+
+    class CollectionListParams < Moonbase::Internal::Type::BaseModel
+      extend Moonbase::Internal::Type::RequestParameters::Converter
+      include Moonbase::Internal::Type::RequestParameters
+
+      attr_reader after: String?
+
+      def after=: (String) -> String
+
+      attr_reader before: String?
+
+      def before=: (String) -> String
+
+      attr_reader limit: Integer?
+
+      def limit=: (Integer) -> Integer
+
+      def initialize: (
+        ?after: String,
+        ?before: String,
+        ?limit: Integer,
+        ?request_options: Moonbase::request_opts
+      ) -> void
+
+      def to_hash: -> {
+        after: String,
+        before: String,
+        limit: Integer,
+        request_options: Moonbase::RequestOptions
+      }
+    end
+  end
+end

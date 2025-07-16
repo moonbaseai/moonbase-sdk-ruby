@@ -1,0 +1,48 @@
+module Moonbase
+  module Models
+    type program_message_create_params =
+      {
+        person: Moonbase::ProgramMessageCreateParams::Person,
+        program_template_id: String,
+        custom_variables: ::Hash[Symbol, top]
+      }
+      & Moonbase::Internal::Type::request_parameters
+
+    class ProgramMessageCreateParams < Moonbase::Internal::Type::BaseModel
+      extend Moonbase::Internal::Type::RequestParameters::Converter
+      include Moonbase::Internal::Type::RequestParameters
+
+      attr_accessor person: Moonbase::ProgramMessageCreateParams::Person
+
+      attr_accessor program_template_id: String
+
+      attr_reader custom_variables: ::Hash[Symbol, top]?
+
+      def custom_variables=: (::Hash[Symbol, top]) -> ::Hash[Symbol, top]
+
+      def initialize: (
+        person: Moonbase::ProgramMessageCreateParams::Person,
+        program_template_id: String,
+        ?custom_variables: ::Hash[Symbol, top],
+        ?request_options: Moonbase::request_opts
+      ) -> void
+
+      def to_hash: -> {
+        person: Moonbase::ProgramMessageCreateParams::Person,
+        program_template_id: String,
+        custom_variables: ::Hash[Symbol, top],
+        request_options: Moonbase::RequestOptions
+      }
+
+      type person = { email: String }
+
+      class Person < Moonbase::Internal::Type::BaseModel
+        attr_accessor email: String
+
+        def initialize: (email: String) -> void
+
+        def to_hash: -> { email: String }
+      end
+    end
+  end
+end

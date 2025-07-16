@@ -1,0 +1,19 @@
+module Moonbase
+  module Resources
+    class Activities
+      def retrieve: (
+        String id,
+        ?request_options: Moonbase::request_opts
+      ) -> Moonbase::Models::activity
+
+      def list: (
+        ?after: String,
+        ?before: String,
+        ?limit: Integer,
+        ?request_options: Moonbase::request_opts
+      ) -> Moonbase::Internal::CursorPage[Moonbase::Models::activity]
+
+      def initialize: (client: Moonbase::Client) -> void
+    end
+  end
+end

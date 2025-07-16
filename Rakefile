@@ -150,7 +150,7 @@ multitask(:"build:gem") do
     sig/*
   GLOB
 
-  sh(*%w[gem build -- moonbase_sdk.gemspec])
+  sh(*%w[gem build -- moonbase.gemspec])
   rm_rf(ignore_file)
 end
 

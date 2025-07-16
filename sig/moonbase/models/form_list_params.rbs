@@ -1,0 +1,61 @@
+module Moonbase
+  module Models
+    type form_list_params =
+      {
+        after: String,
+        before: String,
+        include: ::Array[Moonbase::Models::FormListParams::include_],
+        limit: Integer
+      }
+      & Moonbase::Internal::Type::request_parameters
+
+    class FormListParams < Moonbase::Internal::Type::BaseModel
+      extend Moonbase::Internal::Type::RequestParameters::Converter
+      include Moonbase::Internal::Type::RequestParameters
+
+      attr_reader after: String?
+
+      def after=: (String) -> String
+
+      attr_reader before: String?
+
+      def before=: (String) -> String
+
+      attr_reader include: ::Array[Moonbase::Models::FormListParams::include_]?
+
+      def include=: (
+        ::Array[Moonbase::Models::FormListParams::include_]
+      ) -> ::Array[Moonbase::Models::FormListParams::include_]
+
+      attr_reader limit: Integer?
+
+      def limit=: (Integer) -> Integer
+
+      def initialize: (
+        ?after: String,
+        ?before: String,
+        ?include: ::Array[Moonbase::Models::FormListParams::include_],
+        ?limit: Integer,
+        ?request_options: Moonbase::request_opts
+      ) -> void
+
+      def to_hash: -> {
+        after: String,
+        before: String,
+        include: ::Array[Moonbase::Models::FormListParams::include_],
+        limit: Integer,
+        request_options: Moonbase::RequestOptions
+      }
+
+      type include_ = :"collection.fields"
+
+      module Include
+        extend Moonbase::Internal::Type::Enum
+
+        COLLECTION_FIELDS: :"collection.fields"
+
+        def self?.values: -> ::Array[Moonbase::Models::FormListParams::include_]
+      end
+    end
+  end
+end

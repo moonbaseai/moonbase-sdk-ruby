@@ -1,0 +1,21 @@
+module Moonbase
+  module Resources
+    class ProgramTemplates
+      def retrieve: (
+        String id,
+        ?include: ::Array[Moonbase::Models::ProgramTemplateRetrieveParams::include_],
+        ?request_options: Moonbase::request_opts
+      ) -> Moonbase::ProgramTemplate
+
+      def list: (
+        ?after: String,
+        ?before: String,
+        ?include: ::Array[Moonbase::Models::ProgramTemplateListParams::include_],
+        ?limit: Integer,
+        ?request_options: Moonbase::request_opts
+      ) -> Moonbase::Internal::CursorPage[Moonbase::ProgramTemplate]
+
+      def initialize: (client: Moonbase::Client) -> void
+    end
+  end
+end

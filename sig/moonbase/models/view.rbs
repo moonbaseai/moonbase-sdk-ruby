@@ -1,0 +1,80 @@
+module Moonbase
+  module Models
+    type view =
+      {
+        id: String,
+        links: Moonbase::View::Links,
+        name: String,
+        type: :view,
+        collection: Moonbase::Collection,
+        view_type: Moonbase::Models::View::view_type
+      }
+
+    class View < Moonbase::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor links: Moonbase::View::Links
+
+      attr_accessor name: String
+
+      attr_accessor type: :view
+
+      attr_reader collection: Moonbase::Collection?
+
+      def collection=: (Moonbase::Collection) -> Moonbase::Collection
+
+      attr_reader view_type: Moonbase::Models::View::view_type?
+
+      def view_type=: (
+        Moonbase::Models::View::view_type
+      ) -> Moonbase::Models::View::view_type
+
+      def initialize: (
+        id: String,
+        links: Moonbase::View::Links,
+        name: String,
+        ?collection: Moonbase::Collection,
+        ?view_type: Moonbase::Models::View::view_type,
+        ?type: :view
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        links: Moonbase::View::Links,
+        name: String,
+        type: :view,
+        collection: Moonbase::Collection,
+        view_type: Moonbase::Models::View::view_type
+      }
+
+      type links = { collection: String, items: String, self_: String }
+
+      class Links < Moonbase::Internal::Type::BaseModel
+        attr_accessor collection: String
+
+        attr_accessor items: String
+
+        attr_accessor self_: String
+
+        def initialize: (
+          collection: String,
+          items: String,
+          self_: String
+        ) -> void
+
+        def to_hash: -> { collection: String, items: String, self_: String }
+      end
+
+      type view_type = :table | :board
+
+      module ViewType
+        extend Moonbase::Internal::Type::Enum
+
+        TABLE: :table
+        BOARD: :board
+
+        def self?.values: -> ::Array[Moonbase::Models::View::view_type]
+      end
+    end
+  end
+end

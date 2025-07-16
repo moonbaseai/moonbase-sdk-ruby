@@ -1,0 +1,18 @@
+module Moonbase
+  module Models
+    type float_value = { number: Float, type: :"value/number/unitless_float" }
+
+    class FloatValue < Moonbase::Internal::Type::BaseModel
+      attr_accessor number: Float
+
+      attr_accessor type: :"value/number/unitless_float"
+
+      def initialize: (
+        number: Float,
+        ?type: :"value/number/unitless_float"
+      ) -> void
+
+      def to_hash: -> { number: Float, type: :"value/number/unitless_float" }
+    end
+  end
+end
