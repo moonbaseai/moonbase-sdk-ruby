@@ -2,7 +2,7 @@
 
 module Moonbase
   module Models
-    class ItemCreateParams < Moonbase::Models::ItemCreateParams
+    class ItemCreateParams < Moonbase::Internal::Type::BaseModel
       extend Moonbase::Internal::Type::RequestParameters::Converter
       include Moonbase::Internal::Type::RequestParameters
 
