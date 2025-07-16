@@ -3,7 +3,7 @@
 require_relative "lib/moonbase/version"
 
 Gem::Specification.new do |s|
-  s.name = "moonbase"
+  s.name = "moonbase_sdk"
   s.version = Moonbase::VERSION
   s.summary = "Ruby library to access the Moonbase API"
   s.authors = ["Moonbase"]
@@ -24,5 +24,5 @@ Gem::Specification.new do |s|
     ".ignore"
   ]
   s.extra_rdoc_files = ["README.md"]
-  s.add_dependency "connection_pool"
+  s.add_dependency("connection_pool")
 end
