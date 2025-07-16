@@ -1,0 +1,3 @@
+module MoonbaseSDK
+  VERSION: String
+end

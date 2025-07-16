@@ -1,0 +1,88 @@
+module MoonbaseSDK
+  module Models
+    type address =
+      {
+        id: String,
+        email: String,
+        links: MoonbaseSDK::Address::Links,
+        type: :address,
+        created_at: Time,
+        role: MoonbaseSDK::Models::Address::role,
+        updated_at: Time
+      }
+
+    class Address < MoonbaseSDK::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor email: String
+
+      attr_accessor links: MoonbaseSDK::Address::Links
+
+      attr_accessor type: :address
+
+      attr_reader created_at: Time?
+
+      def created_at=: (Time) -> Time
+
+      attr_reader role: MoonbaseSDK::Models::Address::role?
+
+      def role=: (
+        MoonbaseSDK::Models::Address::role
+      ) -> MoonbaseSDK::Models::Address::role
+
+      attr_reader updated_at: Time?
+
+      def updated_at=: (Time) -> Time
+
+      def initialize: (
+        id: String,
+        email: String,
+        links: MoonbaseSDK::Address::Links,
+        ?created_at: Time,
+        ?role: MoonbaseSDK::Models::Address::role,
+        ?updated_at: Time,
+        ?type: :address
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        email: String,
+        links: MoonbaseSDK::Address::Links,
+        type: :address,
+        created_at: Time,
+        role: MoonbaseSDK::Models::Address::role,
+        updated_at: Time
+      }
+
+      type links = { organization: String, person: String }
+
+      class Links < MoonbaseSDK::Internal::Type::BaseModel
+        attr_reader organization: String?
+
+        def organization=: (String) -> String
+
+        attr_reader person: String?
+
+        def person=: (String) -> String
+
+        def initialize: (?organization: String, ?person: String) -> void
+
+        def to_hash: -> { organization: String, person: String }
+      end
+
+      type role = :from | :reply_to | :to | :cc | :bcc
+
+      module Role
+        extend MoonbaseSDK::Internal::Type::Enum
+
+        FROM: :from
+        REPLY_TO: :reply_to
+        TO: :to
+        CC: :cc
+        BCC: :bcc
+
+        def self?.values: -> ::Array[MoonbaseSDK::Models::Address::role]
+      end
+    end
+  end
+end

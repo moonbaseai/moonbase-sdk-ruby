@@ -6,23 +6,23 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 ## Documentation
 
-Documentation for releases of this gem can be found [on RubyDoc](https://gemdocs.org/gems/moonbase).
+Documentation for releases of this gem can be found [on RubyDoc](https://gemdocs.org/gems/moonbase-sdk).
 
 ## Installation
 
 To use this gem, install via Bundler by adding the following to your application's `Gemfile`:
 
 ```ruby
-gem "moonbase", "~> 0.0.1.pre.alpha.0"
+gem "moonbase-sdk", "~> 0.0.1.pre.alpha.0"
 ```
 
 ## Usage
 
 ```ruby
 require "bundler/setup"
-require "moonbase"
+require "moonbase_sdk"
 
-moonbase = Moonbase::Client.new(
+moonbase = MoonbaseSDK::Client.new(
   api_key: ENV["MOONBASE_API_KEY"] # This is the default and can be omitted
 )
 
@@ -65,7 +65,7 @@ end
 
 ### Handling errors
 
-When the library is unable to connect to the API, or if the API returns a non-success status code (i.e., 4xx or 5xx response), a subclass of `Moonbase::Errors::APIError` will be thrown:
+When the library is unable to connect to the API, or if the API returns a non-success status code (i.e., 4xx or 5xx response), a subclass of `MoonbaseSDK::Errors::APIError` will be thrown:
 
 ```ruby
 begin
@@ -74,12 +74,12 @@ begin
     program_template_id: "MOONBASE_PROGRAM_TEMPLATE_ID",
     custom_variables: {}
   )
-rescue Moonbase::Errors::APIConnectionError => e
+rescue MoonbaseSDK::Errors::APIConnectionError => e
   puts("The server could not be reached")
   puts(e.cause)  # an underlying Exception, likely raised within `net/http`
-rescue Moonbase::Errors::RateLimitError => e
+rescue MoonbaseSDK::Errors::RateLimitError => e
   puts("A 429 status code was received; we should back off a bit.")
-rescue Moonbase::Errors::APIStatusError => e
+rescue MoonbaseSDK::Errors::APIStatusError => e
   puts("Another non-200-range status code was received")
   puts(e.status)
 end
@@ -111,7 +111,7 @@ You can use the `max_retries` option to configure or disable this:
 
 ```ruby
 # Configure the default for all requests:
-moonbase = Moonbase::Client.new(
+moonbase = MoonbaseSDK::Client.new(
   max_retries: 0 # default is 2
 )
 
@@ -130,7 +130,7 @@ By default, requests will time out after 60 seconds. You can use the timeout opt
 
 ```ruby
 # Configure the default for all requests:
-moonbase = Moonbase::Client.new(
+moonbase = MoonbaseSDK::Client.new(
   timeout: nil # default is 60
 )
 
@@ -143,7 +143,7 @@ moonbase.program_messages.create(
 )
 ```
 
-On timeout, `Moonbase::Errors::APITimeoutError` is raised.
+On timeout, `MoonbaseSDK::Errors::APITimeoutError` is raised.
 
 Note that requests that time out are retried by default.
 
@@ -151,7 +151,7 @@ Note that requests that time out are retried by default.
 
 ### BaseModel
 
-All parameter and response objects inherit from `Moonbase::Internal::Type::BaseModel`, which provides several conveniences, including:
+All parameter and response objects inherit from `MoonbaseSDK::Internal::Type::BaseModel`, which provides several conveniences, including:
 
 1. All fields, including unknown ones, are accessible with `obj[:prop]` syntax, and can be destructured with `obj => {prop: prop}` or pattern-matching syntax.
 
@@ -205,9 +205,9 @@ response = client.request(
 
 ### Concurrency & connection pooling
 
-The `Moonbase::Client` instances are threadsafe, but are only are fork-safe when there are no in-flight HTTP requests.
+The `MoonbaseSDK::Client` instances are threadsafe, but are only are fork-safe when there are no in-flight HTTP requests.
 
-Each instance of `Moonbase::Client` has its own HTTP connection pool with a default size of 99. As such, we recommend instantiating the client once per application in most settings.
+Each instance of `MoonbaseSDK::Client` has its own HTTP connection pool with a default size of 99. As such, we recommend instantiating the client once per application in most settings.
 
 When all available connections from the pool are checked out, requests wait for a new connection to become available, with queue time counting towards the request timeout.
 
@@ -221,7 +221,7 @@ You can provide typesafe request parameters like so:
 
 ```ruby
 moonbase.program_messages.create(
-  person: Moonbase::ProgramMessageCreateParams::Person.new(email: "user@example.com"),
+  person: MoonbaseSDK::ProgramMessageCreateParams::Person.new(email: "user@example.com"),
   program_template_id: "MOONBASE_PROGRAM_TEMPLATE_ID",
   custom_variables: {}
 )
@@ -238,8 +238,8 @@ moonbase.program_messages.create(
 )
 
 # You can also splat a full Params class:
-params = Moonbase::ProgramMessageCreateParams.new(
-  person: Moonbase::ProgramMessageCreateParams::Person.new(email: "user@example.com"),
+params = MoonbaseSDK::ProgramMessageCreateParams.new(
+  person: MoonbaseSDK::ProgramMessageCreateParams::Person.new(email: "user@example.com"),
   program_template_id: "MOONBASE_PROGRAM_TEMPLATE_ID",
   custom_variables: {}
 )
@@ -252,10 +252,10 @@ Since this library does not depend on `sorbet-runtime`, it cannot provide [`T::E
 
 ```ruby
 # :incoming
-puts(Moonbase::CallCreateParams::Direction::INCOMING)
+puts(MoonbaseSDK::CallCreateParams::Direction::INCOMING)
 
-# Revealed type: `T.all(Moonbase::CallCreateParams::Direction, Symbol)`
-T.reveal_type(Moonbase::CallCreateParams::Direction::INCOMING)
+# Revealed type: `T.all(MoonbaseSDK::CallCreateParams::Direction, Symbol)`
+T.reveal_type(MoonbaseSDK::CallCreateParams::Direction::INCOMING)
 ```
 
 Enum parameters have a "relaxed" type, so you can either pass in enum constants or their literal value:
@@ -263,7 +263,7 @@ Enum parameters have a "relaxed" type, so you can either pass in enum constants 
 ```ruby
 # Using the enum constants preserves the tagged type information:
 moonbase.calls.create(
-  direction: Moonbase::CallCreateParams::Direction::INCOMING,
+  direction: MoonbaseSDK::CallCreateParams::Direction::INCOMING,
   # …
 )
 

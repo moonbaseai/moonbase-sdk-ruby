@@ -1,3 +1,0 @@
-module Moonbase
-  VERSION: String
-end

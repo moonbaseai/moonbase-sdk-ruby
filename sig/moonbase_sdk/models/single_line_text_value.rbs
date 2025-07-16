@@ -1,0 +1,16 @@
+module MoonbaseSDK
+  module Models
+    type single_line_text_value =
+      { text: String, type: :"value/text/single_line" }
+
+    class SingleLineTextValue < MoonbaseSDK::Internal::Type::BaseModel
+      attr_accessor text: String
+
+      attr_accessor type: :"value/text/single_line"
+
+      def initialize: (text: String, ?type: :"value/text/single_line") -> void
+
+      def to_hash: -> { text: String, type: :"value/text/single_line" }
+    end
+  end
+end

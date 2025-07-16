@@ -39,9 +39,9 @@ Layout/LineLength:
   AllowedPatterns:
     - "^\\s*#.*$"
     - ^require(_relative)?
-    - "Moonbase::Internal::Type::BaseModel$"
+    - "MoonbaseSDK::Internal::Type::BaseModel$"
     - "^\\s*[A-Z0-9_]+ = :"
-    - "Moonbase::(Models|Resources|Test)::"
+    - "MoonbaseSDK::(Models|Resources|Test)::"
   Max: 110
 
 Layout/MultilineArrayLineBreaks:

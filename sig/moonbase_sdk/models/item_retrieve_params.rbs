@@ -1,0 +1,15 @@
+module MoonbaseSDK
+  module Models
+    type item_retrieve_params =
+      {  } & MoonbaseSDK::Internal::Type::request_parameters
+
+    class ItemRetrieveParams < MoonbaseSDK::Internal::Type::BaseModel
+      extend MoonbaseSDK::Internal::Type::RequestParameters::Converter
+      include MoonbaseSDK::Internal::Type::RequestParameters
+
+      def initialize: (?request_options: MoonbaseSDK::request_opts) -> void
+
+      def to_hash: -> { request_options: MoonbaseSDK::RequestOptions }
+    end
+  end
+end

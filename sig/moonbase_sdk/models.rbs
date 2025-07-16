@@ -1,0 +1,151 @@
+module MoonbaseSDK
+  module Activity = MoonbaseSDK::Models::Activity
+
+  class ActivityListParams = MoonbaseSDK::Models::ActivityListParams
+
+  class ActivityRetrieveParams = MoonbaseSDK::Models::ActivityRetrieveParams
+
+  class Address = MoonbaseSDK::Models::Address
+
+  class Attendee = MoonbaseSDK::Models::Attendee
+
+  class BooleanValue = MoonbaseSDK::Models::BooleanValue
+
+  class Call = MoonbaseSDK::Models::Call
+
+  class CallCreateParams = MoonbaseSDK::Models::CallCreateParams
+
+  class Choice = MoonbaseSDK::Models::Choice
+
+  class Collection = MoonbaseSDK::Models::Collection
+
+  class CollectionListParams = MoonbaseSDK::Models::CollectionListParams
+
+  class CollectionRetrieveParams = MoonbaseSDK::Models::CollectionRetrieveParams
+
+  module Collections = MoonbaseSDK::Models::Collections
+
+  class DatetimeValue = MoonbaseSDK::Models::DatetimeValue
+
+  class DateValue = MoonbaseSDK::Models::DateValue
+
+  class DomainValue = MoonbaseSDK::Models::DomainValue
+
+  class EmailMessage = MoonbaseSDK::Models::EmailMessage
+
+  class EmailValue = MoonbaseSDK::Models::EmailValue
+
+  class Error = MoonbaseSDK::Models::Error
+
+  class Field = MoonbaseSDK::Models::Field
+
+  module FieldValue = MoonbaseSDK::Models::FieldValue
+
+  class FileListParams = MoonbaseSDK::Models::FileListParams
+
+  class FileRetrieveParams = MoonbaseSDK::Models::FileRetrieveParams
+
+  class FloatValue = MoonbaseSDK::Models::FloatValue
+
+  class Form = MoonbaseSDK::Models::Form
+
+  class FormListParams = MoonbaseSDK::Models::FormListParams
+
+  class FormRetrieveParams = MoonbaseSDK::Models::FormRetrieveParams
+
+  class FunnelStep = MoonbaseSDK::Models::FunnelStep
+
+  class GeoValue = MoonbaseSDK::Models::GeoValue
+
+  class Inbox = MoonbaseSDK::Models::Inbox
+
+  class InboxConversation = MoonbaseSDK::Models::InboxConversation
+
+  class InboxConversationListParams = MoonbaseSDK::Models::InboxConversationListParams
+
+  class InboxConversationRetrieveParams = MoonbaseSDK::Models::InboxConversationRetrieveParams
+
+  class InboxListParams = MoonbaseSDK::Models::InboxListParams
+
+  class InboxMessageListParams = MoonbaseSDK::Models::InboxMessageListParams
+
+  class InboxMessageRetrieveParams = MoonbaseSDK::Models::InboxMessageRetrieveParams
+
+  class InboxRetrieveParams = MoonbaseSDK::Models::InboxRetrieveParams
+
+  class IntegerValue = MoonbaseSDK::Models::IntegerValue
+
+  class Item = MoonbaseSDK::Models::Item
+
+  class ItemCreateParams = MoonbaseSDK::Models::ItemCreateParams
+
+  class ItemDeleteParams = MoonbaseSDK::Models::ItemDeleteParams
+
+  class ItemRetrieveParams = MoonbaseSDK::Models::ItemRetrieveParams
+
+  class ItemUpdateParams = MoonbaseSDK::Models::ItemUpdateParams
+
+  class ItemUpsertParams = MoonbaseSDK::Models::ItemUpsertParams
+
+  class Meeting = MoonbaseSDK::Models::Meeting
+
+  class MeetingListParams = MoonbaseSDK::Models::MeetingListParams
+
+  class MeetingRetrieveParams = MoonbaseSDK::Models::MeetingRetrieveParams
+
+  class MonetaryValue = MoonbaseSDK::Models::MonetaryValue
+
+  class MoonbaseFile = MoonbaseSDK::Models::MoonbaseFile
+
+  class MultiLineTextValue = MoonbaseSDK::Models::MultiLineTextValue
+
+  class Note = MoonbaseSDK::Models::Note
+
+  class NoteListParams = MoonbaseSDK::Models::NoteListParams
+
+  class NoteRetrieveParams = MoonbaseSDK::Models::NoteRetrieveParams
+
+  class Organizer = MoonbaseSDK::Models::Organizer
+
+  class PercentageValue = MoonbaseSDK::Models::PercentageValue
+
+  class Program = MoonbaseSDK::Models::Program
+
+  class ProgramListParams = MoonbaseSDK::Models::ProgramListParams
+
+  class ProgramMessageCreateParams = MoonbaseSDK::Models::ProgramMessageCreateParams
+
+  class ProgramRetrieveParams = MoonbaseSDK::Models::ProgramRetrieveParams
+
+  class ProgramTemplate = MoonbaseSDK::Models::ProgramTemplate
+
+  class ProgramTemplateListParams = MoonbaseSDK::Models::ProgramTemplateListParams
+
+  class ProgramTemplateRetrieveParams = MoonbaseSDK::Models::ProgramTemplateRetrieveParams
+
+  class RelationValue = MoonbaseSDK::Models::RelationValue
+
+  class SingleLineTextValue = MoonbaseSDK::Models::SingleLineTextValue
+
+  class SocialLinkedInValue = MoonbaseSDK::Models::SocialLinkedInValue
+
+  class SocialXValue = MoonbaseSDK::Models::SocialXValue
+
+  class Tagset = MoonbaseSDK::Models::Tagset
+
+  class TagsetListParams = MoonbaseSDK::Models::TagsetListParams
+
+  class TagsetRetrieveParams = MoonbaseSDK::Models::TagsetRetrieveParams
+
+  class TelephoneNumber = MoonbaseSDK::Models::TelephoneNumber
+
+  class URLValue = MoonbaseSDK::Models::URLValue
+
+  module Value = MoonbaseSDK::Models::Value
+
+  class View = MoonbaseSDK::Models::View
+
+  class ViewRetrieveParams = MoonbaseSDK::Models::ViewRetrieveParams
+
+  module Views = MoonbaseSDK::Models::Views
+end

@@ -1,0 +1,22 @@
+module MoonbaseSDK
+  module Resources
+    class Collections
+      attr_reader fields: MoonbaseSDK::Resources::Collections::Fields
+
+      def retrieve: (
+        String id,
+        ?include: ::Array[MoonbaseSDK::Models::CollectionRetrieveParams::include_],
+        ?request_options: MoonbaseSDK::request_opts
+      ) -> MoonbaseSDK::Collection
+
+      def list: (
+        ?after: String,
+        ?before: String,
+        ?limit: Integer,
+        ?request_options: MoonbaseSDK::request_opts
+      ) -> MoonbaseSDK::Internal::CursorPage[MoonbaseSDK::Collection]
+
+      def initialize: (client: MoonbaseSDK::Client) -> void
+    end
+  end
+end

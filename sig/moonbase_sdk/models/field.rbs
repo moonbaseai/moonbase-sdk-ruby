@@ -1,0 +1,266 @@
+module MoonbaseSDK
+  module Models
+    type field =
+      {
+        id: String,
+        cardinality: MoonbaseSDK::Models::Field::cardinality,
+        links: MoonbaseSDK::Field::Links,
+        name: String,
+        ref: String,
+        type: MoonbaseSDK::Models::Field::type_,
+        created_at: Time,
+        description: String,
+        field_options: ::Array[MoonbaseSDK::Field::FieldOption],
+        funnel: MoonbaseSDK::Field::Funnel,
+        readonly: bool,
+        required: bool,
+        unique: bool,
+        updated_at: Time
+      }
+
+    class Field < MoonbaseSDK::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor cardinality: MoonbaseSDK::Models::Field::cardinality
+
+      attr_accessor links: MoonbaseSDK::Field::Links
+
+      attr_accessor name: String
+
+      attr_accessor ref: String
+
+      attr_accessor type: MoonbaseSDK::Models::Field::type_
+
+      attr_reader created_at: Time?
+
+      def created_at=: (Time) -> Time
+
+      attr_reader description: String?
+
+      def description=: (String) -> String
+
+      attr_reader field_options: ::Array[MoonbaseSDK::Field::FieldOption]?
+
+      def field_options=: (
+        ::Array[MoonbaseSDK::Field::FieldOption]
+      ) -> ::Array[MoonbaseSDK::Field::FieldOption]
+
+      attr_reader funnel: MoonbaseSDK::Field::Funnel?
+
+      def funnel=: (MoonbaseSDK::Field::Funnel) -> MoonbaseSDK::Field::Funnel
+
+      attr_reader readonly: bool?
+
+      def readonly=: (bool) -> bool
+
+      attr_reader required: bool?
+
+      def required=: (bool) -> bool
+
+      attr_reader unique: bool?
+
+      def unique=: (bool) -> bool
+
+      attr_reader updated_at: Time?
+
+      def updated_at=: (Time) -> Time
+
+      def initialize: (
+        id: String,
+        cardinality: MoonbaseSDK::Models::Field::cardinality,
+        links: MoonbaseSDK::Field::Links,
+        name: String,
+        ref: String,
+        type: MoonbaseSDK::Models::Field::type_,
+        ?created_at: Time,
+        ?description: String,
+        ?field_options: ::Array[MoonbaseSDK::Field::FieldOption],
+        ?funnel: MoonbaseSDK::Field::Funnel,
+        ?readonly: bool,
+        ?required: bool,
+        ?unique: bool,
+        ?updated_at: Time
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        cardinality: MoonbaseSDK::Models::Field::cardinality,
+        links: MoonbaseSDK::Field::Links,
+        name: String,
+        ref: String,
+        type: MoonbaseSDK::Models::Field::type_,
+        created_at: Time,
+        description: String,
+        field_options: ::Array[MoonbaseSDK::Field::FieldOption],
+        funnel: MoonbaseSDK::Field::Funnel,
+        readonly: bool,
+        required: bool,
+        unique: bool,
+        updated_at: Time
+      }
+
+      type cardinality = :one | :many
+
+      module Cardinality
+        extend MoonbaseSDK::Internal::Type::Enum
+
+        ONE: :one
+        MANY: :many
+
+        def self?.values: -> ::Array[MoonbaseSDK::Models::Field::cardinality]
+      end
+
+      type links = { collection: String, self_: String }
+
+      class Links < MoonbaseSDK::Internal::Type::BaseModel
+        attr_accessor collection: String
+
+        attr_accessor self_: String
+
+        def initialize: (collection: String, self_: String) -> void
+
+        def to_hash: -> { collection: String, self_: String }
+      end
+
+      type type_ =
+        :"field/text/single_line"
+        | :"field/text/multi_line"
+        | :"field/number/unitless_integer"
+        | :"field/number/unitless_float"
+        | :"field/number/monetary"
+        | :"field/number/percentage"
+        | :"field/boolean"
+        | :"field/email"
+        | :"field/uri/url"
+        | :"field/uri/domain"
+        | :"field/uri/social_x"
+        | :"field/uri/social_linked_in"
+        | :"field/telephone_number"
+        | :"field/geo"
+        | :"field/date"
+        | :"field/datetime"
+        | :"field/choice"
+        | :"field/stage"
+        | :"field/relation/one_way"
+        | :"field/relation/two_way"
+
+      module Type
+        extend MoonbaseSDK::Internal::Type::Enum
+
+        FIELD_TEXT_SINGLE_LINE: :"field/text/single_line"
+        FIELD_TEXT_MULTI_LINE: :"field/text/multi_line"
+        FIELD_NUMBER_UNITLESS_INTEGER: :"field/number/unitless_integer"
+        FIELD_NUMBER_UNITLESS_FLOAT: :"field/number/unitless_float"
+        FIELD_NUMBER_MONETARY: :"field/number/monetary"
+        FIELD_NUMBER_PERCENTAGE: :"field/number/percentage"
+        FIELD_BOOLEAN: :"field/boolean"
+        FIELD_EMAIL: :"field/email"
+        FIELD_URI_URL: :"field/uri/url"
+        FIELD_URI_DOMAIN: :"field/uri/domain"
+        FIELD_URI_SOCIAL_X: :"field/uri/social_x"
+        FIELD_URI_SOCIAL_LINKED_IN: :"field/uri/social_linked_in"
+        FIELD_TELEPHONE_NUMBER: :"field/telephone_number"
+        FIELD_GEO: :"field/geo"
+        FIELD_DATE: :"field/date"
+        FIELD_DATETIME: :"field/datetime"
+        FIELD_CHOICE: :"field/choice"
+        FIELD_STAGE: :"field/stage"
+        FIELD_RELATION_ONE_WAY: :"field/relation/one_way"
+        FIELD_RELATION_TWO_WAY: :"field/relation/two_way"
+
+        def self?.values: -> ::Array[MoonbaseSDK::Models::Field::type_]
+      end
+
+      type field_option = { id: String, label: String, type: :field_option }
+
+      class FieldOption < MoonbaseSDK::Internal::Type::BaseModel
+        attr_accessor id: String
+
+        attr_accessor label: String
+
+        attr_accessor type: :field_option
+
+        def initialize: (
+          id: String,
+          label: String,
+          ?type: :field_option
+        ) -> void
+
+        def to_hash: -> { id: String, label: String, type: :field_option }
+      end
+
+      type funnel =
+        {
+          id: String,
+          type: :funnel,
+          steps: ::Array[MoonbaseSDK::Field::Funnel::Step]
+        }
+
+      class Funnel < MoonbaseSDK::Internal::Type::BaseModel
+        attr_accessor id: String
+
+        attr_accessor type: :funnel
+
+        attr_reader steps: ::Array[MoonbaseSDK::Field::Funnel::Step]?
+
+        def steps=: (
+          ::Array[MoonbaseSDK::Field::Funnel::Step]
+        ) -> ::Array[MoonbaseSDK::Field::Funnel::Step]
+
+        def initialize: (
+          id: String,
+          ?steps: ::Array[MoonbaseSDK::Field::Funnel::Step],
+          ?type: :funnel
+        ) -> void
+
+        def to_hash: -> {
+          id: String,
+          type: :funnel,
+          steps: ::Array[MoonbaseSDK::Field::Funnel::Step]
+        }
+
+        type step =
+          {
+            id: String,
+            name: String,
+            type: MoonbaseSDK::Models::Field::Funnel::Step::type_
+          }
+
+        class Step < MoonbaseSDK::Internal::Type::BaseModel
+          attr_accessor id: String
+
+          attr_accessor name: String
+
+          attr_accessor type: MoonbaseSDK::Models::Field::Funnel::Step::type_
+
+          def initialize: (
+            id: String,
+            name: String,
+            type: MoonbaseSDK::Models::Field::Funnel::Step::type_
+          ) -> void
+
+          def to_hash: -> {
+            id: String,
+            name: String,
+            type: MoonbaseSDK::Models::Field::Funnel::Step::type_
+          }
+
+          type type_ =
+            :"funnel_step/active"
+            | :"funnel_step/success"
+            | :"funnel_step/failure"
+
+          module Type
+            extend MoonbaseSDK::Internal::Type::Enum
+
+            FUNNEL_STEP_ACTIVE: :"funnel_step/active"
+            FUNNEL_STEP_SUCCESS: :"funnel_step/success"
+            FUNNEL_STEP_FAILURE: :"funnel_step/failure"
+
+            def self?.values: -> ::Array[MoonbaseSDK::Models::Field::Funnel::Step::type_]
+          end
+        end
+      end
+    end
+  end
+end
