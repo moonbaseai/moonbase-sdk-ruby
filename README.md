@@ -26,9 +26,13 @@ moonbase = Moonbase::Client.new(
   api_key: ENV["MOONBASE_API_KEY"] # This is the default and can be omitted
 )
 
-page = moonbase.program_templates.list
+program_message = moonbase.program_messages.create(
+  person: {email: "user@example.com"},
+  program_template_id: "MOONBASE_PROGRAM_TEMPLATE_ID",
+  custom_variables: {}
+)
 
-puts(page.id)
+puts(program_message.id)
 ```
 
 ### Pagination
@@ -65,7 +69,11 @@ When the library is unable to connect to the API, or if the API returns a non-su
 
 ```ruby
 begin
-  program_template = moonbase.program_templates.list
+  program_message = moonbase.program_messages.create(
+    person: {email: "user@example.com"},
+    program_template_id: "MOONBASE_PROGRAM_TEMPLATE_ID",
+    custom_variables: {}
+  )
 rescue Moonbase::Errors::APIConnectionError => e
   puts("The server could not be reached")
   puts(e.cause)  # an underlying Exception, likely raised within `net/http`
@@ -108,7 +116,12 @@ moonbase = Moonbase::Client.new(
 )
 
 # Or, configure per-request:
-moonbase.program_templates.list(request_options: {max_retries: 5})
+moonbase.program_messages.create(
+  person: {email: "user@example.com"},
+  program_template_id: "MOONBASE_PROGRAM_TEMPLATE_ID",
+  custom_variables: {},
+  request_options: {max_retries: 5}
+)
 ```
 
 ### Timeouts
@@ -122,7 +135,12 @@ moonbase = Moonbase::Client.new(
 )
 
 # Or, configure per-request:
-moonbase.program_templates.list(request_options: {timeout: 5})
+moonbase.program_messages.create(
+  person: {email: "user@example.com"},
+  program_template_id: "MOONBASE_PROGRAM_TEMPLATE_ID",
+  custom_variables: {},
+  request_options: {timeout: 5}
+)
 ```
 
 On timeout, `Moonbase::Errors::APITimeoutError` is raised.
@@ -152,8 +170,11 @@ You can send undocumented parameters to any endpoint, and read undocumented resp
 Note: the `extra_` parameters of the same name overrides the documented parameters.
 
 ```ruby
-page =
-  moonbase.program_templates.list(
+program_message =
+  moonbase.program_messages.create(
+    person: {email: "user@example.com"},
+    program_template_id: "MOONBASE_PROGRAM_TEMPLATE_ID",
+    custom_variables: {},
     request_options: {
       extra_query: {my_query_parameter: value},
       extra_body: {my_body_parameter: value},
@@ -161,7 +182,7 @@ page =
     }
   )
 
-puts(page[:my_undocumented_property])
+puts(program_message[:my_undocumented_property])
 ```
 
 #### Undocumented request params
@@ -199,18 +220,30 @@ This library provides comprehensive [RBI](https://sorbet.org/docs/rbi) definitio
 You can provide typesafe request parameters like so:
 
 ```ruby
-moonbase.program_templates.list
+moonbase.program_messages.create(
+  person: Moonbase::ProgramMessageCreateParams::Person.new(email: "user@example.com"),
+  program_template_id: "MOONBASE_PROGRAM_TEMPLATE_ID",
+  custom_variables: {}
+)
 ```
 
 Or, equivalently:
 
 ```ruby
 # Hashes work, but are not typesafe:
-moonbase.program_templates.list
+moonbase.program_messages.create(
+  person: {email: "user@example.com"},
+  program_template_id: "MOONBASE_PROGRAM_TEMPLATE_ID",
+  custom_variables: {}
+)
 
 # You can also splat a full Params class:
-params = Moonbase::ProgramTemplateListParams.new
-moonbase.program_templates.list(**params)
+params = Moonbase::ProgramMessageCreateParams.new(
+  person: Moonbase::ProgramMessageCreateParams::Person.new(email: "user@example.com"),
+  program_template_id: "MOONBASE_PROGRAM_TEMPLATE_ID",
+  custom_variables: {}
+)
+moonbase.program_messages.create(**params)
 ```
 
 ### Enums
