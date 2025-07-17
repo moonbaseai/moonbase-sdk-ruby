@@ -14,13 +14,6 @@ module Moonbase
       sig { returns(String) }
       attr_accessor :email
 
-      # A hash of related links.
-      sig { returns(Moonbase::Address::Links) }
-      attr_reader :links
-
-      sig { params(links: Moonbase::Address::Links::OrHash).void }
-      attr_writer :links
-
       # String representing the object’s type. Always `address` for this object.
       sig { returns(Symbol) }
       attr_accessor :type
@@ -31,6 +24,13 @@ module Moonbase
 
       sig { params(created_at: Time).void }
       attr_writer :created_at
+
+      # A hash of related links.
+      sig { returns(T.nilable(Moonbase::Address::Links)) }
+      attr_reader :links
+
+      sig { params(links: Moonbase::Address::Links::OrHash).void }
+      attr_writer :links
 
       # The role of the address in the message. Can be `from`, `reply_to`, `to`, `cc`,
       # or `bcc`.
@@ -54,8 +54,8 @@ module Moonbase
         params(
           id: String,
           email: String,
-          links: Moonbase::Address::Links::OrHash,
           created_at: Time,
+          links: Moonbase::Address::Links::OrHash,
           role: Moonbase::Address::Role::OrSymbol,
           updated_at: Time,
           type: Symbol
@@ -66,10 +66,10 @@ module Moonbase
         id:,
         # The email address.
         email:,
-        # A hash of related links.
-        links:,
         # Time at which the object was created, as an RFC 3339 timestamp.
         created_at: nil,
+        # A hash of related links.
+        links: nil,
         # The role of the address in the message. Can be `from`, `reply_to`, `to`, `cc`,
         # or `bcc`.
         role: nil,
@@ -85,9 +85,9 @@ module Moonbase
           {
             id: String,
             email: String,
-            links: Moonbase::Address::Links,
             type: Symbol,
             created_at: Time,
+            links: Moonbase::Address::Links,
             role: Moonbase::Address::Role::TaggedSymbol,
             updated_at: Time
           }

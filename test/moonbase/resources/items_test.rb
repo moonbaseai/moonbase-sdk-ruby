@@ -6,10 +6,10 @@ class Moonbase::Test::Resources::ItemsTest < Moonbase::Test::ResourceTest
   def test_create_required_params
     response =
       @moonbase.items.create(
-        collection_id: "1CR8ZUPSRgSsYUg8HVzSV6",
+        collection_id: "1CRD6MdCL7s2gPB539XjP6",
         values: {
           name: {text: "Aperture Science", type: :"value/text/single_line"},
-          ceo: {item: {id: "1CR8ZUQk3g9D6v8bvQPh7U", type: :item}, type: :"value/relation"}
+          ceo: {item: {id: "1CRD6MeP2cCUHptvnsW7yJ", type: :item}, type: :"value/relation"}
         }
       )
 
@@ -21,6 +21,7 @@ class Moonbase::Test::Resources::ItemsTest < Moonbase::Test::ResourceTest
       response => {
         id: String,
         type: Symbol,
+        links: Moonbase::Item::Links | nil,
         values: ^(Moonbase::Internal::Type::HashOf[union: Moonbase::FieldValue, nil?: true]) | nil
       }
     end
@@ -37,14 +38,14 @@ class Moonbase::Test::Resources::ItemsTest < Moonbase::Test::ResourceTest
       response => {
         id: String,
         type: Symbol,
+        links: Moonbase::Item::Links | nil,
         values: ^(Moonbase::Internal::Type::HashOf[union: Moonbase::FieldValue, nil?: true]) | nil
       }
     end
   end
 
   def test_update_required_params
-    response =
-      @moonbase.items.update("id", values: {name: {text: "Jony Appleseed", type: :"value/text/single_line"}})
+    response = @moonbase.items.update("id", values: {foo: {text: "text", type: :"value/text/single_line"}})
 
     assert_pattern do
       response => Moonbase::Item
@@ -54,6 +55,7 @@ class Moonbase::Test::Resources::ItemsTest < Moonbase::Test::ResourceTest
       response => {
         id: String,
         type: Symbol,
+        links: Moonbase::Item::Links | nil,
         values: ^(Moonbase::Internal::Type::HashOf[union: Moonbase::FieldValue, nil?: true]) | nil
       }
     end
@@ -70,6 +72,7 @@ class Moonbase::Test::Resources::ItemsTest < Moonbase::Test::ResourceTest
       response => {
         id: String,
         type: Symbol,
+        links: Moonbase::Item::Links | nil,
         values: ^(Moonbase::Internal::Type::HashOf[union: Moonbase::FieldValue, nil?: true]) | nil
       }
     end
@@ -78,7 +81,7 @@ class Moonbase::Test::Resources::ItemsTest < Moonbase::Test::ResourceTest
   def test_upsert_required_params
     response =
       @moonbase.items.upsert(
-        collection_id: "1CR8ZTkjJggbDcKLRBk8FL",
+        collection_id: "1CRD6Lnrjaiiu4B9ptBpuP",
         identifiers: {domain: []},
         values: {
           name: {text: "Aperture Science", type: :"value/text/single_line"},
@@ -95,6 +98,7 @@ class Moonbase::Test::Resources::ItemsTest < Moonbase::Test::ResourceTest
       response => {
         id: String,
         type: Symbol,
+        links: Moonbase::Item::Links | nil,
         values: ^(Moonbase::Internal::Type::HashOf[union: Moonbase::FieldValue, nil?: true]) | nil
       }
     end

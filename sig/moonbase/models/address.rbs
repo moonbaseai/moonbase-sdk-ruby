@@ -4,9 +4,9 @@ module Moonbase
       {
         id: String,
         email: String,
-        links: Moonbase::Address::Links,
         type: :address,
         created_at: Time,
+        links: Moonbase::Address::Links,
         role: Moonbase::Models::Address::role,
         updated_at: Time
       }
@@ -16,13 +16,15 @@ module Moonbase
 
       attr_accessor email: String
 
-      attr_accessor links: Moonbase::Address::Links
-
       attr_accessor type: :address
 
       attr_reader created_at: Time?
 
       def created_at=: (Time) -> Time
+
+      attr_reader links: Moonbase::Address::Links?
+
+      def links=: (Moonbase::Address::Links) -> Moonbase::Address::Links
 
       attr_reader role: Moonbase::Models::Address::role?
 
@@ -37,8 +39,8 @@ module Moonbase
       def initialize: (
         id: String,
         email: String,
-        links: Moonbase::Address::Links,
         ?created_at: Time,
+        ?links: Moonbase::Address::Links,
         ?role: Moonbase::Models::Address::role,
         ?updated_at: Time,
         ?type: :address
@@ -47,9 +49,9 @@ module Moonbase
       def to_hash: -> {
         id: String,
         email: String,
-        links: Moonbase::Address::Links,
         type: :address,
         created_at: Time,
+        links: Moonbase::Address::Links,
         role: Moonbase::Models::Address::role,
         updated_at: Time
       }
