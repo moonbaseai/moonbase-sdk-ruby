@@ -4,6 +4,7 @@ module Moonbase
       {
         id: String,
         type: :item,
+        links: Moonbase::Item::Links,
         values: ::Hash[Symbol, Moonbase::Models::field_value?]
       }
 
@@ -11,6 +12,10 @@ module Moonbase
       attr_accessor id: String
 
       attr_accessor type: :item
+
+      attr_reader links: Moonbase::Item::Links?
+
+      def links=: (Moonbase::Item::Links) -> Moonbase::Item::Links
 
       attr_reader values: ::Hash[Symbol, Moonbase::Models::field_value?]?
 
@@ -20,6 +25,7 @@ module Moonbase
 
       def initialize: (
         id: String,
+        ?links: Moonbase::Item::Links,
         ?values: ::Hash[Symbol, Moonbase::Models::field_value?],
         ?type: :item
       ) -> void
@@ -27,8 +33,25 @@ module Moonbase
       def to_hash: -> {
         id: String,
         type: :item,
+        links: Moonbase::Item::Links,
         values: ::Hash[Symbol, Moonbase::Models::field_value?]
       }
+
+      type links = { collection: String, self_: String }
+
+      class Links < Moonbase::Internal::Type::BaseModel
+        attr_reader collection: String?
+
+        def collection=: (String) -> String
+
+        attr_reader self_: String?
+
+        def self_=: (String) -> String
+
+        def initialize: (?collection: String, ?self_: String) -> void
+
+        def to_hash: -> { collection: String, self_: String }
+      end
     end
   end
 end

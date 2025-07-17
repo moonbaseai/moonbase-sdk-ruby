@@ -9,8 +9,8 @@ class Moonbase::Test::Resources::CallsTest < Moonbase::Test::ResourceTest
         direction: :incoming,
         participants: [{phone: "+14155551212", role: :caller}, {phone: "+16505551212", role: :callee}],
         provider: "openphone",
-        provider_id: "openphone_id_000000000002",
-        start_at: "2025-07-15T08:23:09.649Z",
+        provider_id: "openphone_id_000000000001",
+        start_at: "2025-07-17T17:50:23.140Z",
         status: :completed
       )
 

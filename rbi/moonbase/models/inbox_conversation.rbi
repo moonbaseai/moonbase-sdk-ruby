@@ -18,6 +18,10 @@ module Moonbase
       sig { params(links: Moonbase::InboxConversation::Links::OrHash).void }
       attr_writer :links
 
+      # The current state, which can be `unassigned`, `active`, `closed`, or `waiting`.
+      sig { returns(Moonbase::InboxConversation::State::TaggedSymbol) }
+      attr_accessor :state
+
       # String representing the object’s type. Always `inbox_conversation` for this
       # object.
       sig { returns(Symbol) }
@@ -36,13 +40,6 @@ module Moonbase
 
       sig { params(bulk: T::Boolean).void }
       attr_writer :bulk
-
-      # `true` if the conversation is currently closed.
-      sig { returns(T.nilable(T::Boolean)) }
-      attr_reader :closed
-
-      sig { params(closed: T::Boolean).void }
-      attr_writer :closed
 
       # Time at which the object was created, as an RFC 3339 timestamp.
       sig { returns(T.nilable(Time)) }
@@ -64,13 +61,6 @@ module Moonbase
 
       sig { params(new_draft_conversation: T::Boolean).void }
       attr_writer :new_draft_conversation
-
-      # `true` if the conversation is currently open.
-      sig { returns(T.nilable(T::Boolean)) }
-      attr_reader :open_
-
-      sig { params(open_: T::Boolean).void }
-      attr_writer :open_
 
       # `true` if the conversation is marked as spam.
       sig { returns(T.nilable(T::Boolean)) }
@@ -137,13 +127,12 @@ module Moonbase
         params(
           id: String,
           links: Moonbase::InboxConversation::Links::OrHash,
+          state: Moonbase::InboxConversation::State::OrSymbol,
           addresses: T::Array[Moonbase::Address::OrHash],
           bulk: T::Boolean,
-          closed: T::Boolean,
           created_at: Time,
           follow_up: T::Boolean,
           new_draft_conversation: T::Boolean,
-          open_: T::Boolean,
           spam: T::Boolean,
           subject: String,
           tags: T::Array[Moonbase::InboxConversation::Tag::OrHash],
@@ -159,20 +148,18 @@ module Moonbase
         # Unique identifier for the object.
         id:,
         links:,
+        # The current state, which can be `unassigned`, `active`, `closed`, or `waiting`.
+        state:,
         # A list of `Address` objects (participants) in this conversation.
         addresses: nil,
         # `true` if the conversation appears to be part of a bulk mailing.
         bulk: nil,
-        # `true` if the conversation is currently closed.
-        closed: nil,
         # Time at which the object was created, as an RFC 3339 timestamp.
         created_at: nil,
         # Whether the conversation is marked for follow-up.
         follow_up: nil,
         # `true` if a new draft reply to this conversation has been started.
         new_draft_conversation: nil,
-        # `true` if the conversation is currently open.
-        open_: nil,
         # `true` if the conversation is marked as spam.
         spam: nil,
         # The subject line of the conversation.
@@ -202,14 +189,13 @@ module Moonbase
           {
             id: String,
             links: Moonbase::InboxConversation::Links,
+            state: Moonbase::InboxConversation::State::TaggedSymbol,
             type: Symbol,
             addresses: T::Array[Moonbase::Address],
             bulk: T::Boolean,
-            closed: T::Boolean,
             created_at: Time,
             follow_up: T::Boolean,
             new_draft_conversation: T::Boolean,
-            open_: T::Boolean,
             spam: T::Boolean,
             subject: String,
             tags: T::Array[Moonbase::InboxConversation::Tag],
@@ -264,6 +250,32 @@ module Moonbase
           override.returns({ inbox: String, messages: String, self_: String })
         end
         def to_hash
+        end
+      end
+
+      # The current state, which can be `unassigned`, `active`, `closed`, or `waiting`.
+      module State
+        extend Moonbase::Internal::Type::Enum
+
+        TaggedSymbol =
+          T.type_alias { T.all(Symbol, Moonbase::InboxConversation::State) }
+        OrSymbol = T.type_alias { T.any(Symbol, String) }
+
+        UNASSIGNED =
+          T.let(:unassigned, Moonbase::InboxConversation::State::TaggedSymbol)
+        ACTIVE =
+          T.let(:active, Moonbase::InboxConversation::State::TaggedSymbol)
+        CLOSED =
+          T.let(:closed, Moonbase::InboxConversation::State::TaggedSymbol)
+        WAITING =
+          T.let(:waiting, Moonbase::InboxConversation::State::TaggedSymbol)
+
+        sig do
+          override.returns(
+            T::Array[Moonbase::InboxConversation::State::TaggedSymbol]
+          )
+        end
+        def self.values
         end
       end
 

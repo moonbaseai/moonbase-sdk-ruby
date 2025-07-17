@@ -4,14 +4,13 @@ module Moonbase
       {
         id: String,
         links: Moonbase::InboxConversation::Links,
+        state: Moonbase::Models::InboxConversation::state,
         type: :inbox_conversation,
         addresses: ::Array[Moonbase::Address],
         bulk: bool,
-        closed: bool,
         created_at: Time,
         follow_up: bool,
         new_draft_conversation: bool,
-        open_: bool,
         spam: bool,
         subject: String,
         tags: ::Array[Moonbase::InboxConversation::Tag],
@@ -27,6 +26,8 @@ module Moonbase
 
       attr_accessor links: Moonbase::InboxConversation::Links
 
+      attr_accessor state: Moonbase::Models::InboxConversation::state
+
       attr_accessor type: :inbox_conversation
 
       attr_reader addresses: ::Array[Moonbase::Address]?
@@ -36,10 +37,6 @@ module Moonbase
       attr_reader bulk: bool?
 
       def bulk=: (bool) -> bool
-
-      attr_reader closed: bool?
-
-      def closed=: (bool) -> bool
 
       attr_reader created_at: Time?
 
@@ -52,10 +49,6 @@ module Moonbase
       attr_reader new_draft_conversation: bool?
 
       def new_draft_conversation=: (bool) -> bool
-
-      attr_reader open_: bool?
-
-      def open_=: (bool) -> bool
 
       attr_reader spam: bool?
 
@@ -94,13 +87,12 @@ module Moonbase
       def initialize: (
         id: String,
         links: Moonbase::InboxConversation::Links,
+        state: Moonbase::Models::InboxConversation::state,
         ?addresses: ::Array[Moonbase::Address],
         ?bulk: bool,
-        ?closed: bool,
         ?created_at: Time,
         ?follow_up: bool,
         ?new_draft_conversation: bool,
-        ?open_: bool,
         ?spam: bool,
         ?subject: String,
         ?tags: ::Array[Moonbase::InboxConversation::Tag],
@@ -115,14 +107,13 @@ module Moonbase
       def to_hash: -> {
         id: String,
         links: Moonbase::InboxConversation::Links,
+        state: Moonbase::Models::InboxConversation::state,
         type: :inbox_conversation,
         addresses: ::Array[Moonbase::Address],
         bulk: bool,
-        closed: bool,
         created_at: Time,
         follow_up: bool,
         new_draft_conversation: bool,
-        open_: bool,
         spam: bool,
         subject: String,
         tags: ::Array[Moonbase::InboxConversation::Tag],
@@ -145,6 +136,19 @@ module Moonbase
         def initialize: (inbox: String, messages: String, self_: String) -> void
 
         def to_hash: -> { inbox: String, messages: String, self_: String }
+      end
+
+      type state = :unassigned | :active | :closed | :waiting
+
+      module State
+        extend Moonbase::Internal::Type::Enum
+
+        UNASSIGNED: :unassigned
+        ACTIVE: :active
+        CLOSED: :closed
+        WAITING: :waiting
+
+        def self?.values: -> ::Array[Moonbase::Models::InboxConversation::state]
       end
 
       type tag = { id: String, name: String, type: :tag }

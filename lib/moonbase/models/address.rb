@@ -15,12 +15,6 @@ module Moonbase
       #   @return [String]
       required :email, String
 
-      # @!attribute links
-      #   A hash of related links.
-      #
-      #   @return [Moonbase::Models::Address::Links]
-      required :links, -> { Moonbase::Address::Links }
-
       # @!attribute type
       #   String representing the object’s type. Always `address` for this object.
       #
@@ -32,6 +26,12 @@ module Moonbase
       #
       #   @return [Time, nil]
       optional :created_at, Time
+
+      # @!attribute links
+      #   A hash of related links.
+      #
+      #   @return [Moonbase::Models::Address::Links, nil]
+      optional :links, -> { Moonbase::Address::Links }
 
       # @!attribute role
       #   The role of the address in the message. Can be `from`, `reply_to`, `to`, `cc`,
@@ -46,7 +46,7 @@ module Moonbase
       #   @return [Time, nil]
       optional :updated_at, Time
 
-      # @!method initialize(id:, email:, links:, created_at: nil, role: nil, updated_at: nil, type: :address)
+      # @!method initialize(id:, email:, created_at: nil, links: nil, role: nil, updated_at: nil, type: :address)
       #   Some parameter documentations has been truncated, see
       #   {Moonbase::Models::Address} for more details.
       #
@@ -58,9 +58,9 @@ module Moonbase
       #
       #   @param email [String] The email address.
       #
-      #   @param links [Moonbase::Models::Address::Links] A hash of related links.
-      #
       #   @param created_at [Time] Time at which the object was created, as an RFC 3339 timestamp.
+      #
+      #   @param links [Moonbase::Models::Address::Links] A hash of related links.
       #
       #   @param role [Symbol, Moonbase::Models::Address::Role] The role of the address in the message. Can be `from`, `reply_to`, `to`, `cc`, o
       #

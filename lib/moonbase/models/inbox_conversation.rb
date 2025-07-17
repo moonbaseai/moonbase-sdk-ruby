@@ -15,6 +15,12 @@ module Moonbase
       #   @return [Moonbase::Models::InboxConversation::Links]
       required :links, -> { Moonbase::InboxConversation::Links }
 
+      # @!attribute state
+      #   The current state, which can be `unassigned`, `active`, `closed`, or `waiting`.
+      #
+      #   @return [Symbol, Moonbase::Models::InboxConversation::State]
+      required :state, enum: -> { Moonbase::InboxConversation::State }
+
       # @!attribute type
       #   String representing the object’s type. Always `inbox_conversation` for this
       #   object.
@@ -34,12 +40,6 @@ module Moonbase
       #   @return [Boolean, nil]
       optional :bulk, Moonbase::Internal::Type::Boolean
 
-      # @!attribute closed
-      #   `true` if the conversation is currently closed.
-      #
-      #   @return [Boolean, nil]
-      optional :closed, Moonbase::Internal::Type::Boolean
-
       # @!attribute created_at
       #   Time at which the object was created, as an RFC 3339 timestamp.
       #
@@ -57,12 +57,6 @@ module Moonbase
       #
       #   @return [Boolean, nil]
       optional :new_draft_conversation, Moonbase::Internal::Type::Boolean
-
-      # @!attribute open_
-      #   `true` if the conversation is currently open.
-      #
-      #   @return [Boolean, nil]
-      optional :open_, Moonbase::Internal::Type::Boolean, api_name: :open
 
       # @!attribute spam
       #   `true` if the conversation is marked as spam.
@@ -114,7 +108,7 @@ module Moonbase
       #   @return [Time, nil]
       optional :updated_at, Time
 
-      # @!method initialize(id:, links:, addresses: nil, bulk: nil, closed: nil, created_at: nil, follow_up: nil, new_draft_conversation: nil, open_: nil, spam: nil, subject: nil, tags: nil, timestamp: nil, trash: nil, unread: nil, unsnooze_at: nil, updated_at: nil, type: :inbox_conversation)
+      # @!method initialize(id:, links:, state:, addresses: nil, bulk: nil, created_at: nil, follow_up: nil, new_draft_conversation: nil, spam: nil, subject: nil, tags: nil, timestamp: nil, trash: nil, unread: nil, unsnooze_at: nil, updated_at: nil, type: :inbox_conversation)
       #   Some parameter documentations has been truncated, see
       #   {Moonbase::Models::InboxConversation} for more details.
       #
@@ -124,19 +118,17 @@ module Moonbase
       #
       #   @param links [Moonbase::Models::InboxConversation::Links]
       #
+      #   @param state [Symbol, Moonbase::Models::InboxConversation::State] The current state, which can be `unassigned`, `active`, `closed`, or `waiting`.
+      #
       #   @param addresses [Array<Moonbase::Models::Address>] A list of `Address` objects (participants) in this conversation.
       #
       #   @param bulk [Boolean] `true` if the conversation appears to be part of a bulk mailing.
-      #
-      #   @param closed [Boolean] `true` if the conversation is currently closed.
       #
       #   @param created_at [Time] Time at which the object was created, as an RFC 3339 timestamp.
       #
       #   @param follow_up [Boolean] Whether the conversation is marked for follow-up.
       #
       #   @param new_draft_conversation [Boolean] `true` if a new draft reply to this conversation has been started.
-      #
-      #   @param open_ [Boolean] `true` if the conversation is currently open.
       #
       #   @param spam [Boolean] `true` if the conversation is marked as spam.
       #
@@ -182,6 +174,21 @@ module Moonbase
         #   @param messages [String] A link to the list of `Message` objects in this conversation.
         #
         #   @param self_ [String] The canonical URL for this object.
+      end
+
+      # The current state, which can be `unassigned`, `active`, `closed`, or `waiting`.
+      #
+      # @see Moonbase::Models::InboxConversation#state
+      module State
+        extend Moonbase::Internal::Type::Enum
+
+        UNASSIGNED = :unassigned
+        ACTIVE = :active
+        CLOSED = :closed
+        WAITING = :waiting
+
+        # @!method self.values
+        #   @return [Array<Symbol>]
       end
 
       class Tag < Moonbase::Internal::Type::BaseModel

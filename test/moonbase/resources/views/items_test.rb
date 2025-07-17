@@ -21,6 +21,7 @@ class Moonbase::Test::Resources::Views::ItemsTest < Moonbase::Test::ResourceTest
       row => {
         id: String,
         type: Symbol,
+        links: Moonbase::Item::Links | nil,
         values: ^(Moonbase::Internal::Type::HashOf[union: Moonbase::FieldValue, nil?: true]) | nil
       }
     end
