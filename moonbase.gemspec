@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.email = "support@moonbase.ai"
   s.homepage = "https://gemdocs.org/gems/moonbase-sdk"
   s.metadata["homepage_uri"] = s.homepage
-  s.metadata["source_code_uri"] = "https://github.com/stainless-sdks/moonbase-sdk-ruby"
+  s.metadata["source_code_uri"] = "https://github.com/moonbaseai/moonbase-sdk-ruby"
   s.metadata["rubygems_mfa_required"] = false.to_s
   s.required_ruby_version = ">= 3.2.0"
 
