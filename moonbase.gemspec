@@ -3,12 +3,12 @@
 require_relative "lib/moonbase/version"
 
 Gem::Specification.new do |s|
-  s.name = "moonbase"
+  s.name = "moonbase-sdk"
   s.version = Moonbase::VERSION
   s.summary = "Ruby library to access the Moonbase API"
   s.authors = ["Moonbase"]
   s.email = "support@moonbase.ai"
-  s.homepage = "https://gemdocs.org/gems/moonbase"
+  s.homepage = "https://gemdocs.org/gems/moonbase-sdk"
   s.metadata["homepage_uri"] = s.homepage
   s.metadata["source_code_uri"] = "https://github.com/stainless-sdks/moonbase-sdk-ruby"
   s.metadata["rubygems_mfa_required"] = false.to_s
