@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.2 (2025-07-19)
+
+Full Changelog: [v0.1.0-alpha.1...v0.1.0-alpha.2](https://github.com/moonbaseai/moonbase-sdk-ruby/compare/v0.1.0-alpha.1...v0.1.0-alpha.2)
+
+### Chores
+
+* **internal:** version bump ([a0c7295](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/a0c7295af7e0e78d77bc45b2a816a662a127089f))
+
 ## 0.1.0-alpha.1 (2025-07-18)
 
 Full Changelog: [v0.0.1-alpha.0...v0.1.0-alpha.1](https://github.com/moonbaseai/moonbase-sdk-ruby/compare/v0.0.1-alpha.0...v0.1.0-alpha.1)
