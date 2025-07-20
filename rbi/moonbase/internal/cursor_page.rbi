@@ -21,23 +21,23 @@ module Moonbase
       class Meta < Moonbase::Internal::Type::BaseModel
         OrHash = T.type_alias { T.any(Meta, Moonbase::Internal::AnyHash) }
 
-        sig { returns(T.nilable(Meta::Cursor)) }
-        attr_reader :cursor
+        sig { returns(T.nilable(Meta::Cursors)) }
+        attr_reader :cursors
 
-        sig { params(cursor: Meta::Cursor::OrHash).void }
-        attr_writer :cursor
+        sig { params(cursors: Meta::Cursors::OrHash).void }
+        attr_writer :cursors
 
-        sig { params(cursor: Meta::Cursor::OrHash).returns(T.attached_class) }
-        def self.new(cursor: nil)
+        sig { params(cursors: Meta::Cursors::OrHash).returns(T.attached_class) }
+        def self.new(cursors: nil)
         end
 
-        sig { override.returns({ cursor: Meta::Cursor }) }
+        sig { override.returns({ cursors: Meta::Cursors }) }
         def to_hash
         end
 
-        class Cursor < Moonbase::Internal::Type::BaseModel
+        class Cursors < Moonbase::Internal::Type::BaseModel
           OrHash =
-            T.type_alias { T.any(Meta::Cursor, Moonbase::Internal::AnyHash) }
+            T.type_alias { T.any(Meta::Cursors, Moonbase::Internal::AnyHash) }
 
           sig { returns(T.nilable(String)) }
           attr_reader :next_

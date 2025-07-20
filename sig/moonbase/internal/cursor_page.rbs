@@ -9,19 +9,19 @@ module Moonbase
 
       def inspect: -> String
 
-      type meta = { cursor: Meta::Cursor }
+      type meta = { cursors: Meta::Cursors }
       class Meta < Moonbase::Internal::Type::BaseModel
-        attr_reader cursor: Meta::Cursor?
+        attr_reader cursors: Meta::Cursors?
 
-        def cursor=: (Meta::Cursor) -> Meta::Cursor
+        def cursors=: (Meta::Cursors) -> Meta::Cursors
 
-        def initialize: (?cursor: Meta::Cursor) -> void
+        def initialize: (?cursors: Meta::Cursors) -> void
 
-        def to_hash: -> { cursor: Meta::Cursor }
+        def to_hash: -> { cursors: Meta::Cursors }
 
-        type cursor = { next_: String }
+        type cursors = { next_: String }
 
-        class Cursor < Moonbase::Internal::Type::BaseModel
+        class Cursors < Moonbase::Internal::Type::BaseModel
           attr_reader next_: String?
 
           def next_=: (String) -> String
