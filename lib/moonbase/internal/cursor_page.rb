@@ -24,7 +24,7 @@ module Moonbase
 
       # @return [Boolean]
       def next_page?
-        !data.to_a.empty? && !meta&.cursor&.next_.to_s.empty?
+        !data.to_a.empty? && !meta&.cursors&.next_.to_s.empty?
       end
 
       # @raise [Moonbase::HTTP::Error]
@@ -35,7 +35,7 @@ module Moonbase
           raise RuntimeError.new(message)
         end
 
-        req = Moonbase::Internal::Util.deep_merge(@req, {query: {after: meta&.cursor&.next_}})
+        req = Moonbase::Internal::Util.deep_merge(@req, {query: {after: meta&.cursors&.next_}})
         @client.request(req)
       end
 
@@ -87,16 +87,16 @@ module Moonbase
       end
 
       class Meta < Moonbase::Internal::Type::BaseModel
-        # @!attribute cursor
+        # @!attribute cursors
         #
-        #   @return [Meta::Cursor, nil]
-        optional :cursor, -> { Meta::Cursor }
+        #   @return [Meta::Cursors, nil]
+        optional :cursors, -> { Meta::Cursors }
 
-        # @!method initialize(cursor: nil)
-        #   @param cursor [Meta::Cursor]
+        # @!method initialize(cursors: nil)
+        #   @param cursors [Meta::Cursors]
 
-        # @see Meta#cursor
-        class Cursor < Moonbase::Internal::Type::BaseModel
+        # @see Meta#cursors
+        class Cursors < Moonbase::Internal::Type::BaseModel
           # @!attribute next_
           #
           #   @return [String, nil]
