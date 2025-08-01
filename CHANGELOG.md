@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.1.0-alpha.3 (2025-08-01)
+
+Full Changelog: [v0.1.0-alpha.2...v0.1.0-alpha.3](https://github.com/moonbaseai/moonbase-sdk-ruby/compare/v0.1.0-alpha.2...v0.1.0-alpha.3)
+
+### Features
+
+* **api:** update api ([ce6cc96](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/ce6cc96f4d63c37cb42c82340da9896464a2fb5b))
+
+
+### Bug Fixes
+
+* **internal:** ensure sorbet test always runs serially ([8bbd082](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/8bbd082008a24ad6cab5ed4db6315f36a51ab188))
+
+
+### Chores
+
+* **internal:** increase visibility of internal helper method ([1488a31](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/1488a31652ff51db82e55817dda619ccc15af1f1))
+* **internal:** version bump ([7b29a82](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/7b29a824aee8dd442bb24a8727e68e632f0e4735))
+* update contribute.md ([2cf4a7f](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/2cf4a7ff9f0f8646948c08a0078bec16edf468a0))
+
 ## 0.1.0-alpha.2 (2025-07-20)
 
 Full Changelog: [v0.1.0-alpha.1...v0.1.0-alpha.2](https://github.com/moonbaseai/moonbase-sdk-ruby/compare/v0.1.0-alpha.1...v0.1.0-alpha.2)
