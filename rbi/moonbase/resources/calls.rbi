@@ -16,6 +16,8 @@ module Moonbase
           answered_at: Time,
           end_at: Time,
           provider_metadata: T::Hash[Symbol, T.anything],
+          recordings: T::Array[Moonbase::CallCreateParams::Recording::OrHash],
+          transcript: Moonbase::CallCreateParams::Transcript::OrHash,
           request_options: Moonbase::RequestOptions::OrHash
         ).returns(Moonbase::Call)
       end
@@ -38,6 +40,10 @@ module Moonbase
         end_at: nil,
         # A hash of additional metadata from the provider.
         provider_metadata: nil,
+        # Any recordings associated with the call.
+        recordings: nil,
+        # A transcript of the call.
+        transcript: nil,
         request_options: {}
       )
       end

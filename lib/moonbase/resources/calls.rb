@@ -5,7 +5,7 @@ module Moonbase
     class Calls
       # Logs a phone call.
       #
-      # @overload create(direction:, participants:, provider:, provider_id:, start_at:, status:, answered_at: nil, end_at: nil, provider_metadata: nil, request_options: {})
+      # @overload create(direction:, participants:, provider:, provider_id:, start_at:, status:, answered_at: nil, end_at: nil, provider_metadata: nil, recordings: nil, transcript: nil, request_options: {})
       #
       # @param direction [Symbol, Moonbase::Models::CallCreateParams::Direction] The direction of the call, either `incoming` or `outgoing`.
       #
@@ -24,6 +24,10 @@ module Moonbase
       # @param end_at [Time] The time the call ended, as an RFC 3339 timestamp.
       #
       # @param provider_metadata [Hash{Symbol=>Object}] A hash of additional metadata from the provider.
+      #
+      # @param recordings [Array<Moonbase::Models::CallCreateParams::Recording>] Any recordings associated with the call.
+      #
+      # @param transcript [Moonbase::Models::CallCreateParams::Transcript] A transcript of the call.
       #
       # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
       #
