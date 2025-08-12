@@ -56,6 +56,28 @@ module Moonbase
       sig { params(provider_metadata: T::Hash[Symbol, T.anything]).void }
       attr_writer :provider_metadata
 
+      # Any recordings associated with the call.
+      sig do
+        returns(T.nilable(T::Array[Moonbase::CallCreateParams::Recording]))
+      end
+      attr_reader :recordings
+
+      sig do
+        params(
+          recordings: T::Array[Moonbase::CallCreateParams::Recording::OrHash]
+        ).void
+      end
+      attr_writer :recordings
+
+      # A transcript of the call.
+      sig { returns(T.nilable(Moonbase::CallCreateParams::Transcript)) }
+      attr_reader :transcript
+
+      sig do
+        params(transcript: Moonbase::CallCreateParams::Transcript::OrHash).void
+      end
+      attr_writer :transcript
+
       sig do
         params(
           direction: Moonbase::CallCreateParams::Direction::OrSymbol,
@@ -68,6 +90,8 @@ module Moonbase
           answered_at: Time,
           end_at: Time,
           provider_metadata: T::Hash[Symbol, T.anything],
+          recordings: T::Array[Moonbase::CallCreateParams::Recording::OrHash],
+          transcript: Moonbase::CallCreateParams::Transcript::OrHash,
           request_options: Moonbase::RequestOptions::OrHash
         ).returns(T.attached_class)
       end
@@ -90,6 +114,10 @@ module Moonbase
         end_at: nil,
         # A hash of additional metadata from the provider.
         provider_metadata: nil,
+        # Any recordings associated with the call.
+        recordings: nil,
+        # A transcript of the call.
+        transcript: nil,
         request_options: {}
       )
       end
@@ -106,6 +134,8 @@ module Moonbase
             answered_at: Time,
             end_at: Time,
             provider_metadata: T::Hash[Symbol, T.anything],
+            recordings: T::Array[Moonbase::CallCreateParams::Recording],
+            transcript: Moonbase::CallCreateParams::Transcript,
             request_options: Moonbase::RequestOptions
           }
         )
@@ -256,6 +286,148 @@ module Moonbase
           )
         end
         def self.values
+        end
+      end
+
+      class Recording < Moonbase::Internal::Type::BaseModel
+        OrHash =
+          T.type_alias do
+            T.any(
+              Moonbase::CallCreateParams::Recording,
+              Moonbase::Internal::AnyHash
+            )
+          end
+
+        # The content type of the recording. Note that only `audio/mpeg` is supported at
+        # this time.
+        sig { returns(String) }
+        attr_accessor :content_type
+
+        # The unique identifier for the recording from the provider's system.
+        sig { returns(String) }
+        attr_accessor :provider_id
+
+        # The URL pointing to the recording.
+        sig { returns(String) }
+        attr_accessor :url
+
+        # Parameters for creating a `CallRecording` object.
+        sig do
+          params(
+            content_type: String,
+            provider_id: String,
+            url: String
+          ).returns(T.attached_class)
+        end
+        def self.new(
+          # The content type of the recording. Note that only `audio/mpeg` is supported at
+          # this time.
+          content_type:,
+          # The unique identifier for the recording from the provider's system.
+          provider_id:,
+          # The URL pointing to the recording.
+          url:
+        )
+        end
+
+        sig do
+          override.returns(
+            { content_type: String, provider_id: String, url: String }
+          )
+        end
+        def to_hash
+        end
+      end
+
+      class Transcript < Moonbase::Internal::Type::BaseModel
+        OrHash =
+          T.type_alias do
+            T.any(
+              Moonbase::CallCreateParams::Transcript,
+              Moonbase::Internal::AnyHash
+            )
+          end
+
+        # A list of cues that identify the text spoken in specific time slices of the
+        # call.
+        sig { returns(T::Array[Moonbase::CallCreateParams::Transcript::Cue]) }
+        attr_accessor :cues
+
+        # A transcript of the call.
+        sig do
+          params(
+            cues: T::Array[Moonbase::CallCreateParams::Transcript::Cue::OrHash]
+          ).returns(T.attached_class)
+        end
+        def self.new(
+          # A list of cues that identify the text spoken in specific time slices of the
+          # call.
+          cues:
+        )
+        end
+
+        sig do
+          override.returns(
+            { cues: T::Array[Moonbase::CallCreateParams::Transcript::Cue] }
+          )
+        end
+        def to_hash
+        end
+
+        class Cue < Moonbase::Internal::Type::BaseModel
+          OrHash =
+            T.type_alias do
+              T.any(
+                Moonbase::CallCreateParams::Transcript::Cue,
+                Moonbase::Internal::AnyHash
+              )
+            end
+
+          # The start time of the slice, in fractional seconds from the start of the call.
+          sig { returns(Float) }
+          attr_accessor :from
+
+          # The E.164 formatted phone number of the speaker.
+          sig { returns(String) }
+          attr_accessor :speaker
+
+          # The text spoken during the slice.
+          sig { returns(String) }
+          attr_accessor :text
+
+          # The end time of the slice, in fractional seconds from the start of the call.
+          sig { returns(Float) }
+          attr_accessor :to
+
+          # Parameters for creating a `CallTranscriptCue` object to capture the text spoken
+          # in a specific time slice.
+          sig do
+            params(
+              from: Float,
+              speaker: String,
+              text: String,
+              to: Float
+            ).returns(T.attached_class)
+          end
+          def self.new(
+            # The start time of the slice, in fractional seconds from the start of the call.
+            from:,
+            # The E.164 formatted phone number of the speaker.
+            speaker:,
+            # The text spoken during the slice.
+            text:,
+            # The end time of the slice, in fractional seconds from the start of the call.
+            to:
+          )
+          end
+
+          sig do
+            override.returns(
+              { from: Float, speaker: String, text: String, to: Float }
+            )
+          end
+          def to_hash
+          end
         end
       end
     end

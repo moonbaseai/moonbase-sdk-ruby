@@ -10,7 +10,9 @@ module Moonbase
         status: Moonbase::Models::CallCreateParams::status,
         answered_at: Time,
         end_at: Time,
-        provider_metadata: ::Hash[Symbol, top]
+        provider_metadata: ::Hash[Symbol, top],
+        recordings: ::Array[Moonbase::CallCreateParams::Recording],
+        transcript: Moonbase::CallCreateParams::Transcript
       }
       & Moonbase::Internal::Type::request_parameters
 
@@ -42,6 +44,18 @@ module Moonbase
 
       def provider_metadata=: (::Hash[Symbol, top]) -> ::Hash[Symbol, top]
 
+      attr_reader recordings: ::Array[Moonbase::CallCreateParams::Recording]?
+
+      def recordings=: (
+        ::Array[Moonbase::CallCreateParams::Recording]
+      ) -> ::Array[Moonbase::CallCreateParams::Recording]
+
+      attr_reader transcript: Moonbase::CallCreateParams::Transcript?
+
+      def transcript=: (
+        Moonbase::CallCreateParams::Transcript
+      ) -> Moonbase::CallCreateParams::Transcript
+
       def initialize: (
         direction: Moonbase::Models::CallCreateParams::direction,
         participants: ::Array[Moonbase::CallCreateParams::Participant],
@@ -52,6 +66,8 @@ module Moonbase
         ?answered_at: Time,
         ?end_at: Time,
         ?provider_metadata: ::Hash[Symbol, top],
+        ?recordings: ::Array[Moonbase::CallCreateParams::Recording],
+        ?transcript: Moonbase::CallCreateParams::Transcript,
         ?request_options: Moonbase::request_opts
       ) -> void
 
@@ -65,6 +81,8 @@ module Moonbase
         answered_at: Time,
         end_at: Time,
         provider_metadata: ::Hash[Symbol, top],
+        recordings: ::Array[Moonbase::CallCreateParams::Recording],
+        transcript: Moonbase::CallCreateParams::Transcript,
         request_options: Moonbase::RequestOptions
       }
 
@@ -146,6 +164,70 @@ module Moonbase
         ABANDONED: :abandoned
 
         def self?.values: -> ::Array[Moonbase::Models::CallCreateParams::status]
+      end
+
+      type recording =
+        { content_type: String, provider_id: String, url: String }
+
+      class Recording < Moonbase::Internal::Type::BaseModel
+        attr_accessor content_type: String
+
+        attr_accessor provider_id: String
+
+        attr_accessor url: String
+
+        def initialize: (
+          content_type: String,
+          provider_id: String,
+          url: String
+        ) -> void
+
+        def to_hash: -> {
+          content_type: String,
+          provider_id: String,
+          url: String
+        }
+      end
+
+      type transcript =
+        { cues: ::Array[Moonbase::CallCreateParams::Transcript::Cue] }
+
+      class Transcript < Moonbase::Internal::Type::BaseModel
+        attr_accessor cues: ::Array[Moonbase::CallCreateParams::Transcript::Cue]
+
+        def initialize: (
+          cues: ::Array[Moonbase::CallCreateParams::Transcript::Cue]
+        ) -> void
+
+        def to_hash: -> {
+          cues: ::Array[Moonbase::CallCreateParams::Transcript::Cue]
+        }
+
+        type cue = { from: Float, speaker: String, text: String, to: Float }
+
+        class Cue < Moonbase::Internal::Type::BaseModel
+          attr_accessor from: Float
+
+          attr_accessor speaker: String
+
+          attr_accessor text: String
+
+          attr_accessor to: Float
+
+          def initialize: (
+            from: Float,
+            speaker: String,
+            text: String,
+            to: Float
+          ) -> void
+
+          def to_hash: -> {
+            from: Float,
+            speaker: String,
+            text: String,
+            to: Float
+          }
+        end
       end
     end
   end
