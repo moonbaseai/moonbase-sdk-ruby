@@ -17,6 +17,8 @@ module Moonbase
 
   CallCreateParams = Moonbase::Models::CallCreateParams
 
+  CallUpsertParams = Moonbase::Models::CallUpsertParams
+
   Choice = Moonbase::Models::Choice
 
   Collection = Moonbase::Models::Collection
