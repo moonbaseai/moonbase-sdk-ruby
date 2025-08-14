@@ -49,6 +49,11 @@ module Moonbase
       #   Some parameter documentations has been truncated, see {Moonbase::Models::Error}
       #   for more details.
       #
+      #   The Error object represents a single error that occurred during API request
+      #   processing. It provides detailed information about what went wrong, including a
+      #   unique identifier, status code, and human-readable descriptions to help
+      #   developers understand and resolve the issue.
+      #
       #   @param id [String] A unique identifier for this specific error instance.
       #
       #   @param code [String] An application-specific error code string.

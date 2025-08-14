@@ -31,6 +31,9 @@ module Moonbase
       # Represents an event that occurs when an `Item` is mentioned.
       variant :"activity/item_mentioned", -> { Moonbase::Activity::ActivityItemMentioned }
 
+      # Represents an event that occurs when an `Item` is merged into another item.
+      variant :"activity/item_merged", -> { Moonbase::Activity::ActivityItemMerged }
+
       # Represents an event that occurs when a `Meeting` has concluded.
       variant :"activity/meeting_held", -> { Moonbase::Activity::ActivityMeetingHeld }
 
@@ -93,8 +96,8 @@ module Moonbase
         # @!attribute call
         #   The `Call` object associated with this event.
         #
-        #   @return [Moonbase::Models::Call, nil]
-        optional :call, -> { Moonbase::Call }
+        #   @return [Moonbase::Models::Activity::ActivityCallOccurred::Call, nil]
+        optional :call, -> { Moonbase::Activity::ActivityCallOccurred::Call }
 
         # @!method initialize(id:, links:, occurred_at:, call: nil, type: :"activity/call_occurred")
         #   Represents an event that occurs when an incoming or outgoing call is logged.
@@ -105,7 +108,7 @@ module Moonbase
         #
         #   @param occurred_at [Time] The time at which the event occurred, as an RFC 3339 timestamp.
         #
-        #   @param call [Moonbase::Models::Call] The `Call` object associated with this event.
+        #   @param call [Moonbase::Models::Activity::ActivityCallOccurred::Call] The `Call` object associated with this event.
         #
         #   @param type [Symbol, :"activity/call_occurred"] The type of activity. Always `activity/call_occurred`.
 
@@ -119,6 +122,25 @@ module Moonbase
 
           # @!method initialize(self_:)
           #   @param self_ [String] The canonical URL for this object.
+        end
+
+        # @see Moonbase::Models::Activity::ActivityCallOccurred#call
+        class Call < Moonbase::Internal::Type::BaseModel
+          # @!attribute id
+          #
+          #   @return [String]
+          required :id, String
+
+          # @!attribute type
+          #
+          #   @return [String]
+          required :type, String
+
+          # @!method initialize(id:, type:)
+          #   The `Call` object associated with this event.
+          #
+          #   @param id [String]
+          #   @param type [String]
         end
       end
 
@@ -149,16 +171,15 @@ module Moonbase
         # @!attribute collection
         #   The `Collection` the new item was added to.
         #
-        #   @return [Moonbase::Models::Collection, nil]
-        optional :collection, -> { Moonbase::Collection }
+        #   @return [Moonbase::Models::Activity::ActivityFormSubmitted::Collection, nil]
+        optional :collection, -> { Moonbase::Activity::ActivityFormSubmitted::Collection }
 
-        # @!attribute item
-        #   The `Item` that was created by the form submission.
+        # @!attribute related_item
         #
-        #   @return [Moonbase::Models::Item, nil]
-        optional :item, -> { Moonbase::Item }
+        #   @return [Moonbase::Models::Activity::ActivityFormSubmitted::RelatedItem, nil]
+        optional :related_item, -> { Moonbase::Activity::ActivityFormSubmitted::RelatedItem }
 
-        # @!method initialize(id:, links:, occurred_at:, collection: nil, item: nil, type: :"activity/form_submitted")
+        # @!method initialize(id:, links:, occurred_at:, collection: nil, related_item: nil, type: :"activity/form_submitted")
         #   Represents an event that occurs when a `Form` is submitted.
         #
         #   @param id [String] Unique identifier for the object.
@@ -167,9 +188,9 @@ module Moonbase
         #
         #   @param occurred_at [Time] The time at which the event occurred, as an RFC 3339 timestamp.
         #
-        #   @param collection [Moonbase::Models::Collection] The `Collection` the new item was added to.
+        #   @param collection [Moonbase::Models::Activity::ActivityFormSubmitted::Collection] The `Collection` the new item was added to.
         #
-        #   @param item [Moonbase::Models::Item] The `Item` that was created by the form submission.
+        #   @param related_item [Moonbase::Models::Activity::ActivityFormSubmitted::RelatedItem]
         #
         #   @param type [Symbol, :"activity/form_submitted"] The type of activity. Always `activity/form_submitted`.
 
@@ -200,6 +221,42 @@ module Moonbase
           #
           #   @param item [String] A link to the `Item` created by the form submission.
         end
+
+        # @see Moonbase::Models::Activity::ActivityFormSubmitted#collection
+        class Collection < Moonbase::Internal::Type::BaseModel
+          # @!attribute id
+          #
+          #   @return [String]
+          required :id, String
+
+          # @!attribute type
+          #
+          #   @return [String]
+          required :type, String
+
+          # @!method initialize(id:, type:)
+          #   The `Collection` the new item was added to.
+          #
+          #   @param id [String]
+          #   @param type [String]
+        end
+
+        # @see Moonbase::Models::Activity::ActivityFormSubmitted#related_item
+        class RelatedItem < Moonbase::Internal::Type::BaseModel
+          # @!attribute id
+          #
+          #   @return [String]
+          required :id, String
+
+          # @!attribute type
+          #
+          #   @return [String]
+          required :type, String
+
+          # @!method initialize(id:, type:)
+          #   @param id [String]
+          #   @param type [String]
+        end
       end
 
       class ActivityInboxMessageSent < Moonbase::Internal::Type::BaseModel
@@ -229,22 +286,10 @@ module Moonbase
         # @!attribute message
         #   The `EmailMessage` that was sent.
         #
-        #   @return [Moonbase::Models::EmailMessage, nil]
-        optional :message, -> { Moonbase::EmailMessage }
+        #   @return [Moonbase::Models::Activity::ActivityInboxMessageSent::Message, nil]
+        optional :message, -> { Moonbase::Activity::ActivityInboxMessageSent::Message }
 
-        # @!attribute recipients
-        #   A list of `Address` objects for the recipients.
-        #
-        #   @return [Array<Moonbase::Models::Address>, nil]
-        optional :recipients, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::Address] }
-
-        # @!attribute sender
-        #   The `Address` of the sender.
-        #
-        #   @return [Moonbase::Models::Address, nil]
-        optional :sender, -> { Moonbase::Address }
-
-        # @!method initialize(id:, links:, occurred_at:, message: nil, recipients: nil, sender: nil, type: :"activity/inbox_message_sent")
+        # @!method initialize(id:, links:, occurred_at:, message: nil, type: :"activity/inbox_message_sent")
         #   Represents an event that occurs when a message is sent from an `Inbox`.
         #
         #   @param id [String] Unique identifier for the object.
@@ -253,11 +298,7 @@ module Moonbase
         #
         #   @param occurred_at [Time] The time at which the event occurred, as an RFC 3339 timestamp.
         #
-        #   @param message [Moonbase::Models::EmailMessage] The `EmailMessage` that was sent.
-        #
-        #   @param recipients [Array<Moonbase::Models::Address>] A list of `Address` objects for the recipients.
-        #
-        #   @param sender [Moonbase::Models::Address] The `Address` of the sender.
+        #   @param message [Moonbase::Models::Activity::ActivityInboxMessageSent::Message] The `EmailMessage` that was sent.
         #
         #   @param type [Symbol, :"activity/inbox_message_sent"] The type of activity. Always `activity/inbox_message_sent`.
 
@@ -279,6 +320,25 @@ module Moonbase
           #   @param self_ [String] The canonical URL for this object.
           #
           #   @param message [String] A link to the `EmailMessage` that was sent.
+        end
+
+        # @see Moonbase::Models::Activity::ActivityInboxMessageSent#message
+        class Message < Moonbase::Internal::Type::BaseModel
+          # @!attribute id
+          #
+          #   @return [String]
+          required :id, String
+
+          # @!attribute type
+          #
+          #   @return [String]
+          required :type, String
+
+          # @!method initialize(id:, type:)
+          #   The `EmailMessage` that was sent.
+          #
+          #   @param id [String]
+          #   @param type [String]
         end
       end
 
@@ -309,16 +369,15 @@ module Moonbase
         # @!attribute collection
         #   The `Collection` the item was added to.
         #
-        #   @return [Moonbase::Models::Collection, nil]
-        optional :collection, -> { Moonbase::Collection }
+        #   @return [Moonbase::Models::Activity::ActivityItemCreated::Collection, nil]
+        optional :collection, -> { Moonbase::Activity::ActivityItemCreated::Collection }
 
-        # @!attribute item
-        #   The `Item` that was created.
+        # @!attribute created_item
         #
-        #   @return [Moonbase::Models::Item, nil]
-        optional :item, -> { Moonbase::Item }
+        #   @return [Moonbase::Models::Activity::ActivityItemCreated::CreatedItem, nil]
+        optional :created_item, -> { Moonbase::Activity::ActivityItemCreated::CreatedItem }
 
-        # @!method initialize(id:, links:, occurred_at:, collection: nil, item: nil, type: :"activity/item_created")
+        # @!method initialize(id:, links:, occurred_at:, collection: nil, created_item: nil, type: :"activity/item_created")
         #   Represents an event that occurs when an `Item` is created.
         #
         #   @param id [String] Unique identifier for the object.
@@ -327,9 +386,9 @@ module Moonbase
         #
         #   @param occurred_at [Time] The time at which the event occurred, as an RFC 3339 timestamp.
         #
-        #   @param collection [Moonbase::Models::Collection] The `Collection` the item was added to.
+        #   @param collection [Moonbase::Models::Activity::ActivityItemCreated::Collection] The `Collection` the item was added to.
         #
-        #   @param item [Moonbase::Models::Item] The `Item` that was created.
+        #   @param created_item [Moonbase::Models::Activity::ActivityItemCreated::CreatedItem]
         #
         #   @param type [Symbol, :"activity/item_created"] The type of activity. Always `activity/item_created`.
 
@@ -360,6 +419,42 @@ module Moonbase
           #
           #   @param item [String] A link to the `Item` that was created.
         end
+
+        # @see Moonbase::Models::Activity::ActivityItemCreated#collection
+        class Collection < Moonbase::Internal::Type::BaseModel
+          # @!attribute id
+          #
+          #   @return [String]
+          required :id, String
+
+          # @!attribute type
+          #
+          #   @return [String]
+          required :type, String
+
+          # @!method initialize(id:, type:)
+          #   The `Collection` the item was added to.
+          #
+          #   @param id [String]
+          #   @param type [String]
+        end
+
+        # @see Moonbase::Models::Activity::ActivityItemCreated#created_item
+        class CreatedItem < Moonbase::Internal::Type::BaseModel
+          # @!attribute id
+          #
+          #   @return [String]
+          required :id, String
+
+          # @!attribute type
+          #
+          #   @return [String]
+          required :type, String
+
+          # @!method initialize(id:, type:)
+          #   @param id [String]
+          #   @param type [String]
+        end
       end
 
       class ActivityItemMentioned < Moonbase::Internal::Type::BaseModel
@@ -386,19 +481,22 @@ module Moonbase
         #   @return [Symbol, :"activity/item_mentioned"]
         required :type, const: :"activity/item_mentioned"
 
-        # @!attribute collection
-        #   The `Collection` the item belongs to.
+        # @!attribute author
         #
-        #   @return [Moonbase::Models::Collection, nil]
-        optional :collection, -> { Moonbase::Collection }
+        #   @return [Moonbase::Models::Activity::ActivityItemMentioned::Author, nil]
+        optional :author, -> { Moonbase::Activity::ActivityItemMentioned::Author }
 
-        # @!attribute item
-        #   The `Item` that was mentioned.
+        # @!attribute mentioned_item
         #
-        #   @return [Moonbase::Models::Item, nil]
-        optional :item, -> { Moonbase::Item }
+        #   @return [Moonbase::Models::Activity::ActivityItemMentioned::MentionedItem, nil]
+        optional :mentioned_item, -> { Moonbase::Activity::ActivityItemMentioned::MentionedItem }
 
-        # @!method initialize(id:, links:, occurred_at:, collection: nil, item: nil, type: :"activity/item_mentioned")
+        # @!attribute note
+        #
+        #   @return [Moonbase::Models::Activity::ActivityItemMentioned::Note, nil]
+        optional :note, -> { Moonbase::Activity::ActivityItemMentioned::Note }
+
+        # @!method initialize(id:, links:, occurred_at:, author: nil, mentioned_item: nil, note: nil, type: :"activity/item_mentioned")
         #   Represents an event that occurs when an `Item` is mentioned.
         #
         #   @param id [String] Unique identifier for the object.
@@ -407,9 +505,11 @@ module Moonbase
         #
         #   @param occurred_at [Time] The time at which the event occurred, as an RFC 3339 timestamp.
         #
-        #   @param collection [Moonbase::Models::Collection] The `Collection` the item belongs to.
+        #   @param author [Moonbase::Models::Activity::ActivityItemMentioned::Author]
         #
-        #   @param item [Moonbase::Models::Item] The `Item` that was mentioned.
+        #   @param mentioned_item [Moonbase::Models::Activity::ActivityItemMentioned::MentionedItem]
+        #
+        #   @param note [Moonbase::Models::Activity::ActivityItemMentioned::Note]
         #
         #   @param type [Symbol, :"activity/item_mentioned"] The type of activity. Always `activity/item_mentioned`.
 
@@ -421,11 +521,11 @@ module Moonbase
           #   @return [String]
           required :self_, String, api_name: :self
 
-          # @!attribute collection
-          #   A link to the `Collection` the item belongs to.
+          # @!attribute author
+          #   A link to the `Person` who mentioned the item.
           #
           #   @return [String, nil]
-          optional :collection, String
+          optional :author, String
 
           # @!attribute item
           #   A link to the `Item` that was mentioned.
@@ -433,12 +533,216 @@ module Moonbase
           #   @return [String, nil]
           optional :item, String
 
-          # @!method initialize(self_:, collection: nil, item: nil)
+          # @!attribute note
+          #   A link to the `Note` where the item was mentioned.
+          #
+          #   @return [String, nil]
+          optional :note, String
+
+          # @!method initialize(self_:, author: nil, item: nil, note: nil)
           #   @param self_ [String] The canonical URL for this object.
           #
-          #   @param collection [String] A link to the `Collection` the item belongs to.
+          #   @param author [String] A link to the `Person` who mentioned the item.
           #
           #   @param item [String] A link to the `Item` that was mentioned.
+          #
+          #   @param note [String] A link to the `Note` where the item was mentioned.
+        end
+
+        # @see Moonbase::Models::Activity::ActivityItemMentioned#author
+        class Author < Moonbase::Internal::Type::BaseModel
+          # @!attribute id
+          #
+          #   @return [String]
+          required :id, String
+
+          # @!attribute type
+          #
+          #   @return [String]
+          required :type, String
+
+          # @!method initialize(id:, type:)
+          #   @param id [String]
+          #   @param type [String]
+        end
+
+        # @see Moonbase::Models::Activity::ActivityItemMentioned#mentioned_item
+        class MentionedItem < Moonbase::Internal::Type::BaseModel
+          # @!attribute id
+          #
+          #   @return [String]
+          required :id, String
+
+          # @!attribute type
+          #
+          #   @return [String]
+          required :type, String
+
+          # @!method initialize(id:, type:)
+          #   @param id [String]
+          #   @param type [String]
+        end
+
+        # @see Moonbase::Models::Activity::ActivityItemMentioned#note
+        class Note < Moonbase::Internal::Type::BaseModel
+          # @!attribute id
+          #
+          #   @return [String]
+          required :id, String
+
+          # @!attribute type
+          #
+          #   @return [String]
+          required :type, String
+
+          # @!method initialize(id:, type:)
+          #   @param id [String]
+          #   @param type [String]
+        end
+      end
+
+      class ActivityItemMerged < Moonbase::Internal::Type::BaseModel
+        # @!attribute id
+        #   Unique identifier for the object.
+        #
+        #   @return [String]
+        required :id, String
+
+        # @!attribute links
+        #
+        #   @return [Moonbase::Models::Activity::ActivityItemMerged::Links]
+        required :links, -> { Moonbase::Activity::ActivityItemMerged::Links }
+
+        # @!attribute occurred_at
+        #   The time at which the event occurred, as an RFC 3339 timestamp.
+        #
+        #   @return [Time]
+        required :occurred_at, Time
+
+        # @!attribute type
+        #   The type of activity. Always `activity/item_merged`.
+        #
+        #   @return [Symbol, :"activity/item_merged"]
+        required :type, const: :"activity/item_merged"
+
+        # @!attribute destination
+        #   A pointer to the `Item` that the data was merged into.
+        #
+        #   @return [Moonbase::Models::Activity::ActivityItemMerged::Destination, nil]
+        optional :destination, -> { Moonbase::Activity::ActivityItemMerged::Destination }
+
+        # @!attribute initiator
+        #   The person that performed the merge.
+        #
+        #   @return [Moonbase::Models::Activity::ActivityItemMerged::Initiator, nil]
+        optional :initiator, -> { Moonbase::Activity::ActivityItemMerged::Initiator }
+
+        # @!attribute source
+        #   A pointer to the source `Item`.
+        #
+        #   @return [Moonbase::Models::Activity::ActivityItemMerged::Source, nil]
+        optional :source, -> { Moonbase::Activity::ActivityItemMerged::Source }
+
+        # @!method initialize(id:, links:, occurred_at:, destination: nil, initiator: nil, source: nil, type: :"activity/item_merged")
+        #   Represents an event that occurs when an `Item` is merged into another item.
+        #
+        #   @param id [String] Unique identifier for the object.
+        #
+        #   @param links [Moonbase::Models::Activity::ActivityItemMerged::Links]
+        #
+        #   @param occurred_at [Time] The time at which the event occurred, as an RFC 3339 timestamp.
+        #
+        #   @param destination [Moonbase::Models::Activity::ActivityItemMerged::Destination] A pointer to the `Item` that the data was merged into.
+        #
+        #   @param initiator [Moonbase::Models::Activity::ActivityItemMerged::Initiator] The person that performed the merge.
+        #
+        #   @param source [Moonbase::Models::Activity::ActivityItemMerged::Source] A pointer to the source `Item`.
+        #
+        #   @param type [Symbol, :"activity/item_merged"] The type of activity. Always `activity/item_merged`.
+
+        # @see Moonbase::Models::Activity::ActivityItemMerged#links
+        class Links < Moonbase::Internal::Type::BaseModel
+          # @!attribute self_
+          #   The canonical URL for this object.
+          #
+          #   @return [String]
+          required :self_, String, api_name: :self
+
+          # @!attribute destination
+          #   A link to the `Item` that received the data from the source.
+          #
+          #   @return [String, nil]
+          optional :destination, String
+
+          # @!attribute initiator
+          #   A link to the person that performed the merge.
+          #
+          #   @return [String, nil]
+          optional :initiator, String
+
+          # @!method initialize(self_:, destination: nil, initiator: nil)
+          #   @param self_ [String] The canonical URL for this object.
+          #
+          #   @param destination [String] A link to the `Item` that received the data from the source.
+          #
+          #   @param initiator [String] A link to the person that performed the merge.
+        end
+
+        # @see Moonbase::Models::Activity::ActivityItemMerged#destination
+        class Destination < Moonbase::Internal::Type::BaseModel
+          # @!attribute id
+          #
+          #   @return [String]
+          required :id, String
+
+          # @!attribute type
+          #
+          #   @return [String]
+          required :type, String
+
+          # @!method initialize(id:, type:)
+          #   A pointer to the `Item` that the data was merged into.
+          #
+          #   @param id [String]
+          #   @param type [String]
+        end
+
+        # @see Moonbase::Models::Activity::ActivityItemMerged#initiator
+        class Initiator < Moonbase::Internal::Type::BaseModel
+          # @!attribute id
+          #
+          #   @return [String]
+          required :id, String
+
+          # @!attribute type
+          #
+          #   @return [String]
+          required :type, String
+
+          # @!method initialize(id:, type:)
+          #   The person that performed the merge.
+          #
+          #   @param id [String]
+          #   @param type [String]
+        end
+
+        # @see Moonbase::Models::Activity::ActivityItemMerged#source
+        class Source < Moonbase::Internal::Type::BaseModel
+          # @!attribute id
+          #
+          #   @return [String]
+          required :id, String
+
+          # @!attribute type
+          #
+          #   @return [String]
+          required :type, String
+
+          # @!method initialize(id:, type:)
+          #   A pointer to the source `Item`.
+          #
+          #   @param id [String]
+          #   @param type [String]
         end
       end
 
@@ -466,19 +770,13 @@ module Moonbase
         #   @return [Symbol, :"activity/meeting_held"]
         required :type, const: :"activity/meeting_held"
 
-        # @!attribute attendees
-        #   A list of `Attendee` objects who were part of the meeting.
-        #
-        #   @return [Array<Moonbase::Models::Attendee>, nil]
-        optional :attendees, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::Attendee] }
-
         # @!attribute meeting
         #   The `Meeting` object associated with this event.
         #
-        #   @return [Moonbase::Models::Meeting, nil]
-        optional :meeting, -> { Moonbase::Meeting }
+        #   @return [Moonbase::Models::Activity::ActivityMeetingHeld::Meeting, nil]
+        optional :meeting, -> { Moonbase::Activity::ActivityMeetingHeld::Meeting }
 
-        # @!method initialize(id:, links:, occurred_at:, attendees: nil, meeting: nil, type: :"activity/meeting_held")
+        # @!method initialize(id:, links:, occurred_at:, meeting: nil, type: :"activity/meeting_held")
         #   Represents an event that occurs when a `Meeting` has concluded.
         #
         #   @param id [String] Unique identifier for the object.
@@ -487,9 +785,7 @@ module Moonbase
         #
         #   @param occurred_at [Time] The time at which the event occurred, as an RFC 3339 timestamp.
         #
-        #   @param attendees [Array<Moonbase::Models::Attendee>] A list of `Attendee` objects who were part of the meeting.
-        #
-        #   @param meeting [Moonbase::Models::Meeting] The `Meeting` object associated with this event.
+        #   @param meeting [Moonbase::Models::Activity::ActivityMeetingHeld::Meeting] The `Meeting` object associated with this event.
         #
         #   @param type [Symbol, :"activity/meeting_held"] The type of activity. Always `activity/meeting_held`.
 
@@ -511,6 +807,25 @@ module Moonbase
           #   @param self_ [String] The canonical URL for this object.
           #
           #   @param meeting [String] A link to the `Meeting` that was held.
+        end
+
+        # @see Moonbase::Models::Activity::ActivityMeetingHeld#meeting
+        class Meeting < Moonbase::Internal::Type::BaseModel
+          # @!attribute id
+          #
+          #   @return [String]
+          required :id, String
+
+          # @!attribute type
+          #
+          #   @return [String]
+          required :type, String
+
+          # @!method initialize(id:, type:)
+          #   The `Meeting` object associated with this event.
+          #
+          #   @param id [String]
+          #   @param type [String]
         end
       end
 
@@ -538,25 +853,13 @@ module Moonbase
         #   @return [Symbol, :"activity/meeting_scheduled"]
         required :type, const: :"activity/meeting_scheduled"
 
-        # @!attribute attendees
-        #   The list of `Attendee` objects invited to the meeting.
-        #
-        #   @return [Array<Moonbase::Models::Attendee>, nil]
-        optional :attendees, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::Attendee] }
-
         # @!attribute meeting
         #   The `Meeting` object associated with this event.
         #
-        #   @return [Moonbase::Models::Meeting, nil]
-        optional :meeting, -> { Moonbase::Meeting }
+        #   @return [Moonbase::Models::Activity::ActivityMeetingScheduled::Meeting, nil]
+        optional :meeting, -> { Moonbase::Activity::ActivityMeetingScheduled::Meeting }
 
-        # @!attribute organizer
-        #   The `Organizer` of the meeting.
-        #
-        #   @return [Moonbase::Models::Organizer, nil]
-        optional :organizer, -> { Moonbase::Organizer }
-
-        # @!method initialize(id:, links:, occurred_at:, attendees: nil, meeting: nil, organizer: nil, type: :"activity/meeting_scheduled")
+        # @!method initialize(id:, links:, occurred_at:, meeting: nil, type: :"activity/meeting_scheduled")
         #   Represents an event that occurs when a `Meeting` is scheduled.
         #
         #   @param id [String] Unique identifier for the object.
@@ -565,11 +868,7 @@ module Moonbase
         #
         #   @param occurred_at [Time] The time at which the event occurred, as an RFC 3339 timestamp.
         #
-        #   @param attendees [Array<Moonbase::Models::Attendee>] The list of `Attendee` objects invited to the meeting.
-        #
-        #   @param meeting [Moonbase::Models::Meeting] The `Meeting` object associated with this event.
-        #
-        #   @param organizer [Moonbase::Models::Organizer] The `Organizer` of the meeting.
+        #   @param meeting [Moonbase::Models::Activity::ActivityMeetingScheduled::Meeting] The `Meeting` object associated with this event.
         #
         #   @param type [Symbol, :"activity/meeting_scheduled"] The type of activity. Always `activity/meeting_scheduled`.
 
@@ -591,6 +890,25 @@ module Moonbase
           #   @param self_ [String] The canonical URL for this object.
           #
           #   @param meeting [String] A link to the `Meeting` that was scheduled.
+        end
+
+        # @see Moonbase::Models::Activity::ActivityMeetingScheduled#meeting
+        class Meeting < Moonbase::Internal::Type::BaseModel
+          # @!attribute id
+          #
+          #   @return [String]
+          required :id, String
+
+          # @!attribute type
+          #
+          #   @return [String]
+          required :type, String
+
+          # @!method initialize(id:, type:)
+          #   The `Meeting` object associated with this event.
+          #
+          #   @param id [String]
+          #   @param type [String]
         end
       end
 
@@ -621,20 +939,20 @@ module Moonbase
         # @!attribute note
         #   The `Note` object that was created.
         #
-        #   @return [Moonbase::Models::Note, nil]
-        optional :note, -> { Moonbase::Note }
+        #   @return [Moonbase::Models::Activity::ActivityNoteCreated::Note, nil]
+        optional :note, -> { Moonbase::Activity::ActivityNoteCreated::Note }
 
         # @!attribute related_item
         #   The `Item` this note is related to, if any.
         #
-        #   @return [Moonbase::Models::Item, nil]
-        optional :related_item, -> { Moonbase::Item }
+        #   @return [Moonbase::Models::Activity::ActivityNoteCreated::RelatedItem, nil]
+        optional :related_item, -> { Moonbase::Activity::ActivityNoteCreated::RelatedItem }
 
         # @!attribute related_meeting
         #   The `Meeting` this note is related to, if any.
         #
-        #   @return [Moonbase::Models::Meeting, nil]
-        optional :related_meeting, -> { Moonbase::Meeting }
+        #   @return [Moonbase::Models::Activity::ActivityNoteCreated::RelatedMeeting, nil]
+        optional :related_meeting, -> { Moonbase::Activity::ActivityNoteCreated::RelatedMeeting }
 
         # @!method initialize(id:, links:, occurred_at:, note: nil, related_item: nil, related_meeting: nil, type: :"activity/note_created")
         #   Represents an event that occurs when a `Note` is created.
@@ -645,11 +963,11 @@ module Moonbase
         #
         #   @param occurred_at [Time] The time at which the event occurred, as an RFC 3339 timestamp.
         #
-        #   @param note [Moonbase::Models::Note] The `Note` object that was created.
+        #   @param note [Moonbase::Models::Activity::ActivityNoteCreated::Note] The `Note` object that was created.
         #
-        #   @param related_item [Moonbase::Models::Item] The `Item` this note is related to, if any.
+        #   @param related_item [Moonbase::Models::Activity::ActivityNoteCreated::RelatedItem] The `Item` this note is related to, if any.
         #
-        #   @param related_meeting [Moonbase::Models::Meeting] The `Meeting` this note is related to, if any.
+        #   @param related_meeting [Moonbase::Models::Activity::ActivityNoteCreated::RelatedMeeting] The `Meeting` this note is related to, if any.
         #
         #   @param type [Symbol, :"activity/note_created"] The type of activity. Always `activity/note_created`.
 
@@ -688,6 +1006,63 @@ module Moonbase
           #
           #   @param related_meeting [String] A link to the related `Meeting`.
         end
+
+        # @see Moonbase::Models::Activity::ActivityNoteCreated#note
+        class Note < Moonbase::Internal::Type::BaseModel
+          # @!attribute id
+          #
+          #   @return [String]
+          required :id, String
+
+          # @!attribute type
+          #
+          #   @return [String]
+          required :type, String
+
+          # @!method initialize(id:, type:)
+          #   The `Note` object that was created.
+          #
+          #   @param id [String]
+          #   @param type [String]
+        end
+
+        # @see Moonbase::Models::Activity::ActivityNoteCreated#related_item
+        class RelatedItem < Moonbase::Internal::Type::BaseModel
+          # @!attribute id
+          #
+          #   @return [String]
+          required :id, String
+
+          # @!attribute type
+          #
+          #   @return [String]
+          required :type, String
+
+          # @!method initialize(id:, type:)
+          #   The `Item` this note is related to, if any.
+          #
+          #   @param id [String]
+          #   @param type [String]
+        end
+
+        # @see Moonbase::Models::Activity::ActivityNoteCreated#related_meeting
+        class RelatedMeeting < Moonbase::Internal::Type::BaseModel
+          # @!attribute id
+          #
+          #   @return [String]
+          required :id, String
+
+          # @!attribute type
+          #
+          #   @return [String]
+          required :type, String
+
+          # @!method initialize(id:, type:)
+          #   The `Meeting` this note is related to, if any.
+          #
+          #   @param id [String]
+          #   @param type [String]
+        end
       end
 
       class ActivityProgramMessageBounced < Moonbase::Internal::Type::BaseModel
@@ -714,13 +1089,28 @@ module Moonbase
         #   @return [Symbol, :"activity/program_message_bounced"]
         required :type, const: :"activity/program_message_bounced"
 
-        # @!attribute recipient
-        #   The `Address` of the recipient whose message bounced.
+        # @!attribute bounce_type
         #
-        #   @return [Moonbase::Models::Address, nil]
-        optional :recipient, -> { Moonbase::Address }
+        #   @return [String, nil]
+        optional :bounce_type, String
 
-        # @!method initialize(id:, links:, occurred_at:, recipient: nil, type: :"activity/program_message_bounced")
+        # @!attribute bounced_recipient_emails
+        #
+        #   @return [Array<String>, nil]
+        optional :bounced_recipient_emails, Moonbase::Internal::Type::ArrayOf[String]
+
+        # @!attribute program_message
+        #
+        #   @return [Moonbase::Models::Activity::ActivityProgramMessageBounced::ProgramMessage, nil]
+        optional :program_message, -> { Moonbase::Activity::ActivityProgramMessageBounced::ProgramMessage }
+
+        # @!attribute recipient
+        #   A link to the `Address` of the recipient whose message bounced.
+        #
+        #   @return [Moonbase::Models::Activity::ActivityProgramMessageBounced::Recipient, nil]
+        optional :recipient, -> { Moonbase::Activity::ActivityProgramMessageBounced::Recipient }
+
+        # @!method initialize(id:, links:, occurred_at:, bounce_type: nil, bounced_recipient_emails: nil, program_message: nil, recipient: nil, type: :"activity/program_message_bounced")
         #   Represents an event that occurs when a `ProgramMessage` bounces.
         #
         #   @param id [String] Unique identifier for the object.
@@ -729,7 +1119,13 @@ module Moonbase
         #
         #   @param occurred_at [Time] The time at which the event occurred, as an RFC 3339 timestamp.
         #
-        #   @param recipient [Moonbase::Models::Address] The `Address` of the recipient whose message bounced.
+        #   @param bounce_type [String]
+        #
+        #   @param bounced_recipient_emails [Array<String>]
+        #
+        #   @param program_message [Moonbase::Models::Activity::ActivityProgramMessageBounced::ProgramMessage]
+        #
+        #   @param recipient [Moonbase::Models::Activity::ActivityProgramMessageBounced::Recipient] A link to the `Address` of the recipient whose message bounced.
         #
         #   @param type [Symbol, :"activity/program_message_bounced"] The type of activity. Always `activity/program_message_bounced`.
 
@@ -741,8 +1137,52 @@ module Moonbase
           #   @return [String]
           required :self_, String, api_name: :self
 
-          # @!method initialize(self_:)
+          # @!attribute recipient
+          #   A link to the `Address` of the recipient whose message bounced.
+          #
+          #   @return [String, nil]
+          optional :recipient, String
+
+          # @!method initialize(self_:, recipient: nil)
           #   @param self_ [String] The canonical URL for this object.
+          #
+          #   @param recipient [String] A link to the `Address` of the recipient whose message bounced.
+        end
+
+        # @see Moonbase::Models::Activity::ActivityProgramMessageBounced#program_message
+        class ProgramMessage < Moonbase::Internal::Type::BaseModel
+          # @!attribute id
+          #
+          #   @return [String]
+          required :id, String
+
+          # @!attribute type
+          #
+          #   @return [String]
+          required :type, String
+
+          # @!method initialize(id:, type:)
+          #   @param id [String]
+          #   @param type [String]
+        end
+
+        # @see Moonbase::Models::Activity::ActivityProgramMessageBounced#recipient
+        class Recipient < Moonbase::Internal::Type::BaseModel
+          # @!attribute id
+          #
+          #   @return [String]
+          required :id, String
+
+          # @!attribute type
+          #
+          #   @return [String]
+          required :type, String
+
+          # @!method initialize(id:, type:)
+          #   A link to the `Address` of the recipient whose message bounced.
+          #
+          #   @param id [String]
+          #   @param type [String]
         end
       end
 
@@ -782,13 +1222,18 @@ module Moonbase
         #   @return [String, nil]
         optional :link_url_unsafe, String
 
-        # @!attribute recipient
-        #   The `Address` of the recipient who clicked the link.
+        # @!attribute program_message
         #
-        #   @return [Moonbase::Models::Address, nil]
-        optional :recipient, -> { Moonbase::Address }
+        #   @return [Moonbase::Models::Activity::ActivityProgramMessageClicked::ProgramMessage, nil]
+        optional :program_message, -> { Moonbase::Activity::ActivityProgramMessageClicked::ProgramMessage }
 
-        # @!method initialize(id:, links:, occurred_at:, link_text: nil, link_url_unsafe: nil, recipient: nil, type: :"activity/program_message_clicked")
+        # @!attribute recipient
+        #   A link to the `Address` of the recipient who clicked the link.
+        #
+        #   @return [Moonbase::Models::Activity::ActivityProgramMessageClicked::Recipient, nil]
+        optional :recipient, -> { Moonbase::Activity::ActivityProgramMessageClicked::Recipient }
+
+        # @!method initialize(id:, links:, occurred_at:, link_text: nil, link_url_unsafe: nil, program_message: nil, recipient: nil, type: :"activity/program_message_clicked")
         #   Represents an event that occurs when a recipient clicks a tracked link in a
         #   `ProgramMessage`.
         #
@@ -802,7 +1247,9 @@ module Moonbase
         #
         #   @param link_url_unsafe [String] The URL of the link that was clicked.
         #
-        #   @param recipient [Moonbase::Models::Address] The `Address` of the recipient who clicked the link.
+        #   @param program_message [Moonbase::Models::Activity::ActivityProgramMessageClicked::ProgramMessage]
+        #
+        #   @param recipient [Moonbase::Models::Activity::ActivityProgramMessageClicked::Recipient] A link to the `Address` of the recipient who clicked the link.
         #
         #   @param type [Symbol, :"activity/program_message_clicked"] The type of activity. Always `activity/program_message_clicked`.
 
@@ -814,8 +1261,52 @@ module Moonbase
           #   @return [String]
           required :self_, String, api_name: :self
 
-          # @!method initialize(self_:)
+          # @!attribute recipient
+          #   A link to the `Address` of the recipient who clicked the link.
+          #
+          #   @return [String, nil]
+          optional :recipient, String
+
+          # @!method initialize(self_:, recipient: nil)
           #   @param self_ [String] The canonical URL for this object.
+          #
+          #   @param recipient [String] A link to the `Address` of the recipient who clicked the link.
+        end
+
+        # @see Moonbase::Models::Activity::ActivityProgramMessageClicked#program_message
+        class ProgramMessage < Moonbase::Internal::Type::BaseModel
+          # @!attribute id
+          #
+          #   @return [String]
+          required :id, String
+
+          # @!attribute type
+          #
+          #   @return [String]
+          required :type, String
+
+          # @!method initialize(id:, type:)
+          #   @param id [String]
+          #   @param type [String]
+        end
+
+        # @see Moonbase::Models::Activity::ActivityProgramMessageClicked#recipient
+        class Recipient < Moonbase::Internal::Type::BaseModel
+          # @!attribute id
+          #
+          #   @return [String]
+          required :id, String
+
+          # @!attribute type
+          #
+          #   @return [String]
+          required :type, String
+
+          # @!method initialize(id:, type:)
+          #   A link to the `Address` of the recipient who clicked the link.
+          #
+          #   @param id [String]
+          #   @param type [String]
         end
       end
 
@@ -843,13 +1334,18 @@ module Moonbase
         #   @return [Symbol, :"activity/program_message_complained"]
         required :type, const: :"activity/program_message_complained"
 
-        # @!attribute recipient
-        #   The `Address` of the recipient who complained.
+        # @!attribute program_message
         #
-        #   @return [Moonbase::Models::Address, nil]
-        optional :recipient, -> { Moonbase::Address }
+        #   @return [Moonbase::Models::Activity::ActivityProgramMessageComplained::ProgramMessage, nil]
+        optional :program_message, -> { Moonbase::Activity::ActivityProgramMessageComplained::ProgramMessage }
 
-        # @!method initialize(id:, links:, occurred_at:, recipient: nil, type: :"activity/program_message_complained")
+        # @!attribute recipient
+        #   A link to the `Address` of the recipient who complained.
+        #
+        #   @return [Moonbase::Models::Activity::ActivityProgramMessageComplained::Recipient, nil]
+        optional :recipient, -> { Moonbase::Activity::ActivityProgramMessageComplained::Recipient }
+
+        # @!method initialize(id:, links:, occurred_at:, program_message: nil, recipient: nil, type: :"activity/program_message_complained")
         #   Represents an event that occurs when a recipient marks a `ProgramMessage` as
         #   spam.
         #
@@ -859,7 +1355,9 @@ module Moonbase
         #
         #   @param occurred_at [Time] The time at which the event occurred, as an RFC 3339 timestamp.
         #
-        #   @param recipient [Moonbase::Models::Address] The `Address` of the recipient who complained.
+        #   @param program_message [Moonbase::Models::Activity::ActivityProgramMessageComplained::ProgramMessage]
+        #
+        #   @param recipient [Moonbase::Models::Activity::ActivityProgramMessageComplained::Recipient] A link to the `Address` of the recipient who complained.
         #
         #   @param type [Symbol, :"activity/program_message_complained"] The type of activity. Always `activity/program_message_complained`.
 
@@ -871,8 +1369,52 @@ module Moonbase
           #   @return [String]
           required :self_, String, api_name: :self
 
-          # @!method initialize(self_:)
+          # @!attribute recipient
+          #   A link to the `Address` of the recipient who complained.
+          #
+          #   @return [String, nil]
+          optional :recipient, String
+
+          # @!method initialize(self_:, recipient: nil)
           #   @param self_ [String] The canonical URL for this object.
+          #
+          #   @param recipient [String] A link to the `Address` of the recipient who complained.
+        end
+
+        # @see Moonbase::Models::Activity::ActivityProgramMessageComplained#program_message
+        class ProgramMessage < Moonbase::Internal::Type::BaseModel
+          # @!attribute id
+          #
+          #   @return [String]
+          required :id, String
+
+          # @!attribute type
+          #
+          #   @return [String]
+          required :type, String
+
+          # @!method initialize(id:, type:)
+          #   @param id [String]
+          #   @param type [String]
+        end
+
+        # @see Moonbase::Models::Activity::ActivityProgramMessageComplained#recipient
+        class Recipient < Moonbase::Internal::Type::BaseModel
+          # @!attribute id
+          #
+          #   @return [String]
+          required :id, String
+
+          # @!attribute type
+          #
+          #   @return [String]
+          required :type, String
+
+          # @!method initialize(id:, type:)
+          #   A link to the `Address` of the recipient who complained.
+          #
+          #   @param id [String]
+          #   @param type [String]
         end
       end
 
@@ -900,13 +1442,23 @@ module Moonbase
         #   @return [Symbol, :"activity/program_message_failed"]
         required :type, const: :"activity/program_message_failed"
 
-        # @!attribute recipient
-        #   The `Address` of the recipient whose message failed.
+        # @!attribute program_message
         #
-        #   @return [Moonbase::Models::Address, nil]
-        optional :recipient, -> { Moonbase::Address }
+        #   @return [Moonbase::Models::Activity::ActivityProgramMessageFailed::ProgramMessage, nil]
+        optional :program_message, -> { Moonbase::Activity::ActivityProgramMessageFailed::ProgramMessage }
 
-        # @!method initialize(id:, links:, occurred_at:, recipient: nil, type: :"activity/program_message_failed")
+        # @!attribute reason_code
+        #
+        #   @return [String, nil]
+        optional :reason_code, String
+
+        # @!attribute recipient
+        #   A link to the `Address` of the recipient whose message failed.
+        #
+        #   @return [Moonbase::Models::Activity::ActivityProgramMessageFailed::Recipient, nil]
+        optional :recipient, -> { Moonbase::Activity::ActivityProgramMessageFailed::Recipient }
+
+        # @!method initialize(id:, links:, occurred_at:, program_message: nil, reason_code: nil, recipient: nil, type: :"activity/program_message_failed")
         #   Represents an event that occurs when a `ProgramMessage` fails to be delivered
         #   for a technical reason.
         #
@@ -916,7 +1468,11 @@ module Moonbase
         #
         #   @param occurred_at [Time] The time at which the event occurred, as an RFC 3339 timestamp.
         #
-        #   @param recipient [Moonbase::Models::Address] The `Address` of the recipient whose message failed.
+        #   @param program_message [Moonbase::Models::Activity::ActivityProgramMessageFailed::ProgramMessage]
+        #
+        #   @param reason_code [String]
+        #
+        #   @param recipient [Moonbase::Models::Activity::ActivityProgramMessageFailed::Recipient] A link to the `Address` of the recipient whose message failed.
         #
         #   @param type [Symbol, :"activity/program_message_failed"] The type of activity. Always `activity/program_message_failed`.
 
@@ -928,8 +1484,52 @@ module Moonbase
           #   @return [String]
           required :self_, String, api_name: :self
 
-          # @!method initialize(self_:)
+          # @!attribute recipient
+          #   A link to the `Address` of the recipient whose message failed.
+          #
+          #   @return [String, nil]
+          optional :recipient, String
+
+          # @!method initialize(self_:, recipient: nil)
           #   @param self_ [String] The canonical URL for this object.
+          #
+          #   @param recipient [String] A link to the `Address` of the recipient whose message failed.
+        end
+
+        # @see Moonbase::Models::Activity::ActivityProgramMessageFailed#program_message
+        class ProgramMessage < Moonbase::Internal::Type::BaseModel
+          # @!attribute id
+          #
+          #   @return [String]
+          required :id, String
+
+          # @!attribute type
+          #
+          #   @return [String]
+          required :type, String
+
+          # @!method initialize(id:, type:)
+          #   @param id [String]
+          #   @param type [String]
+        end
+
+        # @see Moonbase::Models::Activity::ActivityProgramMessageFailed#recipient
+        class Recipient < Moonbase::Internal::Type::BaseModel
+          # @!attribute id
+          #
+          #   @return [String]
+          required :id, String
+
+          # @!attribute type
+          #
+          #   @return [String]
+          required :type, String
+
+          # @!method initialize(id:, type:)
+          #   A link to the `Address` of the recipient whose message failed.
+          #
+          #   @param id [String]
+          #   @param type [String]
         end
       end
 
@@ -957,13 +1557,18 @@ module Moonbase
         #   @return [Symbol, :"activity/program_message_opened"]
         required :type, const: :"activity/program_message_opened"
 
-        # @!attribute recipient
-        #   The `Address` of the recipient who opened the message.
+        # @!attribute program_message
         #
-        #   @return [Moonbase::Models::Address, nil]
-        optional :recipient, -> { Moonbase::Address }
+        #   @return [Moonbase::Models::Activity::ActivityProgramMessageOpened::ProgramMessage, nil]
+        optional :program_message, -> { Moonbase::Activity::ActivityProgramMessageOpened::ProgramMessage }
 
-        # @!method initialize(id:, links:, occurred_at:, recipient: nil, type: :"activity/program_message_opened")
+        # @!attribute recipient
+        #   A link to the `Address` of the recipient who opened the message.
+        #
+        #   @return [Moonbase::Models::Activity::ActivityProgramMessageOpened::Recipient, nil]
+        optional :recipient, -> { Moonbase::Activity::ActivityProgramMessageOpened::Recipient }
+
+        # @!method initialize(id:, links:, occurred_at:, program_message: nil, recipient: nil, type: :"activity/program_message_opened")
         #   Represents an event that occurs when a recipient opens a `ProgramMessage`.
         #
         #   @param id [String] Unique identifier for the object.
@@ -972,7 +1577,9 @@ module Moonbase
         #
         #   @param occurred_at [Time] The time at which the event occurred, as an RFC 3339 timestamp.
         #
-        #   @param recipient [Moonbase::Models::Address] The `Address` of the recipient who opened the message.
+        #   @param program_message [Moonbase::Models::Activity::ActivityProgramMessageOpened::ProgramMessage]
+        #
+        #   @param recipient [Moonbase::Models::Activity::ActivityProgramMessageOpened::Recipient] A link to the `Address` of the recipient who opened the message.
         #
         #   @param type [Symbol, :"activity/program_message_opened"] The type of activity. Always `activity/program_message_opened`.
 
@@ -984,8 +1591,52 @@ module Moonbase
           #   @return [String]
           required :self_, String, api_name: :self
 
-          # @!method initialize(self_:)
+          # @!attribute recipient
+          #   A link to the `Address` of the recipient who opened the message.
+          #
+          #   @return [String, nil]
+          optional :recipient, String
+
+          # @!method initialize(self_:, recipient: nil)
           #   @param self_ [String] The canonical URL for this object.
+          #
+          #   @param recipient [String] A link to the `Address` of the recipient who opened the message.
+        end
+
+        # @see Moonbase::Models::Activity::ActivityProgramMessageOpened#program_message
+        class ProgramMessage < Moonbase::Internal::Type::BaseModel
+          # @!attribute id
+          #
+          #   @return [String]
+          required :id, String
+
+          # @!attribute type
+          #
+          #   @return [String]
+          required :type, String
+
+          # @!method initialize(id:, type:)
+          #   @param id [String]
+          #   @param type [String]
+        end
+
+        # @see Moonbase::Models::Activity::ActivityProgramMessageOpened#recipient
+        class Recipient < Moonbase::Internal::Type::BaseModel
+          # @!attribute id
+          #
+          #   @return [String]
+          required :id, String
+
+          # @!attribute type
+          #
+          #   @return [String]
+          required :type, String
+
+          # @!method initialize(id:, type:)
+          #   A link to the `Address` of the recipient who opened the message.
+          #
+          #   @param id [String]
+          #   @param type [String]
         end
       end
 
@@ -1013,13 +1664,23 @@ module Moonbase
         #   @return [Symbol, :"activity/program_message_sent"]
         required :type, const: :"activity/program_message_sent"
 
-        # @!attribute recipient
-        #   The `Address` of the recipient the message was sent to.
+        # @!attribute program_message
         #
-        #   @return [Moonbase::Models::Address, nil]
-        optional :recipient, -> { Moonbase::Address }
+        #   @return [Moonbase::Models::Activity::ActivityProgramMessageSent::ProgramMessage, nil]
+        optional :program_message, -> { Moonbase::Activity::ActivityProgramMessageSent::ProgramMessage }
 
-        # @!method initialize(id:, links:, occurred_at:, recipient: nil, type: :"activity/program_message_sent")
+        # @!attribute recipient
+        #   A link to the `Address` of the recipient the message was sent to.
+        #
+        #   @return [Moonbase::Models::Activity::ActivityProgramMessageSent::Recipient, nil]
+        optional :recipient, -> { Moonbase::Activity::ActivityProgramMessageSent::Recipient }
+
+        # @!attribute recipient_emails
+        #
+        #   @return [Array<String>, nil]
+        optional :recipient_emails, Moonbase::Internal::Type::ArrayOf[String]
+
+        # @!method initialize(id:, links:, occurred_at:, program_message: nil, recipient: nil, recipient_emails: nil, type: :"activity/program_message_sent")
         #   Represents an event that occurs when a `ProgramMessage` is successfully sent.
         #
         #   @param id [String] Unique identifier for the object.
@@ -1028,7 +1689,11 @@ module Moonbase
         #
         #   @param occurred_at [Time] The time at which the event occurred, as an RFC 3339 timestamp.
         #
-        #   @param recipient [Moonbase::Models::Address] The `Address` of the recipient the message was sent to.
+        #   @param program_message [Moonbase::Models::Activity::ActivityProgramMessageSent::ProgramMessage]
+        #
+        #   @param recipient [Moonbase::Models::Activity::ActivityProgramMessageSent::Recipient] A link to the `Address` of the recipient the message was sent to.
+        #
+        #   @param recipient_emails [Array<String>]
         #
         #   @param type [Symbol, :"activity/program_message_sent"] The type of activity. Always `activity/program_message_sent`.
 
@@ -1040,8 +1705,52 @@ module Moonbase
           #   @return [String]
           required :self_, String, api_name: :self
 
-          # @!method initialize(self_:)
+          # @!attribute recipient
+          #   A link to the `Address` of the recipient the message was sent to.
+          #
+          #   @return [String, nil]
+          optional :recipient, String
+
+          # @!method initialize(self_:, recipient: nil)
           #   @param self_ [String] The canonical URL for this object.
+          #
+          #   @param recipient [String] A link to the `Address` of the recipient the message was sent to.
+        end
+
+        # @see Moonbase::Models::Activity::ActivityProgramMessageSent#program_message
+        class ProgramMessage < Moonbase::Internal::Type::BaseModel
+          # @!attribute id
+          #
+          #   @return [String]
+          required :id, String
+
+          # @!attribute type
+          #
+          #   @return [String]
+          required :type, String
+
+          # @!method initialize(id:, type:)
+          #   @param id [String]
+          #   @param type [String]
+        end
+
+        # @see Moonbase::Models::Activity::ActivityProgramMessageSent#recipient
+        class Recipient < Moonbase::Internal::Type::BaseModel
+          # @!attribute id
+          #
+          #   @return [String]
+          required :id, String
+
+          # @!attribute type
+          #
+          #   @return [String]
+          required :type, String
+
+          # @!method initialize(id:, type:)
+          #   A link to the `Address` of the recipient the message was sent to.
+          #
+          #   @param id [String]
+          #   @param type [String]
         end
       end
 
@@ -1069,13 +1778,23 @@ module Moonbase
         #   @return [Symbol, :"activity/program_message_shielded"]
         required :type, const: :"activity/program_message_shielded"
 
-        # @!attribute recipient
-        #   The `Address` of the recipient whose message was shielded.
+        # @!attribute program_message
         #
-        #   @return [Moonbase::Models::Address, nil]
-        optional :recipient, -> { Moonbase::Address }
+        #   @return [Moonbase::Models::Activity::ActivityProgramMessageShielded::ProgramMessage, nil]
+        optional :program_message, -> { Moonbase::Activity::ActivityProgramMessageShielded::ProgramMessage }
 
-        # @!method initialize(id:, links:, occurred_at:, recipient: nil, type: :"activity/program_message_shielded")
+        # @!attribute reason_code
+        #
+        #   @return [String, nil]
+        optional :reason_code, String
+
+        # @!attribute recipient
+        #   A link to the `Address` of the recipient whose message was shielded.
+        #
+        #   @return [Moonbase::Models::Activity::ActivityProgramMessageShielded::Recipient, nil]
+        optional :recipient, -> { Moonbase::Activity::ActivityProgramMessageShielded::Recipient }
+
+        # @!method initialize(id:, links:, occurred_at:, program_message: nil, reason_code: nil, recipient: nil, type: :"activity/program_message_shielded")
         #   Represents an event that occurs when a `ProgramMessage` is prevented from being
         #   sent by a delivery protection rule.
         #
@@ -1085,7 +1804,11 @@ module Moonbase
         #
         #   @param occurred_at [Time] The time at which the event occurred, as an RFC 3339 timestamp.
         #
-        #   @param recipient [Moonbase::Models::Address] The `Address` of the recipient whose message was shielded.
+        #   @param program_message [Moonbase::Models::Activity::ActivityProgramMessageShielded::ProgramMessage]
+        #
+        #   @param reason_code [String]
+        #
+        #   @param recipient [Moonbase::Models::Activity::ActivityProgramMessageShielded::Recipient] A link to the `Address` of the recipient whose message was shielded.
         #
         #   @param type [Symbol, :"activity/program_message_shielded"] The type of activity. Always `activity/program_message_shielded`.
 
@@ -1097,8 +1820,52 @@ module Moonbase
           #   @return [String]
           required :self_, String, api_name: :self
 
-          # @!method initialize(self_:)
+          # @!attribute recipient
+          #   A link to the `Address` of the recipient whose message was shielded.
+          #
+          #   @return [String, nil]
+          optional :recipient, String
+
+          # @!method initialize(self_:, recipient: nil)
           #   @param self_ [String] The canonical URL for this object.
+          #
+          #   @param recipient [String] A link to the `Address` of the recipient whose message was shielded.
+        end
+
+        # @see Moonbase::Models::Activity::ActivityProgramMessageShielded#program_message
+        class ProgramMessage < Moonbase::Internal::Type::BaseModel
+          # @!attribute id
+          #
+          #   @return [String]
+          required :id, String
+
+          # @!attribute type
+          #
+          #   @return [String]
+          required :type, String
+
+          # @!method initialize(id:, type:)
+          #   @param id [String]
+          #   @param type [String]
+        end
+
+        # @see Moonbase::Models::Activity::ActivityProgramMessageShielded#recipient
+        class Recipient < Moonbase::Internal::Type::BaseModel
+          # @!attribute id
+          #
+          #   @return [String]
+          required :id, String
+
+          # @!attribute type
+          #
+          #   @return [String]
+          required :type, String
+
+          # @!method initialize(id:, type:)
+          #   A link to the `Address` of the recipient whose message was shielded.
+          #
+          #   @param id [String]
+          #   @param type [String]
         end
       end
 
@@ -1126,13 +1893,26 @@ module Moonbase
         #   @return [Symbol, :"activity/program_message_unsubscribed"]
         required :type, const: :"activity/program_message_unsubscribed"
 
-        # @!attribute recipient
-        #   The `Address` of the recipient who unsubscribed.
+        # @!attribute email
         #
-        #   @return [Moonbase::Models::Address, nil]
-        optional :recipient, -> { Moonbase::Address }
+        #   @return [String, nil]
+        optional :email, String
 
-        # @!method initialize(id:, links:, occurred_at:, recipient: nil, type: :"activity/program_message_unsubscribed")
+        # @!attribute program_message
+        #
+        #   @return [Moonbase::Models::Activity::ActivityProgramMessageUnsubscribed::ProgramMessage, nil]
+        optional :program_message,
+                 -> {
+                   Moonbase::Activity::ActivityProgramMessageUnsubscribed::ProgramMessage
+                 }
+
+        # @!attribute recipient
+        #   A link to the `Address` of the recipient who unsubscribed.
+        #
+        #   @return [Moonbase::Models::Activity::ActivityProgramMessageUnsubscribed::Recipient, nil]
+        optional :recipient, -> { Moonbase::Activity::ActivityProgramMessageUnsubscribed::Recipient }
+
+        # @!method initialize(id:, links:, occurred_at:, email: nil, program_message: nil, recipient: nil, type: :"activity/program_message_unsubscribed")
         #   Represents an event that occurs when a recipient unsubscribes after receiving a
         #   `ProgramMessage`.
         #
@@ -1142,7 +1922,11 @@ module Moonbase
         #
         #   @param occurred_at [Time] The time at which the event occurred, as an RFC 3339 timestamp.
         #
-        #   @param recipient [Moonbase::Models::Address] The `Address` of the recipient who unsubscribed.
+        #   @param email [String]
+        #
+        #   @param program_message [Moonbase::Models::Activity::ActivityProgramMessageUnsubscribed::ProgramMessage]
+        #
+        #   @param recipient [Moonbase::Models::Activity::ActivityProgramMessageUnsubscribed::Recipient] A link to the `Address` of the recipient who unsubscribed.
         #
         #   @param type [Symbol, :"activity/program_message_unsubscribed"] The type of activity. Always `activity/program_message_unsubscribed`.
 
@@ -1154,13 +1938,57 @@ module Moonbase
           #   @return [String]
           required :self_, String, api_name: :self
 
-          # @!method initialize(self_:)
+          # @!attribute recipient
+          #   A link to the `Address` of the recipient who unsubscribed.
+          #
+          #   @return [String, nil]
+          optional :recipient, String
+
+          # @!method initialize(self_:, recipient: nil)
           #   @param self_ [String] The canonical URL for this object.
+          #
+          #   @param recipient [String] A link to the `Address` of the recipient who unsubscribed.
+        end
+
+        # @see Moonbase::Models::Activity::ActivityProgramMessageUnsubscribed#program_message
+        class ProgramMessage < Moonbase::Internal::Type::BaseModel
+          # @!attribute id
+          #
+          #   @return [String]
+          required :id, String
+
+          # @!attribute type
+          #
+          #   @return [String]
+          required :type, String
+
+          # @!method initialize(id:, type:)
+          #   @param id [String]
+          #   @param type [String]
+        end
+
+        # @see Moonbase::Models::Activity::ActivityProgramMessageUnsubscribed#recipient
+        class Recipient < Moonbase::Internal::Type::BaseModel
+          # @!attribute id
+          #
+          #   @return [String]
+          required :id, String
+
+          # @!attribute type
+          #
+          #   @return [String]
+          required :type, String
+
+          # @!method initialize(id:, type:)
+          #   A link to the `Address` of the recipient who unsubscribed.
+          #
+          #   @param id [String]
+          #   @param type [String]
         end
       end
 
       # @!method self.variants
-      #   @return [Array(Moonbase::Models::Activity::ActivityCallOccurred, Moonbase::Models::Activity::ActivityFormSubmitted, Moonbase::Models::Activity::ActivityInboxMessageSent, Moonbase::Models::Activity::ActivityItemCreated, Moonbase::Models::Activity::ActivityItemMentioned, Moonbase::Models::Activity::ActivityMeetingHeld, Moonbase::Models::Activity::ActivityMeetingScheduled, Moonbase::Models::Activity::ActivityNoteCreated, Moonbase::Models::Activity::ActivityProgramMessageBounced, Moonbase::Models::Activity::ActivityProgramMessageClicked, Moonbase::Models::Activity::ActivityProgramMessageComplained, Moonbase::Models::Activity::ActivityProgramMessageFailed, Moonbase::Models::Activity::ActivityProgramMessageOpened, Moonbase::Models::Activity::ActivityProgramMessageSent, Moonbase::Models::Activity::ActivityProgramMessageShielded, Moonbase::Models::Activity::ActivityProgramMessageUnsubscribed)]
+      #   @return [Array(Moonbase::Models::Activity::ActivityCallOccurred, Moonbase::Models::Activity::ActivityFormSubmitted, Moonbase::Models::Activity::ActivityInboxMessageSent, Moonbase::Models::Activity::ActivityItemCreated, Moonbase::Models::Activity::ActivityItemMentioned, Moonbase::Models::Activity::ActivityItemMerged, Moonbase::Models::Activity::ActivityMeetingHeld, Moonbase::Models::Activity::ActivityMeetingScheduled, Moonbase::Models::Activity::ActivityNoteCreated, Moonbase::Models::Activity::ActivityProgramMessageBounced, Moonbase::Models::Activity::ActivityProgramMessageClicked, Moonbase::Models::Activity::ActivityProgramMessageComplained, Moonbase::Models::Activity::ActivityProgramMessageFailed, Moonbase::Models::Activity::ActivityProgramMessageOpened, Moonbase::Models::Activity::ActivityProgramMessageSent, Moonbase::Models::Activity::ActivityProgramMessageShielded, Moonbase::Models::Activity::ActivityProgramMessageUnsubscribed)]
     end
   end
 end

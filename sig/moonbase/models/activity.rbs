@@ -6,6 +6,7 @@ module Moonbase
       | Moonbase::Activity::ActivityInboxMessageSent
       | Moonbase::Activity::ActivityItemCreated
       | Moonbase::Activity::ActivityItemMentioned
+      | Moonbase::Activity::ActivityItemMerged
       | Moonbase::Activity::ActivityMeetingHeld
       | Moonbase::Activity::ActivityMeetingScheduled
       | Moonbase::Activity::ActivityNoteCreated
@@ -27,7 +28,7 @@ module Moonbase
           links: Moonbase::Activity::ActivityCallOccurred::Links,
           occurred_at: Time,
           type: :"activity/call_occurred",
-          call: Moonbase::Call
+          call: Moonbase::Activity::ActivityCallOccurred::Call
         }
 
       class ActivityCallOccurred < Moonbase::Internal::Type::BaseModel
@@ -39,15 +40,17 @@ module Moonbase
 
         attr_accessor type: :"activity/call_occurred"
 
-        attr_reader call: Moonbase::Call?
+        attr_reader call: Moonbase::Activity::ActivityCallOccurred::Call?
 
-        def call=: (Moonbase::Call) -> Moonbase::Call
+        def call=: (
+          Moonbase::Activity::ActivityCallOccurred::Call
+        ) -> Moonbase::Activity::ActivityCallOccurred::Call
 
         def initialize: (
           id: String,
           links: Moonbase::Activity::ActivityCallOccurred::Links,
           occurred_at: Time,
-          ?call: Moonbase::Call,
+          ?call: Moonbase::Activity::ActivityCallOccurred::Call,
           ?type: :"activity/call_occurred"
         ) -> void
 
@@ -56,7 +59,7 @@ module Moonbase
           links: Moonbase::Activity::ActivityCallOccurred::Links,
           occurred_at: Time,
           type: :"activity/call_occurred",
-          call: Moonbase::Call
+          call: Moonbase::Activity::ActivityCallOccurred::Call
         }
 
         type links = { self_: String }
@@ -68,6 +71,18 @@ module Moonbase
 
           def to_hash: -> { self_: String }
         end
+
+        type call = { id: String, type: String }
+
+        class Call < Moonbase::Internal::Type::BaseModel
+          attr_accessor id: String
+
+          attr_accessor type: String
+
+          def initialize: (id: String, type: String) -> void
+
+          def to_hash: -> { id: String, type: String }
+        end
       end
 
       type activity_form_submitted =
@@ -76,8 +91,8 @@ module Moonbase
           links: Moonbase::Activity::ActivityFormSubmitted::Links,
           occurred_at: Time,
           type: :"activity/form_submitted",
-          collection: Moonbase::Collection,
-          item: Moonbase::Item
+          collection: Moonbase::Activity::ActivityFormSubmitted::Collection,
+          related_item: Moonbase::Activity::ActivityFormSubmitted::RelatedItem
         }
 
       class ActivityFormSubmitted < Moonbase::Internal::Type::BaseModel
@@ -89,20 +104,24 @@ module Moonbase
 
         attr_accessor type: :"activity/form_submitted"
 
-        attr_reader collection: Moonbase::Collection?
+        attr_reader collection: Moonbase::Activity::ActivityFormSubmitted::Collection?
 
-        def collection=: (Moonbase::Collection) -> Moonbase::Collection
+        def collection=: (
+          Moonbase::Activity::ActivityFormSubmitted::Collection
+        ) -> Moonbase::Activity::ActivityFormSubmitted::Collection
 
-        attr_reader item: Moonbase::Item?
+        attr_reader related_item: Moonbase::Activity::ActivityFormSubmitted::RelatedItem?
 
-        def item=: (Moonbase::Item) -> Moonbase::Item
+        def related_item=: (
+          Moonbase::Activity::ActivityFormSubmitted::RelatedItem
+        ) -> Moonbase::Activity::ActivityFormSubmitted::RelatedItem
 
         def initialize: (
           id: String,
           links: Moonbase::Activity::ActivityFormSubmitted::Links,
           occurred_at: Time,
-          ?collection: Moonbase::Collection,
-          ?item: Moonbase::Item,
+          ?collection: Moonbase::Activity::ActivityFormSubmitted::Collection,
+          ?related_item: Moonbase::Activity::ActivityFormSubmitted::RelatedItem,
           ?type: :"activity/form_submitted"
         ) -> void
 
@@ -111,8 +130,8 @@ module Moonbase
           links: Moonbase::Activity::ActivityFormSubmitted::Links,
           occurred_at: Time,
           type: :"activity/form_submitted",
-          collection: Moonbase::Collection,
-          item: Moonbase::Item
+          collection: Moonbase::Activity::ActivityFormSubmitted::Collection,
+          related_item: Moonbase::Activity::ActivityFormSubmitted::RelatedItem
         }
 
         type links = { self_: String, collection: String, item: String }
@@ -136,6 +155,30 @@ module Moonbase
 
           def to_hash: -> { self_: String, collection: String, item: String }
         end
+
+        type collection = { id: String, type: String }
+
+        class Collection < Moonbase::Internal::Type::BaseModel
+          attr_accessor id: String
+
+          attr_accessor type: String
+
+          def initialize: (id: String, type: String) -> void
+
+          def to_hash: -> { id: String, type: String }
+        end
+
+        type related_item = { id: String, type: String }
+
+        class RelatedItem < Moonbase::Internal::Type::BaseModel
+          attr_accessor id: String
+
+          attr_accessor type: String
+
+          def initialize: (id: String, type: String) -> void
+
+          def to_hash: -> { id: String, type: String }
+        end
       end
 
       type activity_inbox_message_sent =
@@ -144,9 +187,7 @@ module Moonbase
           links: Moonbase::Activity::ActivityInboxMessageSent::Links,
           occurred_at: Time,
           type: :"activity/inbox_message_sent",
-          message: Moonbase::EmailMessage,
-          recipients: ::Array[Moonbase::Address],
-          sender: Moonbase::Address
+          message: Moonbase::Activity::ActivityInboxMessageSent::Message
         }
 
       class ActivityInboxMessageSent < Moonbase::Internal::Type::BaseModel
@@ -158,27 +199,17 @@ module Moonbase
 
         attr_accessor type: :"activity/inbox_message_sent"
 
-        attr_reader message: Moonbase::EmailMessage?
+        attr_reader message: Moonbase::Activity::ActivityInboxMessageSent::Message?
 
-        def message=: (Moonbase::EmailMessage) -> Moonbase::EmailMessage
-
-        attr_reader recipients: ::Array[Moonbase::Address]?
-
-        def recipients=: (
-          ::Array[Moonbase::Address]
-        ) -> ::Array[Moonbase::Address]
-
-        attr_reader sender: Moonbase::Address?
-
-        def sender=: (Moonbase::Address) -> Moonbase::Address
+        def message=: (
+          Moonbase::Activity::ActivityInboxMessageSent::Message
+        ) -> Moonbase::Activity::ActivityInboxMessageSent::Message
 
         def initialize: (
           id: String,
           links: Moonbase::Activity::ActivityInboxMessageSent::Links,
           occurred_at: Time,
-          ?message: Moonbase::EmailMessage,
-          ?recipients: ::Array[Moonbase::Address],
-          ?sender: Moonbase::Address,
+          ?message: Moonbase::Activity::ActivityInboxMessageSent::Message,
           ?type: :"activity/inbox_message_sent"
         ) -> void
 
@@ -187,9 +218,7 @@ module Moonbase
           links: Moonbase::Activity::ActivityInboxMessageSent::Links,
           occurred_at: Time,
           type: :"activity/inbox_message_sent",
-          message: Moonbase::EmailMessage,
-          recipients: ::Array[Moonbase::Address],
-          sender: Moonbase::Address
+          message: Moonbase::Activity::ActivityInboxMessageSent::Message
         }
 
         type links = { self_: String, message: String }
@@ -205,6 +234,18 @@ module Moonbase
 
           def to_hash: -> { self_: String, message: String }
         end
+
+        type message = { id: String, type: String }
+
+        class Message < Moonbase::Internal::Type::BaseModel
+          attr_accessor id: String
+
+          attr_accessor type: String
+
+          def initialize: (id: String, type: String) -> void
+
+          def to_hash: -> { id: String, type: String }
+        end
       end
 
       type activity_item_created =
@@ -213,8 +254,8 @@ module Moonbase
           links: Moonbase::Activity::ActivityItemCreated::Links,
           occurred_at: Time,
           type: :"activity/item_created",
-          collection: Moonbase::Collection,
-          item: Moonbase::Item
+          collection: Moonbase::Activity::ActivityItemCreated::Collection,
+          created_item: Moonbase::Activity::ActivityItemCreated::CreatedItem
         }
 
       class ActivityItemCreated < Moonbase::Internal::Type::BaseModel
@@ -226,20 +267,24 @@ module Moonbase
 
         attr_accessor type: :"activity/item_created"
 
-        attr_reader collection: Moonbase::Collection?
+        attr_reader collection: Moonbase::Activity::ActivityItemCreated::Collection?
 
-        def collection=: (Moonbase::Collection) -> Moonbase::Collection
+        def collection=: (
+          Moonbase::Activity::ActivityItemCreated::Collection
+        ) -> Moonbase::Activity::ActivityItemCreated::Collection
 
-        attr_reader item: Moonbase::Item?
+        attr_reader created_item: Moonbase::Activity::ActivityItemCreated::CreatedItem?
 
-        def item=: (Moonbase::Item) -> Moonbase::Item
+        def created_item=: (
+          Moonbase::Activity::ActivityItemCreated::CreatedItem
+        ) -> Moonbase::Activity::ActivityItemCreated::CreatedItem
 
         def initialize: (
           id: String,
           links: Moonbase::Activity::ActivityItemCreated::Links,
           occurred_at: Time,
-          ?collection: Moonbase::Collection,
-          ?item: Moonbase::Item,
+          ?collection: Moonbase::Activity::ActivityItemCreated::Collection,
+          ?created_item: Moonbase::Activity::ActivityItemCreated::CreatedItem,
           ?type: :"activity/item_created"
         ) -> void
 
@@ -248,8 +293,8 @@ module Moonbase
           links: Moonbase::Activity::ActivityItemCreated::Links,
           occurred_at: Time,
           type: :"activity/item_created",
-          collection: Moonbase::Collection,
-          item: Moonbase::Item
+          collection: Moonbase::Activity::ActivityItemCreated::Collection,
+          created_item: Moonbase::Activity::ActivityItemCreated::CreatedItem
         }
 
         type links = { self_: String, collection: String, item: String }
@@ -273,6 +318,30 @@ module Moonbase
 
           def to_hash: -> { self_: String, collection: String, item: String }
         end
+
+        type collection = { id: String, type: String }
+
+        class Collection < Moonbase::Internal::Type::BaseModel
+          attr_accessor id: String
+
+          attr_accessor type: String
+
+          def initialize: (id: String, type: String) -> void
+
+          def to_hash: -> { id: String, type: String }
+        end
+
+        type created_item = { id: String, type: String }
+
+        class CreatedItem < Moonbase::Internal::Type::BaseModel
+          attr_accessor id: String
+
+          attr_accessor type: String
+
+          def initialize: (id: String, type: String) -> void
+
+          def to_hash: -> { id: String, type: String }
+        end
       end
 
       type activity_item_mentioned =
@@ -281,8 +350,9 @@ module Moonbase
           links: Moonbase::Activity::ActivityItemMentioned::Links,
           occurred_at: Time,
           type: :"activity/item_mentioned",
-          collection: Moonbase::Collection,
-          item: Moonbase::Item
+          author: Moonbase::Activity::ActivityItemMentioned::Author,
+          mentioned_item: Moonbase::Activity::ActivityItemMentioned::MentionedItem,
+          note: Moonbase::Activity::ActivityItemMentioned::Note
         }
 
       class ActivityItemMentioned < Moonbase::Internal::Type::BaseModel
@@ -294,20 +364,31 @@ module Moonbase
 
         attr_accessor type: :"activity/item_mentioned"
 
-        attr_reader collection: Moonbase::Collection?
+        attr_reader author: Moonbase::Activity::ActivityItemMentioned::Author?
 
-        def collection=: (Moonbase::Collection) -> Moonbase::Collection
+        def author=: (
+          Moonbase::Activity::ActivityItemMentioned::Author
+        ) -> Moonbase::Activity::ActivityItemMentioned::Author
 
-        attr_reader item: Moonbase::Item?
+        attr_reader mentioned_item: Moonbase::Activity::ActivityItemMentioned::MentionedItem?
 
-        def item=: (Moonbase::Item) -> Moonbase::Item
+        def mentioned_item=: (
+          Moonbase::Activity::ActivityItemMentioned::MentionedItem
+        ) -> Moonbase::Activity::ActivityItemMentioned::MentionedItem
+
+        attr_reader note: Moonbase::Activity::ActivityItemMentioned::Note?
+
+        def note=: (
+          Moonbase::Activity::ActivityItemMentioned::Note
+        ) -> Moonbase::Activity::ActivityItemMentioned::Note
 
         def initialize: (
           id: String,
           links: Moonbase::Activity::ActivityItemMentioned::Links,
           occurred_at: Time,
-          ?collection: Moonbase::Collection,
-          ?item: Moonbase::Item,
+          ?author: Moonbase::Activity::ActivityItemMentioned::Author,
+          ?mentioned_item: Moonbase::Activity::ActivityItemMentioned::MentionedItem,
+          ?note: Moonbase::Activity::ActivityItemMentioned::Note,
           ?type: :"activity/item_mentioned"
         ) -> void
 
@@ -316,30 +397,199 @@ module Moonbase
           links: Moonbase::Activity::ActivityItemMentioned::Links,
           occurred_at: Time,
           type: :"activity/item_mentioned",
-          collection: Moonbase::Collection,
-          item: Moonbase::Item
+          author: Moonbase::Activity::ActivityItemMentioned::Author,
+          mentioned_item: Moonbase::Activity::ActivityItemMentioned::MentionedItem,
+          note: Moonbase::Activity::ActivityItemMentioned::Note
         }
 
-        type links = { self_: String, collection: String, item: String }
+        type links =
+          { self_: String, author: String, item: String, note: String }
 
         class Links < Moonbase::Internal::Type::BaseModel
           attr_accessor self_: String
 
-          attr_reader collection: String?
+          attr_reader author: String?
 
-          def collection=: (String) -> String
+          def author=: (String) -> String
 
           attr_reader item: String?
 
           def item=: (String) -> String
 
+          attr_reader note: String?
+
+          def note=: (String) -> String
+
           def initialize: (
             self_: String,
-            ?collection: String,
-            ?item: String
+            ?author: String,
+            ?item: String,
+            ?note: String
           ) -> void
 
-          def to_hash: -> { self_: String, collection: String, item: String }
+          def to_hash: -> {
+            self_: String,
+            author: String,
+            item: String,
+            note: String
+          }
+        end
+
+        type author = { id: String, type: String }
+
+        class Author < Moonbase::Internal::Type::BaseModel
+          attr_accessor id: String
+
+          attr_accessor type: String
+
+          def initialize: (id: String, type: String) -> void
+
+          def to_hash: -> { id: String, type: String }
+        end
+
+        type mentioned_item = { id: String, type: String }
+
+        class MentionedItem < Moonbase::Internal::Type::BaseModel
+          attr_accessor id: String
+
+          attr_accessor type: String
+
+          def initialize: (id: String, type: String) -> void
+
+          def to_hash: -> { id: String, type: String }
+        end
+
+        type note = { id: String, type: String }
+
+        class Note < Moonbase::Internal::Type::BaseModel
+          attr_accessor id: String
+
+          attr_accessor type: String
+
+          def initialize: (id: String, type: String) -> void
+
+          def to_hash: -> { id: String, type: String }
+        end
+      end
+
+      type activity_item_merged =
+        {
+          id: String,
+          links: Moonbase::Activity::ActivityItemMerged::Links,
+          occurred_at: Time,
+          type: :"activity/item_merged",
+          destination: Moonbase::Activity::ActivityItemMerged::Destination,
+          initiator: Moonbase::Activity::ActivityItemMerged::Initiator,
+          source: Moonbase::Activity::ActivityItemMerged::Source
+        }
+
+      class ActivityItemMerged < Moonbase::Internal::Type::BaseModel
+        attr_accessor id: String
+
+        attr_accessor links: Moonbase::Activity::ActivityItemMerged::Links
+
+        attr_accessor occurred_at: Time
+
+        attr_accessor type: :"activity/item_merged"
+
+        attr_reader destination: Moonbase::Activity::ActivityItemMerged::Destination?
+
+        def destination=: (
+          Moonbase::Activity::ActivityItemMerged::Destination
+        ) -> Moonbase::Activity::ActivityItemMerged::Destination
+
+        attr_reader initiator: Moonbase::Activity::ActivityItemMerged::Initiator?
+
+        def initiator=: (
+          Moonbase::Activity::ActivityItemMerged::Initiator
+        ) -> Moonbase::Activity::ActivityItemMerged::Initiator
+
+        attr_reader source: Moonbase::Activity::ActivityItemMerged::Source?
+
+        def source=: (
+          Moonbase::Activity::ActivityItemMerged::Source
+        ) -> Moonbase::Activity::ActivityItemMerged::Source
+
+        def initialize: (
+          id: String,
+          links: Moonbase::Activity::ActivityItemMerged::Links,
+          occurred_at: Time,
+          ?destination: Moonbase::Activity::ActivityItemMerged::Destination,
+          ?initiator: Moonbase::Activity::ActivityItemMerged::Initiator,
+          ?source: Moonbase::Activity::ActivityItemMerged::Source,
+          ?type: :"activity/item_merged"
+        ) -> void
+
+        def to_hash: -> {
+          id: String,
+          links: Moonbase::Activity::ActivityItemMerged::Links,
+          occurred_at: Time,
+          type: :"activity/item_merged",
+          destination: Moonbase::Activity::ActivityItemMerged::Destination,
+          initiator: Moonbase::Activity::ActivityItemMerged::Initiator,
+          source: Moonbase::Activity::ActivityItemMerged::Source
+        }
+
+        type links = { self_: String, destination: String, initiator: String }
+
+        class Links < Moonbase::Internal::Type::BaseModel
+          attr_accessor self_: String
+
+          attr_reader destination: String?
+
+          def destination=: (String) -> String
+
+          attr_reader initiator: String?
+
+          def initiator=: (String) -> String
+
+          def initialize: (
+            self_: String,
+            ?destination: String,
+            ?initiator: String
+          ) -> void
+
+          def to_hash: -> {
+            self_: String,
+            destination: String,
+            initiator: String
+          }
+        end
+
+        type destination = { id: String, type: String }
+
+        class Destination < Moonbase::Internal::Type::BaseModel
+          attr_accessor id: String
+
+          attr_accessor type: String
+
+          def initialize: (id: String, type: String) -> void
+
+          def to_hash: -> { id: String, type: String }
+        end
+
+        type initiator = { id: String, type: String }
+
+        class Initiator < Moonbase::Internal::Type::BaseModel
+          attr_accessor id: String
+
+          attr_accessor type: String
+
+          def initialize: (id: String, type: String) -> void
+
+          def to_hash: -> { id: String, type: String }
+        end
+
+        type source = { id: String, type: String }
+
+        class Source < Moonbase::Internal::Type::BaseModel
+          attr_accessor id: String
+
+          attr_accessor type: String
+
+          def initialize: (id: String, type: String) -> void
+
+          def to_hash: -> { id: String, type: String }
         end
       end
 
@@ -349,8 +599,7 @@ module Moonbase
           links: Moonbase::Activity::ActivityMeetingHeld::Links,
           occurred_at: Time,
           type: :"activity/meeting_held",
-          attendees: ::Array[Moonbase::Attendee],
-          meeting: Moonbase::Meeting
+          meeting: Moonbase::Activity::ActivityMeetingHeld::Meeting
         }
 
       class ActivityMeetingHeld < Moonbase::Internal::Type::BaseModel
@@ -362,22 +611,17 @@ module Moonbase
 
         attr_accessor type: :"activity/meeting_held"
 
-        attr_reader attendees: ::Array[Moonbase::Attendee]?
+        attr_reader meeting: Moonbase::Activity::ActivityMeetingHeld::Meeting?
 
-        def attendees=: (
-          ::Array[Moonbase::Attendee]
-        ) -> ::Array[Moonbase::Attendee]
-
-        attr_reader meeting: Moonbase::Meeting?
-
-        def meeting=: (Moonbase::Meeting) -> Moonbase::Meeting
+        def meeting=: (
+          Moonbase::Activity::ActivityMeetingHeld::Meeting
+        ) -> Moonbase::Activity::ActivityMeetingHeld::Meeting
 
         def initialize: (
           id: String,
           links: Moonbase::Activity::ActivityMeetingHeld::Links,
           occurred_at: Time,
-          ?attendees: ::Array[Moonbase::Attendee],
-          ?meeting: Moonbase::Meeting,
+          ?meeting: Moonbase::Activity::ActivityMeetingHeld::Meeting,
           ?type: :"activity/meeting_held"
         ) -> void
 
@@ -386,8 +630,7 @@ module Moonbase
           links: Moonbase::Activity::ActivityMeetingHeld::Links,
           occurred_at: Time,
           type: :"activity/meeting_held",
-          attendees: ::Array[Moonbase::Attendee],
-          meeting: Moonbase::Meeting
+          meeting: Moonbase::Activity::ActivityMeetingHeld::Meeting
         }
 
         type links = { self_: String, meeting: String }
@@ -403,6 +646,18 @@ module Moonbase
 
           def to_hash: -> { self_: String, meeting: String }
         end
+
+        type meeting = { id: String, type: String }
+
+        class Meeting < Moonbase::Internal::Type::BaseModel
+          attr_accessor id: String
+
+          attr_accessor type: String
+
+          def initialize: (id: String, type: String) -> void
+
+          def to_hash: -> { id: String, type: String }
+        end
       end
 
       type activity_meeting_scheduled =
@@ -411,9 +666,7 @@ module Moonbase
           links: Moonbase::Activity::ActivityMeetingScheduled::Links,
           occurred_at: Time,
           type: :"activity/meeting_scheduled",
-          attendees: ::Array[Moonbase::Attendee],
-          meeting: Moonbase::Meeting,
-          organizer: Moonbase::Organizer
+          meeting: Moonbase::Activity::ActivityMeetingScheduled::Meeting
         }
 
       class ActivityMeetingScheduled < Moonbase::Internal::Type::BaseModel
@@ -425,27 +678,17 @@ module Moonbase
 
         attr_accessor type: :"activity/meeting_scheduled"
 
-        attr_reader attendees: ::Array[Moonbase::Attendee]?
+        attr_reader meeting: Moonbase::Activity::ActivityMeetingScheduled::Meeting?
 
-        def attendees=: (
-          ::Array[Moonbase::Attendee]
-        ) -> ::Array[Moonbase::Attendee]
-
-        attr_reader meeting: Moonbase::Meeting?
-
-        def meeting=: (Moonbase::Meeting) -> Moonbase::Meeting
-
-        attr_reader organizer: Moonbase::Organizer?
-
-        def organizer=: (Moonbase::Organizer) -> Moonbase::Organizer
+        def meeting=: (
+          Moonbase::Activity::ActivityMeetingScheduled::Meeting
+        ) -> Moonbase::Activity::ActivityMeetingScheduled::Meeting
 
         def initialize: (
           id: String,
           links: Moonbase::Activity::ActivityMeetingScheduled::Links,
           occurred_at: Time,
-          ?attendees: ::Array[Moonbase::Attendee],
-          ?meeting: Moonbase::Meeting,
-          ?organizer: Moonbase::Organizer,
+          ?meeting: Moonbase::Activity::ActivityMeetingScheduled::Meeting,
           ?type: :"activity/meeting_scheduled"
         ) -> void
 
@@ -454,9 +697,7 @@ module Moonbase
           links: Moonbase::Activity::ActivityMeetingScheduled::Links,
           occurred_at: Time,
           type: :"activity/meeting_scheduled",
-          attendees: ::Array[Moonbase::Attendee],
-          meeting: Moonbase::Meeting,
-          organizer: Moonbase::Organizer
+          meeting: Moonbase::Activity::ActivityMeetingScheduled::Meeting
         }
 
         type links = { self_: String, meeting: String }
@@ -472,6 +713,18 @@ module Moonbase
 
           def to_hash: -> { self_: String, meeting: String }
         end
+
+        type meeting = { id: String, type: String }
+
+        class Meeting < Moonbase::Internal::Type::BaseModel
+          attr_accessor id: String
+
+          attr_accessor type: String
+
+          def initialize: (id: String, type: String) -> void
+
+          def to_hash: -> { id: String, type: String }
+        end
       end
 
       type activity_note_created =
@@ -480,9 +733,9 @@ module Moonbase
           links: Moonbase::Activity::ActivityNoteCreated::Links,
           occurred_at: Time,
           type: :"activity/note_created",
-          note: Moonbase::Note,
-          related_item: Moonbase::Item,
-          related_meeting: Moonbase::Meeting
+          note: Moonbase::Activity::ActivityNoteCreated::Note,
+          related_item: Moonbase::Activity::ActivityNoteCreated::RelatedItem,
+          related_meeting: Moonbase::Activity::ActivityNoteCreated::RelatedMeeting
         }
 
       class ActivityNoteCreated < Moonbase::Internal::Type::BaseModel
@@ -494,25 +747,31 @@ module Moonbase
 
         attr_accessor type: :"activity/note_created"
 
-        attr_reader note: Moonbase::Note?
+        attr_reader note: Moonbase::Activity::ActivityNoteCreated::Note?
 
-        def note=: (Moonbase::Note) -> Moonbase::Note
+        def note=: (
+          Moonbase::Activity::ActivityNoteCreated::Note
+        ) -> Moonbase::Activity::ActivityNoteCreated::Note
 
-        attr_reader related_item: Moonbase::Item?
+        attr_reader related_item: Moonbase::Activity::ActivityNoteCreated::RelatedItem?
 
-        def related_item=: (Moonbase::Item) -> Moonbase::Item
+        def related_item=: (
+          Moonbase::Activity::ActivityNoteCreated::RelatedItem
+        ) -> Moonbase::Activity::ActivityNoteCreated::RelatedItem
 
-        attr_reader related_meeting: Moonbase::Meeting?
+        attr_reader related_meeting: Moonbase::Activity::ActivityNoteCreated::RelatedMeeting?
 
-        def related_meeting=: (Moonbase::Meeting) -> Moonbase::Meeting
+        def related_meeting=: (
+          Moonbase::Activity::ActivityNoteCreated::RelatedMeeting
+        ) -> Moonbase::Activity::ActivityNoteCreated::RelatedMeeting
 
         def initialize: (
           id: String,
           links: Moonbase::Activity::ActivityNoteCreated::Links,
           occurred_at: Time,
-          ?note: Moonbase::Note,
-          ?related_item: Moonbase::Item,
-          ?related_meeting: Moonbase::Meeting,
+          ?note: Moonbase::Activity::ActivityNoteCreated::Note,
+          ?related_item: Moonbase::Activity::ActivityNoteCreated::RelatedItem,
+          ?related_meeting: Moonbase::Activity::ActivityNoteCreated::RelatedMeeting,
           ?type: :"activity/note_created"
         ) -> void
 
@@ -521,9 +780,9 @@ module Moonbase
           links: Moonbase::Activity::ActivityNoteCreated::Links,
           occurred_at: Time,
           type: :"activity/note_created",
-          note: Moonbase::Note,
-          related_item: Moonbase::Item,
-          related_meeting: Moonbase::Meeting
+          note: Moonbase::Activity::ActivityNoteCreated::Note,
+          related_item: Moonbase::Activity::ActivityNoteCreated::RelatedItem,
+          related_meeting: Moonbase::Activity::ActivityNoteCreated::RelatedMeeting
         }
 
         type links =
@@ -563,6 +822,42 @@ module Moonbase
             related_meeting: String
           }
         end
+
+        type note = { id: String, type: String }
+
+        class Note < Moonbase::Internal::Type::BaseModel
+          attr_accessor id: String
+
+          attr_accessor type: String
+
+          def initialize: (id: String, type: String) -> void
+
+          def to_hash: -> { id: String, type: String }
+        end
+
+        type related_item = { id: String, type: String }
+
+        class RelatedItem < Moonbase::Internal::Type::BaseModel
+          attr_accessor id: String
+
+          attr_accessor type: String
+
+          def initialize: (id: String, type: String) -> void
+
+          def to_hash: -> { id: String, type: String }
+        end
+
+        type related_meeting = { id: String, type: String }
+
+        class RelatedMeeting < Moonbase::Internal::Type::BaseModel
+          attr_accessor id: String
+
+          attr_accessor type: String
+
+          def initialize: (id: String, type: String) -> void
+
+          def to_hash: -> { id: String, type: String }
+        end
       end
 
       type activity_program_message_bounced =
@@ -571,7 +866,10 @@ module Moonbase
           links: Moonbase::Activity::ActivityProgramMessageBounced::Links,
           occurred_at: Time,
           type: :"activity/program_message_bounced",
-          recipient: Moonbase::Address
+          bounce_type: String,
+          bounced_recipient_emails: ::Array[String],
+          program_message: Moonbase::Activity::ActivityProgramMessageBounced::ProgramMessage,
+          recipient: Moonbase::Activity::ActivityProgramMessageBounced::Recipient
         }
 
       class ActivityProgramMessageBounced < Moonbase::Internal::Type::BaseModel
@@ -583,15 +881,34 @@ module Moonbase
 
         attr_accessor type: :"activity/program_message_bounced"
 
-        attr_reader recipient: Moonbase::Address?
+        attr_reader bounce_type: String?
 
-        def recipient=: (Moonbase::Address) -> Moonbase::Address
+        def bounce_type=: (String) -> String
+
+        attr_reader bounced_recipient_emails: ::Array[String]?
+
+        def bounced_recipient_emails=: (::Array[String]) -> ::Array[String]
+
+        attr_reader program_message: Moonbase::Activity::ActivityProgramMessageBounced::ProgramMessage?
+
+        def program_message=: (
+          Moonbase::Activity::ActivityProgramMessageBounced::ProgramMessage
+        ) -> Moonbase::Activity::ActivityProgramMessageBounced::ProgramMessage
+
+        attr_reader recipient: Moonbase::Activity::ActivityProgramMessageBounced::Recipient?
+
+        def recipient=: (
+          Moonbase::Activity::ActivityProgramMessageBounced::Recipient
+        ) -> Moonbase::Activity::ActivityProgramMessageBounced::Recipient
 
         def initialize: (
           id: String,
           links: Moonbase::Activity::ActivityProgramMessageBounced::Links,
           occurred_at: Time,
-          ?recipient: Moonbase::Address,
+          ?bounce_type: String,
+          ?bounced_recipient_emails: ::Array[String],
+          ?program_message: Moonbase::Activity::ActivityProgramMessageBounced::ProgramMessage,
+          ?recipient: Moonbase::Activity::ActivityProgramMessageBounced::Recipient,
           ?type: :"activity/program_message_bounced"
         ) -> void
 
@@ -600,17 +917,48 @@ module Moonbase
           links: Moonbase::Activity::ActivityProgramMessageBounced::Links,
           occurred_at: Time,
           type: :"activity/program_message_bounced",
-          recipient: Moonbase::Address
+          bounce_type: String,
+          bounced_recipient_emails: ::Array[String],
+          program_message: Moonbase::Activity::ActivityProgramMessageBounced::ProgramMessage,
+          recipient: Moonbase::Activity::ActivityProgramMessageBounced::Recipient
         }
 
-        type links = { self_: String }
+        type links = { self_: String, recipient: String }
 
         class Links < Moonbase::Internal::Type::BaseModel
           attr_accessor self_: String
 
-          def initialize: (self_: String) -> void
+          attr_reader recipient: String?
 
-          def to_hash: -> { self_: String }
+          def recipient=: (String) -> String
+
+          def initialize: (self_: String, ?recipient: String) -> void
+
+          def to_hash: -> { self_: String, recipient: String }
+        end
+
+        type program_message = { id: String, type: String }
+
+        class ProgramMessage < Moonbase::Internal::Type::BaseModel
+          attr_accessor id: String
+
+          attr_accessor type: String
+
+          def initialize: (id: String, type: String) -> void
+
+          def to_hash: -> { id: String, type: String }
+        end
+
+        type recipient = { id: String, type: String }
+
+        class Recipient < Moonbase::Internal::Type::BaseModel
+          attr_accessor id: String
+
+          attr_accessor type: String
+
+          def initialize: (id: String, type: String) -> void
+
+          def to_hash: -> { id: String, type: String }
         end
       end
 
@@ -622,7 +970,8 @@ module Moonbase
           type: :"activity/program_message_clicked",
           link_text: String,
           link_url_unsafe: String,
-          recipient: Moonbase::Address
+          program_message: Moonbase::Activity::ActivityProgramMessageClicked::ProgramMessage,
+          recipient: Moonbase::Activity::ActivityProgramMessageClicked::Recipient
         }
 
       class ActivityProgramMessageClicked < Moonbase::Internal::Type::BaseModel
@@ -642,9 +991,17 @@ module Moonbase
 
         def link_url_unsafe=: (String) -> String
 
-        attr_reader recipient: Moonbase::Address?
+        attr_reader program_message: Moonbase::Activity::ActivityProgramMessageClicked::ProgramMessage?
 
-        def recipient=: (Moonbase::Address) -> Moonbase::Address
+        def program_message=: (
+          Moonbase::Activity::ActivityProgramMessageClicked::ProgramMessage
+        ) -> Moonbase::Activity::ActivityProgramMessageClicked::ProgramMessage
+
+        attr_reader recipient: Moonbase::Activity::ActivityProgramMessageClicked::Recipient?
+
+        def recipient=: (
+          Moonbase::Activity::ActivityProgramMessageClicked::Recipient
+        ) -> Moonbase::Activity::ActivityProgramMessageClicked::Recipient
 
         def initialize: (
           id: String,
@@ -652,7 +1009,8 @@ module Moonbase
           occurred_at: Time,
           ?link_text: String,
           ?link_url_unsafe: String,
-          ?recipient: Moonbase::Address,
+          ?program_message: Moonbase::Activity::ActivityProgramMessageClicked::ProgramMessage,
+          ?recipient: Moonbase::Activity::ActivityProgramMessageClicked::Recipient,
           ?type: :"activity/program_message_clicked"
         ) -> void
 
@@ -663,17 +1021,46 @@ module Moonbase
           type: :"activity/program_message_clicked",
           link_text: String,
           link_url_unsafe: String,
-          recipient: Moonbase::Address
+          program_message: Moonbase::Activity::ActivityProgramMessageClicked::ProgramMessage,
+          recipient: Moonbase::Activity::ActivityProgramMessageClicked::Recipient
         }
 
-        type links = { self_: String }
+        type links = { self_: String, recipient: String }
 
         class Links < Moonbase::Internal::Type::BaseModel
           attr_accessor self_: String
 
-          def initialize: (self_: String) -> void
+          attr_reader recipient: String?
 
-          def to_hash: -> { self_: String }
+          def recipient=: (String) -> String
+
+          def initialize: (self_: String, ?recipient: String) -> void
+
+          def to_hash: -> { self_: String, recipient: String }
+        end
+
+        type program_message = { id: String, type: String }
+
+        class ProgramMessage < Moonbase::Internal::Type::BaseModel
+          attr_accessor id: String
+
+          attr_accessor type: String
+
+          def initialize: (id: String, type: String) -> void
+
+          def to_hash: -> { id: String, type: String }
+        end
+
+        type recipient = { id: String, type: String }
+
+        class Recipient < Moonbase::Internal::Type::BaseModel
+          attr_accessor id: String
+
+          attr_accessor type: String
+
+          def initialize: (id: String, type: String) -> void
+
+          def to_hash: -> { id: String, type: String }
         end
       end
 
@@ -683,7 +1070,8 @@ module Moonbase
           links: Moonbase::Activity::ActivityProgramMessageComplained::Links,
           occurred_at: Time,
           type: :"activity/program_message_complained",
-          recipient: Moonbase::Address
+          program_message: Moonbase::Activity::ActivityProgramMessageComplained::ProgramMessage,
+          recipient: Moonbase::Activity::ActivityProgramMessageComplained::Recipient
         }
 
       class ActivityProgramMessageComplained < Moonbase::Internal::Type::BaseModel
@@ -695,15 +1083,24 @@ module Moonbase
 
         attr_accessor type: :"activity/program_message_complained"
 
-        attr_reader recipient: Moonbase::Address?
+        attr_reader program_message: Moonbase::Activity::ActivityProgramMessageComplained::ProgramMessage?
 
-        def recipient=: (Moonbase::Address) -> Moonbase::Address
+        def program_message=: (
+          Moonbase::Activity::ActivityProgramMessageComplained::ProgramMessage
+        ) -> Moonbase::Activity::ActivityProgramMessageComplained::ProgramMessage
+
+        attr_reader recipient: Moonbase::Activity::ActivityProgramMessageComplained::Recipient?
+
+        def recipient=: (
+          Moonbase::Activity::ActivityProgramMessageComplained::Recipient
+        ) -> Moonbase::Activity::ActivityProgramMessageComplained::Recipient
 
         def initialize: (
           id: String,
           links: Moonbase::Activity::ActivityProgramMessageComplained::Links,
           occurred_at: Time,
-          ?recipient: Moonbase::Address,
+          ?program_message: Moonbase::Activity::ActivityProgramMessageComplained::ProgramMessage,
+          ?recipient: Moonbase::Activity::ActivityProgramMessageComplained::Recipient,
           ?type: :"activity/program_message_complained"
         ) -> void
 
@@ -712,17 +1109,46 @@ module Moonbase
           links: Moonbase::Activity::ActivityProgramMessageComplained::Links,
           occurred_at: Time,
           type: :"activity/program_message_complained",
-          recipient: Moonbase::Address
+          program_message: Moonbase::Activity::ActivityProgramMessageComplained::ProgramMessage,
+          recipient: Moonbase::Activity::ActivityProgramMessageComplained::Recipient
         }
 
-        type links = { self_: String }
+        type links = { self_: String, recipient: String }
 
         class Links < Moonbase::Internal::Type::BaseModel
           attr_accessor self_: String
 
-          def initialize: (self_: String) -> void
+          attr_reader recipient: String?
 
-          def to_hash: -> { self_: String }
+          def recipient=: (String) -> String
+
+          def initialize: (self_: String, ?recipient: String) -> void
+
+          def to_hash: -> { self_: String, recipient: String }
+        end
+
+        type program_message = { id: String, type: String }
+
+        class ProgramMessage < Moonbase::Internal::Type::BaseModel
+          attr_accessor id: String
+
+          attr_accessor type: String
+
+          def initialize: (id: String, type: String) -> void
+
+          def to_hash: -> { id: String, type: String }
+        end
+
+        type recipient = { id: String, type: String }
+
+        class Recipient < Moonbase::Internal::Type::BaseModel
+          attr_accessor id: String
+
+          attr_accessor type: String
+
+          def initialize: (id: String, type: String) -> void
+
+          def to_hash: -> { id: String, type: String }
         end
       end
 
@@ -732,7 +1158,9 @@ module Moonbase
           links: Moonbase::Activity::ActivityProgramMessageFailed::Links,
           occurred_at: Time,
           type: :"activity/program_message_failed",
-          recipient: Moonbase::Address
+          program_message: Moonbase::Activity::ActivityProgramMessageFailed::ProgramMessage,
+          reason_code: String,
+          recipient: Moonbase::Activity::ActivityProgramMessageFailed::Recipient
         }
 
       class ActivityProgramMessageFailed < Moonbase::Internal::Type::BaseModel
@@ -744,15 +1172,29 @@ module Moonbase
 
         attr_accessor type: :"activity/program_message_failed"
 
-        attr_reader recipient: Moonbase::Address?
+        attr_reader program_message: Moonbase::Activity::ActivityProgramMessageFailed::ProgramMessage?
 
-        def recipient=: (Moonbase::Address) -> Moonbase::Address
+        def program_message=: (
+          Moonbase::Activity::ActivityProgramMessageFailed::ProgramMessage
+        ) -> Moonbase::Activity::ActivityProgramMessageFailed::ProgramMessage
+
+        attr_reader reason_code: String?
+
+        def reason_code=: (String) -> String
+
+        attr_reader recipient: Moonbase::Activity::ActivityProgramMessageFailed::Recipient?
+
+        def recipient=: (
+          Moonbase::Activity::ActivityProgramMessageFailed::Recipient
+        ) -> Moonbase::Activity::ActivityProgramMessageFailed::Recipient
 
         def initialize: (
           id: String,
           links: Moonbase::Activity::ActivityProgramMessageFailed::Links,
           occurred_at: Time,
-          ?recipient: Moonbase::Address,
+          ?program_message: Moonbase::Activity::ActivityProgramMessageFailed::ProgramMessage,
+          ?reason_code: String,
+          ?recipient: Moonbase::Activity::ActivityProgramMessageFailed::Recipient,
           ?type: :"activity/program_message_failed"
         ) -> void
 
@@ -761,17 +1203,47 @@ module Moonbase
           links: Moonbase::Activity::ActivityProgramMessageFailed::Links,
           occurred_at: Time,
           type: :"activity/program_message_failed",
-          recipient: Moonbase::Address
+          program_message: Moonbase::Activity::ActivityProgramMessageFailed::ProgramMessage,
+          reason_code: String,
+          recipient: Moonbase::Activity::ActivityProgramMessageFailed::Recipient
         }
 
-        type links = { self_: String }
+        type links = { self_: String, recipient: String }
 
         class Links < Moonbase::Internal::Type::BaseModel
           attr_accessor self_: String
 
-          def initialize: (self_: String) -> void
+          attr_reader recipient: String?
 
-          def to_hash: -> { self_: String }
+          def recipient=: (String) -> String
+
+          def initialize: (self_: String, ?recipient: String) -> void
+
+          def to_hash: -> { self_: String, recipient: String }
+        end
+
+        type program_message = { id: String, type: String }
+
+        class ProgramMessage < Moonbase::Internal::Type::BaseModel
+          attr_accessor id: String
+
+          attr_accessor type: String
+
+          def initialize: (id: String, type: String) -> void
+
+          def to_hash: -> { id: String, type: String }
+        end
+
+        type recipient = { id: String, type: String }
+
+        class Recipient < Moonbase::Internal::Type::BaseModel
+          attr_accessor id: String
+
+          attr_accessor type: String
+
+          def initialize: (id: String, type: String) -> void
+
+          def to_hash: -> { id: String, type: String }
         end
       end
 
@@ -781,7 +1253,8 @@ module Moonbase
           links: Moonbase::Activity::ActivityProgramMessageOpened::Links,
           occurred_at: Time,
           type: :"activity/program_message_opened",
-          recipient: Moonbase::Address
+          program_message: Moonbase::Activity::ActivityProgramMessageOpened::ProgramMessage,
+          recipient: Moonbase::Activity::ActivityProgramMessageOpened::Recipient
         }
 
       class ActivityProgramMessageOpened < Moonbase::Internal::Type::BaseModel
@@ -793,15 +1266,24 @@ module Moonbase
 
         attr_accessor type: :"activity/program_message_opened"
 
-        attr_reader recipient: Moonbase::Address?
+        attr_reader program_message: Moonbase::Activity::ActivityProgramMessageOpened::ProgramMessage?
 
-        def recipient=: (Moonbase::Address) -> Moonbase::Address
+        def program_message=: (
+          Moonbase::Activity::ActivityProgramMessageOpened::ProgramMessage
+        ) -> Moonbase::Activity::ActivityProgramMessageOpened::ProgramMessage
+
+        attr_reader recipient: Moonbase::Activity::ActivityProgramMessageOpened::Recipient?
+
+        def recipient=: (
+          Moonbase::Activity::ActivityProgramMessageOpened::Recipient
+        ) -> Moonbase::Activity::ActivityProgramMessageOpened::Recipient
 
         def initialize: (
           id: String,
           links: Moonbase::Activity::ActivityProgramMessageOpened::Links,
           occurred_at: Time,
-          ?recipient: Moonbase::Address,
+          ?program_message: Moonbase::Activity::ActivityProgramMessageOpened::ProgramMessage,
+          ?recipient: Moonbase::Activity::ActivityProgramMessageOpened::Recipient,
           ?type: :"activity/program_message_opened"
         ) -> void
 
@@ -810,17 +1292,46 @@ module Moonbase
           links: Moonbase::Activity::ActivityProgramMessageOpened::Links,
           occurred_at: Time,
           type: :"activity/program_message_opened",
-          recipient: Moonbase::Address
+          program_message: Moonbase::Activity::ActivityProgramMessageOpened::ProgramMessage,
+          recipient: Moonbase::Activity::ActivityProgramMessageOpened::Recipient
         }
 
-        type links = { self_: String }
+        type links = { self_: String, recipient: String }
 
         class Links < Moonbase::Internal::Type::BaseModel
           attr_accessor self_: String
 
-          def initialize: (self_: String) -> void
+          attr_reader recipient: String?
 
-          def to_hash: -> { self_: String }
+          def recipient=: (String) -> String
+
+          def initialize: (self_: String, ?recipient: String) -> void
+
+          def to_hash: -> { self_: String, recipient: String }
+        end
+
+        type program_message = { id: String, type: String }
+
+        class ProgramMessage < Moonbase::Internal::Type::BaseModel
+          attr_accessor id: String
+
+          attr_accessor type: String
+
+          def initialize: (id: String, type: String) -> void
+
+          def to_hash: -> { id: String, type: String }
+        end
+
+        type recipient = { id: String, type: String }
+
+        class Recipient < Moonbase::Internal::Type::BaseModel
+          attr_accessor id: String
+
+          attr_accessor type: String
+
+          def initialize: (id: String, type: String) -> void
+
+          def to_hash: -> { id: String, type: String }
         end
       end
 
@@ -830,7 +1341,9 @@ module Moonbase
           links: Moonbase::Activity::ActivityProgramMessageSent::Links,
           occurred_at: Time,
           type: :"activity/program_message_sent",
-          recipient: Moonbase::Address
+          program_message: Moonbase::Activity::ActivityProgramMessageSent::ProgramMessage,
+          recipient: Moonbase::Activity::ActivityProgramMessageSent::Recipient,
+          recipient_emails: ::Array[String]
         }
 
       class ActivityProgramMessageSent < Moonbase::Internal::Type::BaseModel
@@ -842,15 +1355,29 @@ module Moonbase
 
         attr_accessor type: :"activity/program_message_sent"
 
-        attr_reader recipient: Moonbase::Address?
+        attr_reader program_message: Moonbase::Activity::ActivityProgramMessageSent::ProgramMessage?
 
-        def recipient=: (Moonbase::Address) -> Moonbase::Address
+        def program_message=: (
+          Moonbase::Activity::ActivityProgramMessageSent::ProgramMessage
+        ) -> Moonbase::Activity::ActivityProgramMessageSent::ProgramMessage
+
+        attr_reader recipient: Moonbase::Activity::ActivityProgramMessageSent::Recipient?
+
+        def recipient=: (
+          Moonbase::Activity::ActivityProgramMessageSent::Recipient
+        ) -> Moonbase::Activity::ActivityProgramMessageSent::Recipient
+
+        attr_reader recipient_emails: ::Array[String]?
+
+        def recipient_emails=: (::Array[String]) -> ::Array[String]
 
         def initialize: (
           id: String,
           links: Moonbase::Activity::ActivityProgramMessageSent::Links,
           occurred_at: Time,
-          ?recipient: Moonbase::Address,
+          ?program_message: Moonbase::Activity::ActivityProgramMessageSent::ProgramMessage,
+          ?recipient: Moonbase::Activity::ActivityProgramMessageSent::Recipient,
+          ?recipient_emails: ::Array[String],
           ?type: :"activity/program_message_sent"
         ) -> void
 
@@ -859,17 +1386,47 @@ module Moonbase
           links: Moonbase::Activity::ActivityProgramMessageSent::Links,
           occurred_at: Time,
           type: :"activity/program_message_sent",
-          recipient: Moonbase::Address
+          program_message: Moonbase::Activity::ActivityProgramMessageSent::ProgramMessage,
+          recipient: Moonbase::Activity::ActivityProgramMessageSent::Recipient,
+          recipient_emails: ::Array[String]
         }
 
-        type links = { self_: String }
+        type links = { self_: String, recipient: String }
 
         class Links < Moonbase::Internal::Type::BaseModel
           attr_accessor self_: String
 
-          def initialize: (self_: String) -> void
+          attr_reader recipient: String?
 
-          def to_hash: -> { self_: String }
+          def recipient=: (String) -> String
+
+          def initialize: (self_: String, ?recipient: String) -> void
+
+          def to_hash: -> { self_: String, recipient: String }
+        end
+
+        type program_message = { id: String, type: String }
+
+        class ProgramMessage < Moonbase::Internal::Type::BaseModel
+          attr_accessor id: String
+
+          attr_accessor type: String
+
+          def initialize: (id: String, type: String) -> void
+
+          def to_hash: -> { id: String, type: String }
+        end
+
+        type recipient = { id: String, type: String }
+
+        class Recipient < Moonbase::Internal::Type::BaseModel
+          attr_accessor id: String
+
+          attr_accessor type: String
+
+          def initialize: (id: String, type: String) -> void
+
+          def to_hash: -> { id: String, type: String }
         end
       end
 
@@ -879,7 +1436,9 @@ module Moonbase
           links: Moonbase::Activity::ActivityProgramMessageShielded::Links,
           occurred_at: Time,
           type: :"activity/program_message_shielded",
-          recipient: Moonbase::Address
+          program_message: Moonbase::Activity::ActivityProgramMessageShielded::ProgramMessage,
+          reason_code: String,
+          recipient: Moonbase::Activity::ActivityProgramMessageShielded::Recipient
         }
 
       class ActivityProgramMessageShielded < Moonbase::Internal::Type::BaseModel
@@ -891,15 +1450,29 @@ module Moonbase
 
         attr_accessor type: :"activity/program_message_shielded"
 
-        attr_reader recipient: Moonbase::Address?
+        attr_reader program_message: Moonbase::Activity::ActivityProgramMessageShielded::ProgramMessage?
 
-        def recipient=: (Moonbase::Address) -> Moonbase::Address
+        def program_message=: (
+          Moonbase::Activity::ActivityProgramMessageShielded::ProgramMessage
+        ) -> Moonbase::Activity::ActivityProgramMessageShielded::ProgramMessage
+
+        attr_reader reason_code: String?
+
+        def reason_code=: (String) -> String
+
+        attr_reader recipient: Moonbase::Activity::ActivityProgramMessageShielded::Recipient?
+
+        def recipient=: (
+          Moonbase::Activity::ActivityProgramMessageShielded::Recipient
+        ) -> Moonbase::Activity::ActivityProgramMessageShielded::Recipient
 
         def initialize: (
           id: String,
           links: Moonbase::Activity::ActivityProgramMessageShielded::Links,
           occurred_at: Time,
-          ?recipient: Moonbase::Address,
+          ?program_message: Moonbase::Activity::ActivityProgramMessageShielded::ProgramMessage,
+          ?reason_code: String,
+          ?recipient: Moonbase::Activity::ActivityProgramMessageShielded::Recipient,
           ?type: :"activity/program_message_shielded"
         ) -> void
 
@@ -908,17 +1481,47 @@ module Moonbase
           links: Moonbase::Activity::ActivityProgramMessageShielded::Links,
           occurred_at: Time,
           type: :"activity/program_message_shielded",
-          recipient: Moonbase::Address
+          program_message: Moonbase::Activity::ActivityProgramMessageShielded::ProgramMessage,
+          reason_code: String,
+          recipient: Moonbase::Activity::ActivityProgramMessageShielded::Recipient
         }
 
-        type links = { self_: String }
+        type links = { self_: String, recipient: String }
 
         class Links < Moonbase::Internal::Type::BaseModel
           attr_accessor self_: String
 
-          def initialize: (self_: String) -> void
+          attr_reader recipient: String?
 
-          def to_hash: -> { self_: String }
+          def recipient=: (String) -> String
+
+          def initialize: (self_: String, ?recipient: String) -> void
+
+          def to_hash: -> { self_: String, recipient: String }
+        end
+
+        type program_message = { id: String, type: String }
+
+        class ProgramMessage < Moonbase::Internal::Type::BaseModel
+          attr_accessor id: String
+
+          attr_accessor type: String
+
+          def initialize: (id: String, type: String) -> void
+
+          def to_hash: -> { id: String, type: String }
+        end
+
+        type recipient = { id: String, type: String }
+
+        class Recipient < Moonbase::Internal::Type::BaseModel
+          attr_accessor id: String
+
+          attr_accessor type: String
+
+          def initialize: (id: String, type: String) -> void
+
+          def to_hash: -> { id: String, type: String }
         end
       end
 
@@ -928,7 +1531,9 @@ module Moonbase
           links: Moonbase::Activity::ActivityProgramMessageUnsubscribed::Links,
           occurred_at: Time,
           type: :"activity/program_message_unsubscribed",
-          recipient: Moonbase::Address
+          email: String,
+          program_message: Moonbase::Activity::ActivityProgramMessageUnsubscribed::ProgramMessage,
+          recipient: Moonbase::Activity::ActivityProgramMessageUnsubscribed::Recipient
         }
 
       class ActivityProgramMessageUnsubscribed < Moonbase::Internal::Type::BaseModel
@@ -940,15 +1545,29 @@ module Moonbase
 
         attr_accessor type: :"activity/program_message_unsubscribed"
 
-        attr_reader recipient: Moonbase::Address?
+        attr_reader email: String?
 
-        def recipient=: (Moonbase::Address) -> Moonbase::Address
+        def email=: (String) -> String
+
+        attr_reader program_message: Moonbase::Activity::ActivityProgramMessageUnsubscribed::ProgramMessage?
+
+        def program_message=: (
+          Moonbase::Activity::ActivityProgramMessageUnsubscribed::ProgramMessage
+        ) -> Moonbase::Activity::ActivityProgramMessageUnsubscribed::ProgramMessage
+
+        attr_reader recipient: Moonbase::Activity::ActivityProgramMessageUnsubscribed::Recipient?
+
+        def recipient=: (
+          Moonbase::Activity::ActivityProgramMessageUnsubscribed::Recipient
+        ) -> Moonbase::Activity::ActivityProgramMessageUnsubscribed::Recipient
 
         def initialize: (
           id: String,
           links: Moonbase::Activity::ActivityProgramMessageUnsubscribed::Links,
           occurred_at: Time,
-          ?recipient: Moonbase::Address,
+          ?email: String,
+          ?program_message: Moonbase::Activity::ActivityProgramMessageUnsubscribed::ProgramMessage,
+          ?recipient: Moonbase::Activity::ActivityProgramMessageUnsubscribed::Recipient,
           ?type: :"activity/program_message_unsubscribed"
         ) -> void
 
@@ -957,17 +1576,47 @@ module Moonbase
           links: Moonbase::Activity::ActivityProgramMessageUnsubscribed::Links,
           occurred_at: Time,
           type: :"activity/program_message_unsubscribed",
-          recipient: Moonbase::Address
+          email: String,
+          program_message: Moonbase::Activity::ActivityProgramMessageUnsubscribed::ProgramMessage,
+          recipient: Moonbase::Activity::ActivityProgramMessageUnsubscribed::Recipient
         }
 
-        type links = { self_: String }
+        type links = { self_: String, recipient: String }
 
         class Links < Moonbase::Internal::Type::BaseModel
           attr_accessor self_: String
 
-          def initialize: (self_: String) -> void
+          attr_reader recipient: String?
 
-          def to_hash: -> { self_: String }
+          def recipient=: (String) -> String
+
+          def initialize: (self_: String, ?recipient: String) -> void
+
+          def to_hash: -> { self_: String, recipient: String }
+        end
+
+        type program_message = { id: String, type: String }
+
+        class ProgramMessage < Moonbase::Internal::Type::BaseModel
+          attr_accessor id: String
+
+          attr_accessor type: String
+
+          def initialize: (id: String, type: String) -> void
+
+          def to_hash: -> { id: String, type: String }
+        end
+
+        type recipient = { id: String, type: String }
+
+        class Recipient < Moonbase::Internal::Type::BaseModel
+          attr_accessor id: String
+
+          attr_accessor type: String
+
+          def initialize: (id: String, type: String) -> void
+
+          def to_hash: -> { id: String, type: String }
         end
       end
 

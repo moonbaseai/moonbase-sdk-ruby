@@ -20,6 +20,7 @@ module Moonbase
             Moonbase::Activity::ActivityInboxMessageSent,
             Moonbase::Activity::ActivityItemCreated,
             Moonbase::Activity::ActivityItemMentioned,
+            Moonbase::Activity::ActivityItemMerged,
             Moonbase::Activity::ActivityMeetingHeld,
             Moonbase::Activity::ActivityMeetingScheduled,
             Moonbase::Activity::ActivityNoteCreated,
@@ -66,10 +67,16 @@ module Moonbase
         attr_accessor :type
 
         # The `Call` object associated with this event.
-        sig { returns(T.nilable(Moonbase::Call)) }
+        sig do
+          returns(T.nilable(Moonbase::Activity::ActivityCallOccurred::Call))
+        end
         attr_reader :call
 
-        sig { params(call: Moonbase::Call::OrHash).void }
+        sig do
+          params(
+            call: Moonbase::Activity::ActivityCallOccurred::Call::OrHash
+          ).void
+        end
         attr_writer :call
 
         # Represents an event that occurs when an incoming or outgoing call is logged.
@@ -78,7 +85,7 @@ module Moonbase
             id: String,
             links: Moonbase::Activity::ActivityCallOccurred::Links::OrHash,
             occurred_at: Time,
-            call: Moonbase::Call::OrHash,
+            call: Moonbase::Activity::ActivityCallOccurred::Call::OrHash,
             type: Symbol
           ).returns(T.attached_class)
         end
@@ -102,7 +109,7 @@ module Moonbase
               links: Moonbase::Activity::ActivityCallOccurred::Links,
               occurred_at: Time,
               type: Symbol,
-              call: Moonbase::Call
+              call: Moonbase::Activity::ActivityCallOccurred::Call
             }
           )
         end
@@ -130,6 +137,31 @@ module Moonbase
           end
 
           sig { override.returns({ self_: String }) }
+          def to_hash
+          end
+        end
+
+        class Call < Moonbase::Internal::Type::BaseModel
+          OrHash =
+            T.type_alias do
+              T.any(
+                Moonbase::Activity::ActivityCallOccurred::Call,
+                Moonbase::Internal::AnyHash
+              )
+            end
+
+          sig { returns(String) }
+          attr_accessor :id
+
+          sig { returns(String) }
+          attr_accessor :type
+
+          # The `Call` object associated with this event.
+          sig { params(id: String, type: String).returns(T.attached_class) }
+          def self.new(id:, type:)
+          end
+
+          sig { override.returns({ id: String, type: String }) }
           def to_hash
           end
         end
@@ -167,18 +199,35 @@ module Moonbase
         attr_accessor :type
 
         # The `Collection` the new item was added to.
-        sig { returns(T.nilable(Moonbase::Collection)) }
+        sig do
+          returns(
+            T.nilable(Moonbase::Activity::ActivityFormSubmitted::Collection)
+          )
+        end
         attr_reader :collection
 
-        sig { params(collection: Moonbase::Collection::OrHash).void }
+        sig do
+          params(
+            collection:
+              Moonbase::Activity::ActivityFormSubmitted::Collection::OrHash
+          ).void
+        end
         attr_writer :collection
 
-        # The `Item` that was created by the form submission.
-        sig { returns(T.nilable(Moonbase::Item)) }
-        attr_reader :item
+        sig do
+          returns(
+            T.nilable(Moonbase::Activity::ActivityFormSubmitted::RelatedItem)
+          )
+        end
+        attr_reader :related_item
 
-        sig { params(item: Moonbase::Item::OrHash).void }
-        attr_writer :item
+        sig do
+          params(
+            related_item:
+              Moonbase::Activity::ActivityFormSubmitted::RelatedItem::OrHash
+          ).void
+        end
+        attr_writer :related_item
 
         # Represents an event that occurs when a `Form` is submitted.
         sig do
@@ -186,8 +235,10 @@ module Moonbase
             id: String,
             links: Moonbase::Activity::ActivityFormSubmitted::Links::OrHash,
             occurred_at: Time,
-            collection: Moonbase::Collection::OrHash,
-            item: Moonbase::Item::OrHash,
+            collection:
+              Moonbase::Activity::ActivityFormSubmitted::Collection::OrHash,
+            related_item:
+              Moonbase::Activity::ActivityFormSubmitted::RelatedItem::OrHash,
             type: Symbol
           ).returns(T.attached_class)
         end
@@ -199,8 +250,7 @@ module Moonbase
           occurred_at:,
           # The `Collection` the new item was added to.
           collection: nil,
-          # The `Item` that was created by the form submission.
-          item: nil,
+          related_item: nil,
           # The type of activity. Always `activity/form_submitted`.
           type: :"activity/form_submitted"
         )
@@ -213,8 +263,9 @@ module Moonbase
               links: Moonbase::Activity::ActivityFormSubmitted::Links,
               occurred_at: Time,
               type: Symbol,
-              collection: Moonbase::Collection,
-              item: Moonbase::Item
+              collection: Moonbase::Activity::ActivityFormSubmitted::Collection,
+              related_item:
+                Moonbase::Activity::ActivityFormSubmitted::RelatedItem
             }
           )
         end
@@ -271,6 +322,55 @@ module Moonbase
           def to_hash
           end
         end
+
+        class Collection < Moonbase::Internal::Type::BaseModel
+          OrHash =
+            T.type_alias do
+              T.any(
+                Moonbase::Activity::ActivityFormSubmitted::Collection,
+                Moonbase::Internal::AnyHash
+              )
+            end
+
+          sig { returns(String) }
+          attr_accessor :id
+
+          sig { returns(String) }
+          attr_accessor :type
+
+          # The `Collection` the new item was added to.
+          sig { params(id: String, type: String).returns(T.attached_class) }
+          def self.new(id:, type:)
+          end
+
+          sig { override.returns({ id: String, type: String }) }
+          def to_hash
+          end
+        end
+
+        class RelatedItem < Moonbase::Internal::Type::BaseModel
+          OrHash =
+            T.type_alias do
+              T.any(
+                Moonbase::Activity::ActivityFormSubmitted::RelatedItem,
+                Moonbase::Internal::AnyHash
+              )
+            end
+
+          sig { returns(String) }
+          attr_accessor :id
+
+          sig { returns(String) }
+          attr_accessor :type
+
+          sig { params(id: String, type: String).returns(T.attached_class) }
+          def self.new(id:, type:)
+          end
+
+          sig { override.returns({ id: String, type: String }) }
+          def to_hash
+          end
+        end
       end
 
       class ActivityInboxMessageSent < Moonbase::Internal::Type::BaseModel
@@ -305,25 +405,20 @@ module Moonbase
         attr_accessor :type
 
         # The `EmailMessage` that was sent.
-        sig { returns(T.nilable(Moonbase::EmailMessage)) }
+        sig do
+          returns(
+            T.nilable(Moonbase::Activity::ActivityInboxMessageSent::Message)
+          )
+        end
         attr_reader :message
 
-        sig { params(message: Moonbase::EmailMessage::OrHash).void }
+        sig do
+          params(
+            message:
+              Moonbase::Activity::ActivityInboxMessageSent::Message::OrHash
+          ).void
+        end
         attr_writer :message
-
-        # A list of `Address` objects for the recipients.
-        sig { returns(T.nilable(T::Array[Moonbase::Address])) }
-        attr_reader :recipients
-
-        sig { params(recipients: T::Array[Moonbase::Address::OrHash]).void }
-        attr_writer :recipients
-
-        # The `Address` of the sender.
-        sig { returns(T.nilable(Moonbase::Address)) }
-        attr_reader :sender
-
-        sig { params(sender: Moonbase::Address::OrHash).void }
-        attr_writer :sender
 
         # Represents an event that occurs when a message is sent from an `Inbox`.
         sig do
@@ -331,9 +426,8 @@ module Moonbase
             id: String,
             links: Moonbase::Activity::ActivityInboxMessageSent::Links::OrHash,
             occurred_at: Time,
-            message: Moonbase::EmailMessage::OrHash,
-            recipients: T::Array[Moonbase::Address::OrHash],
-            sender: Moonbase::Address::OrHash,
+            message:
+              Moonbase::Activity::ActivityInboxMessageSent::Message::OrHash,
             type: Symbol
           ).returns(T.attached_class)
         end
@@ -345,10 +439,6 @@ module Moonbase
           occurred_at:,
           # The `EmailMessage` that was sent.
           message: nil,
-          # A list of `Address` objects for the recipients.
-          recipients: nil,
-          # The `Address` of the sender.
-          sender: nil,
           # The type of activity. Always `activity/inbox_message_sent`.
           type: :"activity/inbox_message_sent"
         )
@@ -361,9 +451,7 @@ module Moonbase
               links: Moonbase::Activity::ActivityInboxMessageSent::Links,
               occurred_at: Time,
               type: Symbol,
-              message: Moonbase::EmailMessage,
-              recipients: T::Array[Moonbase::Address],
-              sender: Moonbase::Address
+              message: Moonbase::Activity::ActivityInboxMessageSent::Message
             }
           )
         end
@@ -405,6 +493,31 @@ module Moonbase
           def to_hash
           end
         end
+
+        class Message < Moonbase::Internal::Type::BaseModel
+          OrHash =
+            T.type_alias do
+              T.any(
+                Moonbase::Activity::ActivityInboxMessageSent::Message,
+                Moonbase::Internal::AnyHash
+              )
+            end
+
+          sig { returns(String) }
+          attr_accessor :id
+
+          sig { returns(String) }
+          attr_accessor :type
+
+          # The `EmailMessage` that was sent.
+          sig { params(id: String, type: String).returns(T.attached_class) }
+          def self.new(id:, type:)
+          end
+
+          sig { override.returns({ id: String, type: String }) }
+          def to_hash
+          end
+        end
       end
 
       class ActivityItemCreated < Moonbase::Internal::Type::BaseModel
@@ -439,18 +552,35 @@ module Moonbase
         attr_accessor :type
 
         # The `Collection` the item was added to.
-        sig { returns(T.nilable(Moonbase::Collection)) }
+        sig do
+          returns(
+            T.nilable(Moonbase::Activity::ActivityItemCreated::Collection)
+          )
+        end
         attr_reader :collection
 
-        sig { params(collection: Moonbase::Collection::OrHash).void }
+        sig do
+          params(
+            collection:
+              Moonbase::Activity::ActivityItemCreated::Collection::OrHash
+          ).void
+        end
         attr_writer :collection
 
-        # The `Item` that was created.
-        sig { returns(T.nilable(Moonbase::Item)) }
-        attr_reader :item
+        sig do
+          returns(
+            T.nilable(Moonbase::Activity::ActivityItemCreated::CreatedItem)
+          )
+        end
+        attr_reader :created_item
 
-        sig { params(item: Moonbase::Item::OrHash).void }
-        attr_writer :item
+        sig do
+          params(
+            created_item:
+              Moonbase::Activity::ActivityItemCreated::CreatedItem::OrHash
+          ).void
+        end
+        attr_writer :created_item
 
         # Represents an event that occurs when an `Item` is created.
         sig do
@@ -458,8 +588,10 @@ module Moonbase
             id: String,
             links: Moonbase::Activity::ActivityItemCreated::Links::OrHash,
             occurred_at: Time,
-            collection: Moonbase::Collection::OrHash,
-            item: Moonbase::Item::OrHash,
+            collection:
+              Moonbase::Activity::ActivityItemCreated::Collection::OrHash,
+            created_item:
+              Moonbase::Activity::ActivityItemCreated::CreatedItem::OrHash,
             type: Symbol
           ).returns(T.attached_class)
         end
@@ -471,8 +603,7 @@ module Moonbase
           occurred_at:,
           # The `Collection` the item was added to.
           collection: nil,
-          # The `Item` that was created.
-          item: nil,
+          created_item: nil,
           # The type of activity. Always `activity/item_created`.
           type: :"activity/item_created"
         )
@@ -485,8 +616,8 @@ module Moonbase
               links: Moonbase::Activity::ActivityItemCreated::Links,
               occurred_at: Time,
               type: Symbol,
-              collection: Moonbase::Collection,
-              item: Moonbase::Item
+              collection: Moonbase::Activity::ActivityItemCreated::Collection,
+              created_item: Moonbase::Activity::ActivityItemCreated::CreatedItem
             }
           )
         end
@@ -543,6 +674,55 @@ module Moonbase
           def to_hash
           end
         end
+
+        class Collection < Moonbase::Internal::Type::BaseModel
+          OrHash =
+            T.type_alias do
+              T.any(
+                Moonbase::Activity::ActivityItemCreated::Collection,
+                Moonbase::Internal::AnyHash
+              )
+            end
+
+          sig { returns(String) }
+          attr_accessor :id
+
+          sig { returns(String) }
+          attr_accessor :type
+
+          # The `Collection` the item was added to.
+          sig { params(id: String, type: String).returns(T.attached_class) }
+          def self.new(id:, type:)
+          end
+
+          sig { override.returns({ id: String, type: String }) }
+          def to_hash
+          end
+        end
+
+        class CreatedItem < Moonbase::Internal::Type::BaseModel
+          OrHash =
+            T.type_alias do
+              T.any(
+                Moonbase::Activity::ActivityItemCreated::CreatedItem,
+                Moonbase::Internal::AnyHash
+              )
+            end
+
+          sig { returns(String) }
+          attr_accessor :id
+
+          sig { returns(String) }
+          attr_accessor :type
+
+          sig { params(id: String, type: String).returns(T.attached_class) }
+          def self.new(id:, type:)
+          end
+
+          sig { override.returns({ id: String, type: String }) }
+          def to_hash
+          end
+        end
       end
 
       class ActivityItemMentioned < Moonbase::Internal::Type::BaseModel
@@ -576,19 +756,44 @@ module Moonbase
         sig { returns(Symbol) }
         attr_accessor :type
 
-        # The `Collection` the item belongs to.
-        sig { returns(T.nilable(Moonbase::Collection)) }
-        attr_reader :collection
+        sig do
+          returns(T.nilable(Moonbase::Activity::ActivityItemMentioned::Author))
+        end
+        attr_reader :author
 
-        sig { params(collection: Moonbase::Collection::OrHash).void }
-        attr_writer :collection
+        sig do
+          params(
+            author: Moonbase::Activity::ActivityItemMentioned::Author::OrHash
+          ).void
+        end
+        attr_writer :author
 
-        # The `Item` that was mentioned.
-        sig { returns(T.nilable(Moonbase::Item)) }
-        attr_reader :item
+        sig do
+          returns(
+            T.nilable(Moonbase::Activity::ActivityItemMentioned::MentionedItem)
+          )
+        end
+        attr_reader :mentioned_item
 
-        sig { params(item: Moonbase::Item::OrHash).void }
-        attr_writer :item
+        sig do
+          params(
+            mentioned_item:
+              Moonbase::Activity::ActivityItemMentioned::MentionedItem::OrHash
+          ).void
+        end
+        attr_writer :mentioned_item
+
+        sig do
+          returns(T.nilable(Moonbase::Activity::ActivityItemMentioned::Note))
+        end
+        attr_reader :note
+
+        sig do
+          params(
+            note: Moonbase::Activity::ActivityItemMentioned::Note::OrHash
+          ).void
+        end
+        attr_writer :note
 
         # Represents an event that occurs when an `Item` is mentioned.
         sig do
@@ -596,8 +801,10 @@ module Moonbase
             id: String,
             links: Moonbase::Activity::ActivityItemMentioned::Links::OrHash,
             occurred_at: Time,
-            collection: Moonbase::Collection::OrHash,
-            item: Moonbase::Item::OrHash,
+            author: Moonbase::Activity::ActivityItemMentioned::Author::OrHash,
+            mentioned_item:
+              Moonbase::Activity::ActivityItemMentioned::MentionedItem::OrHash,
+            note: Moonbase::Activity::ActivityItemMentioned::Note::OrHash,
             type: Symbol
           ).returns(T.attached_class)
         end
@@ -607,10 +814,9 @@ module Moonbase
           links:,
           # The time at which the event occurred, as an RFC 3339 timestamp.
           occurred_at:,
-          # The `Collection` the item belongs to.
-          collection: nil,
-          # The `Item` that was mentioned.
-          item: nil,
+          author: nil,
+          mentioned_item: nil,
+          note: nil,
           # The type of activity. Always `activity/item_mentioned`.
           type: :"activity/item_mentioned"
         )
@@ -623,8 +829,10 @@ module Moonbase
               links: Moonbase::Activity::ActivityItemMentioned::Links,
               occurred_at: Time,
               type: Symbol,
-              collection: Moonbase::Collection,
-              item: Moonbase::Item
+              author: Moonbase::Activity::ActivityItemMentioned::Author,
+              mentioned_item:
+                Moonbase::Activity::ActivityItemMentioned::MentionedItem,
+              note: Moonbase::Activity::ActivityItemMentioned::Note
             }
           )
         end
@@ -644,12 +852,12 @@ module Moonbase
           sig { returns(String) }
           attr_accessor :self_
 
-          # A link to the `Collection` the item belongs to.
+          # A link to the `Person` who mentioned the item.
           sig { returns(T.nilable(String)) }
-          attr_reader :collection
+          attr_reader :author
 
-          sig { params(collection: String).void }
-          attr_writer :collection
+          sig { params(author: String).void }
+          attr_writer :author
 
           # A link to the `Item` that was mentioned.
           sig { returns(T.nilable(String)) }
@@ -658,26 +866,359 @@ module Moonbase
           sig { params(item: String).void }
           attr_writer :item
 
+          # A link to the `Note` where the item was mentioned.
+          sig { returns(T.nilable(String)) }
+          attr_reader :note
+
+          sig { params(note: String).void }
+          attr_writer :note
+
           sig do
-            params(self_: String, collection: String, item: String).returns(
-              T.attached_class
-            )
+            params(
+              self_: String,
+              author: String,
+              item: String,
+              note: String
+            ).returns(T.attached_class)
           end
           def self.new(
             # The canonical URL for this object.
             self_:,
-            # A link to the `Collection` the item belongs to.
-            collection: nil,
+            # A link to the `Person` who mentioned the item.
+            author: nil,
             # A link to the `Item` that was mentioned.
-            item: nil
+            item: nil,
+            # A link to the `Note` where the item was mentioned.
+            note: nil
           )
           end
 
           sig do
             override.returns(
-              { self_: String, collection: String, item: String }
+              { self_: String, author: String, item: String, note: String }
             )
           end
+          def to_hash
+          end
+        end
+
+        class Author < Moonbase::Internal::Type::BaseModel
+          OrHash =
+            T.type_alias do
+              T.any(
+                Moonbase::Activity::ActivityItemMentioned::Author,
+                Moonbase::Internal::AnyHash
+              )
+            end
+
+          sig { returns(String) }
+          attr_accessor :id
+
+          sig { returns(String) }
+          attr_accessor :type
+
+          sig { params(id: String, type: String).returns(T.attached_class) }
+          def self.new(id:, type:)
+          end
+
+          sig { override.returns({ id: String, type: String }) }
+          def to_hash
+          end
+        end
+
+        class MentionedItem < Moonbase::Internal::Type::BaseModel
+          OrHash =
+            T.type_alias do
+              T.any(
+                Moonbase::Activity::ActivityItemMentioned::MentionedItem,
+                Moonbase::Internal::AnyHash
+              )
+            end
+
+          sig { returns(String) }
+          attr_accessor :id
+
+          sig { returns(String) }
+          attr_accessor :type
+
+          sig { params(id: String, type: String).returns(T.attached_class) }
+          def self.new(id:, type:)
+          end
+
+          sig { override.returns({ id: String, type: String }) }
+          def to_hash
+          end
+        end
+
+        class Note < Moonbase::Internal::Type::BaseModel
+          OrHash =
+            T.type_alias do
+              T.any(
+                Moonbase::Activity::ActivityItemMentioned::Note,
+                Moonbase::Internal::AnyHash
+              )
+            end
+
+          sig { returns(String) }
+          attr_accessor :id
+
+          sig { returns(String) }
+          attr_accessor :type
+
+          sig { params(id: String, type: String).returns(T.attached_class) }
+          def self.new(id:, type:)
+          end
+
+          sig { override.returns({ id: String, type: String }) }
+          def to_hash
+          end
+        end
+      end
+
+      class ActivityItemMerged < Moonbase::Internal::Type::BaseModel
+        OrHash =
+          T.type_alias do
+            T.any(
+              Moonbase::Activity::ActivityItemMerged,
+              Moonbase::Internal::AnyHash
+            )
+          end
+
+        # Unique identifier for the object.
+        sig { returns(String) }
+        attr_accessor :id
+
+        sig { returns(Moonbase::Activity::ActivityItemMerged::Links) }
+        attr_reader :links
+
+        sig do
+          params(
+            links: Moonbase::Activity::ActivityItemMerged::Links::OrHash
+          ).void
+        end
+        attr_writer :links
+
+        # The time at which the event occurred, as an RFC 3339 timestamp.
+        sig { returns(Time) }
+        attr_accessor :occurred_at
+
+        # The type of activity. Always `activity/item_merged`.
+        sig { returns(Symbol) }
+        attr_accessor :type
+
+        # A pointer to the `Item` that the data was merged into.
+        sig do
+          returns(
+            T.nilable(Moonbase::Activity::ActivityItemMerged::Destination)
+          )
+        end
+        attr_reader :destination
+
+        sig do
+          params(
+            destination:
+              Moonbase::Activity::ActivityItemMerged::Destination::OrHash
+          ).void
+        end
+        attr_writer :destination
+
+        # The person that performed the merge.
+        sig do
+          returns(T.nilable(Moonbase::Activity::ActivityItemMerged::Initiator))
+        end
+        attr_reader :initiator
+
+        sig do
+          params(
+            initiator: Moonbase::Activity::ActivityItemMerged::Initiator::OrHash
+          ).void
+        end
+        attr_writer :initiator
+
+        # A pointer to the source `Item`.
+        sig do
+          returns(T.nilable(Moonbase::Activity::ActivityItemMerged::Source))
+        end
+        attr_reader :source
+
+        sig do
+          params(
+            source: Moonbase::Activity::ActivityItemMerged::Source::OrHash
+          ).void
+        end
+        attr_writer :source
+
+        # Represents an event that occurs when an `Item` is merged into another item.
+        sig do
+          params(
+            id: String,
+            links: Moonbase::Activity::ActivityItemMerged::Links::OrHash,
+            occurred_at: Time,
+            destination:
+              Moonbase::Activity::ActivityItemMerged::Destination::OrHash,
+            initiator:
+              Moonbase::Activity::ActivityItemMerged::Initiator::OrHash,
+            source: Moonbase::Activity::ActivityItemMerged::Source::OrHash,
+            type: Symbol
+          ).returns(T.attached_class)
+        end
+        def self.new(
+          # Unique identifier for the object.
+          id:,
+          links:,
+          # The time at which the event occurred, as an RFC 3339 timestamp.
+          occurred_at:,
+          # A pointer to the `Item` that the data was merged into.
+          destination: nil,
+          # The person that performed the merge.
+          initiator: nil,
+          # A pointer to the source `Item`.
+          source: nil,
+          # The type of activity. Always `activity/item_merged`.
+          type: :"activity/item_merged"
+        )
+        end
+
+        sig do
+          override.returns(
+            {
+              id: String,
+              links: Moonbase::Activity::ActivityItemMerged::Links,
+              occurred_at: Time,
+              type: Symbol,
+              destination: Moonbase::Activity::ActivityItemMerged::Destination,
+              initiator: Moonbase::Activity::ActivityItemMerged::Initiator,
+              source: Moonbase::Activity::ActivityItemMerged::Source
+            }
+          )
+        end
+        def to_hash
+        end
+
+        class Links < Moonbase::Internal::Type::BaseModel
+          OrHash =
+            T.type_alias do
+              T.any(
+                Moonbase::Activity::ActivityItemMerged::Links,
+                Moonbase::Internal::AnyHash
+              )
+            end
+
+          # The canonical URL for this object.
+          sig { returns(String) }
+          attr_accessor :self_
+
+          # A link to the `Item` that received the data from the source.
+          sig { returns(T.nilable(String)) }
+          attr_reader :destination
+
+          sig { params(destination: String).void }
+          attr_writer :destination
+
+          # A link to the person that performed the merge.
+          sig { returns(T.nilable(String)) }
+          attr_reader :initiator
+
+          sig { params(initiator: String).void }
+          attr_writer :initiator
+
+          sig do
+            params(
+              self_: String,
+              destination: String,
+              initiator: String
+            ).returns(T.attached_class)
+          end
+          def self.new(
+            # The canonical URL for this object.
+            self_:,
+            # A link to the `Item` that received the data from the source.
+            destination: nil,
+            # A link to the person that performed the merge.
+            initiator: nil
+          )
+          end
+
+          sig do
+            override.returns(
+              { self_: String, destination: String, initiator: String }
+            )
+          end
+          def to_hash
+          end
+        end
+
+        class Destination < Moonbase::Internal::Type::BaseModel
+          OrHash =
+            T.type_alias do
+              T.any(
+                Moonbase::Activity::ActivityItemMerged::Destination,
+                Moonbase::Internal::AnyHash
+              )
+            end
+
+          sig { returns(String) }
+          attr_accessor :id
+
+          sig { returns(String) }
+          attr_accessor :type
+
+          # A pointer to the `Item` that the data was merged into.
+          sig { params(id: String, type: String).returns(T.attached_class) }
+          def self.new(id:, type:)
+          end
+
+          sig { override.returns({ id: String, type: String }) }
+          def to_hash
+          end
+        end
+
+        class Initiator < Moonbase::Internal::Type::BaseModel
+          OrHash =
+            T.type_alias do
+              T.any(
+                Moonbase::Activity::ActivityItemMerged::Initiator,
+                Moonbase::Internal::AnyHash
+              )
+            end
+
+          sig { returns(String) }
+          attr_accessor :id
+
+          sig { returns(String) }
+          attr_accessor :type
+
+          # The person that performed the merge.
+          sig { params(id: String, type: String).returns(T.attached_class) }
+          def self.new(id:, type:)
+          end
+
+          sig { override.returns({ id: String, type: String }) }
+          def to_hash
+          end
+        end
+
+        class Source < Moonbase::Internal::Type::BaseModel
+          OrHash =
+            T.type_alias do
+              T.any(
+                Moonbase::Activity::ActivityItemMerged::Source,
+                Moonbase::Internal::AnyHash
+              )
+            end
+
+          sig { returns(String) }
+          attr_accessor :id
+
+          sig { returns(String) }
+          attr_accessor :type
+
+          # A pointer to the source `Item`.
+          sig { params(id: String, type: String).returns(T.attached_class) }
+          def self.new(id:, type:)
+          end
+
+          sig { override.returns({ id: String, type: String }) }
           def to_hash
           end
         end
@@ -714,18 +1255,17 @@ module Moonbase
         sig { returns(Symbol) }
         attr_accessor :type
 
-        # A list of `Attendee` objects who were part of the meeting.
-        sig { returns(T.nilable(T::Array[Moonbase::Attendee])) }
-        attr_reader :attendees
-
-        sig { params(attendees: T::Array[Moonbase::Attendee::OrHash]).void }
-        attr_writer :attendees
-
         # The `Meeting` object associated with this event.
-        sig { returns(T.nilable(Moonbase::Meeting)) }
+        sig do
+          returns(T.nilable(Moonbase::Activity::ActivityMeetingHeld::Meeting))
+        end
         attr_reader :meeting
 
-        sig { params(meeting: Moonbase::Meeting::OrHash).void }
+        sig do
+          params(
+            meeting: Moonbase::Activity::ActivityMeetingHeld::Meeting::OrHash
+          ).void
+        end
         attr_writer :meeting
 
         # Represents an event that occurs when a `Meeting` has concluded.
@@ -734,8 +1274,7 @@ module Moonbase
             id: String,
             links: Moonbase::Activity::ActivityMeetingHeld::Links::OrHash,
             occurred_at: Time,
-            attendees: T::Array[Moonbase::Attendee::OrHash],
-            meeting: Moonbase::Meeting::OrHash,
+            meeting: Moonbase::Activity::ActivityMeetingHeld::Meeting::OrHash,
             type: Symbol
           ).returns(T.attached_class)
         end
@@ -745,8 +1284,6 @@ module Moonbase
           links:,
           # The time at which the event occurred, as an RFC 3339 timestamp.
           occurred_at:,
-          # A list of `Attendee` objects who were part of the meeting.
-          attendees: nil,
           # The `Meeting` object associated with this event.
           meeting: nil,
           # The type of activity. Always `activity/meeting_held`.
@@ -761,8 +1298,7 @@ module Moonbase
               links: Moonbase::Activity::ActivityMeetingHeld::Links,
               occurred_at: Time,
               type: Symbol,
-              attendees: T::Array[Moonbase::Attendee],
-              meeting: Moonbase::Meeting
+              meeting: Moonbase::Activity::ActivityMeetingHeld::Meeting
             }
           )
         end
@@ -804,6 +1340,31 @@ module Moonbase
           def to_hash
           end
         end
+
+        class Meeting < Moonbase::Internal::Type::BaseModel
+          OrHash =
+            T.type_alias do
+              T.any(
+                Moonbase::Activity::ActivityMeetingHeld::Meeting,
+                Moonbase::Internal::AnyHash
+              )
+            end
+
+          sig { returns(String) }
+          attr_accessor :id
+
+          sig { returns(String) }
+          attr_accessor :type
+
+          # The `Meeting` object associated with this event.
+          sig { params(id: String, type: String).returns(T.attached_class) }
+          def self.new(id:, type:)
+          end
+
+          sig { override.returns({ id: String, type: String }) }
+          def to_hash
+          end
+        end
       end
 
       class ActivityMeetingScheduled < Moonbase::Internal::Type::BaseModel
@@ -837,26 +1398,21 @@ module Moonbase
         sig { returns(Symbol) }
         attr_accessor :type
 
-        # The list of `Attendee` objects invited to the meeting.
-        sig { returns(T.nilable(T::Array[Moonbase::Attendee])) }
-        attr_reader :attendees
-
-        sig { params(attendees: T::Array[Moonbase::Attendee::OrHash]).void }
-        attr_writer :attendees
-
         # The `Meeting` object associated with this event.
-        sig { returns(T.nilable(Moonbase::Meeting)) }
+        sig do
+          returns(
+            T.nilable(Moonbase::Activity::ActivityMeetingScheduled::Meeting)
+          )
+        end
         attr_reader :meeting
 
-        sig { params(meeting: Moonbase::Meeting::OrHash).void }
+        sig do
+          params(
+            meeting:
+              Moonbase::Activity::ActivityMeetingScheduled::Meeting::OrHash
+          ).void
+        end
         attr_writer :meeting
-
-        # The `Organizer` of the meeting.
-        sig { returns(T.nilable(Moonbase::Organizer)) }
-        attr_reader :organizer
-
-        sig { params(organizer: Moonbase::Organizer::OrHash).void }
-        attr_writer :organizer
 
         # Represents an event that occurs when a `Meeting` is scheduled.
         sig do
@@ -864,9 +1420,8 @@ module Moonbase
             id: String,
             links: Moonbase::Activity::ActivityMeetingScheduled::Links::OrHash,
             occurred_at: Time,
-            attendees: T::Array[Moonbase::Attendee::OrHash],
-            meeting: Moonbase::Meeting::OrHash,
-            organizer: Moonbase::Organizer::OrHash,
+            meeting:
+              Moonbase::Activity::ActivityMeetingScheduled::Meeting::OrHash,
             type: Symbol
           ).returns(T.attached_class)
         end
@@ -876,12 +1431,8 @@ module Moonbase
           links:,
           # The time at which the event occurred, as an RFC 3339 timestamp.
           occurred_at:,
-          # The list of `Attendee` objects invited to the meeting.
-          attendees: nil,
           # The `Meeting` object associated with this event.
           meeting: nil,
-          # The `Organizer` of the meeting.
-          organizer: nil,
           # The type of activity. Always `activity/meeting_scheduled`.
           type: :"activity/meeting_scheduled"
         )
@@ -894,9 +1445,7 @@ module Moonbase
               links: Moonbase::Activity::ActivityMeetingScheduled::Links,
               occurred_at: Time,
               type: Symbol,
-              attendees: T::Array[Moonbase::Attendee],
-              meeting: Moonbase::Meeting,
-              organizer: Moonbase::Organizer
+              meeting: Moonbase::Activity::ActivityMeetingScheduled::Meeting
             }
           )
         end
@@ -938,6 +1487,31 @@ module Moonbase
           def to_hash
           end
         end
+
+        class Meeting < Moonbase::Internal::Type::BaseModel
+          OrHash =
+            T.type_alias do
+              T.any(
+                Moonbase::Activity::ActivityMeetingScheduled::Meeting,
+                Moonbase::Internal::AnyHash
+              )
+            end
+
+          sig { returns(String) }
+          attr_accessor :id
+
+          sig { returns(String) }
+          attr_accessor :type
+
+          # The `Meeting` object associated with this event.
+          sig { params(id: String, type: String).returns(T.attached_class) }
+          def self.new(id:, type:)
+          end
+
+          sig { override.returns({ id: String, type: String }) }
+          def to_hash
+          end
+        end
       end
 
       class ActivityNoteCreated < Moonbase::Internal::Type::BaseModel
@@ -972,24 +1546,48 @@ module Moonbase
         attr_accessor :type
 
         # The `Note` object that was created.
-        sig { returns(T.nilable(Moonbase::Note)) }
+        sig do
+          returns(T.nilable(Moonbase::Activity::ActivityNoteCreated::Note))
+        end
         attr_reader :note
 
-        sig { params(note: Moonbase::Note::OrHash).void }
+        sig do
+          params(
+            note: Moonbase::Activity::ActivityNoteCreated::Note::OrHash
+          ).void
+        end
         attr_writer :note
 
         # The `Item` this note is related to, if any.
-        sig { returns(T.nilable(Moonbase::Item)) }
+        sig do
+          returns(
+            T.nilable(Moonbase::Activity::ActivityNoteCreated::RelatedItem)
+          )
+        end
         attr_reader :related_item
 
-        sig { params(related_item: Moonbase::Item::OrHash).void }
+        sig do
+          params(
+            related_item:
+              Moonbase::Activity::ActivityNoteCreated::RelatedItem::OrHash
+          ).void
+        end
         attr_writer :related_item
 
         # The `Meeting` this note is related to, if any.
-        sig { returns(T.nilable(Moonbase::Meeting)) }
+        sig do
+          returns(
+            T.nilable(Moonbase::Activity::ActivityNoteCreated::RelatedMeeting)
+          )
+        end
         attr_reader :related_meeting
 
-        sig { params(related_meeting: Moonbase::Meeting::OrHash).void }
+        sig do
+          params(
+            related_meeting:
+              Moonbase::Activity::ActivityNoteCreated::RelatedMeeting::OrHash
+          ).void
+        end
         attr_writer :related_meeting
 
         # Represents an event that occurs when a `Note` is created.
@@ -998,9 +1596,11 @@ module Moonbase
             id: String,
             links: Moonbase::Activity::ActivityNoteCreated::Links::OrHash,
             occurred_at: Time,
-            note: Moonbase::Note::OrHash,
-            related_item: Moonbase::Item::OrHash,
-            related_meeting: Moonbase::Meeting::OrHash,
+            note: Moonbase::Activity::ActivityNoteCreated::Note::OrHash,
+            related_item:
+              Moonbase::Activity::ActivityNoteCreated::RelatedItem::OrHash,
+            related_meeting:
+              Moonbase::Activity::ActivityNoteCreated::RelatedMeeting::OrHash,
             type: Symbol
           ).returns(T.attached_class)
         end
@@ -1028,9 +1628,11 @@ module Moonbase
               links: Moonbase::Activity::ActivityNoteCreated::Links,
               occurred_at: Time,
               type: Symbol,
-              note: Moonbase::Note,
-              related_item: Moonbase::Item,
-              related_meeting: Moonbase::Meeting
+              note: Moonbase::Activity::ActivityNoteCreated::Note,
+              related_item:
+                Moonbase::Activity::ActivityNoteCreated::RelatedItem,
+              related_meeting:
+                Moonbase::Activity::ActivityNoteCreated::RelatedMeeting
             }
           )
         end
@@ -1104,6 +1706,81 @@ module Moonbase
           def to_hash
           end
         end
+
+        class Note < Moonbase::Internal::Type::BaseModel
+          OrHash =
+            T.type_alias do
+              T.any(
+                Moonbase::Activity::ActivityNoteCreated::Note,
+                Moonbase::Internal::AnyHash
+              )
+            end
+
+          sig { returns(String) }
+          attr_accessor :id
+
+          sig { returns(String) }
+          attr_accessor :type
+
+          # The `Note` object that was created.
+          sig { params(id: String, type: String).returns(T.attached_class) }
+          def self.new(id:, type:)
+          end
+
+          sig { override.returns({ id: String, type: String }) }
+          def to_hash
+          end
+        end
+
+        class RelatedItem < Moonbase::Internal::Type::BaseModel
+          OrHash =
+            T.type_alias do
+              T.any(
+                Moonbase::Activity::ActivityNoteCreated::RelatedItem,
+                Moonbase::Internal::AnyHash
+              )
+            end
+
+          sig { returns(String) }
+          attr_accessor :id
+
+          sig { returns(String) }
+          attr_accessor :type
+
+          # The `Item` this note is related to, if any.
+          sig { params(id: String, type: String).returns(T.attached_class) }
+          def self.new(id:, type:)
+          end
+
+          sig { override.returns({ id: String, type: String }) }
+          def to_hash
+          end
+        end
+
+        class RelatedMeeting < Moonbase::Internal::Type::BaseModel
+          OrHash =
+            T.type_alias do
+              T.any(
+                Moonbase::Activity::ActivityNoteCreated::RelatedMeeting,
+                Moonbase::Internal::AnyHash
+              )
+            end
+
+          sig { returns(String) }
+          attr_accessor :id
+
+          sig { returns(String) }
+          attr_accessor :type
+
+          # The `Meeting` this note is related to, if any.
+          sig { params(id: String, type: String).returns(T.attached_class) }
+          def self.new(id:, type:)
+          end
+
+          sig { override.returns({ id: String, type: String }) }
+          def to_hash
+          end
+        end
       end
 
       class ActivityProgramMessageBounced < Moonbase::Internal::Type::BaseModel
@@ -1140,11 +1817,51 @@ module Moonbase
         sig { returns(Symbol) }
         attr_accessor :type
 
-        # The `Address` of the recipient whose message bounced.
-        sig { returns(T.nilable(Moonbase::Address)) }
+        sig { returns(T.nilable(String)) }
+        attr_reader :bounce_type
+
+        sig { params(bounce_type: String).void }
+        attr_writer :bounce_type
+
+        sig { returns(T.nilable(T::Array[String])) }
+        attr_reader :bounced_recipient_emails
+
+        sig { params(bounced_recipient_emails: T::Array[String]).void }
+        attr_writer :bounced_recipient_emails
+
+        sig do
+          returns(
+            T.nilable(
+              Moonbase::Activity::ActivityProgramMessageBounced::ProgramMessage
+            )
+          )
+        end
+        attr_reader :program_message
+
+        sig do
+          params(
+            program_message:
+              Moonbase::Activity::ActivityProgramMessageBounced::ProgramMessage::OrHash
+          ).void
+        end
+        attr_writer :program_message
+
+        # A link to the `Address` of the recipient whose message bounced.
+        sig do
+          returns(
+            T.nilable(
+              Moonbase::Activity::ActivityProgramMessageBounced::Recipient
+            )
+          )
+        end
         attr_reader :recipient
 
-        sig { params(recipient: Moonbase::Address::OrHash).void }
+        sig do
+          params(
+            recipient:
+              Moonbase::Activity::ActivityProgramMessageBounced::Recipient::OrHash
+          ).void
+        end
         attr_writer :recipient
 
         # Represents an event that occurs when a `ProgramMessage` bounces.
@@ -1154,7 +1871,12 @@ module Moonbase
             links:
               Moonbase::Activity::ActivityProgramMessageBounced::Links::OrHash,
             occurred_at: Time,
-            recipient: Moonbase::Address::OrHash,
+            bounce_type: String,
+            bounced_recipient_emails: T::Array[String],
+            program_message:
+              Moonbase::Activity::ActivityProgramMessageBounced::ProgramMessage::OrHash,
+            recipient:
+              Moonbase::Activity::ActivityProgramMessageBounced::Recipient::OrHash,
             type: Symbol
           ).returns(T.attached_class)
         end
@@ -1164,7 +1886,10 @@ module Moonbase
           links:,
           # The time at which the event occurred, as an RFC 3339 timestamp.
           occurred_at:,
-          # The `Address` of the recipient whose message bounced.
+          bounce_type: nil,
+          bounced_recipient_emails: nil,
+          program_message: nil,
+          # A link to the `Address` of the recipient whose message bounced.
           recipient: nil,
           # The type of activity. Always `activity/program_message_bounced`.
           type: :"activity/program_message_bounced"
@@ -1178,7 +1903,12 @@ module Moonbase
               links: Moonbase::Activity::ActivityProgramMessageBounced::Links,
               occurred_at: Time,
               type: Symbol,
-              recipient: Moonbase::Address
+              bounce_type: String,
+              bounced_recipient_emails: T::Array[String],
+              program_message:
+                Moonbase::Activity::ActivityProgramMessageBounced::ProgramMessage,
+              recipient:
+                Moonbase::Activity::ActivityProgramMessageBounced::Recipient
             }
           )
         end
@@ -1198,14 +1928,74 @@ module Moonbase
           sig { returns(String) }
           attr_accessor :self_
 
-          sig { params(self_: String).returns(T.attached_class) }
+          # A link to the `Address` of the recipient whose message bounced.
+          sig { returns(T.nilable(String)) }
+          attr_reader :recipient
+
+          sig { params(recipient: String).void }
+          attr_writer :recipient
+
+          sig do
+            params(self_: String, recipient: String).returns(T.attached_class)
+          end
           def self.new(
             # The canonical URL for this object.
-            self_:
+            self_:,
+            # A link to the `Address` of the recipient whose message bounced.
+            recipient: nil
           )
           end
 
-          sig { override.returns({ self_: String }) }
+          sig { override.returns({ self_: String, recipient: String }) }
+          def to_hash
+          end
+        end
+
+        class ProgramMessage < Moonbase::Internal::Type::BaseModel
+          OrHash =
+            T.type_alias do
+              T.any(
+                Moonbase::Activity::ActivityProgramMessageBounced::ProgramMessage,
+                Moonbase::Internal::AnyHash
+              )
+            end
+
+          sig { returns(String) }
+          attr_accessor :id
+
+          sig { returns(String) }
+          attr_accessor :type
+
+          sig { params(id: String, type: String).returns(T.attached_class) }
+          def self.new(id:, type:)
+          end
+
+          sig { override.returns({ id: String, type: String }) }
+          def to_hash
+          end
+        end
+
+        class Recipient < Moonbase::Internal::Type::BaseModel
+          OrHash =
+            T.type_alias do
+              T.any(
+                Moonbase::Activity::ActivityProgramMessageBounced::Recipient,
+                Moonbase::Internal::AnyHash
+              )
+            end
+
+          sig { returns(String) }
+          attr_accessor :id
+
+          sig { returns(String) }
+          attr_accessor :type
+
+          # A link to the `Address` of the recipient whose message bounced.
+          sig { params(id: String, type: String).returns(T.attached_class) }
+          def self.new(id:, type:)
+          end
+
+          sig { override.returns({ id: String, type: String }) }
           def to_hash
           end
         end
@@ -1259,11 +2049,39 @@ module Moonbase
         sig { params(link_url_unsafe: String).void }
         attr_writer :link_url_unsafe
 
-        # The `Address` of the recipient who clicked the link.
-        sig { returns(T.nilable(Moonbase::Address)) }
+        sig do
+          returns(
+            T.nilable(
+              Moonbase::Activity::ActivityProgramMessageClicked::ProgramMessage
+            )
+          )
+        end
+        attr_reader :program_message
+
+        sig do
+          params(
+            program_message:
+              Moonbase::Activity::ActivityProgramMessageClicked::ProgramMessage::OrHash
+          ).void
+        end
+        attr_writer :program_message
+
+        # A link to the `Address` of the recipient who clicked the link.
+        sig do
+          returns(
+            T.nilable(
+              Moonbase::Activity::ActivityProgramMessageClicked::Recipient
+            )
+          )
+        end
         attr_reader :recipient
 
-        sig { params(recipient: Moonbase::Address::OrHash).void }
+        sig do
+          params(
+            recipient:
+              Moonbase::Activity::ActivityProgramMessageClicked::Recipient::OrHash
+          ).void
+        end
         attr_writer :recipient
 
         # Represents an event that occurs when a recipient clicks a tracked link in a
@@ -1276,7 +2094,10 @@ module Moonbase
             occurred_at: Time,
             link_text: String,
             link_url_unsafe: String,
-            recipient: Moonbase::Address::OrHash,
+            program_message:
+              Moonbase::Activity::ActivityProgramMessageClicked::ProgramMessage::OrHash,
+            recipient:
+              Moonbase::Activity::ActivityProgramMessageClicked::Recipient::OrHash,
             type: Symbol
           ).returns(T.attached_class)
         end
@@ -1290,7 +2111,8 @@ module Moonbase
           link_text: nil,
           # The URL of the link that was clicked.
           link_url_unsafe: nil,
-          # The `Address` of the recipient who clicked the link.
+          program_message: nil,
+          # A link to the `Address` of the recipient who clicked the link.
           recipient: nil,
           # The type of activity. Always `activity/program_message_clicked`.
           type: :"activity/program_message_clicked"
@@ -1306,7 +2128,10 @@ module Moonbase
               type: Symbol,
               link_text: String,
               link_url_unsafe: String,
-              recipient: Moonbase::Address
+              program_message:
+                Moonbase::Activity::ActivityProgramMessageClicked::ProgramMessage,
+              recipient:
+                Moonbase::Activity::ActivityProgramMessageClicked::Recipient
             }
           )
         end
@@ -1326,14 +2151,74 @@ module Moonbase
           sig { returns(String) }
           attr_accessor :self_
 
-          sig { params(self_: String).returns(T.attached_class) }
+          # A link to the `Address` of the recipient who clicked the link.
+          sig { returns(T.nilable(String)) }
+          attr_reader :recipient
+
+          sig { params(recipient: String).void }
+          attr_writer :recipient
+
+          sig do
+            params(self_: String, recipient: String).returns(T.attached_class)
+          end
           def self.new(
             # The canonical URL for this object.
-            self_:
+            self_:,
+            # A link to the `Address` of the recipient who clicked the link.
+            recipient: nil
           )
           end
 
-          sig { override.returns({ self_: String }) }
+          sig { override.returns({ self_: String, recipient: String }) }
+          def to_hash
+          end
+        end
+
+        class ProgramMessage < Moonbase::Internal::Type::BaseModel
+          OrHash =
+            T.type_alias do
+              T.any(
+                Moonbase::Activity::ActivityProgramMessageClicked::ProgramMessage,
+                Moonbase::Internal::AnyHash
+              )
+            end
+
+          sig { returns(String) }
+          attr_accessor :id
+
+          sig { returns(String) }
+          attr_accessor :type
+
+          sig { params(id: String, type: String).returns(T.attached_class) }
+          def self.new(id:, type:)
+          end
+
+          sig { override.returns({ id: String, type: String }) }
+          def to_hash
+          end
+        end
+
+        class Recipient < Moonbase::Internal::Type::BaseModel
+          OrHash =
+            T.type_alias do
+              T.any(
+                Moonbase::Activity::ActivityProgramMessageClicked::Recipient,
+                Moonbase::Internal::AnyHash
+              )
+            end
+
+          sig { returns(String) }
+          attr_accessor :id
+
+          sig { returns(String) }
+          attr_accessor :type
+
+          # A link to the `Address` of the recipient who clicked the link.
+          sig { params(id: String, type: String).returns(T.attached_class) }
+          def self.new(id:, type:)
+          end
+
+          sig { override.returns({ id: String, type: String }) }
           def to_hash
           end
         end
@@ -1373,11 +2258,39 @@ module Moonbase
         sig { returns(Symbol) }
         attr_accessor :type
 
-        # The `Address` of the recipient who complained.
-        sig { returns(T.nilable(Moonbase::Address)) }
+        sig do
+          returns(
+            T.nilable(
+              Moonbase::Activity::ActivityProgramMessageComplained::ProgramMessage
+            )
+          )
+        end
+        attr_reader :program_message
+
+        sig do
+          params(
+            program_message:
+              Moonbase::Activity::ActivityProgramMessageComplained::ProgramMessage::OrHash
+          ).void
+        end
+        attr_writer :program_message
+
+        # A link to the `Address` of the recipient who complained.
+        sig do
+          returns(
+            T.nilable(
+              Moonbase::Activity::ActivityProgramMessageComplained::Recipient
+            )
+          )
+        end
         attr_reader :recipient
 
-        sig { params(recipient: Moonbase::Address::OrHash).void }
+        sig do
+          params(
+            recipient:
+              Moonbase::Activity::ActivityProgramMessageComplained::Recipient::OrHash
+          ).void
+        end
         attr_writer :recipient
 
         # Represents an event that occurs when a recipient marks a `ProgramMessage` as
@@ -1388,7 +2301,10 @@ module Moonbase
             links:
               Moonbase::Activity::ActivityProgramMessageComplained::Links::OrHash,
             occurred_at: Time,
-            recipient: Moonbase::Address::OrHash,
+            program_message:
+              Moonbase::Activity::ActivityProgramMessageComplained::ProgramMessage::OrHash,
+            recipient:
+              Moonbase::Activity::ActivityProgramMessageComplained::Recipient::OrHash,
             type: Symbol
           ).returns(T.attached_class)
         end
@@ -1398,7 +2314,8 @@ module Moonbase
           links:,
           # The time at which the event occurred, as an RFC 3339 timestamp.
           occurred_at:,
-          # The `Address` of the recipient who complained.
+          program_message: nil,
+          # A link to the `Address` of the recipient who complained.
           recipient: nil,
           # The type of activity. Always `activity/program_message_complained`.
           type: :"activity/program_message_complained"
@@ -1413,7 +2330,10 @@ module Moonbase
                 Moonbase::Activity::ActivityProgramMessageComplained::Links,
               occurred_at: Time,
               type: Symbol,
-              recipient: Moonbase::Address
+              program_message:
+                Moonbase::Activity::ActivityProgramMessageComplained::ProgramMessage,
+              recipient:
+                Moonbase::Activity::ActivityProgramMessageComplained::Recipient
             }
           )
         end
@@ -1433,14 +2353,74 @@ module Moonbase
           sig { returns(String) }
           attr_accessor :self_
 
-          sig { params(self_: String).returns(T.attached_class) }
+          # A link to the `Address` of the recipient who complained.
+          sig { returns(T.nilable(String)) }
+          attr_reader :recipient
+
+          sig { params(recipient: String).void }
+          attr_writer :recipient
+
+          sig do
+            params(self_: String, recipient: String).returns(T.attached_class)
+          end
           def self.new(
             # The canonical URL for this object.
-            self_:
+            self_:,
+            # A link to the `Address` of the recipient who complained.
+            recipient: nil
           )
           end
 
-          sig { override.returns({ self_: String }) }
+          sig { override.returns({ self_: String, recipient: String }) }
+          def to_hash
+          end
+        end
+
+        class ProgramMessage < Moonbase::Internal::Type::BaseModel
+          OrHash =
+            T.type_alias do
+              T.any(
+                Moonbase::Activity::ActivityProgramMessageComplained::ProgramMessage,
+                Moonbase::Internal::AnyHash
+              )
+            end
+
+          sig { returns(String) }
+          attr_accessor :id
+
+          sig { returns(String) }
+          attr_accessor :type
+
+          sig { params(id: String, type: String).returns(T.attached_class) }
+          def self.new(id:, type:)
+          end
+
+          sig { override.returns({ id: String, type: String }) }
+          def to_hash
+          end
+        end
+
+        class Recipient < Moonbase::Internal::Type::BaseModel
+          OrHash =
+            T.type_alias do
+              T.any(
+                Moonbase::Activity::ActivityProgramMessageComplained::Recipient,
+                Moonbase::Internal::AnyHash
+              )
+            end
+
+          sig { returns(String) }
+          attr_accessor :id
+
+          sig { returns(String) }
+          attr_accessor :type
+
+          # A link to the `Address` of the recipient who complained.
+          sig { params(id: String, type: String).returns(T.attached_class) }
+          def self.new(id:, type:)
+          end
+
+          sig { override.returns({ id: String, type: String }) }
           def to_hash
           end
         end
@@ -1478,11 +2458,45 @@ module Moonbase
         sig { returns(Symbol) }
         attr_accessor :type
 
-        # The `Address` of the recipient whose message failed.
-        sig { returns(T.nilable(Moonbase::Address)) }
+        sig do
+          returns(
+            T.nilable(
+              Moonbase::Activity::ActivityProgramMessageFailed::ProgramMessage
+            )
+          )
+        end
+        attr_reader :program_message
+
+        sig do
+          params(
+            program_message:
+              Moonbase::Activity::ActivityProgramMessageFailed::ProgramMessage::OrHash
+          ).void
+        end
+        attr_writer :program_message
+
+        sig { returns(T.nilable(String)) }
+        attr_reader :reason_code
+
+        sig { params(reason_code: String).void }
+        attr_writer :reason_code
+
+        # A link to the `Address` of the recipient whose message failed.
+        sig do
+          returns(
+            T.nilable(
+              Moonbase::Activity::ActivityProgramMessageFailed::Recipient
+            )
+          )
+        end
         attr_reader :recipient
 
-        sig { params(recipient: Moonbase::Address::OrHash).void }
+        sig do
+          params(
+            recipient:
+              Moonbase::Activity::ActivityProgramMessageFailed::Recipient::OrHash
+          ).void
+        end
         attr_writer :recipient
 
         # Represents an event that occurs when a `ProgramMessage` fails to be delivered
@@ -1493,7 +2507,11 @@ module Moonbase
             links:
               Moonbase::Activity::ActivityProgramMessageFailed::Links::OrHash,
             occurred_at: Time,
-            recipient: Moonbase::Address::OrHash,
+            program_message:
+              Moonbase::Activity::ActivityProgramMessageFailed::ProgramMessage::OrHash,
+            reason_code: String,
+            recipient:
+              Moonbase::Activity::ActivityProgramMessageFailed::Recipient::OrHash,
             type: Symbol
           ).returns(T.attached_class)
         end
@@ -1503,7 +2521,9 @@ module Moonbase
           links:,
           # The time at which the event occurred, as an RFC 3339 timestamp.
           occurred_at:,
-          # The `Address` of the recipient whose message failed.
+          program_message: nil,
+          reason_code: nil,
+          # A link to the `Address` of the recipient whose message failed.
           recipient: nil,
           # The type of activity. Always `activity/program_message_failed`.
           type: :"activity/program_message_failed"
@@ -1517,7 +2537,11 @@ module Moonbase
               links: Moonbase::Activity::ActivityProgramMessageFailed::Links,
               occurred_at: Time,
               type: Symbol,
-              recipient: Moonbase::Address
+              program_message:
+                Moonbase::Activity::ActivityProgramMessageFailed::ProgramMessage,
+              reason_code: String,
+              recipient:
+                Moonbase::Activity::ActivityProgramMessageFailed::Recipient
             }
           )
         end
@@ -1537,14 +2561,74 @@ module Moonbase
           sig { returns(String) }
           attr_accessor :self_
 
-          sig { params(self_: String).returns(T.attached_class) }
+          # A link to the `Address` of the recipient whose message failed.
+          sig { returns(T.nilable(String)) }
+          attr_reader :recipient
+
+          sig { params(recipient: String).void }
+          attr_writer :recipient
+
+          sig do
+            params(self_: String, recipient: String).returns(T.attached_class)
+          end
           def self.new(
             # The canonical URL for this object.
-            self_:
+            self_:,
+            # A link to the `Address` of the recipient whose message failed.
+            recipient: nil
           )
           end
 
-          sig { override.returns({ self_: String }) }
+          sig { override.returns({ self_: String, recipient: String }) }
+          def to_hash
+          end
+        end
+
+        class ProgramMessage < Moonbase::Internal::Type::BaseModel
+          OrHash =
+            T.type_alias do
+              T.any(
+                Moonbase::Activity::ActivityProgramMessageFailed::ProgramMessage,
+                Moonbase::Internal::AnyHash
+              )
+            end
+
+          sig { returns(String) }
+          attr_accessor :id
+
+          sig { returns(String) }
+          attr_accessor :type
+
+          sig { params(id: String, type: String).returns(T.attached_class) }
+          def self.new(id:, type:)
+          end
+
+          sig { override.returns({ id: String, type: String }) }
+          def to_hash
+          end
+        end
+
+        class Recipient < Moonbase::Internal::Type::BaseModel
+          OrHash =
+            T.type_alias do
+              T.any(
+                Moonbase::Activity::ActivityProgramMessageFailed::Recipient,
+                Moonbase::Internal::AnyHash
+              )
+            end
+
+          sig { returns(String) }
+          attr_accessor :id
+
+          sig { returns(String) }
+          attr_accessor :type
+
+          # A link to the `Address` of the recipient whose message failed.
+          sig { params(id: String, type: String).returns(T.attached_class) }
+          def self.new(id:, type:)
+          end
+
+          sig { override.returns({ id: String, type: String }) }
           def to_hash
           end
         end
@@ -1582,11 +2666,39 @@ module Moonbase
         sig { returns(Symbol) }
         attr_accessor :type
 
-        # The `Address` of the recipient who opened the message.
-        sig { returns(T.nilable(Moonbase::Address)) }
+        sig do
+          returns(
+            T.nilable(
+              Moonbase::Activity::ActivityProgramMessageOpened::ProgramMessage
+            )
+          )
+        end
+        attr_reader :program_message
+
+        sig do
+          params(
+            program_message:
+              Moonbase::Activity::ActivityProgramMessageOpened::ProgramMessage::OrHash
+          ).void
+        end
+        attr_writer :program_message
+
+        # A link to the `Address` of the recipient who opened the message.
+        sig do
+          returns(
+            T.nilable(
+              Moonbase::Activity::ActivityProgramMessageOpened::Recipient
+            )
+          )
+        end
         attr_reader :recipient
 
-        sig { params(recipient: Moonbase::Address::OrHash).void }
+        sig do
+          params(
+            recipient:
+              Moonbase::Activity::ActivityProgramMessageOpened::Recipient::OrHash
+          ).void
+        end
         attr_writer :recipient
 
         # Represents an event that occurs when a recipient opens a `ProgramMessage`.
@@ -1596,7 +2708,10 @@ module Moonbase
             links:
               Moonbase::Activity::ActivityProgramMessageOpened::Links::OrHash,
             occurred_at: Time,
-            recipient: Moonbase::Address::OrHash,
+            program_message:
+              Moonbase::Activity::ActivityProgramMessageOpened::ProgramMessage::OrHash,
+            recipient:
+              Moonbase::Activity::ActivityProgramMessageOpened::Recipient::OrHash,
             type: Symbol
           ).returns(T.attached_class)
         end
@@ -1606,7 +2721,8 @@ module Moonbase
           links:,
           # The time at which the event occurred, as an RFC 3339 timestamp.
           occurred_at:,
-          # The `Address` of the recipient who opened the message.
+          program_message: nil,
+          # A link to the `Address` of the recipient who opened the message.
           recipient: nil,
           # The type of activity. Always `activity/program_message_opened`.
           type: :"activity/program_message_opened"
@@ -1620,7 +2736,10 @@ module Moonbase
               links: Moonbase::Activity::ActivityProgramMessageOpened::Links,
               occurred_at: Time,
               type: Symbol,
-              recipient: Moonbase::Address
+              program_message:
+                Moonbase::Activity::ActivityProgramMessageOpened::ProgramMessage,
+              recipient:
+                Moonbase::Activity::ActivityProgramMessageOpened::Recipient
             }
           )
         end
@@ -1640,14 +2759,74 @@ module Moonbase
           sig { returns(String) }
           attr_accessor :self_
 
-          sig { params(self_: String).returns(T.attached_class) }
+          # A link to the `Address` of the recipient who opened the message.
+          sig { returns(T.nilable(String)) }
+          attr_reader :recipient
+
+          sig { params(recipient: String).void }
+          attr_writer :recipient
+
+          sig do
+            params(self_: String, recipient: String).returns(T.attached_class)
+          end
           def self.new(
             # The canonical URL for this object.
-            self_:
+            self_:,
+            # A link to the `Address` of the recipient who opened the message.
+            recipient: nil
           )
           end
 
-          sig { override.returns({ self_: String }) }
+          sig { override.returns({ self_: String, recipient: String }) }
+          def to_hash
+          end
+        end
+
+        class ProgramMessage < Moonbase::Internal::Type::BaseModel
+          OrHash =
+            T.type_alias do
+              T.any(
+                Moonbase::Activity::ActivityProgramMessageOpened::ProgramMessage,
+                Moonbase::Internal::AnyHash
+              )
+            end
+
+          sig { returns(String) }
+          attr_accessor :id
+
+          sig { returns(String) }
+          attr_accessor :type
+
+          sig { params(id: String, type: String).returns(T.attached_class) }
+          def self.new(id:, type:)
+          end
+
+          sig { override.returns({ id: String, type: String }) }
+          def to_hash
+          end
+        end
+
+        class Recipient < Moonbase::Internal::Type::BaseModel
+          OrHash =
+            T.type_alias do
+              T.any(
+                Moonbase::Activity::ActivityProgramMessageOpened::Recipient,
+                Moonbase::Internal::AnyHash
+              )
+            end
+
+          sig { returns(String) }
+          attr_accessor :id
+
+          sig { returns(String) }
+          attr_accessor :type
+
+          # A link to the `Address` of the recipient who opened the message.
+          sig { params(id: String, type: String).returns(T.attached_class) }
+          def self.new(id:, type:)
+          end
+
+          sig { override.returns({ id: String, type: String }) }
           def to_hash
           end
         end
@@ -1684,12 +2863,44 @@ module Moonbase
         sig { returns(Symbol) }
         attr_accessor :type
 
-        # The `Address` of the recipient the message was sent to.
-        sig { returns(T.nilable(Moonbase::Address)) }
+        sig do
+          returns(
+            T.nilable(
+              Moonbase::Activity::ActivityProgramMessageSent::ProgramMessage
+            )
+          )
+        end
+        attr_reader :program_message
+
+        sig do
+          params(
+            program_message:
+              Moonbase::Activity::ActivityProgramMessageSent::ProgramMessage::OrHash
+          ).void
+        end
+        attr_writer :program_message
+
+        # A link to the `Address` of the recipient the message was sent to.
+        sig do
+          returns(
+            T.nilable(Moonbase::Activity::ActivityProgramMessageSent::Recipient)
+          )
+        end
         attr_reader :recipient
 
-        sig { params(recipient: Moonbase::Address::OrHash).void }
+        sig do
+          params(
+            recipient:
+              Moonbase::Activity::ActivityProgramMessageSent::Recipient::OrHash
+          ).void
+        end
         attr_writer :recipient
+
+        sig { returns(T.nilable(T::Array[String])) }
+        attr_reader :recipient_emails
+
+        sig { params(recipient_emails: T::Array[String]).void }
+        attr_writer :recipient_emails
 
         # Represents an event that occurs when a `ProgramMessage` is successfully sent.
         sig do
@@ -1698,7 +2909,11 @@ module Moonbase
             links:
               Moonbase::Activity::ActivityProgramMessageSent::Links::OrHash,
             occurred_at: Time,
-            recipient: Moonbase::Address::OrHash,
+            program_message:
+              Moonbase::Activity::ActivityProgramMessageSent::ProgramMessage::OrHash,
+            recipient:
+              Moonbase::Activity::ActivityProgramMessageSent::Recipient::OrHash,
+            recipient_emails: T::Array[String],
             type: Symbol
           ).returns(T.attached_class)
         end
@@ -1708,8 +2923,10 @@ module Moonbase
           links:,
           # The time at which the event occurred, as an RFC 3339 timestamp.
           occurred_at:,
-          # The `Address` of the recipient the message was sent to.
+          program_message: nil,
+          # A link to the `Address` of the recipient the message was sent to.
           recipient: nil,
+          recipient_emails: nil,
           # The type of activity. Always `activity/program_message_sent`.
           type: :"activity/program_message_sent"
         )
@@ -1722,7 +2939,11 @@ module Moonbase
               links: Moonbase::Activity::ActivityProgramMessageSent::Links,
               occurred_at: Time,
               type: Symbol,
-              recipient: Moonbase::Address
+              program_message:
+                Moonbase::Activity::ActivityProgramMessageSent::ProgramMessage,
+              recipient:
+                Moonbase::Activity::ActivityProgramMessageSent::Recipient,
+              recipient_emails: T::Array[String]
             }
           )
         end
@@ -1742,14 +2963,74 @@ module Moonbase
           sig { returns(String) }
           attr_accessor :self_
 
-          sig { params(self_: String).returns(T.attached_class) }
+          # A link to the `Address` of the recipient the message was sent to.
+          sig { returns(T.nilable(String)) }
+          attr_reader :recipient
+
+          sig { params(recipient: String).void }
+          attr_writer :recipient
+
+          sig do
+            params(self_: String, recipient: String).returns(T.attached_class)
+          end
           def self.new(
             # The canonical URL for this object.
-            self_:
+            self_:,
+            # A link to the `Address` of the recipient the message was sent to.
+            recipient: nil
           )
           end
 
-          sig { override.returns({ self_: String }) }
+          sig { override.returns({ self_: String, recipient: String }) }
+          def to_hash
+          end
+        end
+
+        class ProgramMessage < Moonbase::Internal::Type::BaseModel
+          OrHash =
+            T.type_alias do
+              T.any(
+                Moonbase::Activity::ActivityProgramMessageSent::ProgramMessage,
+                Moonbase::Internal::AnyHash
+              )
+            end
+
+          sig { returns(String) }
+          attr_accessor :id
+
+          sig { returns(String) }
+          attr_accessor :type
+
+          sig { params(id: String, type: String).returns(T.attached_class) }
+          def self.new(id:, type:)
+          end
+
+          sig { override.returns({ id: String, type: String }) }
+          def to_hash
+          end
+        end
+
+        class Recipient < Moonbase::Internal::Type::BaseModel
+          OrHash =
+            T.type_alias do
+              T.any(
+                Moonbase::Activity::ActivityProgramMessageSent::Recipient,
+                Moonbase::Internal::AnyHash
+              )
+            end
+
+          sig { returns(String) }
+          attr_accessor :id
+
+          sig { returns(String) }
+          attr_accessor :type
+
+          # A link to the `Address` of the recipient the message was sent to.
+          sig { params(id: String, type: String).returns(T.attached_class) }
+          def self.new(id:, type:)
+          end
+
+          sig { override.returns({ id: String, type: String }) }
           def to_hash
           end
         end
@@ -1789,11 +3070,45 @@ module Moonbase
         sig { returns(Symbol) }
         attr_accessor :type
 
-        # The `Address` of the recipient whose message was shielded.
-        sig { returns(T.nilable(Moonbase::Address)) }
+        sig do
+          returns(
+            T.nilable(
+              Moonbase::Activity::ActivityProgramMessageShielded::ProgramMessage
+            )
+          )
+        end
+        attr_reader :program_message
+
+        sig do
+          params(
+            program_message:
+              Moonbase::Activity::ActivityProgramMessageShielded::ProgramMessage::OrHash
+          ).void
+        end
+        attr_writer :program_message
+
+        sig { returns(T.nilable(String)) }
+        attr_reader :reason_code
+
+        sig { params(reason_code: String).void }
+        attr_writer :reason_code
+
+        # A link to the `Address` of the recipient whose message was shielded.
+        sig do
+          returns(
+            T.nilable(
+              Moonbase::Activity::ActivityProgramMessageShielded::Recipient
+            )
+          )
+        end
         attr_reader :recipient
 
-        sig { params(recipient: Moonbase::Address::OrHash).void }
+        sig do
+          params(
+            recipient:
+              Moonbase::Activity::ActivityProgramMessageShielded::Recipient::OrHash
+          ).void
+        end
         attr_writer :recipient
 
         # Represents an event that occurs when a `ProgramMessage` is prevented from being
@@ -1804,7 +3119,11 @@ module Moonbase
             links:
               Moonbase::Activity::ActivityProgramMessageShielded::Links::OrHash,
             occurred_at: Time,
-            recipient: Moonbase::Address::OrHash,
+            program_message:
+              Moonbase::Activity::ActivityProgramMessageShielded::ProgramMessage::OrHash,
+            reason_code: String,
+            recipient:
+              Moonbase::Activity::ActivityProgramMessageShielded::Recipient::OrHash,
             type: Symbol
           ).returns(T.attached_class)
         end
@@ -1814,7 +3133,9 @@ module Moonbase
           links:,
           # The time at which the event occurred, as an RFC 3339 timestamp.
           occurred_at:,
-          # The `Address` of the recipient whose message was shielded.
+          program_message: nil,
+          reason_code: nil,
+          # A link to the `Address` of the recipient whose message was shielded.
           recipient: nil,
           # The type of activity. Always `activity/program_message_shielded`.
           type: :"activity/program_message_shielded"
@@ -1828,7 +3149,11 @@ module Moonbase
               links: Moonbase::Activity::ActivityProgramMessageShielded::Links,
               occurred_at: Time,
               type: Symbol,
-              recipient: Moonbase::Address
+              program_message:
+                Moonbase::Activity::ActivityProgramMessageShielded::ProgramMessage,
+              reason_code: String,
+              recipient:
+                Moonbase::Activity::ActivityProgramMessageShielded::Recipient
             }
           )
         end
@@ -1848,14 +3173,74 @@ module Moonbase
           sig { returns(String) }
           attr_accessor :self_
 
-          sig { params(self_: String).returns(T.attached_class) }
+          # A link to the `Address` of the recipient whose message was shielded.
+          sig { returns(T.nilable(String)) }
+          attr_reader :recipient
+
+          sig { params(recipient: String).void }
+          attr_writer :recipient
+
+          sig do
+            params(self_: String, recipient: String).returns(T.attached_class)
+          end
           def self.new(
             # The canonical URL for this object.
-            self_:
+            self_:,
+            # A link to the `Address` of the recipient whose message was shielded.
+            recipient: nil
           )
           end
 
-          sig { override.returns({ self_: String }) }
+          sig { override.returns({ self_: String, recipient: String }) }
+          def to_hash
+          end
+        end
+
+        class ProgramMessage < Moonbase::Internal::Type::BaseModel
+          OrHash =
+            T.type_alias do
+              T.any(
+                Moonbase::Activity::ActivityProgramMessageShielded::ProgramMessage,
+                Moonbase::Internal::AnyHash
+              )
+            end
+
+          sig { returns(String) }
+          attr_accessor :id
+
+          sig { returns(String) }
+          attr_accessor :type
+
+          sig { params(id: String, type: String).returns(T.attached_class) }
+          def self.new(id:, type:)
+          end
+
+          sig { override.returns({ id: String, type: String }) }
+          def to_hash
+          end
+        end
+
+        class Recipient < Moonbase::Internal::Type::BaseModel
+          OrHash =
+            T.type_alias do
+              T.any(
+                Moonbase::Activity::ActivityProgramMessageShielded::Recipient,
+                Moonbase::Internal::AnyHash
+              )
+            end
+
+          sig { returns(String) }
+          attr_accessor :id
+
+          sig { returns(String) }
+          attr_accessor :type
+
+          # A link to the `Address` of the recipient whose message was shielded.
+          sig { params(id: String, type: String).returns(T.attached_class) }
+          def self.new(id:, type:)
+          end
+
+          sig { override.returns({ id: String, type: String }) }
           def to_hash
           end
         end
@@ -1895,11 +3280,45 @@ module Moonbase
         sig { returns(Symbol) }
         attr_accessor :type
 
-        # The `Address` of the recipient who unsubscribed.
-        sig { returns(T.nilable(Moonbase::Address)) }
+        sig { returns(T.nilable(String)) }
+        attr_reader :email
+
+        sig { params(email: String).void }
+        attr_writer :email
+
+        sig do
+          returns(
+            T.nilable(
+              Moonbase::Activity::ActivityProgramMessageUnsubscribed::ProgramMessage
+            )
+          )
+        end
+        attr_reader :program_message
+
+        sig do
+          params(
+            program_message:
+              Moonbase::Activity::ActivityProgramMessageUnsubscribed::ProgramMessage::OrHash
+          ).void
+        end
+        attr_writer :program_message
+
+        # A link to the `Address` of the recipient who unsubscribed.
+        sig do
+          returns(
+            T.nilable(
+              Moonbase::Activity::ActivityProgramMessageUnsubscribed::Recipient
+            )
+          )
+        end
         attr_reader :recipient
 
-        sig { params(recipient: Moonbase::Address::OrHash).void }
+        sig do
+          params(
+            recipient:
+              Moonbase::Activity::ActivityProgramMessageUnsubscribed::Recipient::OrHash
+          ).void
+        end
         attr_writer :recipient
 
         # Represents an event that occurs when a recipient unsubscribes after receiving a
@@ -1910,7 +3329,11 @@ module Moonbase
             links:
               Moonbase::Activity::ActivityProgramMessageUnsubscribed::Links::OrHash,
             occurred_at: Time,
-            recipient: Moonbase::Address::OrHash,
+            email: String,
+            program_message:
+              Moonbase::Activity::ActivityProgramMessageUnsubscribed::ProgramMessage::OrHash,
+            recipient:
+              Moonbase::Activity::ActivityProgramMessageUnsubscribed::Recipient::OrHash,
             type: Symbol
           ).returns(T.attached_class)
         end
@@ -1920,7 +3343,9 @@ module Moonbase
           links:,
           # The time at which the event occurred, as an RFC 3339 timestamp.
           occurred_at:,
-          # The `Address` of the recipient who unsubscribed.
+          email: nil,
+          program_message: nil,
+          # A link to the `Address` of the recipient who unsubscribed.
           recipient: nil,
           # The type of activity. Always `activity/program_message_unsubscribed`.
           type: :"activity/program_message_unsubscribed"
@@ -1935,7 +3360,11 @@ module Moonbase
                 Moonbase::Activity::ActivityProgramMessageUnsubscribed::Links,
               occurred_at: Time,
               type: Symbol,
-              recipient: Moonbase::Address
+              email: String,
+              program_message:
+                Moonbase::Activity::ActivityProgramMessageUnsubscribed::ProgramMessage,
+              recipient:
+                Moonbase::Activity::ActivityProgramMessageUnsubscribed::Recipient
             }
           )
         end
@@ -1955,14 +3384,74 @@ module Moonbase
           sig { returns(String) }
           attr_accessor :self_
 
-          sig { params(self_: String).returns(T.attached_class) }
+          # A link to the `Address` of the recipient who unsubscribed.
+          sig { returns(T.nilable(String)) }
+          attr_reader :recipient
+
+          sig { params(recipient: String).void }
+          attr_writer :recipient
+
+          sig do
+            params(self_: String, recipient: String).returns(T.attached_class)
+          end
           def self.new(
             # The canonical URL for this object.
-            self_:
+            self_:,
+            # A link to the `Address` of the recipient who unsubscribed.
+            recipient: nil
           )
           end
 
-          sig { override.returns({ self_: String }) }
+          sig { override.returns({ self_: String, recipient: String }) }
+          def to_hash
+          end
+        end
+
+        class ProgramMessage < Moonbase::Internal::Type::BaseModel
+          OrHash =
+            T.type_alias do
+              T.any(
+                Moonbase::Activity::ActivityProgramMessageUnsubscribed::ProgramMessage,
+                Moonbase::Internal::AnyHash
+              )
+            end
+
+          sig { returns(String) }
+          attr_accessor :id
+
+          sig { returns(String) }
+          attr_accessor :type
+
+          sig { params(id: String, type: String).returns(T.attached_class) }
+          def self.new(id:, type:)
+          end
+
+          sig { override.returns({ id: String, type: String }) }
+          def to_hash
+          end
+        end
+
+        class Recipient < Moonbase::Internal::Type::BaseModel
+          OrHash =
+            T.type_alias do
+              T.any(
+                Moonbase::Activity::ActivityProgramMessageUnsubscribed::Recipient,
+                Moonbase::Internal::AnyHash
+              )
+            end
+
+          sig { returns(String) }
+          attr_accessor :id
+
+          sig { returns(String) }
+          attr_accessor :type
+
+          # A link to the `Address` of the recipient who unsubscribed.
+          sig { params(id: String, type: String).returns(T.attached_class) }
+          def self.new(id:, type:)
+          end
+
+          sig { override.returns({ id: String, type: String }) }
           def to_hash
           end
         end
