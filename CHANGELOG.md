@@ -1,5 +1,31 @@
 # Changelog
 
+## 0.1.0-alpha.3 (2025-08-14)
+
+Full Changelog: [v0.1.0-alpha.2...v0.1.0-alpha.3](https://github.com/moonbaseai/moonbase-sdk-ruby/compare/v0.1.0-alpha.2...v0.1.0-alpha.3)
+
+### Features
+
+* **api:** add upsert endpoint for Calls ([49f5d8b](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/49f5d8ba47a28db59bad127bc05eac4e0f9a633f))
+* **api:** update api ([d28791e](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/d28791ef6f7ab373bc2ae9350275ce5511f52de2))
+* **api:** update api ([977698b](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/977698b4dca5b936ef1d30fc1176a4f8a75ba369))
+* **api:** update api ([ce6cc96](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/ce6cc96f4d63c37cb42c82340da9896464a2fb5b))
+
+
+### Bug Fixes
+
+* **internal:** ensure sorbet test always runs serially ([8bbd082](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/8bbd082008a24ad6cab5ed4db6315f36a51ab188))
+
+
+### Chores
+
+* collect metadata from type DSL ([41b4aa2](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/41b4aa2c95ac095ade50529708937c420aa298ef))
+* **internal:** increase visibility of internal helper method ([1488a31](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/1488a31652ff51db82e55817dda619ccc15af1f1))
+* **internal:** update comment in script ([ea69129](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/ea691297748c28edf7f82a092347064d91b1e43e))
+* **internal:** version bump ([7b29a82](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/7b29a824aee8dd442bb24a8727e68e632f0e4735))
+* update @stainless-api/prism-cli to v5.15.0 ([1ec7555](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/1ec7555d115c3852f795c8a755330b004c238206))
+* update contribute.md ([2cf4a7f](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/2cf4a7ff9f0f8646948c08a0078bec16edf468a0))
+
 ## 0.1.0-alpha.2 (2025-07-20)
 
 Full Changelog: [v0.1.0-alpha.1...v0.1.0-alpha.2](https://github.com/moonbaseai/moonbase-sdk-ruby/compare/v0.1.0-alpha.1...v0.1.0-alpha.2)

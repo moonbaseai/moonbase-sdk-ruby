@@ -16,7 +16,8 @@ module Moonbase
             T::Array[
               [
                 T.nilable(Symbol),
-                T.proc.returns(Moonbase::Internal::Type::Converter::Input)
+                T.proc.returns(Moonbase::Internal::Type::Converter::Input),
+                Moonbase::Internal::AnyHash
               ]
             ]
           )
@@ -25,7 +26,13 @@ module Moonbase
         end
 
         # @api private
-        sig { returns(T::Array[[T.nilable(Symbol), T.anything]]) }
+        sig do
+          returns(
+            T::Array[
+              [T.nilable(Symbol), T.anything, Moonbase::Internal::AnyHash]
+            ]
+          )
+        end
         protected def derefed_variants
         end
 
