@@ -84,7 +84,7 @@ module Moonbase
         required :self_, String, api_name: :self
 
         # @!attribute program
-        #   A link to the `Program` using this template.
+        #   The `Program` using this template.
         #
         #   @return [String, nil]
         optional :program, String
@@ -92,7 +92,7 @@ module Moonbase
         # @!method initialize(self_:, program: nil)
         #   @param self_ [String] The canonical URL for this object.
         #
-        #   @param program [String] A link to the `Program` using this template.
+        #   @param program [String] The `Program` using this template.
       end
     end
   end

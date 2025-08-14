@@ -41,8 +41,8 @@ class MoonbaseTest < Minitest::Test
 
     assert_raises(Moonbase::Errors::InternalServerError) do
       moonbase.program_messages.create(
-        person: {email: "person-53@example-53.com"},
-        program_template_id: "1CS2gt91vf74NCQpAnnfW1"
+        person: {email: "person-54@example-54.com"},
+        program_template_id: "1CS85Sp4fDizR7R9PhcMTc"
       )
     end
 
@@ -56,8 +56,8 @@ class MoonbaseTest < Minitest::Test
 
     assert_raises(Moonbase::Errors::InternalServerError) do
       moonbase.program_messages.create(
-        person: {email: "person-53@example-53.com"},
-        program_template_id: "1CS2gt91vf74NCQpAnnfW1"
+        person: {email: "person-54@example-54.com"},
+        program_template_id: "1CS85Sp4fDizR7R9PhcMTc"
       )
     end
 
@@ -71,8 +71,8 @@ class MoonbaseTest < Minitest::Test
 
     assert_raises(Moonbase::Errors::InternalServerError) do
       moonbase.program_messages.create(
-        person: {email: "person-53@example-53.com"},
-        program_template_id: "1CS2gt91vf74NCQpAnnfW1",
+        person: {email: "person-54@example-54.com"},
+        program_template_id: "1CS85Sp4fDizR7R9PhcMTc",
         request_options: {max_retries: 3}
       )
     end
@@ -87,8 +87,8 @@ class MoonbaseTest < Minitest::Test
 
     assert_raises(Moonbase::Errors::InternalServerError) do
       moonbase.program_messages.create(
-        person: {email: "person-53@example-53.com"},
-        program_template_id: "1CS2gt91vf74NCQpAnnfW1",
+        person: {email: "person-54@example-54.com"},
+        program_template_id: "1CS85Sp4fDizR7R9PhcMTc",
         request_options: {max_retries: 4}
       )
     end
@@ -107,8 +107,8 @@ class MoonbaseTest < Minitest::Test
 
     assert_raises(Moonbase::Errors::InternalServerError) do
       moonbase.program_messages.create(
-        person: {email: "person-53@example-53.com"},
-        program_template_id: "1CS2gt91vf74NCQpAnnfW1"
+        person: {email: "person-54@example-54.com"},
+        program_template_id: "1CS85Sp4fDizR7R9PhcMTc"
       )
     end
 
@@ -128,8 +128,8 @@ class MoonbaseTest < Minitest::Test
     assert_raises(Moonbase::Errors::InternalServerError) do
       Thread.current.thread_variable_set(:time_now, Time.now)
       moonbase.program_messages.create(
-        person: {email: "person-53@example-53.com"},
-        program_template_id: "1CS2gt91vf74NCQpAnnfW1"
+        person: {email: "person-54@example-54.com"},
+        program_template_id: "1CS85Sp4fDizR7R9PhcMTc"
       )
       Thread.current.thread_variable_set(:time_now, nil)
     end
@@ -149,8 +149,8 @@ class MoonbaseTest < Minitest::Test
 
     assert_raises(Moonbase::Errors::InternalServerError) do
       moonbase.program_messages.create(
-        person: {email: "person-53@example-53.com"},
-        program_template_id: "1CS2gt91vf74NCQpAnnfW1"
+        person: {email: "person-54@example-54.com"},
+        program_template_id: "1CS85Sp4fDizR7R9PhcMTc"
       )
     end
 
@@ -165,8 +165,8 @@ class MoonbaseTest < Minitest::Test
 
     assert_raises(Moonbase::Errors::InternalServerError) do
       moonbase.program_messages.create(
-        person: {email: "person-53@example-53.com"},
-        program_template_id: "1CS2gt91vf74NCQpAnnfW1"
+        person: {email: "person-54@example-54.com"},
+        program_template_id: "1CS85Sp4fDizR7R9PhcMTc"
       )
     end
 
@@ -182,8 +182,8 @@ class MoonbaseTest < Minitest::Test
 
     assert_raises(Moonbase::Errors::InternalServerError) do
       moonbase.program_messages.create(
-        person: {email: "person-53@example-53.com"},
-        program_template_id: "1CS2gt91vf74NCQpAnnfW1",
+        person: {email: "person-54@example-54.com"},
+        program_template_id: "1CS85Sp4fDizR7R9PhcMTc",
         request_options: {extra_headers: {"x-stainless-retry-count" => nil}}
       )
     end
@@ -200,8 +200,8 @@ class MoonbaseTest < Minitest::Test
 
     assert_raises(Moonbase::Errors::InternalServerError) do
       moonbase.program_messages.create(
-        person: {email: "person-53@example-53.com"},
-        program_template_id: "1CS2gt91vf74NCQpAnnfW1",
+        person: {email: "person-54@example-54.com"},
+        program_template_id: "1CS85Sp4fDizR7R9PhcMTc",
         request_options: {extra_headers: {"x-stainless-retry-count" => "42"}}
       )
     end
@@ -224,8 +224,8 @@ class MoonbaseTest < Minitest::Test
 
     assert_raises(Moonbase::Errors::APIConnectionError) do
       moonbase.program_messages.create(
-        person: {email: "person-53@example-53.com"},
-        program_template_id: "1CS2gt91vf74NCQpAnnfW1",
+        person: {email: "person-54@example-54.com"},
+        program_template_id: "1CS85Sp4fDizR7R9PhcMTc",
         request_options: {extra_headers: {}}
       )
     end
@@ -257,8 +257,8 @@ class MoonbaseTest < Minitest::Test
 
     assert_raises(Moonbase::Errors::APIConnectionError) do
       moonbase.program_messages.create(
-        person: {email: "person-53@example-53.com"},
-        program_template_id: "1CS2gt91vf74NCQpAnnfW1",
+        person: {email: "person-54@example-54.com"},
+        program_template_id: "1CS85Sp4fDizR7R9PhcMTc",
         request_options: {extra_headers: {}}
       )
     end
@@ -285,8 +285,8 @@ class MoonbaseTest < Minitest::Test
 
     assert_raises(Moonbase::Errors::APIConnectionError) do
       moonbase.program_messages.create(
-        person: {email: "person-53@example-53.com"},
-        program_template_id: "1CS2gt91vf74NCQpAnnfW1",
+        person: {email: "person-54@example-54.com"},
+        program_template_id: "1CS85Sp4fDizR7R9PhcMTc",
         request_options: {extra_headers: {"authorization" => "Bearer xyz"}}
       )
     end
@@ -316,8 +316,8 @@ class MoonbaseTest < Minitest::Test
 
     assert_raises(Moonbase::Errors::APIConnectionError) do
       moonbase.program_messages.create(
-        person: {email: "person-53@example-53.com"},
-        program_template_id: "1CS2gt91vf74NCQpAnnfW1",
+        person: {email: "person-54@example-54.com"},
+        program_template_id: "1CS85Sp4fDizR7R9PhcMTc",
         request_options: {extra_headers: {"authorization" => "Bearer xyz"}}
       )
     end
@@ -334,8 +334,8 @@ class MoonbaseTest < Minitest::Test
     moonbase = Moonbase::Client.new(base_url: "http://localhost", api_key: "My API Key")
 
     moonbase.program_messages.create(
-      person: {email: "person-53@example-53.com"},
-      program_template_id: "1CS2gt91vf74NCQpAnnfW1"
+      person: {email: "person-54@example-54.com"},
+      program_template_id: "1CS85Sp4fDizR7R9PhcMTc"
     )
 
     assert_requested(:any, /./) do |req|

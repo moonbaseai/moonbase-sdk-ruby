@@ -6,8 +6,8 @@ class Moonbase::Test::Resources::ProgramMessagesTest < Moonbase::Test::ResourceT
   def test_create_required_params
     response =
       @moonbase.program_messages.create(
-        person: {email: "person-53@example-53.com"},
-        program_template_id: "1CS2gt91vf74NCQpAnnfW1"
+        person: {email: "person-54@example-54.com"},
+        program_template_id: "1CS85Sp4fDizR7R9PhcMTc"
       )
 
     assert_pattern do
