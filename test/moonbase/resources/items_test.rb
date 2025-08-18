@@ -6,10 +6,10 @@ class Moonbase::Test::Resources::ItemsTest < Moonbase::Test::ResourceTest
   def test_create_required_params
     response =
       @moonbase.items.create(
-        collection_id: "1CS85UQugzqzvaQKUzWd5i",
+        collection_id: "1CSFjSZ8CFA7HEEL1qjG5F",
         values: {
           name: {text: "Aperture Science", type: :"value/text/single_line"},
-          ceo: {item: {id: "1CS85USCpnJbZ45XuXh6ht", type: :item}, type: :"value/relation"}
+          ceo: {item: {id: "1CSFjSaP5wygg3JJ8mS8qQ", type: :item}, type: :"value/relation"}
         }
       )
 
@@ -82,7 +82,7 @@ class Moonbase::Test::Resources::ItemsTest < Moonbase::Test::ResourceTest
   def test_upsert_required_params
     response =
       @moonbase.items.upsert(
-        collection_id: "1CS85TFQuQZAyB8Q4jTrJq",
+        collection_id: "1CSFjSEx3koQkGQebZLTZa",
         identifiers: {domain: []},
         values: {
           name: {text: "Aperture Science", type: :"value/text/single_line"},
