@@ -17,10 +17,7 @@ module Moonbase
       #   An array of participants involved in the call.
       #
       #   @return [Array<Moonbase::Models::CallCreateParams::Participant>]
-      required :participants,
-               -> {
-                 Moonbase::Internal::Type::ArrayOf[Moonbase::CallCreateParams::Participant]
-               }
+      required :participants, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::CallCreateParams::Participant] }
 
       # @!attribute provider
       #   The name of the phone provider that handled the call (e.g., `openphone`).

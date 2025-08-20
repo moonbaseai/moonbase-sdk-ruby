@@ -1901,10 +1901,7 @@ module Moonbase
         # @!attribute program_message
         #
         #   @return [Moonbase::Models::Activity::ActivityProgramMessageUnsubscribed::ProgramMessage, nil]
-        optional :program_message,
-                 -> {
-                   Moonbase::Activity::ActivityProgramMessageUnsubscribed::ProgramMessage
-                 }
+        optional :program_message, -> { Moonbase::Activity::ActivityProgramMessageUnsubscribed::ProgramMessage }
 
         # @!attribute recipient
         #   A link to the `Address` of the recipient who unsubscribed.
