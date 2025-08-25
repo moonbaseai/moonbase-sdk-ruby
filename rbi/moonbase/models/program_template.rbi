@@ -113,7 +113,7 @@ module Moonbase
         sig { returns(String) }
         attr_accessor :self_
 
-        # A link to the `Program` using this template.
+        # The `Program` using this template.
         sig { returns(T.nilable(String)) }
         attr_reader :program
 
@@ -124,7 +124,7 @@ module Moonbase
         def self.new(
           # The canonical URL for this object.
           self_:,
-          # A link to the `Program` using this template.
+          # The `Program` using this template.
           program: nil
         )
         end

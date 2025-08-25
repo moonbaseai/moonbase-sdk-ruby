@@ -2,22 +2,22 @@
 
 module Moonbase
   module Models
-    # @see Moonbase::Resources::Calls#create
-    class CallCreateParams < Moonbase::Internal::Type::BaseModel
+    # @see Moonbase::Resources::Calls#upsert
+    class CallUpsertParams < Moonbase::Internal::Type::BaseModel
       extend Moonbase::Internal::Type::RequestParameters::Converter
       include Moonbase::Internal::Type::RequestParameters
 
       # @!attribute direction
       #   The direction of the call, either `incoming` or `outgoing`.
       #
-      #   @return [Symbol, Moonbase::Models::CallCreateParams::Direction]
-      required :direction, enum: -> { Moonbase::CallCreateParams::Direction }
+      #   @return [Symbol, Moonbase::Models::CallUpsertParams::Direction]
+      required :direction, enum: -> { Moonbase::CallUpsertParams::Direction }
 
       # @!attribute participants
       #   An array of participants involved in the call.
       #
-      #   @return [Array<Moonbase::Models::CallCreateParams::Participant>]
-      required :participants, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::CallCreateParams::Participant] }
+      #   @return [Array<Moonbase::Models::CallUpsertParams::Participant>]
+      required :participants, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::CallUpsertParams::Participant] }
 
       # @!attribute provider
       #   The name of the phone provider that handled the call (e.g., `openphone`).
@@ -40,8 +40,8 @@ module Moonbase
       # @!attribute status
       #   The status of the call.
       #
-      #   @return [Symbol, Moonbase::Models::CallCreateParams::Status]
-      required :status, enum: -> { Moonbase::CallCreateParams::Status }
+      #   @return [Symbol, Moonbase::Models::CallUpsertParams::Status]
+      required :status, enum: -> { Moonbase::CallUpsertParams::Status }
 
       # @!attribute answered_at
       #   The time the call was answered, as an RFC 3339 timestamp.
@@ -64,19 +64,19 @@ module Moonbase
       # @!attribute recordings
       #   Any recordings associated with the call.
       #
-      #   @return [Array<Moonbase::Models::CallCreateParams::Recording>, nil]
-      optional :recordings, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::CallCreateParams::Recording] }
+      #   @return [Array<Moonbase::Models::CallUpsertParams::Recording>, nil]
+      optional :recordings, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::CallUpsertParams::Recording] }
 
       # @!attribute transcript
       #   A transcript of the call.
       #
-      #   @return [Moonbase::Models::CallCreateParams::Transcript, nil]
-      optional :transcript, -> { Moonbase::CallCreateParams::Transcript }
+      #   @return [Moonbase::Models::CallUpsertParams::Transcript, nil]
+      optional :transcript, -> { Moonbase::CallUpsertParams::Transcript }
 
       # @!method initialize(direction:, participants:, provider:, provider_id:, start_at:, status:, answered_at: nil, end_at: nil, provider_metadata: nil, recordings: nil, transcript: nil, request_options: {})
-      #   @param direction [Symbol, Moonbase::Models::CallCreateParams::Direction] The direction of the call, either `incoming` or `outgoing`.
+      #   @param direction [Symbol, Moonbase::Models::CallUpsertParams::Direction] The direction of the call, either `incoming` or `outgoing`.
       #
-      #   @param participants [Array<Moonbase::Models::CallCreateParams::Participant>] An array of participants involved in the call.
+      #   @param participants [Array<Moonbase::Models::CallUpsertParams::Participant>] An array of participants involved in the call.
       #
       #   @param provider [String] The name of the phone provider that handled the call (e.g., `openphone`).
       #
@@ -84,7 +84,7 @@ module Moonbase
       #
       #   @param start_at [Time] The time the call started, as an RFC 3339 timestamp.
       #
-      #   @param status [Symbol, Moonbase::Models::CallCreateParams::Status] The status of the call.
+      #   @param status [Symbol, Moonbase::Models::CallUpsertParams::Status] The status of the call.
       #
       #   @param answered_at [Time] The time the call was answered, as an RFC 3339 timestamp.
       #
@@ -92,9 +92,9 @@ module Moonbase
       #
       #   @param provider_metadata [Hash{Symbol=>Object}] A hash of additional metadata from the provider.
       #
-      #   @param recordings [Array<Moonbase::Models::CallCreateParams::Recording>] Any recordings associated with the call.
+      #   @param recordings [Array<Moonbase::Models::CallUpsertParams::Recording>] Any recordings associated with the call.
       #
-      #   @param transcript [Moonbase::Models::CallCreateParams::Transcript] A transcript of the call.
+      #   @param transcript [Moonbase::Models::CallUpsertParams::Transcript] A transcript of the call.
       #
       #   @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}]
 
@@ -119,19 +119,19 @@ module Moonbase
         # @!attribute role
         #   The role of the participant in the call. Can be `caller`, `callee`, or `other`.
         #
-        #   @return [Symbol, Moonbase::Models::CallCreateParams::Participant::Role]
-        required :role, enum: -> { Moonbase::CallCreateParams::Participant::Role }
+        #   @return [Symbol, Moonbase::Models::CallUpsertParams::Participant::Role]
+        required :role, enum: -> { Moonbase::CallUpsertParams::Participant::Role }
 
         # @!method initialize(phone:, role:)
         #   Parameters for creating a `Participant` object.
         #
         #   @param phone [String] The E.164 formatted phone number of the participant.
         #
-        #   @param role [Symbol, Moonbase::Models::CallCreateParams::Participant::Role] The role of the participant in the call. Can be `caller`, `callee`, or `other`.
+        #   @param role [Symbol, Moonbase::Models::CallUpsertParams::Participant::Role] The role of the participant in the call. Can be `caller`, `callee`, or `other`.
 
         # The role of the participant in the call. Can be `caller`, `callee`, or `other`.
         #
-        # @see Moonbase::Models::CallCreateParams::Participant#role
+        # @see Moonbase::Models::CallUpsertParams::Participant#role
         module Role
           extend Moonbase::Internal::Type::Enum
 
@@ -188,7 +188,7 @@ module Moonbase
 
         # @!method initialize(content_type:, provider_id:, url:)
         #   Some parameter documentations has been truncated, see
-        #   {Moonbase::Models::CallCreateParams::Recording} for more details.
+        #   {Moonbase::Models::CallUpsertParams::Recording} for more details.
         #
         #   Parameters for creating a `CallRecording` object.
         #
@@ -204,16 +204,16 @@ module Moonbase
         #   A list of cues that identify the text spoken in specific time slices of the
         #   call.
         #
-        #   @return [Array<Moonbase::Models::CallCreateParams::Transcript::Cue>]
-        required :cues, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::CallCreateParams::Transcript::Cue] }
+        #   @return [Array<Moonbase::Models::CallUpsertParams::Transcript::Cue>]
+        required :cues, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::CallUpsertParams::Transcript::Cue] }
 
         # @!method initialize(cues:)
         #   Some parameter documentations has been truncated, see
-        #   {Moonbase::Models::CallCreateParams::Transcript} for more details.
+        #   {Moonbase::Models::CallUpsertParams::Transcript} for more details.
         #
         #   A transcript of the call.
         #
-        #   @param cues [Array<Moonbase::Models::CallCreateParams::Transcript::Cue>] A list of cues that identify the text spoken in specific time slices of the call
+        #   @param cues [Array<Moonbase::Models::CallUpsertParams::Transcript::Cue>] A list of cues that identify the text spoken in specific time slices of the call
 
         class Cue < Moonbase::Internal::Type::BaseModel
           # @!attribute from

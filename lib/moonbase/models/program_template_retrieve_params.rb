@@ -13,9 +13,7 @@ module Moonbase
       #
       #   @return [Array<Symbol, Moonbase::Models::ProgramTemplateRetrieveParams::Include>, nil]
       optional :include,
-               -> {
-                 Moonbase::Internal::Type::ArrayOf[enum: Moonbase::ProgramTemplateRetrieveParams::Include]
-               }
+               -> { Moonbase::Internal::Type::ArrayOf[enum: Moonbase::ProgramTemplateRetrieveParams::Include] }
 
       # @!method initialize(include: nil, request_options: {})
       #   Some parameter documentations has been truncated, see

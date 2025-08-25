@@ -52,6 +52,10 @@ module Moonbase
       sig { params(title: String).void }
       attr_writer :title
 
+      # The Error object represents a single error that occurred during API request
+      # processing. It provides detailed information about what went wrong, including a
+      # unique identifier, status code, and human-readable descriptions to help
+      # developers understand and resolve the issue.
       sig do
         params(
           id: String,

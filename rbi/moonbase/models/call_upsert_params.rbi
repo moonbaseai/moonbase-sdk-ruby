@@ -2,21 +2,21 @@
 
 module Moonbase
   module Models
-    class CallCreateParams < Moonbase::Internal::Type::BaseModel
+    class CallUpsertParams < Moonbase::Internal::Type::BaseModel
       extend Moonbase::Internal::Type::RequestParameters::Converter
       include Moonbase::Internal::Type::RequestParameters
 
       OrHash =
         T.type_alias do
-          T.any(Moonbase::CallCreateParams, Moonbase::Internal::AnyHash)
+          T.any(Moonbase::CallUpsertParams, Moonbase::Internal::AnyHash)
         end
 
       # The direction of the call, either `incoming` or `outgoing`.
-      sig { returns(Moonbase::CallCreateParams::Direction::OrSymbol) }
+      sig { returns(Moonbase::CallUpsertParams::Direction::OrSymbol) }
       attr_accessor :direction
 
       # An array of participants involved in the call.
-      sig { returns(T::Array[Moonbase::CallCreateParams::Participant]) }
+      sig { returns(T::Array[Moonbase::CallUpsertParams::Participant]) }
       attr_accessor :participants
 
       # The name of the phone provider that handled the call (e.g., `openphone`).
@@ -32,7 +32,7 @@ module Moonbase
       attr_accessor :start_at
 
       # The status of the call.
-      sig { returns(Moonbase::CallCreateParams::Status::OrSymbol) }
+      sig { returns(Moonbase::CallUpsertParams::Status::OrSymbol) }
       attr_accessor :status
 
       # The time the call was answered, as an RFC 3339 timestamp.
@@ -58,40 +58,40 @@ module Moonbase
 
       # Any recordings associated with the call.
       sig do
-        returns(T.nilable(T::Array[Moonbase::CallCreateParams::Recording]))
+        returns(T.nilable(T::Array[Moonbase::CallUpsertParams::Recording]))
       end
       attr_reader :recordings
 
       sig do
         params(
-          recordings: T::Array[Moonbase::CallCreateParams::Recording::OrHash]
+          recordings: T::Array[Moonbase::CallUpsertParams::Recording::OrHash]
         ).void
       end
       attr_writer :recordings
 
       # A transcript of the call.
-      sig { returns(T.nilable(Moonbase::CallCreateParams::Transcript)) }
+      sig { returns(T.nilable(Moonbase::CallUpsertParams::Transcript)) }
       attr_reader :transcript
 
       sig do
-        params(transcript: Moonbase::CallCreateParams::Transcript::OrHash).void
+        params(transcript: Moonbase::CallUpsertParams::Transcript::OrHash).void
       end
       attr_writer :transcript
 
       sig do
         params(
-          direction: Moonbase::CallCreateParams::Direction::OrSymbol,
+          direction: Moonbase::CallUpsertParams::Direction::OrSymbol,
           participants:
-            T::Array[Moonbase::CallCreateParams::Participant::OrHash],
+            T::Array[Moonbase::CallUpsertParams::Participant::OrHash],
           provider: String,
           provider_id: String,
           start_at: Time,
-          status: Moonbase::CallCreateParams::Status::OrSymbol,
+          status: Moonbase::CallUpsertParams::Status::OrSymbol,
           answered_at: Time,
           end_at: Time,
           provider_metadata: T::Hash[Symbol, T.anything],
-          recordings: T::Array[Moonbase::CallCreateParams::Recording::OrHash],
-          transcript: Moonbase::CallCreateParams::Transcript::OrHash,
+          recordings: T::Array[Moonbase::CallUpsertParams::Recording::OrHash],
+          transcript: Moonbase::CallUpsertParams::Transcript::OrHash,
           request_options: Moonbase::RequestOptions::OrHash
         ).returns(T.attached_class)
       end
@@ -125,17 +125,17 @@ module Moonbase
       sig do
         override.returns(
           {
-            direction: Moonbase::CallCreateParams::Direction::OrSymbol,
-            participants: T::Array[Moonbase::CallCreateParams::Participant],
+            direction: Moonbase::CallUpsertParams::Direction::OrSymbol,
+            participants: T::Array[Moonbase::CallUpsertParams::Participant],
             provider: String,
             provider_id: String,
             start_at: Time,
-            status: Moonbase::CallCreateParams::Status::OrSymbol,
+            status: Moonbase::CallUpsertParams::Status::OrSymbol,
             answered_at: Time,
             end_at: Time,
             provider_metadata: T::Hash[Symbol, T.anything],
-            recordings: T::Array[Moonbase::CallCreateParams::Recording],
-            transcript: Moonbase::CallCreateParams::Transcript,
+            recordings: T::Array[Moonbase::CallUpsertParams::Recording],
+            transcript: Moonbase::CallUpsertParams::Transcript,
             request_options: Moonbase::RequestOptions
           }
         )
@@ -148,17 +148,17 @@ module Moonbase
         extend Moonbase::Internal::Type::Enum
 
         TaggedSymbol =
-          T.type_alias { T.all(Symbol, Moonbase::CallCreateParams::Direction) }
+          T.type_alias { T.all(Symbol, Moonbase::CallUpsertParams::Direction) }
         OrSymbol = T.type_alias { T.any(Symbol, String) }
 
         INCOMING =
-          T.let(:incoming, Moonbase::CallCreateParams::Direction::TaggedSymbol)
+          T.let(:incoming, Moonbase::CallUpsertParams::Direction::TaggedSymbol)
         OUTGOING =
-          T.let(:outgoing, Moonbase::CallCreateParams::Direction::TaggedSymbol)
+          T.let(:outgoing, Moonbase::CallUpsertParams::Direction::TaggedSymbol)
 
         sig do
           override.returns(
-            T::Array[Moonbase::CallCreateParams::Direction::TaggedSymbol]
+            T::Array[Moonbase::CallUpsertParams::Direction::TaggedSymbol]
           )
         end
         def self.values
@@ -169,7 +169,7 @@ module Moonbase
         OrHash =
           T.type_alias do
             T.any(
-              Moonbase::CallCreateParams::Participant,
+              Moonbase::CallUpsertParams::Participant,
               Moonbase::Internal::AnyHash
             )
           end
@@ -179,14 +179,14 @@ module Moonbase
         attr_accessor :phone
 
         # The role of the participant in the call. Can be `caller`, `callee`, or `other`.
-        sig { returns(Moonbase::CallCreateParams::Participant::Role::OrSymbol) }
+        sig { returns(Moonbase::CallUpsertParams::Participant::Role::OrSymbol) }
         attr_accessor :role
 
         # Parameters for creating a `Participant` object.
         sig do
           params(
             phone: String,
-            role: Moonbase::CallCreateParams::Participant::Role::OrSymbol
+            role: Moonbase::CallUpsertParams::Participant::Role::OrSymbol
           ).returns(T.attached_class)
         end
         def self.new(
@@ -201,7 +201,7 @@ module Moonbase
           override.returns(
             {
               phone: String,
-              role: Moonbase::CallCreateParams::Participant::Role::OrSymbol
+              role: Moonbase::CallUpsertParams::Participant::Role::OrSymbol
             }
           )
         end
@@ -214,30 +214,30 @@ module Moonbase
 
           TaggedSymbol =
             T.type_alias do
-              T.all(Symbol, Moonbase::CallCreateParams::Participant::Role)
+              T.all(Symbol, Moonbase::CallUpsertParams::Participant::Role)
             end
           OrSymbol = T.type_alias { T.any(Symbol, String) }
 
           CALLER =
             T.let(
               :caller,
-              Moonbase::CallCreateParams::Participant::Role::TaggedSymbol
+              Moonbase::CallUpsertParams::Participant::Role::TaggedSymbol
             )
           CALLEE =
             T.let(
               :callee,
-              Moonbase::CallCreateParams::Participant::Role::TaggedSymbol
+              Moonbase::CallUpsertParams::Participant::Role::TaggedSymbol
             )
           OTHER =
             T.let(
               :other,
-              Moonbase::CallCreateParams::Participant::Role::TaggedSymbol
+              Moonbase::CallUpsertParams::Participant::Role::TaggedSymbol
             )
 
           sig do
             override.returns(
               T::Array[
-                Moonbase::CallCreateParams::Participant::Role::TaggedSymbol
+                Moonbase::CallUpsertParams::Participant::Role::TaggedSymbol
               ]
             )
           end
@@ -251,38 +251,38 @@ module Moonbase
         extend Moonbase::Internal::Type::Enum
 
         TaggedSymbol =
-          T.type_alias { T.all(Symbol, Moonbase::CallCreateParams::Status) }
+          T.type_alias { T.all(Symbol, Moonbase::CallUpsertParams::Status) }
         OrSymbol = T.type_alias { T.any(Symbol, String) }
 
         QUEUED =
-          T.let(:queued, Moonbase::CallCreateParams::Status::TaggedSymbol)
+          T.let(:queued, Moonbase::CallUpsertParams::Status::TaggedSymbol)
         INITIATED =
-          T.let(:initiated, Moonbase::CallCreateParams::Status::TaggedSymbol)
+          T.let(:initiated, Moonbase::CallUpsertParams::Status::TaggedSymbol)
         RINGING =
-          T.let(:ringing, Moonbase::CallCreateParams::Status::TaggedSymbol)
+          T.let(:ringing, Moonbase::CallUpsertParams::Status::TaggedSymbol)
         IN_PROGRESS =
-          T.let(:in_progress, Moonbase::CallCreateParams::Status::TaggedSymbol)
+          T.let(:in_progress, Moonbase::CallUpsertParams::Status::TaggedSymbol)
         COMPLETED =
-          T.let(:completed, Moonbase::CallCreateParams::Status::TaggedSymbol)
-        BUSY = T.let(:busy, Moonbase::CallCreateParams::Status::TaggedSymbol)
+          T.let(:completed, Moonbase::CallUpsertParams::Status::TaggedSymbol)
+        BUSY = T.let(:busy, Moonbase::CallUpsertParams::Status::TaggedSymbol)
         FAILED =
-          T.let(:failed, Moonbase::CallCreateParams::Status::TaggedSymbol)
+          T.let(:failed, Moonbase::CallUpsertParams::Status::TaggedSymbol)
         NO_ANSWER =
-          T.let(:no_answer, Moonbase::CallCreateParams::Status::TaggedSymbol)
+          T.let(:no_answer, Moonbase::CallUpsertParams::Status::TaggedSymbol)
         CANCELED =
-          T.let(:canceled, Moonbase::CallCreateParams::Status::TaggedSymbol)
+          T.let(:canceled, Moonbase::CallUpsertParams::Status::TaggedSymbol)
         MISSED =
-          T.let(:missed, Moonbase::CallCreateParams::Status::TaggedSymbol)
+          T.let(:missed, Moonbase::CallUpsertParams::Status::TaggedSymbol)
         ANSWERED =
-          T.let(:answered, Moonbase::CallCreateParams::Status::TaggedSymbol)
+          T.let(:answered, Moonbase::CallUpsertParams::Status::TaggedSymbol)
         FORWARDED =
-          T.let(:forwarded, Moonbase::CallCreateParams::Status::TaggedSymbol)
+          T.let(:forwarded, Moonbase::CallUpsertParams::Status::TaggedSymbol)
         ABANDONED =
-          T.let(:abandoned, Moonbase::CallCreateParams::Status::TaggedSymbol)
+          T.let(:abandoned, Moonbase::CallUpsertParams::Status::TaggedSymbol)
 
         sig do
           override.returns(
-            T::Array[Moonbase::CallCreateParams::Status::TaggedSymbol]
+            T::Array[Moonbase::CallUpsertParams::Status::TaggedSymbol]
           )
         end
         def self.values
@@ -293,7 +293,7 @@ module Moonbase
         OrHash =
           T.type_alias do
             T.any(
-              Moonbase::CallCreateParams::Recording,
+              Moonbase::CallUpsertParams::Recording,
               Moonbase::Internal::AnyHash
             )
           end
@@ -343,20 +343,20 @@ module Moonbase
         OrHash =
           T.type_alias do
             T.any(
-              Moonbase::CallCreateParams::Transcript,
+              Moonbase::CallUpsertParams::Transcript,
               Moonbase::Internal::AnyHash
             )
           end
 
         # A list of cues that identify the text spoken in specific time slices of the
         # call.
-        sig { returns(T::Array[Moonbase::CallCreateParams::Transcript::Cue]) }
+        sig { returns(T::Array[Moonbase::CallUpsertParams::Transcript::Cue]) }
         attr_accessor :cues
 
         # A transcript of the call.
         sig do
           params(
-            cues: T::Array[Moonbase::CallCreateParams::Transcript::Cue::OrHash]
+            cues: T::Array[Moonbase::CallUpsertParams::Transcript::Cue::OrHash]
           ).returns(T.attached_class)
         end
         def self.new(
@@ -368,7 +368,7 @@ module Moonbase
 
         sig do
           override.returns(
-            { cues: T::Array[Moonbase::CallCreateParams::Transcript::Cue] }
+            { cues: T::Array[Moonbase::CallUpsertParams::Transcript::Cue] }
           )
         end
         def to_hash
@@ -378,7 +378,7 @@ module Moonbase
           OrHash =
             T.type_alias do
               T.any(
-                Moonbase::CallCreateParams::Transcript::Cue,
+                Moonbase::CallUpsertParams::Transcript::Cue,
                 Moonbase::Internal::AnyHash
               )
             end

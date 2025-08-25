@@ -13,9 +13,7 @@ module Moonbase
       #
       #   @return [Array<Symbol, Moonbase::Models::InboxConversationRetrieveParams::Include>, nil]
       optional :include,
-               -> {
-                 Moonbase::Internal::Type::ArrayOf[enum: Moonbase::InboxConversationRetrieveParams::Include]
-               }
+               -> { Moonbase::Internal::Type::ArrayOf[enum: Moonbase::InboxConversationRetrieveParams::Include] }
 
       # @!method initialize(include: nil, request_options: {})
       #   Some parameter documentations has been truncated, see
