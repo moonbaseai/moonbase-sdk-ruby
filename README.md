@@ -30,13 +30,9 @@ moonbase = Moonbase::Client.new(
   api_key: ENV["MOONBASE_API_KEY"] # This is the default and can be omitted
 )
 
-program_message = moonbase.program_messages.create(
-  person: {email: "user@example.com"},
-  program_template_id: "MOONBASE_PROGRAM_TEMPLATE_ID",
-  custom_variables: {}
-)
+page = moonbase.collections.list(limit: 10)
 
-puts(program_message.id)
+puts(page.id)
 ```
 
 ### Pagination
@@ -46,15 +42,15 @@ List methods in the Moonbase API are paginated.
 This library provides auto-paginating iterators with each list response, so you do not have to request successive pages manually:
 
 ```ruby
-page = moonbase.program_templates.list(limit: 20)
+page = moonbase.collections.list(limit: 10)
 
 # Fetch single item from page.
-program_template = page.data[0]
-puts(program_template.id)
+collection = page.data[0]
+puts(collection.id)
 
 # Automatically fetches more pages as needed.
-page.auto_paging_each do |program_template|
-  puts(program_template.id)
+page.auto_paging_each do |collection|
+  puts(collection.id)
 end
 ```
 
@@ -73,11 +69,7 @@ When the library is unable to connect to the API, or if the API returns a non-su
 
 ```ruby
 begin
-  program_message = moonbase.program_messages.create(
-    person: {email: "user@example.com"},
-    program_template_id: "MOONBASE_PROGRAM_TEMPLATE_ID",
-    custom_variables: {}
-  )
+  collection = moonbase.collections.list(limit: 10)
 rescue Moonbase::Errors::APIConnectionError => e
   puts("The server could not be reached")
   puts(e.cause)  # an underlying Exception, likely raised within `net/http`
@@ -120,12 +112,7 @@ moonbase = Moonbase::Client.new(
 )
 
 # Or, configure per-request:
-moonbase.program_messages.create(
-  person: {email: "user@example.com"},
-  program_template_id: "MOONBASE_PROGRAM_TEMPLATE_ID",
-  custom_variables: {},
-  request_options: {max_retries: 5}
-)
+moonbase.collections.list(limit: 10, request_options: {max_retries: 5})
 ```
 
 ### Timeouts
@@ -139,12 +126,7 @@ moonbase = Moonbase::Client.new(
 )
 
 # Or, configure per-request:
-moonbase.program_messages.create(
-  person: {email: "user@example.com"},
-  program_template_id: "MOONBASE_PROGRAM_TEMPLATE_ID",
-  custom_variables: {},
-  request_options: {timeout: 5}
-)
+moonbase.collections.list(limit: 10, request_options: {timeout: 5})
 ```
 
 On timeout, `Moonbase::Errors::APITimeoutError` is raised.
@@ -174,11 +156,9 @@ You can send undocumented parameters to any endpoint, and read undocumented resp
 Note: the `extra_` parameters of the same name overrides the documented parameters.
 
 ```ruby
-program_message =
-  moonbase.program_messages.create(
-    person: {email: "user@example.com"},
-    program_template_id: "MOONBASE_PROGRAM_TEMPLATE_ID",
-    custom_variables: {},
+page =
+  moonbase.collections.list(
+    limit: 10,
     request_options: {
       extra_query: {my_query_parameter: value},
       extra_body: {my_body_parameter: value},
@@ -186,7 +166,7 @@ program_message =
     }
   )
 
-puts(program_message[:my_undocumented_property])
+puts(page[:my_undocumented_property])
 ```
 
 #### Undocumented request params
@@ -224,30 +204,18 @@ This library provides comprehensive [RBI](https://sorbet.org/docs/rbi) definitio
 You can provide typesafe request parameters like so:
 
 ```ruby
-moonbase.program_messages.create(
-  person: Moonbase::ProgramMessageCreateParams::Person.new(email: "user@example.com"),
-  program_template_id: "MOONBASE_PROGRAM_TEMPLATE_ID",
-  custom_variables: {}
-)
+moonbase.collections.list(limit: 10)
 ```
 
 Or, equivalently:
 
 ```ruby
 # Hashes work, but are not typesafe:
-moonbase.program_messages.create(
-  person: {email: "user@example.com"},
-  program_template_id: "MOONBASE_PROGRAM_TEMPLATE_ID",
-  custom_variables: {}
-)
+moonbase.collections.list(limit: 10)
 
 # You can also splat a full Params class:
-params = Moonbase::ProgramMessageCreateParams.new(
-  person: Moonbase::ProgramMessageCreateParams::Person.new(email: "user@example.com"),
-  program_template_id: "MOONBASE_PROGRAM_TEMPLATE_ID",
-  custom_variables: {}
-)
-moonbase.program_messages.create(**params)
+params = Moonbase::CollectionListParams.new(limit: 10)
+moonbase.collections.list(**params)
 ```
 
 ### Enums
