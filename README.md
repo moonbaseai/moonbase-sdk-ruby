@@ -30,9 +30,9 @@ moonbase = Moonbase::Client.new(
   api_key: ENV["MOONBASE_API_KEY"] # This is the default and can be omitted
 )
 
-page = moonbase.collections.list(limit: 10)
+collection = moonbase.collections.retrieve("organizations")
 
-puts(page.id)
+puts(collection.id)
 ```
 
 ### Pagination
@@ -69,7 +69,7 @@ When the library is unable to connect to the API, or if the API returns a non-su
 
 ```ruby
 begin
-  collection = moonbase.collections.list(limit: 10)
+  collection = moonbase.collections.retrieve("organizations")
 rescue Moonbase::Errors::APIConnectionError => e
   puts("The server could not be reached")
   puts(e.cause)  # an underlying Exception, likely raised within `net/http`
@@ -112,7 +112,7 @@ moonbase = Moonbase::Client.new(
 )
 
 # Or, configure per-request:
-moonbase.collections.list(limit: 10, request_options: {max_retries: 5})
+moonbase.collections.retrieve("organizations", request_options: {max_retries: 5})
 ```
 
 ### Timeouts
@@ -126,7 +126,7 @@ moonbase = Moonbase::Client.new(
 )
 
 # Or, configure per-request:
-moonbase.collections.list(limit: 10, request_options: {timeout: 5})
+moonbase.collections.retrieve("organizations", request_options: {timeout: 5})
 ```
 
 On timeout, `Moonbase::Errors::APITimeoutError` is raised.
@@ -156,9 +156,9 @@ You can send undocumented parameters to any endpoint, and read undocumented resp
 Note: the `extra_` parameters of the same name overrides the documented parameters.
 
 ```ruby
-page =
-  moonbase.collections.list(
-    limit: 10,
+collection =
+  moonbase.collections.retrieve(
+    "organizations",
     request_options: {
       extra_query: {my_query_parameter: value},
       extra_body: {my_body_parameter: value},
@@ -166,7 +166,7 @@ page =
     }
   )
 
-puts(page[:my_undocumented_property])
+puts(collection[:my_undocumented_property])
 ```
 
 #### Undocumented request params
@@ -204,18 +204,18 @@ This library provides comprehensive [RBI](https://sorbet.org/docs/rbi) definitio
 You can provide typesafe request parameters like so:
 
 ```ruby
-moonbase.collections.list(limit: 10)
+moonbase.collections.retrieve("organizations")
 ```
 
 Or, equivalently:
 
 ```ruby
 # Hashes work, but are not typesafe:
-moonbase.collections.list(limit: 10)
+moonbase.collections.retrieve("organizations")
 
 # You can also splat a full Params class:
-params = Moonbase::CollectionListParams.new(limit: 10)
-moonbase.collections.list(**params)
+params = Moonbase::CollectionRetrieveParams.new
+moonbase.collections.retrieve("organizations", **params)
 ```
 
 ### Enums
