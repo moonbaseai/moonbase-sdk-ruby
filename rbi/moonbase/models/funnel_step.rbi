@@ -16,7 +16,11 @@ module Moonbase
       sig { returns(String) }
       attr_accessor :name
 
-      # The type of step, which can be `active`, `success`, or `failure`.
+      # The status of the step in the funnel flow.
+      #
+      # - `active`: represents an in progress state within the funnel
+      # - `success`: completed successfully and exited the funnel
+      # - `failure`: exited the funnel without conversion
       sig { returns(Moonbase::FunnelStep::StepType::OrSymbol) }
       attr_accessor :step_type
 
@@ -38,7 +42,11 @@ module Moonbase
         id:,
         # The name of the step.
         name:,
-        # The type of step, which can be `active`, `success`, or `failure`.
+        # The status of the step in the funnel flow.
+        #
+        # - `active`: represents an in progress state within the funnel
+        # - `success`: completed successfully and exited the funnel
+        # - `failure`: exited the funnel without conversion
         step_type:,
         # String representing the object’s type. Always `funnel_step` for this object.
         type: :funnel_step
@@ -58,7 +66,11 @@ module Moonbase
       def to_hash
       end
 
-      # The type of step, which can be `active`, `success`, or `failure`.
+      # The status of the step in the funnel flow.
+      #
+      # - `active`: represents an in progress state within the funnel
+      # - `success`: completed successfully and exited the funnel
+      # - `failure`: exited the funnel without conversion
       module StepType
         extend Moonbase::Internal::Type::Enum
 
