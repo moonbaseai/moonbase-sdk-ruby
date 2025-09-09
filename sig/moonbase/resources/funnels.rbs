@@ -1,0 +1,7 @@
+module Moonbase
+  module Resources
+    class Funnels
+      def initialize: (client: Moonbase::Client) -> void
+    end
+  end
+end

@@ -4,11 +4,10 @@ module Moonbase
       {
         id: String,
         email: String,
-        type: :address,
-        created_at: Time,
-        links: Moonbase::Address::Links,
         role: Moonbase::Models::Address::role,
-        updated_at: Time
+        type: :message_address,
+        organization: Moonbase::Pointer,
+        person: Moonbase::Pointer
       }
 
     class Address < Moonbase::Internal::Type::BaseModel
@@ -16,61 +15,35 @@ module Moonbase
 
       attr_accessor email: String
 
-      attr_accessor type: :address
+      attr_accessor role: Moonbase::Models::Address::role
 
-      attr_reader created_at: Time?
+      attr_accessor type: :message_address
 
-      def created_at=: (Time) -> Time
+      attr_reader organization: Moonbase::Pointer?
 
-      attr_reader links: Moonbase::Address::Links?
+      def organization=: (Moonbase::Pointer) -> Moonbase::Pointer
 
-      def links=: (Moonbase::Address::Links) -> Moonbase::Address::Links
+      attr_reader person: Moonbase::Pointer?
 
-      attr_reader role: Moonbase::Models::Address::role?
-
-      def role=: (
-        Moonbase::Models::Address::role
-      ) -> Moonbase::Models::Address::role
-
-      attr_reader updated_at: Time?
-
-      def updated_at=: (Time) -> Time
+      def person=: (Moonbase::Pointer) -> Moonbase::Pointer
 
       def initialize: (
         id: String,
         email: String,
-        ?created_at: Time,
-        ?links: Moonbase::Address::Links,
-        ?role: Moonbase::Models::Address::role,
-        ?updated_at: Time,
-        ?type: :address
+        role: Moonbase::Models::Address::role,
+        ?organization: Moonbase::Pointer,
+        ?person: Moonbase::Pointer,
+        ?type: :message_address
       ) -> void
 
       def to_hash: -> {
         id: String,
         email: String,
-        type: :address,
-        created_at: Time,
-        links: Moonbase::Address::Links,
         role: Moonbase::Models::Address::role,
-        updated_at: Time
+        type: :message_address,
+        organization: Moonbase::Pointer,
+        person: Moonbase::Pointer
       }
-
-      type links = { organization: String, person: String }
-
-      class Links < Moonbase::Internal::Type::BaseModel
-        attr_reader organization: String?
-
-        def organization=: (String) -> String
-
-        attr_reader person: String?
-
-        def person=: (String) -> String
-
-        def initialize: (?organization: String, ?person: String) -> void
-
-        def to_hash: -> { organization: String, person: String }
-      end
 
       type role = :from | :reply_to | :to | :cc | :bcc
 

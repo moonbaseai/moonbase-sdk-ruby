@@ -30,7 +30,7 @@ moonbase = Moonbase::Client.new(
   api_key: ENV["MOONBASE_API_KEY"] # This is the default and can be omitted
 )
 
-collection = moonbase.collections.retrieve("organizations")
+collection = moonbase.collections.retrieve("people")
 
 puts(collection.id)
 ```
@@ -42,15 +42,15 @@ List methods in the Moonbase API are paginated.
 This library provides auto-paginating iterators with each list response, so you do not have to request successive pages manually:
 
 ```ruby
-page = moonbase.collections.list(limit: 10)
+page = moonbase.collections.items.list("people", limit: 5)
 
 # Fetch single item from page.
-collection = page.data[0]
-puts(collection.id)
+item = page.data[0]
+puts(item.id)
 
 # Automatically fetches more pages as needed.
-page.auto_paging_each do |collection|
-  puts(collection.id)
+page.auto_paging_each do |item|
+  puts(item.id)
 end
 ```
 
@@ -69,7 +69,7 @@ When the library is unable to connect to the API, or if the API returns a non-su
 
 ```ruby
 begin
-  collection = moonbase.collections.retrieve("organizations")
+  collection = moonbase.collections.retrieve("people")
 rescue Moonbase::Errors::APIConnectionError => e
   puts("The server could not be reached")
   puts(e.cause)  # an underlying Exception, likely raised within `net/http`
@@ -112,7 +112,7 @@ moonbase = Moonbase::Client.new(
 )
 
 # Or, configure per-request:
-moonbase.collections.retrieve("organizations", request_options: {max_retries: 5})
+moonbase.collections.retrieve("people", request_options: {max_retries: 5})
 ```
 
 ### Timeouts
@@ -126,7 +126,7 @@ moonbase = Moonbase::Client.new(
 )
 
 # Or, configure per-request:
-moonbase.collections.retrieve("organizations", request_options: {timeout: 5})
+moonbase.collections.retrieve("people", request_options: {timeout: 5})
 ```
 
 On timeout, `Moonbase::Errors::APITimeoutError` is raised.
@@ -158,7 +158,7 @@ Note: the `extra_` parameters of the same name overrides the documented paramete
 ```ruby
 collection =
   moonbase.collections.retrieve(
-    "organizations",
+    "people",
     request_options: {
       extra_query: {my_query_parameter: value},
       extra_body: {my_body_parameter: value},
@@ -204,18 +204,18 @@ This library provides comprehensive [RBI](https://sorbet.org/docs/rbi) definitio
 You can provide typesafe request parameters like so:
 
 ```ruby
-moonbase.collections.retrieve("organizations")
+moonbase.collections.retrieve("people")
 ```
 
 Or, equivalently:
 
 ```ruby
 # Hashes work, but are not typesafe:
-moonbase.collections.retrieve("organizations")
+moonbase.collections.retrieve("people")
 
 # You can also splat a full Params class:
 params = Moonbase::CollectionRetrieveParams.new
-moonbase.collections.retrieve("organizations", **params)
+moonbase.collections.retrieve("people", **params)
 ```
 
 ### Enums
@@ -223,25 +223,25 @@ moonbase.collections.retrieve("organizations", **params)
 Since this library does not depend on `sorbet-runtime`, it cannot provide [`T::Enum`](https://sorbet.org/docs/tenum) instances. Instead, we provide "tagged symbols" instead, which is always a primitive at runtime:
 
 ```ruby
-# :incoming
-puts(Moonbase::CallCreateParams::Direction::INCOMING)
+# :replace
+puts(Moonbase::Collections::ItemUpdateParams::UpdateManyStrategy::REPLACE)
 
-# Revealed type: `T.all(Moonbase::CallCreateParams::Direction, Symbol)`
-T.reveal_type(Moonbase::CallCreateParams::Direction::INCOMING)
+# Revealed type: `T.all(Moonbase::Collections::ItemUpdateParams::UpdateManyStrategy, Symbol)`
+T.reveal_type(Moonbase::Collections::ItemUpdateParams::UpdateManyStrategy::REPLACE)
 ```
 
 Enum parameters have a "relaxed" type, so you can either pass in enum constants or their literal value:
 
 ```ruby
 # Using the enum constants preserves the tagged type information:
-moonbase.calls.create(
-  direction: Moonbase::CallCreateParams::Direction::INCOMING,
+moonbase.collections.items.update(
+  update_many_strategy: Moonbase::Collections::ItemUpdateParams::UpdateManyStrategy::REPLACE,
   # …
 )
 
 # Literal values are also permissible:
-moonbase.calls.create(
-  direction: :incoming,
+moonbase.collections.items.update(
+  update_many_strategy: :replace,
   # …
 )
 ```

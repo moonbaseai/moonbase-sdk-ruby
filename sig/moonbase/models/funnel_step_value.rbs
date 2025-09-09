@@ -1,0 +1,19 @@
+module Moonbase
+  module Models
+    type funnel_step_value =
+      { data: Moonbase::FunnelStep, type: :"value/funnel_step" }
+
+    class FunnelStepValue < Moonbase::Internal::Type::BaseModel
+      attr_accessor data: Moonbase::FunnelStep
+
+      attr_accessor type: :"value/funnel_step"
+
+      def initialize: (
+        data: Moonbase::FunnelStep,
+        ?type: :"value/funnel_step"
+      ) -> void
+
+      def to_hash: -> { data: Moonbase::FunnelStep, type: :"value/funnel_step" }
+    end
+  end
+end

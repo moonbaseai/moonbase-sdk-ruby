@@ -6,7 +6,7 @@ module Moonbase
           String id,
           collection_id: String,
           ?request_options: Moonbase::request_opts
-        ) -> Moonbase::Field
+        ) -> Moonbase::Models::field
 
         def initialize: (client: Moonbase::Client) -> void
       end

@@ -3,67 +3,50 @@ module Moonbase
     type view =
       {
         id: String,
-        links: Moonbase::View::Links,
+        created_at: Time,
         name: String,
         type: :view,
-        collection: Moonbase::Collection,
-        view_type: Moonbase::Models::View::view_type
+        updated_at: Time,
+        view_type: Moonbase::Models::View::view_type,
+        collection: Moonbase::Collection
       }
 
     class View < Moonbase::Internal::Type::BaseModel
       attr_accessor id: String
 
-      attr_accessor links: Moonbase::View::Links
+      attr_accessor created_at: Time
 
       attr_accessor name: String
 
       attr_accessor type: :view
 
+      attr_accessor updated_at: Time
+
+      attr_accessor view_type: Moonbase::Models::View::view_type
+
       attr_reader collection: Moonbase::Collection?
 
       def collection=: (Moonbase::Collection) -> Moonbase::Collection
 
-      attr_reader view_type: Moonbase::Models::View::view_type?
-
-      def view_type=: (
-        Moonbase::Models::View::view_type
-      ) -> Moonbase::Models::View::view_type
-
       def initialize: (
         id: String,
-        links: Moonbase::View::Links,
+        created_at: Time,
         name: String,
+        updated_at: Time,
+        view_type: Moonbase::Models::View::view_type,
         ?collection: Moonbase::Collection,
-        ?view_type: Moonbase::Models::View::view_type,
         ?type: :view
       ) -> void
 
       def to_hash: -> {
         id: String,
-        links: Moonbase::View::Links,
+        created_at: Time,
         name: String,
         type: :view,
-        collection: Moonbase::Collection,
-        view_type: Moonbase::Models::View::view_type
+        updated_at: Time,
+        view_type: Moonbase::Models::View::view_type,
+        collection: Moonbase::Collection
       }
-
-      type links = { collection: String, items: String, self_: String }
-
-      class Links < Moonbase::Internal::Type::BaseModel
-        attr_accessor collection: String
-
-        attr_accessor items: String
-
-        attr_accessor self_: String
-
-        def initialize: (
-          collection: String,
-          items: String,
-          self_: String
-        ) -> void
-
-        def to_hash: -> { collection: String, items: String, self_: String }
-      end
 
       type view_type = :table | :board
 

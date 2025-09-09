@@ -1,0 +1,22 @@
+module Moonbase
+  module Models
+    type choice_value =
+      { data: Moonbase::ChoiceFieldOption, type: :"value/choice" }
+
+    class ChoiceValue < Moonbase::Internal::Type::BaseModel
+      attr_accessor data: Moonbase::ChoiceFieldOption
+
+      attr_accessor type: :"value/choice"
+
+      def initialize: (
+        data: Moonbase::ChoiceFieldOption,
+        ?type: :"value/choice"
+      ) -> void
+
+      def to_hash: -> {
+        data: Moonbase::ChoiceFieldOption,
+        type: :"value/choice"
+      }
+    end
+  end
+end

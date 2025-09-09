@@ -31,26 +31,26 @@ module Moonbase
       #   @return [String]
       required :provider_id, String
 
+      # @!attribute provider_status
+      #   The status of the call.
+      #
+      #   @return [String]
+      required :provider_status, String
+
       # @!attribute start_at
-      #   The time the call started, as an RFC 3339 timestamp.
+      #   The time the call started, as an ISO 8601 timestamp in UTC.
       #
       #   @return [Time]
       required :start_at, Time
 
-      # @!attribute status
-      #   The status of the call.
-      #
-      #   @return [Symbol, Moonbase::Models::CallCreateParams::Status]
-      required :status, enum: -> { Moonbase::CallCreateParams::Status }
-
       # @!attribute answered_at
-      #   The time the call was answered, as an RFC 3339 timestamp.
+      #   The time the call was answered, as an ISO 8601 timestamp in UTC.
       #
       #   @return [Time, nil]
       optional :answered_at, Time
 
       # @!attribute end_at
-      #   The time the call ended, as an RFC 3339 timestamp.
+      #   The time the call ended, as an ISO 8601 timestamp in UTC.
       #
       #   @return [Time, nil]
       optional :end_at, Time
@@ -73,7 +73,7 @@ module Moonbase
       #   @return [Moonbase::Models::CallCreateParams::Transcript, nil]
       optional :transcript, -> { Moonbase::CallCreateParams::Transcript }
 
-      # @!method initialize(direction:, participants:, provider:, provider_id:, start_at:, status:, answered_at: nil, end_at: nil, provider_metadata: nil, recordings: nil, transcript: nil, request_options: {})
+      # @!method initialize(direction:, participants:, provider:, provider_id:, provider_status:, start_at:, answered_at: nil, end_at: nil, provider_metadata: nil, recordings: nil, transcript: nil, request_options: {})
       #   @param direction [Symbol, Moonbase::Models::CallCreateParams::Direction] The direction of the call, either `incoming` or `outgoing`.
       #
       #   @param participants [Array<Moonbase::Models::CallCreateParams::Participant>] An array of participants involved in the call.
@@ -82,13 +82,13 @@ module Moonbase
       #
       #   @param provider_id [String] The unique identifier for the call from the provider's system.
       #
-      #   @param start_at [Time] The time the call started, as an RFC 3339 timestamp.
+      #   @param provider_status [String] The status of the call.
       #
-      #   @param status [Symbol, Moonbase::Models::CallCreateParams::Status] The status of the call.
+      #   @param start_at [Time] The time the call started, as an ISO 8601 timestamp in UTC.
       #
-      #   @param answered_at [Time] The time the call was answered, as an RFC 3339 timestamp.
+      #   @param answered_at [Time] The time the call was answered, as an ISO 8601 timestamp in UTC.
       #
-      #   @param end_at [Time] The time the call ended, as an RFC 3339 timestamp.
+      #   @param end_at [Time] The time the call ended, as an ISO 8601 timestamp in UTC.
       #
       #   @param provider_metadata [Hash{Symbol=>Object}] A hash of additional metadata from the provider.
       #
@@ -142,28 +142,6 @@ module Moonbase
           # @!method self.values
           #   @return [Array<Symbol>]
         end
-      end
-
-      # The status of the call.
-      module Status
-        extend Moonbase::Internal::Type::Enum
-
-        QUEUED = :queued
-        INITIATED = :initiated
-        RINGING = :ringing
-        IN_PROGRESS = :in_progress
-        COMPLETED = :completed
-        BUSY = :busy
-        FAILED = :failed
-        NO_ANSWER = :no_answer
-        CANCELED = :canceled
-        MISSED = :missed
-        ANSWERED = :answered
-        FORWARDED = :forwarded
-        ABANDONED = :abandoned
-
-        # @!method self.values
-        #   @return [Array<Symbol>]
       end
 
       class Recording < Moonbase::Internal::Type::BaseModel

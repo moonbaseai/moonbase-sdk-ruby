@@ -1,0 +1,35 @@
+module Moonbase
+  module Models
+    type activity_item_created =
+      {
+        id: String,
+        item: Moonbase::ItemPointer?,
+        occurred_at: Time,
+        type: :"activity/item_created"
+      }
+
+    class ActivityItemCreated < Moonbase::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor item: Moonbase::ItemPointer?
+
+      attr_accessor occurred_at: Time
+
+      attr_accessor type: :"activity/item_created"
+
+      def initialize: (
+        id: String,
+        item: Moonbase::ItemPointer?,
+        occurred_at: Time,
+        ?type: :"activity/item_created"
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        item: Moonbase::ItemPointer?,
+        occurred_at: Time,
+        type: :"activity/item_created"
+      }
+    end
+  end
+end

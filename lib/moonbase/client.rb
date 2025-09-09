@@ -19,20 +19,17 @@ module Moonbase
     # @return [String]
     attr_reader :api_key
 
-    # @return [Moonbase::Resources::Activities]
-    attr_reader :activities
-
-    # @return [Moonbase::Resources::Calls]
-    attr_reader :calls
+    # @return [Moonbase::Resources::Funnels]
+    attr_reader :funnels
 
     # @return [Moonbase::Resources::Collections]
     attr_reader :collections
 
-    # @return [Moonbase::Resources::Files]
-    attr_reader :files
+    # @return [Moonbase::Resources::Views]
+    attr_reader :views
 
-    # @return [Moonbase::Resources::Forms]
-    attr_reader :forms
+    # @return [Moonbase::Resources::Inboxes]
+    attr_reader :inboxes
 
     # @return [Moonbase::Resources::InboxConversations]
     attr_reader :inbox_conversations
@@ -40,11 +37,29 @@ module Moonbase
     # @return [Moonbase::Resources::InboxMessages]
     attr_reader :inbox_messages
 
-    # @return [Moonbase::Resources::Inboxes]
-    attr_reader :inboxes
+    # @return [Moonbase::Resources::Tagsets]
+    attr_reader :tagsets
 
-    # @return [Moonbase::Resources::Items]
-    attr_reader :items
+    # @return [Moonbase::Resources::Programs]
+    attr_reader :programs
+
+    # @return [Moonbase::Resources::ProgramTemplates]
+    attr_reader :program_templates
+
+    # @return [Moonbase::Resources::ProgramMessages]
+    attr_reader :program_messages
+
+    # @return [Moonbase::Resources::Forms]
+    attr_reader :forms
+
+    # @return [Moonbase::Resources::Activities]
+    attr_reader :activities
+
+    # @return [Moonbase::Resources::Calls]
+    attr_reader :calls
+
+    # @return [Moonbase::Resources::Files]
+    attr_reader :files
 
     # @return [Moonbase::Resources::Meetings]
     attr_reader :meetings
@@ -52,20 +67,8 @@ module Moonbase
     # @return [Moonbase::Resources::Notes]
     attr_reader :notes
 
-    # @return [Moonbase::Resources::ProgramMessages]
-    attr_reader :program_messages
-
-    # @return [Moonbase::Resources::ProgramTemplates]
-    attr_reader :program_templates
-
-    # @return [Moonbase::Resources::Programs]
-    attr_reader :programs
-
-    # @return [Moonbase::Resources::Tagsets]
-    attr_reader :tagsets
-
-    # @return [Moonbase::Resources::Views]
-    attr_reader :views
+    # @return [Moonbase::Resources::WebhookEndpoints]
+    attr_reader :webhook_endpoints
 
     # @api private
     #
@@ -114,22 +117,23 @@ module Moonbase
         max_retry_delay: max_retry_delay
       )
 
-      @activities = Moonbase::Resources::Activities.new(client: self)
-      @calls = Moonbase::Resources::Calls.new(client: self)
+      @funnels = Moonbase::Resources::Funnels.new(client: self)
       @collections = Moonbase::Resources::Collections.new(client: self)
-      @files = Moonbase::Resources::Files.new(client: self)
-      @forms = Moonbase::Resources::Forms.new(client: self)
+      @views = Moonbase::Resources::Views.new(client: self)
+      @inboxes = Moonbase::Resources::Inboxes.new(client: self)
       @inbox_conversations = Moonbase::Resources::InboxConversations.new(client: self)
       @inbox_messages = Moonbase::Resources::InboxMessages.new(client: self)
-      @inboxes = Moonbase::Resources::Inboxes.new(client: self)
-      @items = Moonbase::Resources::Items.new(client: self)
+      @tagsets = Moonbase::Resources::Tagsets.new(client: self)
+      @programs = Moonbase::Resources::Programs.new(client: self)
+      @program_templates = Moonbase::Resources::ProgramTemplates.new(client: self)
+      @program_messages = Moonbase::Resources::ProgramMessages.new(client: self)
+      @forms = Moonbase::Resources::Forms.new(client: self)
+      @activities = Moonbase::Resources::Activities.new(client: self)
+      @calls = Moonbase::Resources::Calls.new(client: self)
+      @files = Moonbase::Resources::Files.new(client: self)
       @meetings = Moonbase::Resources::Meetings.new(client: self)
       @notes = Moonbase::Resources::Notes.new(client: self)
-      @program_messages = Moonbase::Resources::ProgramMessages.new(client: self)
-      @program_templates = Moonbase::Resources::ProgramTemplates.new(client: self)
-      @programs = Moonbase::Resources::Programs.new(client: self)
-      @tagsets = Moonbase::Resources::Tagsets.new(client: self)
-      @views = Moonbase::Resources::Views.new(client: self)
+      @webhook_endpoints = Moonbase::Resources::WebhookEndpoints.new(client: self)
     end
   end
 end

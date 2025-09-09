@@ -15,63 +15,40 @@ module Moonbase
       #   @return [String]
       required :email, String
 
-      # @!attribute links
-      #
-      #   @return [Moonbase::Models::Organizer::Links]
-      required :links, -> { Moonbase::Organizer::Links }
-
       # @!attribute type
-      #   String representing the object’s type. Always `organizer` for this object.
+      #   String representing the object’s type. Always `meeting_organizer` for this
+      #   object.
       #
-      #   @return [Symbol, :organizer]
-      required :type, const: :organizer
+      #   @return [Symbol, :meeting_organizer]
+      required :type, const: :meeting_organizer
 
-      # @!attribute created_at
-      #   Time at which the object was created, as an RFC 3339 timestamp.
+      # @!attribute organization
+      #   A lightweight reference to another resource.
       #
-      #   @return [Time, nil]
-      optional :created_at, Time
+      #   @return [Moonbase::Models::Pointer, nil]
+      optional :organization, -> { Moonbase::Pointer }
 
-      # @!attribute updated_at
-      #   Time at which the object was last updated, as an RFC 3339 timestamp.
+      # @!attribute person
+      #   A lightweight reference to another resource.
       #
-      #   @return [Time, nil]
-      optional :updated_at, Time
+      #   @return [Moonbase::Models::Pointer, nil]
+      optional :person, -> { Moonbase::Pointer }
 
-      # @!method initialize(id:, email:, links:, created_at: nil, updated_at: nil, type: :organizer)
+      # @!method initialize(id:, email:, organization: nil, person: nil, type: :meeting_organizer)
+      #   Some parameter documentations has been truncated, see
+      #   {Moonbase::Models::Organizer} for more details.
+      #
       #   Represents the organizer of a meeting.
       #
       #   @param id [String] Unique identifier for the object.
       #
       #   @param email [String] The email address of the organizer.
       #
-      #   @param links [Moonbase::Models::Organizer::Links]
+      #   @param organization [Moonbase::Models::Pointer] A lightweight reference to another resource.
       #
-      #   @param created_at [Time] Time at which the object was created, as an RFC 3339 timestamp.
+      #   @param person [Moonbase::Models::Pointer] A lightweight reference to another resource.
       #
-      #   @param updated_at [Time] Time at which the object was last updated, as an RFC 3339 timestamp.
-      #
-      #   @param type [Symbol, :organizer] String representing the object’s type. Always `organizer` for this object.
-
-      # @see Moonbase::Models::Organizer#links
-      class Links < Moonbase::Internal::Type::BaseModel
-        # @!attribute organization
-        #   A link to the associated `Organization` item.
-        #
-        #   @return [String]
-        required :organization, String
-
-        # @!attribute person
-        #   A link to the associated `Person` item.
-        #
-        #   @return [String]
-        required :person, String
-
-        # @!method initialize(organization:, person:)
-        #   @param organization [String] A link to the associated `Organization` item.
-        #
-        #   @param person [String] A link to the associated `Person` item.
-      end
+      #   @param type [Symbol, :meeting_organizer] String representing the object’s type. Always `meeting_organizer` for this objec
     end
   end
 end

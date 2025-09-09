@@ -10,10 +10,17 @@ module Moonbase
       #   @return [String]
       required :id, String
 
-      # @!attribute links
+      # @!attribute body
+      #   The main content of the note.
       #
-      #   @return [Moonbase::Models::Note::Links]
-      required :links, -> { Moonbase::Note::Links }
+      #   @return [Moonbase::Models::FormattedText]
+      required :body, -> { Moonbase::FormattedText }
+
+      # @!attribute created_at
+      #   Time at which the object was created, as an ISO 8601 timestamp in UTC.
+      #
+      #   @return [Time]
+      required :created_at, Time
 
       # @!attribute type
       #   String representing the object’s type. Always `note` for this object.
@@ -21,17 +28,11 @@ module Moonbase
       #   @return [Symbol, :note]
       required :type, const: :note
 
-      # @!attribute body
-      #   The main content of the note.
+      # @!attribute updated_at
+      #   Time at which the object was last updated, as an ISO 8601 timestamp in UTC.
       #
-      #   @return [String, nil]
-      optional :body, String
-
-      # @!attribute created_at
-      #   Time at which the object was created, as an RFC 3339 timestamp.
-      #
-      #   @return [Time, nil]
-      optional :created_at, Time
+      #   @return [Time]
+      required :updated_at, Time
 
       # @!attribute summary
       #   A short, system-generated summary of the note's content.
@@ -45,43 +46,23 @@ module Moonbase
       #   @return [String, nil]
       optional :title, String
 
-      # @!attribute updated_at
-      #   Time at which the object was last updated, as an RFC 3339 timestamp.
-      #
-      #   @return [Time, nil]
-      optional :updated_at, Time
-
-      # @!method initialize(id:, links:, body: nil, created_at: nil, summary: nil, title: nil, updated_at: nil, type: :note)
+      # @!method initialize(id:, body:, created_at:, updated_at:, summary: nil, title: nil, type: :note)
       #   The Note object represents a block of text content, often used for meeting notes
       #   or summaries.
       #
       #   @param id [String] Unique identifier for the object.
       #
-      #   @param links [Moonbase::Models::Note::Links]
+      #   @param body [Moonbase::Models::FormattedText] The main content of the note.
       #
-      #   @param body [String] The main content of the note.
+      #   @param created_at [Time] Time at which the object was created, as an ISO 8601 timestamp in UTC.
       #
-      #   @param created_at [Time] Time at which the object was created, as an RFC 3339 timestamp.
+      #   @param updated_at [Time] Time at which the object was last updated, as an ISO 8601 timestamp in UTC.
       #
       #   @param summary [String] A short, system-generated summary of the note's content.
       #
       #   @param title [String] An optional title for the note.
       #
-      #   @param updated_at [Time] Time at which the object was last updated, as an RFC 3339 timestamp.
-      #
       #   @param type [Symbol, :note] String representing the object’s type. Always `note` for this object.
-
-      # @see Moonbase::Models::Note#links
-      class Links < Moonbase::Internal::Type::BaseModel
-        # @!attribute self_
-        #   The canonical URL for this object.
-        #
-        #   @return [String]
-        required :self_, String, api_name: :self
-
-        # @!method initialize(self_:)
-        #   @param self_ [String] The canonical URL for this object.
-      end
     end
   end
 end

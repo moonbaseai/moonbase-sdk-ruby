@@ -3,73 +3,50 @@ module Moonbase
     type program_template =
       {
         id: String,
-        body: String,
-        links: Moonbase::ProgramTemplate::Links,
+        body: Moonbase::FormattedText,
+        created_at: Time,
         subject: String,
         type: :program_template,
-        created_at: Time,
-        program: Moonbase::Program,
-        updated_at: Time
+        updated_at: Time,
+        program: Moonbase::Program
       }
 
     class ProgramTemplate < Moonbase::Internal::Type::BaseModel
       attr_accessor id: String
 
-      attr_accessor body: String
+      attr_accessor body: Moonbase::FormattedText
 
-      attr_accessor links: Moonbase::ProgramTemplate::Links
+      attr_accessor created_at: Time
 
       attr_accessor subject: String
 
       attr_accessor type: :program_template
 
-      attr_reader created_at: Time?
-
-      def created_at=: (Time) -> Time
+      attr_accessor updated_at: Time
 
       attr_reader program: Moonbase::Program?
 
       def program=: (Moonbase::Program) -> Moonbase::Program
 
-      attr_reader updated_at: Time?
-
-      def updated_at=: (Time) -> Time
-
       def initialize: (
         id: String,
-        body: String,
-        links: Moonbase::ProgramTemplate::Links,
+        body: Moonbase::FormattedText,
+        created_at: Time,
         subject: String,
-        ?created_at: Time,
+        updated_at: Time,
         ?program: Moonbase::Program,
-        ?updated_at: Time,
         ?type: :program_template
       ) -> void
 
       def to_hash: -> {
         id: String,
-        body: String,
-        links: Moonbase::ProgramTemplate::Links,
+        body: Moonbase::FormattedText,
+        created_at: Time,
         subject: String,
         type: :program_template,
-        created_at: Time,
-        program: Moonbase::Program,
-        updated_at: Time
+        updated_at: Time,
+        program: Moonbase::Program
       }
-
-      type links = { self_: String, program: String }
-
-      class Links < Moonbase::Internal::Type::BaseModel
-        attr_accessor self_: String
-
-        attr_reader program: String?
-
-        def program=: (String) -> String
-
-        def initialize: (self_: String, ?program: String) -> void
-
-        def to_hash: -> { self_: String, program: String }
-      end
     end
   end
 end

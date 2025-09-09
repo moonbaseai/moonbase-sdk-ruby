@@ -3,6 +3,8 @@ module Moonbase
     class Collections
       attr_reader fields: Moonbase::Resources::Collections::Fields
 
+      attr_reader items: Moonbase::Resources::Collections::Items
+
       def retrieve: (
         String id,
         ?include: ::Array[Moonbase::Models::CollectionRetrieveParams::include_],

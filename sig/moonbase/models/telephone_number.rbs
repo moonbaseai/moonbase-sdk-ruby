@@ -1,22 +1,15 @@
 module Moonbase
   module Models
-    type telephone_number =
-      { telephone_number: String, type: :"value/telephone_number" }
+    type telephone_number = { data: String, type: :"value/telephone_number" }
 
     class TelephoneNumber < Moonbase::Internal::Type::BaseModel
-      attr_accessor telephone_number: String
+      attr_accessor data: String
 
       attr_accessor type: :"value/telephone_number"
 
-      def initialize: (
-        telephone_number: String,
-        ?type: :"value/telephone_number"
-      ) -> void
+      def initialize: (data: String, ?type: :"value/telephone_number") -> void
 
-      def to_hash: -> {
-        telephone_number: String,
-        type: :"value/telephone_number"
-      }
+      def to_hash: -> { data: String, type: :"value/telephone_number" }
     end
   end
 end

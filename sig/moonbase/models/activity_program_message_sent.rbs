@@ -1,0 +1,47 @@
+module Moonbase
+  module Models
+    type activity_program_message_sent =
+      {
+        id: String,
+        occurred_at: Time,
+        program_message: Moonbase::Pointer?,
+        recipient: Moonbase::ItemPointer?,
+        type: :"activity/program_message_sent",
+        recipient_emails: ::Array[String]
+      }
+
+    class ActivityProgramMessageSent < Moonbase::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor occurred_at: Time
+
+      attr_accessor program_message: Moonbase::Pointer?
+
+      attr_accessor recipient: Moonbase::ItemPointer?
+
+      attr_accessor type: :"activity/program_message_sent"
+
+      attr_reader recipient_emails: ::Array[String]?
+
+      def recipient_emails=: (::Array[String]) -> ::Array[String]
+
+      def initialize: (
+        id: String,
+        occurred_at: Time,
+        program_message: Moonbase::Pointer?,
+        recipient: Moonbase::ItemPointer?,
+        ?recipient_emails: ::Array[String],
+        ?type: :"activity/program_message_sent"
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        occurred_at: Time,
+        program_message: Moonbase::Pointer?,
+        recipient: Moonbase::ItemPointer?,
+        type: :"activity/program_message_sent",
+        recipient_emails: ::Array[String]
+      }
+    end
+  end
+end

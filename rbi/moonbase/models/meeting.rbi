@@ -10,7 +10,11 @@ module Moonbase
       sig { returns(String) }
       attr_accessor :id
 
-      # The end time of the meeting, as an RFC 3339 timestamp.
+      # Time at which the object was created, as an ISO 8601 timestamp in UTC.
+      sig { returns(Time) }
+      attr_accessor :created_at
+
+      # The end time of the meeting, as an ISO 8601 timestamp in UTC.
       sig { returns(Time) }
       attr_accessor :end_at
 
@@ -18,18 +22,12 @@ module Moonbase
       sig { returns(String) }
       attr_accessor :i_cal_uid
 
-      sig { returns(Moonbase::Meeting::Links) }
-      attr_reader :links
-
-      sig { params(links: Moonbase::Meeting::Links::OrHash).void }
-      attr_writer :links
-
       # The unique identifier for the meeting from the external calendar provider (e.g.,
       # Google Calendar).
       sig { returns(String) }
       attr_accessor :provider_id
 
-      # The start time of the meeting, as an RFC 3339 timestamp.
+      # The start time of the meeting, as an ISO 8601 timestamp in UTC.
       sig { returns(Time) }
       attr_accessor :start_at
 
@@ -42,19 +40,18 @@ module Moonbase
       sig { returns(Symbol) }
       attr_accessor :type
 
+      # Time at which the object was last updated, as an ISO 8601 timestamp in UTC.
+      sig { returns(Time) }
+      attr_accessor :updated_at
+
       # A list of `Attendee` objects for the meeting.
+      #
+      # **Note:** Only present when requested using the `include` query parameter.
       sig { returns(T.nilable(T::Array[Moonbase::Attendee])) }
       attr_reader :attendees
 
       sig { params(attendees: T::Array[Moonbase::Attendee::OrHash]).void }
       attr_writer :attendees
-
-      # Time at which the object was created, as an RFC 3339 timestamp.
-      sig { returns(T.nilable(Time)) }
-      attr_reader :created_at
-
-      sig { params(created_at: Time).void }
-      attr_writer :created_at
 
       # A detailed description or agenda for the meeting.
       sig { returns(T.nilable(String)) }
@@ -78,6 +75,8 @@ module Moonbase
       attr_writer :location
 
       # The `Organizer` of the meeting.
+      #
+      # **Note:** Only present when requested using the `include` query parameter.
       sig { returns(T.nilable(Moonbase::Organizer)) }
       attr_reader :organizer
 
@@ -90,6 +89,14 @@ module Moonbase
 
       sig { params(provider_uri: String).void }
       attr_writer :provider_uri
+
+      # A temporary, signed URL to download the meeting recording. The URL expires after
+      # one hour.
+      sig { returns(T.nilable(String)) }
+      attr_reader :recording_url
+
+      sig { params(recording_url: String).void }
+      attr_writer :recording_url
 
       # A summary or notes generated before the meeting.
       sig { returns(T.nilable(String)) }
@@ -112,58 +119,63 @@ module Moonbase
       sig { params(title: String).void }
       attr_writer :title
 
-      # Time at which the object was last updated, as an RFC 3339 timestamp.
-      sig { returns(T.nilable(Time)) }
-      attr_reader :updated_at
+      # A temporary, signed URL to download the meeting transcript. The URL expires
+      # after one hour.
+      sig { returns(T.nilable(String)) }
+      attr_reader :transcript_url
 
-      sig { params(updated_at: Time).void }
-      attr_writer :updated_at
+      sig { params(transcript_url: String).void }
+      attr_writer :transcript_url
 
       # The Meeting object represents a calendar event. It includes details about the
       # participants, timing, and associated content like summaries and recordings.
       sig do
         params(
           id: String,
+          created_at: Time,
           end_at: Time,
           i_cal_uid: String,
-          links: Moonbase::Meeting::Links::OrHash,
           provider_id: String,
           start_at: Time,
           time_zone: String,
+          updated_at: Time,
           attendees: T::Array[Moonbase::Attendee::OrHash],
-          created_at: Time,
           description: String,
           duration: Float,
           location: String,
           organizer: Moonbase::Organizer::OrHash,
           provider_uri: String,
+          recording_url: String,
           summary_ante: String,
           summary_post: String,
           title: String,
-          updated_at: Time,
+          transcript_url: String,
           type: Symbol
         ).returns(T.attached_class)
       end
       def self.new(
         # Unique identifier for the object.
         id:,
-        # The end time of the meeting, as an RFC 3339 timestamp.
+        # Time at which the object was created, as an ISO 8601 timestamp in UTC.
+        created_at:,
+        # The end time of the meeting, as an ISO 8601 timestamp in UTC.
         end_at:,
         # The globally unique iCalendar UID for the meeting event.
         i_cal_uid:,
-        links:,
         # The unique identifier for the meeting from the external calendar provider (e.g.,
         # Google Calendar).
         provider_id:,
-        # The start time of the meeting, as an RFC 3339 timestamp.
+        # The start time of the meeting, as an ISO 8601 timestamp in UTC.
         start_at:,
         # The IANA time zone in which the meeting is scheduled (e.g.,
         # `America/Los_Angeles`).
         time_zone:,
+        # Time at which the object was last updated, as an ISO 8601 timestamp in UTC.
+        updated_at:,
         # A list of `Attendee` objects for the meeting.
+        #
+        # **Note:** Only present when requested using the `include` query parameter.
         attendees: nil,
-        # Time at which the object was created, as an RFC 3339 timestamp.
-        created_at: nil,
         # A detailed description or agenda for the meeting.
         description: nil,
         # The duration of the meeting in seconds.
@@ -171,17 +183,23 @@ module Moonbase
         # The physical or virtual location of the meeting.
         location: nil,
         # The `Organizer` of the meeting.
+        #
+        # **Note:** Only present when requested using the `include` query parameter.
         organizer: nil,
         # A URL to access the meeting in the external provider's system.
         provider_uri: nil,
+        # A temporary, signed URL to download the meeting recording. The URL expires after
+        # one hour.
+        recording_url: nil,
         # A summary or notes generated before the meeting.
         summary_ante: nil,
         # A summary or notes generated after the meeting.
         summary_post: nil,
         # The title or subject of the meeting.
         title: nil,
-        # Time at which the object was last updated, as an RFC 3339 timestamp.
-        updated_at: nil,
+        # A temporary, signed URL to download the meeting transcript. The URL expires
+        # after one hour.
+        transcript_url: nil,
         # String representing the object’s type. Always `meeting` for this object.
         type: :meeting
       )
@@ -191,108 +209,29 @@ module Moonbase
         override.returns(
           {
             id: String,
+            created_at: Time,
             end_at: Time,
             i_cal_uid: String,
-            links: Moonbase::Meeting::Links,
             provider_id: String,
             start_at: Time,
             time_zone: String,
             type: Symbol,
+            updated_at: Time,
             attendees: T::Array[Moonbase::Attendee],
-            created_at: Time,
             description: String,
             duration: Float,
             location: String,
             organizer: Moonbase::Organizer,
             provider_uri: String,
+            recording_url: String,
             summary_ante: String,
             summary_post: String,
             title: String,
-            updated_at: Time
+            transcript_url: String
           }
         )
       end
       def to_hash
-      end
-
-      class Links < Moonbase::Internal::Type::BaseModel
-        OrHash =
-          T.type_alias do
-            T.any(Moonbase::Meeting::Links, Moonbase::Internal::AnyHash)
-          end
-
-        # The canonical URL for this object.
-        sig { returns(String) }
-        attr_accessor :self_
-
-        # A link to an associated `Note` object.
-        sig { returns(T.nilable(String)) }
-        attr_reader :note
-
-        sig { params(note: String).void }
-        attr_writer :note
-
-        # A temporary, signed URL to download the meeting recording. The URL expires after
-        # one hour.
-        sig { returns(T.nilable(String)) }
-        attr_reader :recording_url
-
-        sig { params(recording_url: String).void }
-        attr_writer :recording_url
-
-        # A link to a long-form summary of the meeting.
-        sig { returns(T.nilable(String)) }
-        attr_reader :summary
-
-        sig { params(summary: String).void }
-        attr_writer :summary
-
-        # A temporary, signed URL to download the meeting transcript. The URL expires
-        # after one hour.
-        sig { returns(T.nilable(String)) }
-        attr_reader :transcript_url
-
-        sig { params(transcript_url: String).void }
-        attr_writer :transcript_url
-
-        sig do
-          params(
-            self_: String,
-            note: String,
-            recording_url: String,
-            summary: String,
-            transcript_url: String
-          ).returns(T.attached_class)
-        end
-        def self.new(
-          # The canonical URL for this object.
-          self_:,
-          # A link to an associated `Note` object.
-          note: nil,
-          # A temporary, signed URL to download the meeting recording. The URL expires after
-          # one hour.
-          recording_url: nil,
-          # A link to a long-form summary of the meeting.
-          summary: nil,
-          # A temporary, signed URL to download the meeting transcript. The URL expires
-          # after one hour.
-          transcript_url: nil
-        )
-        end
-
-        sig do
-          override.returns(
-            {
-              self_: String,
-              note: String,
-              recording_url: String,
-              summary: String,
-              transcript_url: String
-            }
-          )
-        end
-        def to_hash
-        end
       end
     end
   end

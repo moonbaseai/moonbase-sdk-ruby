@@ -3,20 +3,20 @@
 module Moonbase
   module Models
     class FloatValue < Moonbase::Internal::Type::BaseModel
-      # @!attribute number
+      # @!attribute data
       #
       #   @return [Float]
-      required :number, Float
+      required :data, Float
 
       # @!attribute type
       #
       #   @return [Symbol, :"value/number/unitless_float"]
       required :type, const: :"value/number/unitless_float"
 
-      # @!method initialize(number:, type: :"value/number/unitless_float")
+      # @!method initialize(data:, type: :"value/number/unitless_float")
       #   Floating point number
       #
-      #   @param number [Float]
+      #   @param data [Float]
       #   @param type [Symbol, :"value/number/unitless_float"]
     end
   end

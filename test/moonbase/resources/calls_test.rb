@@ -9,9 +9,9 @@ class Moonbase::Test::Resources::CallsTest < Moonbase::Test::ResourceTest
         direction: :incoming,
         participants: [{phone: "+14155551212", role: :caller}, {phone: "+16505551212", role: :callee}],
         provider: "openphone",
-        provider_id: "openphone_id_000000000001",
-        start_at: "2025-08-18T18:32:13.332Z",
-        status: :completed
+        provider_id: "openphone_id_000000000007",
+        provider_status: "completed",
+        start_at: "2025-02-17T15:00:00.000Z"
       )
 
     assert_pattern do
@@ -21,18 +21,18 @@ class Moonbase::Test::Resources::CallsTest < Moonbase::Test::ResourceTest
     assert_pattern do
       response => {
         id: String,
+        created_at: Time,
         direction: Moonbase::Call::Direction,
         participants: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Call::Participant]),
         provider: String,
         provider_id: String,
+        provider_status: String,
         start_at: Time,
-        status: Moonbase::Call::Status,
         type: Symbol,
+        updated_at: Time,
         answered_at: Time | nil,
-        created_at: Time | nil,
         end_at: Time | nil,
-        provider_metadata: ^(Moonbase::Internal::Type::HashOf[Moonbase::Internal::Type::Unknown]) | nil,
-        updated_at: Time | nil
+        provider_metadata: ^(Moonbase::Internal::Type::HashOf[Moonbase::Internal::Type::Unknown]) | nil
       }
     end
   end
@@ -43,9 +43,9 @@ class Moonbase::Test::Resources::CallsTest < Moonbase::Test::ResourceTest
         direction: :incoming,
         participants: [{phone: "+14155551212", role: :caller}, {phone: "+16505551212", role: :callee}],
         provider: "openphone",
-        provider_id: "openphone_id_000000000002",
-        start_at: "2025-08-18T18:32:24.545Z",
-        status: :completed
+        provider_id: "openphone_id_000000000006",
+        provider_status: "completed",
+        start_at: "2025-02-17T15:00:00.000Z"
       )
 
     assert_pattern do
@@ -55,18 +55,18 @@ class Moonbase::Test::Resources::CallsTest < Moonbase::Test::ResourceTest
     assert_pattern do
       response => {
         id: String,
+        created_at: Time,
         direction: Moonbase::Call::Direction,
         participants: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Call::Participant]),
         provider: String,
         provider_id: String,
+        provider_status: String,
         start_at: Time,
-        status: Moonbase::Call::Status,
         type: Symbol,
+        updated_at: Time,
         answered_at: Time | nil,
-        created_at: Time | nil,
         end_at: Time | nil,
-        provider_metadata: ^(Moonbase::Internal::Type::HashOf[Moonbase::Internal::Type::Unknown]) | nil,
-        updated_at: Time | nil
+        provider_metadata: ^(Moonbase::Internal::Type::HashOf[Moonbase::Internal::Type::Unknown]) | nil
       }
     end
   end

@@ -7,17 +7,17 @@ module Moonbase
         T.type_alias { T.any(Moonbase::DateValue, Moonbase::Internal::AnyHash) }
 
       sig { returns(Date) }
-      attr_accessor :date
+      attr_accessor :data
 
       sig { returns(Symbol) }
       attr_accessor :type
 
       # Date without time
-      sig { params(date: Date, type: Symbol).returns(T.attached_class) }
-      def self.new(date:, type: :"value/date")
+      sig { params(data: Date, type: Symbol).returns(T.attached_class) }
+      def self.new(data:, type: :"value/date")
       end
 
-      sig { override.returns({ date: Date, type: Symbol }) }
+      sig { override.returns({ data: Date, type: Symbol }) }
       def to_hash
       end
     end

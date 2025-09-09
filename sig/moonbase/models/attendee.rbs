@@ -4,10 +4,9 @@ module Moonbase
       {
         id: String,
         email: String,
-        links: Moonbase::Attendee::Links,
-        type: :attendee,
-        created_at: Time,
-        updated_at: Time
+        type: :meeting_attendee,
+        organization: Moonbase::Pointer,
+        person: Moonbase::Pointer
       }
 
     class Attendee < Moonbase::Internal::Type::BaseModel
@@ -15,47 +14,31 @@ module Moonbase
 
       attr_accessor email: String
 
-      attr_accessor links: Moonbase::Attendee::Links
+      attr_accessor type: :meeting_attendee
 
-      attr_accessor type: :attendee
+      attr_reader organization: Moonbase::Pointer?
 
-      attr_reader created_at: Time?
+      def organization=: (Moonbase::Pointer) -> Moonbase::Pointer
 
-      def created_at=: (Time) -> Time
+      attr_reader person: Moonbase::Pointer?
 
-      attr_reader updated_at: Time?
-
-      def updated_at=: (Time) -> Time
+      def person=: (Moonbase::Pointer) -> Moonbase::Pointer
 
       def initialize: (
         id: String,
         email: String,
-        links: Moonbase::Attendee::Links,
-        ?created_at: Time,
-        ?updated_at: Time,
-        ?type: :attendee
+        ?organization: Moonbase::Pointer,
+        ?person: Moonbase::Pointer,
+        ?type: :meeting_attendee
       ) -> void
 
       def to_hash: -> {
         id: String,
         email: String,
-        links: Moonbase::Attendee::Links,
-        type: :attendee,
-        created_at: Time,
-        updated_at: Time
+        type: :meeting_attendee,
+        organization: Moonbase::Pointer,
+        person: Moonbase::Pointer
       }
-
-      type links = { organization: String, person: String }
-
-      class Links < Moonbase::Internal::Type::BaseModel
-        attr_accessor organization: String
-
-        attr_accessor person: String
-
-        def initialize: (organization: String, person: String) -> void
-
-        def to_hash: -> { organization: String, person: String }
-      end
     end
   end
 end

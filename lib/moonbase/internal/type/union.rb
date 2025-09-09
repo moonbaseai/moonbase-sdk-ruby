@@ -6,28 +6,28 @@ module Moonbase
       # @api private
       #
       # @example
-      #   # `activity` is a `Moonbase::Activity`
-      #   case activity
-      #   when Moonbase::Activity::ActivityCallOccurred
-      #     puts(activity.id)
-      #   when Moonbase::Activity::ActivityFormSubmitted
-      #     puts(activity.links)
-      #   when Moonbase::Activity::ActivityInboxMessageSent
-      #     puts(activity.occurred_at)
+      #   # `field` is a `Moonbase::Field`
+      #   case field
+      #   when Moonbase::SingleLineTextField
+      #     puts(field.id)
+      #   when Moonbase::MultiLineTextField
+      #     puts(field.cardinality)
+      #   when Moonbase::IntegerField
+      #     puts(field.created_at)
       #   else
-      #     puts(activity)
+      #     puts(field)
       #   end
       #
       # @example
-      #   case activity
-      #   in {type: :"activity/call_occurred", id: id, links: links, occurred_at: occurred_at}
+      #   case field
+      #   in {type: :"field/text/single_line", id: id, cardinality: cardinality, created_at: created_at}
       #     puts(id)
-      #   in {type: :"activity/form_submitted", id: id, links: links, occurred_at: occurred_at}
-      #     puts(links)
-      #   in {type: :"activity/inbox_message_sent", id: id, links: links, occurred_at: occurred_at}
-      #     puts(occurred_at)
+      #   in {type: :"field/text/multi_line", id: id, cardinality: cardinality, created_at: created_at}
+      #     puts(cardinality)
+      #   in {type: :"field/number/unitless_integer", id: id, cardinality: cardinality, created_at: created_at}
+      #     puts(created_at)
       #   else
-      #     puts(activity)
+      #     puts(field)
       #   end
       module Union
         include Moonbase::Internal::Type::Converter

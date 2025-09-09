@@ -13,13 +13,12 @@ class Moonbase::Test::Resources::ProgramTemplatesTest < Moonbase::Test::Resource
     assert_pattern do
       response => {
         id: String,
-        body: String,
-        links: Moonbase::ProgramTemplate::Links,
+        body: Moonbase::FormattedText,
+        created_at: Time,
         subject: String,
         type: Symbol,
-        created_at: Time | nil,
-        program: Moonbase::Program | nil,
-        updated_at: Time | nil
+        updated_at: Time,
+        program: Moonbase::Program | nil
       }
     end
   end
@@ -41,13 +40,12 @@ class Moonbase::Test::Resources::ProgramTemplatesTest < Moonbase::Test::Resource
     assert_pattern do
       row => {
         id: String,
-        body: String,
-        links: Moonbase::ProgramTemplate::Links,
+        body: Moonbase::FormattedText,
+        created_at: Time,
         subject: String,
         type: Symbol,
-        created_at: Time | nil,
-        program: Moonbase::Program | nil,
-        updated_at: Time | nil
+        updated_at: Time,
+        program: Moonbase::Program | nil
       }
     end
   end

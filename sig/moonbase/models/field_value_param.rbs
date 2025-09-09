@@ -1,0 +1,109 @@
+module Moonbase
+  module Models
+    type field_value_param =
+      Moonbase::SingleLineTextValue
+      | Moonbase::MultiLineTextValue
+      | Moonbase::IntegerValue
+      | Moonbase::FloatValue
+      | Moonbase::MonetaryValue
+      | Moonbase::PercentageValue
+      | Moonbase::BooleanValue
+      | Moonbase::EmailValue
+      | Moonbase::URLValue
+      | Moonbase::DomainValue
+      | Moonbase::FieldValueParam::SocialXValueParam
+      | Moonbase::FieldValueParam::SocialLinkedInValueParam
+      | Moonbase::TelephoneNumber
+      | Moonbase::GeoValue
+      | Moonbase::DateValue
+      | Moonbase::DatetimeValue
+      | Moonbase::ChoiceValueParam
+      | Moonbase::FunnelStepValueParam
+      | Moonbase::RelationValueParam
+      | ::Array[Moonbase::Models::value_param]
+
+    module FieldValueParam
+      extend Moonbase::Internal::Type::Union
+
+      type social_x_value_param =
+        {
+          data: Moonbase::FieldValueParam::SocialXValueParam::Data,
+          type: :"value/uri/social_x"
+        }
+
+      class SocialXValueParam < Moonbase::Internal::Type::BaseModel
+        attr_accessor data: Moonbase::FieldValueParam::SocialXValueParam::Data
+
+        attr_accessor type: :"value/uri/social_x"
+
+        def initialize: (
+          data: Moonbase::FieldValueParam::SocialXValueParam::Data,
+          ?type: :"value/uri/social_x"
+        ) -> void
+
+        def to_hash: -> {
+          data: Moonbase::FieldValueParam::SocialXValueParam::Data,
+          type: :"value/uri/social_x"
+        }
+
+        type data = { url: String, username: String }
+
+        class Data < Moonbase::Internal::Type::BaseModel
+          attr_reader url: String?
+
+          def url=: (String) -> String
+
+          attr_reader username: String?
+
+          def username=: (String) -> String
+
+          def initialize: (?url: String, ?username: String) -> void
+
+          def to_hash: -> { url: String, username: String }
+        end
+      end
+
+      type social_linked_in_value_param =
+        {
+          data: Moonbase::FieldValueParam::SocialLinkedInValueParam::Data,
+          type: :"value/uri/social_linked_in"
+        }
+
+      class SocialLinkedInValueParam < Moonbase::Internal::Type::BaseModel
+        attr_accessor data: Moonbase::FieldValueParam::SocialLinkedInValueParam::Data
+
+        attr_accessor type: :"value/uri/social_linked_in"
+
+        def initialize: (
+          data: Moonbase::FieldValueParam::SocialLinkedInValueParam::Data,
+          ?type: :"value/uri/social_linked_in"
+        ) -> void
+
+        def to_hash: -> {
+          data: Moonbase::FieldValueParam::SocialLinkedInValueParam::Data,
+          type: :"value/uri/social_linked_in"
+        }
+
+        type data = { url: String, username: String }
+
+        class Data < Moonbase::Internal::Type::BaseModel
+          attr_reader url: String?
+
+          def url=: (String) -> String
+
+          attr_reader username: String?
+
+          def username=: (String) -> String
+
+          def initialize: (?url: String, ?username: String) -> void
+
+          def to_hash: -> { url: String, username: String }
+        end
+      end
+
+      def self?.variants: -> ::Array[Moonbase::Models::field_value_param]
+
+      ValueParamArray: Moonbase::Internal::Type::Converter
+    end
+  end
+end

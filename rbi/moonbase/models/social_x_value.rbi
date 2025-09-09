@@ -8,53 +8,65 @@ module Moonbase
           T.any(Moonbase::SocialXValue, Moonbase::Internal::AnyHash)
         end
 
-      sig { returns(Moonbase::SocialXValue::Profile) }
-      attr_reader :profile
+      # Social media profile information including both the full URL and extracted
+      # username.
+      sig { returns(Moonbase::SocialXValue::Data) }
+      attr_reader :data
 
-      sig { params(profile: Moonbase::SocialXValue::Profile::OrHash).void }
-      attr_writer :profile
+      sig { params(data: Moonbase::SocialXValue::Data::OrHash).void }
+      attr_writer :data
 
       sig { returns(Symbol) }
       attr_accessor :type
 
-      # X (formerly Twitter) username
+      # The social media profile for the X (formerly Twitter) platform
       sig do
         params(
-          profile: Moonbase::SocialXValue::Profile::OrHash,
+          data: Moonbase::SocialXValue::Data::OrHash,
           type: Symbol
         ).returns(T.attached_class)
       end
-      def self.new(profile:, type: :"value/uri/social_x")
+      def self.new(
+        # Social media profile information including both the full URL and extracted
+        # username.
+        data:,
+        type: :"value/uri/social_x"
+      )
       end
 
       sig do
-        override.returns(
-          { profile: Moonbase::SocialXValue::Profile, type: Symbol }
-        )
+        override.returns({ data: Moonbase::SocialXValue::Data, type: Symbol })
       end
       def to_hash
       end
 
-      class Profile < Moonbase::Internal::Type::BaseModel
+      class Data < Moonbase::Internal::Type::BaseModel
         OrHash =
           T.type_alias do
-            T.any(Moonbase::SocialXValue::Profile, Moonbase::Internal::AnyHash)
+            T.any(Moonbase::SocialXValue::Data, Moonbase::Internal::AnyHash)
           end
 
-        sig { returns(T.nilable(String)) }
-        attr_reader :url
+        # The full URL to the X profile, starting with 'https://x.com/'
+        sig { returns(String) }
+        attr_accessor :url
 
-        sig { params(url: String).void }
-        attr_writer :url
+        # The X username, up to 15 characters long, containing only lowercase letters
+        # (a-z), uppercase letters (A-Z), numbers (0-9), and underscores (\_). Does not
+        # include the '@' symbol prefix.
+        sig { returns(String) }
+        attr_accessor :username
 
-        sig { returns(T.nilable(String)) }
-        attr_reader :username
-
-        sig { params(username: String).void }
-        attr_writer :username
-
+        # Social media profile information including both the full URL and extracted
+        # username.
         sig { params(url: String, username: String).returns(T.attached_class) }
-        def self.new(url: nil, username: nil)
+        def self.new(
+          # The full URL to the X profile, starting with 'https://x.com/'
+          url:,
+          # The X username, up to 15 characters long, containing only lowercase letters
+          # (a-z), uppercase letters (A-Z), numbers (0-9), and underscores (\_). Does not
+          # include the '@' symbol prefix.
+          username:
+        )
         end
 
         sig { override.returns({ url: String, username: String }) }

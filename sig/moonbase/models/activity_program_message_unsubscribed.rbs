@@ -1,0 +1,47 @@
+module Moonbase
+  module Models
+    type activity_program_message_unsubscribed =
+      {
+        id: String,
+        occurred_at: Time,
+        program_message: Moonbase::Pointer?,
+        recipient: Moonbase::ItemPointer?,
+        type: :"activity/program_message_unsubscribed",
+        email: String
+      }
+
+    class ActivityProgramMessageUnsubscribed < Moonbase::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor occurred_at: Time
+
+      attr_accessor program_message: Moonbase::Pointer?
+
+      attr_accessor recipient: Moonbase::ItemPointer?
+
+      attr_accessor type: :"activity/program_message_unsubscribed"
+
+      attr_reader email: String?
+
+      def email=: (String) -> String
+
+      def initialize: (
+        id: String,
+        occurred_at: Time,
+        program_message: Moonbase::Pointer?,
+        recipient: Moonbase::ItemPointer?,
+        ?email: String,
+        ?type: :"activity/program_message_unsubscribed"
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        occurred_at: Time,
+        program_message: Moonbase::Pointer?,
+        recipient: Moonbase::ItemPointer?,
+        type: :"activity/program_message_unsubscribed",
+        email: String
+      }
+    end
+  end
+end

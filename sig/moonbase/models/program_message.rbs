@@ -1,0 +1,40 @@
+module Moonbase
+  module Models
+    type program_message =
+      {
+        id: String,
+        created_at: Time,
+        program_template: Moonbase::ProgramTemplate,
+        type: :program_message,
+        updated_at: Time
+      }
+
+    class ProgramMessage < Moonbase::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor created_at: Time
+
+      attr_accessor program_template: Moonbase::ProgramTemplate
+
+      attr_accessor type: :program_message
+
+      attr_accessor updated_at: Time
+
+      def initialize: (
+        id: String,
+        created_at: Time,
+        program_template: Moonbase::ProgramTemplate,
+        updated_at: Time,
+        ?type: :program_message
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        created_at: Time,
+        program_template: Moonbase::ProgramTemplate,
+        type: :program_message,
+        updated_at: Time
+      }
+    end
+  end
+end

@@ -36,10 +36,10 @@ module Moonbase
       # Internet domain name
       variant -> { Moonbase::DomainValue }
 
-      # X (formerly Twitter) username
+      # The social media profile for the X (formerly Twitter) platform
       variant -> { Moonbase::SocialXValue }
 
-      # LinkedIn profile link
+      # The social media profile for the LinkedIn platform
       variant -> { Moonbase::SocialLinkedInValue }
 
       # Telephone number value
@@ -55,10 +55,10 @@ module Moonbase
       variant -> { Moonbase::DatetimeValue }
 
       # Selected choice option
-      variant -> { Moonbase::Choice }
+      variant -> { Moonbase::ChoiceValue }
 
       # Funnel step value
-      variant -> { Moonbase::FunnelStep }
+      variant -> { Moonbase::FunnelStepValue }
 
       # Related item reference
       variant -> { Moonbase::RelationValue }
@@ -66,7 +66,7 @@ module Moonbase
       variant -> { Moonbase::Models::FieldValue::ValueArray }
 
       # @!method self.variants
-      #   @return [Array(Moonbase::Models::SingleLineTextValue, Moonbase::Models::MultiLineTextValue, Moonbase::Models::IntegerValue, Moonbase::Models::FloatValue, Moonbase::Models::MonetaryValue, Moonbase::Models::PercentageValue, Moonbase::Models::BooleanValue, Moonbase::Models::EmailValue, Moonbase::Models::URLValue, Moonbase::Models::DomainValue, Moonbase::Models::SocialXValue, Moonbase::Models::SocialLinkedInValue, Moonbase::Models::TelephoneNumber, Moonbase::Models::GeoValue, Moonbase::Models::DateValue, Moonbase::Models::DatetimeValue, Moonbase::Models::Choice, Moonbase::Models::FunnelStep, Moonbase::Models::RelationValue, Array<Moonbase::Models::Value>)]
+      #   @return [Array(Moonbase::Models::SingleLineTextValue, Moonbase::Models::MultiLineTextValue, Moonbase::Models::IntegerValue, Moonbase::Models::FloatValue, Moonbase::Models::MonetaryValue, Moonbase::Models::PercentageValue, Moonbase::Models::BooleanValue, Moonbase::Models::EmailValue, Moonbase::Models::URLValue, Moonbase::Models::DomainValue, Moonbase::Models::SocialXValue, Moonbase::Models::SocialLinkedInValue, Moonbase::Models::TelephoneNumber, Moonbase::Models::GeoValue, Moonbase::Models::DateValue, Moonbase::Models::DatetimeValue, Moonbase::Models::ChoiceValue, Moonbase::Models::FunnelStepValue, Moonbase::Models::RelationValue, Array<Moonbase::Models::SingleLineTextValue, Moonbase::Models::MultiLineTextValue, Moonbase::Models::IntegerValue, Moonbase::Models::FloatValue, Moonbase::Models::MonetaryValue, Moonbase::Models::PercentageValue, Moonbase::Models::BooleanValue, Moonbase::Models::EmailValue, Moonbase::Models::URLValue, Moonbase::Models::DomainValue, Moonbase::Models::SocialXValue, Moonbase::Models::SocialLinkedInValue, Moonbase::Models::TelephoneNumber, Moonbase::Models::GeoValue, Moonbase::Models::DateValue, Moonbase::Models::DatetimeValue, Moonbase::Models::ChoiceValue, Moonbase::Models::FunnelStepValue, Moonbase::Models::RelationValue>)]
 
       # @type [Moonbase::Internal::Type::Converter]
       ValueArray = Moonbase::Internal::Type::ArrayOf[union: -> { Moonbase::Value }]

@@ -1,0 +1,111 @@
+module Moonbase
+  module Models
+    type webhook_endpoint_create_params =
+      {
+        status: Moonbase::Models::WebhookEndpointCreateParams::status,
+        url: String,
+        subscriptions: ::Array[Moonbase::WebhookEndpointCreateParams::Subscription]
+      }
+      & Moonbase::Internal::Type::request_parameters
+
+    class WebhookEndpointCreateParams < Moonbase::Internal::Type::BaseModel
+      extend Moonbase::Internal::Type::RequestParameters::Converter
+      include Moonbase::Internal::Type::RequestParameters
+
+      attr_accessor status: Moonbase::Models::WebhookEndpointCreateParams::status
+
+      attr_accessor url: String
+
+      attr_reader subscriptions: ::Array[Moonbase::WebhookEndpointCreateParams::Subscription]?
+
+      def subscriptions=: (
+        ::Array[Moonbase::WebhookEndpointCreateParams::Subscription]
+      ) -> ::Array[Moonbase::WebhookEndpointCreateParams::Subscription]
+
+      def initialize: (
+        status: Moonbase::Models::WebhookEndpointCreateParams::status,
+        url: String,
+        ?subscriptions: ::Array[Moonbase::WebhookEndpointCreateParams::Subscription],
+        ?request_options: Moonbase::request_opts
+      ) -> void
+
+      def to_hash: -> {
+        status: Moonbase::Models::WebhookEndpointCreateParams::status,
+        url: String,
+        subscriptions: ::Array[Moonbase::WebhookEndpointCreateParams::Subscription],
+        request_options: Moonbase::RequestOptions
+      }
+
+      type status = :disabled | :enabled
+
+      module Status
+        extend Moonbase::Internal::Type::Enum
+
+        DISABLED: :disabled
+        ENABLED: :enabled
+
+        def self?.values: -> ::Array[Moonbase::Models::WebhookEndpointCreateParams::status]
+      end
+
+      type subscription =
+        {
+          event_type: Moonbase::Models::WebhookEndpointCreateParams::Subscription::event_type
+        }
+
+      class Subscription < Moonbase::Internal::Type::BaseModel
+        attr_accessor event_type: Moonbase::Models::WebhookEndpointCreateParams::Subscription::event_type
+
+        def initialize: (
+          event_type: Moonbase::Models::WebhookEndpointCreateParams::Subscription::event_type
+        ) -> void
+
+        def to_hash: -> {
+          event_type: Moonbase::Models::WebhookEndpointCreateParams::Subscription::event_type
+        }
+
+        type event_type =
+          :"activity/call_occurred"
+          | :"activity/form_submitted"
+          | :"activity/inbox_message_sent"
+          | :"activity/item_created"
+          | :"activity/item_mentioned"
+          | :"activity/item_merged"
+          | :"activity/meeting_held"
+          | :"activity/meeting_scheduled"
+          | :"activity/note_created"
+          | :"activity/program_message_bounced"
+          | :"activity/program_message_clicked"
+          | :"activity/program_message_complained"
+          | :"activity/program_message_failed"
+          | :"activity/program_message_opened"
+          | :"activity/program_message_sent"
+          | :"activity/program_message_shielded"
+          | :"activity/program_message_unsubscribed"
+
+        module EventType
+          extend Moonbase::Internal::Type::Enum
+
+          ACTIVITY_CALL_OCCURRED: :"activity/call_occurred"
+          ACTIVITY_FORM_SUBMITTED: :"activity/form_submitted"
+          ACTIVITY_INBOX_MESSAGE_SENT: :"activity/inbox_message_sent"
+          ACTIVITY_ITEM_CREATED: :"activity/item_created"
+          ACTIVITY_ITEM_MENTIONED: :"activity/item_mentioned"
+          ACTIVITY_ITEM_MERGED: :"activity/item_merged"
+          ACTIVITY_MEETING_HELD: :"activity/meeting_held"
+          ACTIVITY_MEETING_SCHEDULED: :"activity/meeting_scheduled"
+          ACTIVITY_NOTE_CREATED: :"activity/note_created"
+          ACTIVITY_PROGRAM_MESSAGE_BOUNCED: :"activity/program_message_bounced"
+          ACTIVITY_PROGRAM_MESSAGE_CLICKED: :"activity/program_message_clicked"
+          ACTIVITY_PROGRAM_MESSAGE_COMPLAINED: :"activity/program_message_complained"
+          ACTIVITY_PROGRAM_MESSAGE_FAILED: :"activity/program_message_failed"
+          ACTIVITY_PROGRAM_MESSAGE_OPENED: :"activity/program_message_opened"
+          ACTIVITY_PROGRAM_MESSAGE_SENT: :"activity/program_message_sent"
+          ACTIVITY_PROGRAM_MESSAGE_SHIELDED: :"activity/program_message_shielded"
+          ACTIVITY_PROGRAM_MESSAGE_UNSUBSCRIBED: :"activity/program_message_unsubscribed"
+
+          def self?.values: -> ::Array[Moonbase::Models::WebhookEndpointCreateParams::Subscription::event_type]
+        end
+      end
+    end
+  end
+end

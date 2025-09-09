@@ -13,23 +13,19 @@ class Moonbase::Test::Resources::InboxMessagesTest < Moonbase::Test::ResourceTes
     assert_pattern do
       response => {
         id: String,
-        links: Moonbase::EmailMessage::Links,
-        rfc822_message_id: String,
+        body: Moonbase::FormattedText,
+        bulk: Moonbase::Internal::Type::Boolean,
+        created_at: Time,
+        draft: Moonbase::Internal::Type::Boolean,
+        spam: Moonbase::Internal::Type::Boolean,
         subject: String,
+        trash: Moonbase::Internal::Type::Boolean,
         type: Symbol,
+        unread: Moonbase::Internal::Type::Boolean,
         addresses: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Address]) | nil,
         attachments: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::EmailMessage::Attachment]) | nil,
-        body_html: String | nil,
-        body_plain: String | nil,
-        bulk: Moonbase::Internal::Type::Boolean | nil,
         conversation: Moonbase::InboxConversation | nil,
-        created_at: Time | nil,
-        draft: Moonbase::Internal::Type::Boolean | nil,
-        in_reply_to_rfc822_message_id: String | nil,
-        spam: Moonbase::Internal::Type::Boolean | nil,
-        summary: String | nil,
-        trash: Moonbase::Internal::Type::Boolean | nil,
-        unread: Moonbase::Internal::Type::Boolean | nil
+        summary: String | nil
       }
     end
   end
@@ -51,23 +47,19 @@ class Moonbase::Test::Resources::InboxMessagesTest < Moonbase::Test::ResourceTes
     assert_pattern do
       row => {
         id: String,
-        links: Moonbase::EmailMessage::Links,
-        rfc822_message_id: String,
+        body: Moonbase::FormattedText,
+        bulk: Moonbase::Internal::Type::Boolean,
+        created_at: Time,
+        draft: Moonbase::Internal::Type::Boolean,
+        spam: Moonbase::Internal::Type::Boolean,
         subject: String,
+        trash: Moonbase::Internal::Type::Boolean,
         type: Symbol,
+        unread: Moonbase::Internal::Type::Boolean,
         addresses: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Address]) | nil,
         attachments: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::EmailMessage::Attachment]) | nil,
-        body_html: String | nil,
-        body_plain: String | nil,
-        bulk: Moonbase::Internal::Type::Boolean | nil,
         conversation: Moonbase::InboxConversation | nil,
-        created_at: Time | nil,
-        draft: Moonbase::Internal::Type::Boolean | nil,
-        in_reply_to_rfc822_message_id: String | nil,
-        spam: Moonbase::Internal::Type::Boolean | nil,
-        summary: String | nil,
-        trash: Moonbase::Internal::Type::Boolean | nil,
-        unread: Moonbase::Internal::Type::Boolean | nil
+        summary: String | nil
       }
     end
   end

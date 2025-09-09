@@ -13,13 +13,12 @@ class Moonbase::Test::Resources::NotesTest < Moonbase::Test::ResourceTest
     assert_pattern do
       response => {
         id: String,
-        links: Moonbase::Note::Links,
+        body: Moonbase::FormattedText,
+        created_at: Time,
         type: Symbol,
-        body: String | nil,
-        created_at: Time | nil,
+        updated_at: Time,
         summary: String | nil,
-        title: String | nil,
-        updated_at: Time | nil
+        title: String | nil
       }
     end
   end
@@ -41,13 +40,12 @@ class Moonbase::Test::Resources::NotesTest < Moonbase::Test::ResourceTest
     assert_pattern do
       row => {
         id: String,
-        links: Moonbase::Note::Links,
+        body: Moonbase::FormattedText,
+        created_at: Time,
         type: Symbol,
-        body: String | nil,
-        created_at: Time | nil,
+        updated_at: Time,
         summary: String | nil,
-        title: String | nil,
-        updated_at: Time | nil
+        title: String | nil
       }
     end
   end

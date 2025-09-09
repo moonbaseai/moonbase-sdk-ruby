@@ -11,8 +11,8 @@ module Moonbase
             T::Array[Moonbase::CallCreateParams::Participant::OrHash],
           provider: String,
           provider_id: String,
+          provider_status: String,
           start_at: Time,
-          status: Moonbase::CallCreateParams::Status::OrSymbol,
           answered_at: Time,
           end_at: Time,
           provider_metadata: T::Hash[Symbol, T.anything],
@@ -30,13 +30,13 @@ module Moonbase
         provider:,
         # The unique identifier for the call from the provider's system.
         provider_id:,
-        # The time the call started, as an RFC 3339 timestamp.
-        start_at:,
         # The status of the call.
-        status:,
-        # The time the call was answered, as an RFC 3339 timestamp.
+        provider_status:,
+        # The time the call started, as an ISO 8601 timestamp in UTC.
+        start_at:,
+        # The time the call was answered, as an ISO 8601 timestamp in UTC.
         answered_at: nil,
-        # The time the call ended, as an RFC 3339 timestamp.
+        # The time the call ended, as an ISO 8601 timestamp in UTC.
         end_at: nil,
         # A hash of additional metadata from the provider.
         provider_metadata: nil,
@@ -56,8 +56,8 @@ module Moonbase
             T::Array[Moonbase::CallUpsertParams::Participant::OrHash],
           provider: String,
           provider_id: String,
+          provider_status: String,
           start_at: Time,
-          status: Moonbase::CallUpsertParams::Status::OrSymbol,
           answered_at: Time,
           end_at: Time,
           provider_metadata: T::Hash[Symbol, T.anything],
@@ -75,13 +75,13 @@ module Moonbase
         provider:,
         # The unique identifier for the call from the provider's system.
         provider_id:,
-        # The time the call started, as an RFC 3339 timestamp.
-        start_at:,
         # The status of the call.
-        status:,
-        # The time the call was answered, as an RFC 3339 timestamp.
+        provider_status:,
+        # The time the call started, as an ISO 8601 timestamp in UTC.
+        start_at:,
+        # The time the call was answered, as an ISO 8601 timestamp in UTC.
         answered_at: nil,
-        # The time the call ended, as an RFC 3339 timestamp.
+        # The time the call ended, as an ISO 8601 timestamp in UTC.
         end_at: nil,
         # A hash of additional metadata from the provider.
         provider_metadata: nil,

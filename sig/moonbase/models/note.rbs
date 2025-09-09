@@ -3,29 +3,24 @@ module Moonbase
     type note =
       {
         id: String,
-        links: Moonbase::Note::Links,
-        type: :note,
-        body: String,
+        body: Moonbase::FormattedText,
         created_at: Time,
+        type: :note,
+        updated_at: Time,
         summary: String,
-        title: String,
-        updated_at: Time
+        title: String
       }
 
     class Note < Moonbase::Internal::Type::BaseModel
       attr_accessor id: String
 
-      attr_accessor links: Moonbase::Note::Links
+      attr_accessor body: Moonbase::FormattedText
+
+      attr_accessor created_at: Time
 
       attr_accessor type: :note
 
-      attr_reader body: String?
-
-      def body=: (String) -> String
-
-      attr_reader created_at: Time?
-
-      def created_at=: (Time) -> Time
+      attr_accessor updated_at: Time
 
       attr_reader summary: String?
 
@@ -35,41 +30,25 @@ module Moonbase
 
       def title=: (String) -> String
 
-      attr_reader updated_at: Time?
-
-      def updated_at=: (Time) -> Time
-
       def initialize: (
         id: String,
-        links: Moonbase::Note::Links,
-        ?body: String,
-        ?created_at: Time,
+        body: Moonbase::FormattedText,
+        created_at: Time,
+        updated_at: Time,
         ?summary: String,
         ?title: String,
-        ?updated_at: Time,
         ?type: :note
       ) -> void
 
       def to_hash: -> {
         id: String,
-        links: Moonbase::Note::Links,
-        type: :note,
-        body: String,
+        body: Moonbase::FormattedText,
         created_at: Time,
+        type: :note,
+        updated_at: Time,
         summary: String,
-        title: String,
-        updated_at: Time
+        title: String
       }
-
-      type links = { self_: String }
-
-      class Links < Moonbase::Internal::Type::BaseModel
-        attr_accessor self_: String
-
-        def initialize: (self_: String) -> void
-
-        def to_hash: -> { self_: String }
-      end
     end
   end
 end

@@ -29,19 +29,13 @@ module Moonbase
       sig { params(before: String).void }
       attr_writer :before
 
-      # Filter messages by one or more conversation IDs.
-      sig { returns(T.nilable(T::Array[String])) }
-      attr_reader :conversation
+      sig { returns(T.nilable(Moonbase::InboxMessageListParams::Filter)) }
+      attr_reader :filter
 
-      sig { params(conversation: T::Array[String]).void }
-      attr_writer :conversation
-
-      # Filter messages by one or more inbox IDs.
-      sig { returns(T.nilable(T::Array[String])) }
-      attr_reader :inbox
-
-      sig { params(inbox: T::Array[String]).void }
-      attr_writer :inbox
+      sig do
+        params(filter: Moonbase::InboxMessageListParams::Filter::OrHash).void
+      end
+      attr_writer :filter
 
       # Specifies which related objects to include in the response. Valid options are
       # `addresses`, `attachments`, and `conversation`.
@@ -73,8 +67,7 @@ module Moonbase
         params(
           after: String,
           before: String,
-          conversation: T::Array[String],
-          inbox: T::Array[String],
+          filter: Moonbase::InboxMessageListParams::Filter::OrHash,
           include:
             T::Array[Moonbase::InboxMessageListParams::Include::OrSymbol],
           limit: Integer,
@@ -90,10 +83,7 @@ module Moonbase
         # by this cursor. Use the cursor value from the response's metadata to fetch the
         # previous page of results.
         before: nil,
-        # Filter messages by one or more conversation IDs.
-        conversation: nil,
-        # Filter messages by one or more inbox IDs.
-        inbox: nil,
+        filter: nil,
         # Specifies which related objects to include in the response. Valid options are
         # `addresses`, `attachments`, and `conversation`.
         include: nil,
@@ -109,8 +99,7 @@ module Moonbase
           {
             after: String,
             before: String,
-            conversation: T::Array[String],
-            inbox: T::Array[String],
+            filter: Moonbase::InboxMessageListParams::Filter,
             include:
               T::Array[Moonbase::InboxMessageListParams::Include::OrSymbol],
             limit: Integer,
@@ -119,6 +108,113 @@ module Moonbase
         )
       end
       def to_hash
+      end
+
+      class Filter < Moonbase::Internal::Type::BaseModel
+        OrHash =
+          T.type_alias do
+            T.any(
+              Moonbase::InboxMessageListParams::Filter,
+              Moonbase::Internal::AnyHash
+            )
+          end
+
+        sig do
+          returns(
+            T.nilable(Moonbase::InboxMessageListParams::Filter::ConversationID)
+          )
+        end
+        attr_reader :conversation_id
+
+        sig do
+          params(
+            conversation_id:
+              Moonbase::InboxMessageListParams::Filter::ConversationID::OrHash
+          ).void
+        end
+        attr_writer :conversation_id
+
+        sig do
+          returns(T.nilable(Moonbase::InboxMessageListParams::Filter::InboxID))
+        end
+        attr_reader :inbox_id
+
+        sig do
+          params(
+            inbox_id: Moonbase::InboxMessageListParams::Filter::InboxID::OrHash
+          ).void
+        end
+        attr_writer :inbox_id
+
+        sig do
+          params(
+            conversation_id:
+              Moonbase::InboxMessageListParams::Filter::ConversationID::OrHash,
+            inbox_id: Moonbase::InboxMessageListParams::Filter::InboxID::OrHash
+          ).returns(T.attached_class)
+        end
+        def self.new(conversation_id: nil, inbox_id: nil)
+        end
+
+        sig do
+          override.returns(
+            {
+              conversation_id:
+                Moonbase::InboxMessageListParams::Filter::ConversationID,
+              inbox_id: Moonbase::InboxMessageListParams::Filter::InboxID
+            }
+          )
+        end
+        def to_hash
+        end
+
+        class ConversationID < Moonbase::Internal::Type::BaseModel
+          OrHash =
+            T.type_alias do
+              T.any(
+                Moonbase::InboxMessageListParams::Filter::ConversationID,
+                Moonbase::Internal::AnyHash
+              )
+            end
+
+          sig { returns(T.nilable(String)) }
+          attr_reader :eq
+
+          sig { params(eq: String).void }
+          attr_writer :eq
+
+          sig { params(eq: String).returns(T.attached_class) }
+          def self.new(eq: nil)
+          end
+
+          sig { override.returns({ eq: String }) }
+          def to_hash
+          end
+        end
+
+        class InboxID < Moonbase::Internal::Type::BaseModel
+          OrHash =
+            T.type_alias do
+              T.any(
+                Moonbase::InboxMessageListParams::Filter::InboxID,
+                Moonbase::Internal::AnyHash
+              )
+            end
+
+          sig { returns(T.nilable(String)) }
+          attr_reader :eq
+
+          sig { params(eq: String).void }
+          attr_writer :eq
+
+          sig { params(eq: String).returns(T.attached_class) }
+          def self.new(eq: nil)
+          end
+
+          sig { override.returns({ eq: String }) }
+          def to_hash
+          end
+        end
       end
 
       module Include

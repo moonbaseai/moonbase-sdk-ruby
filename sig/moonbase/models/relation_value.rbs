@@ -1,15 +1,19 @@
 module Moonbase
   module Models
-    type relation_value = { item: Moonbase::Item, type: :"value/relation" }
+    type relation_value =
+      { item: Moonbase::ItemPointer, type: :"value/relation" }
 
     class RelationValue < Moonbase::Internal::Type::BaseModel
-      attr_accessor item: Moonbase::Item
+      attr_accessor item: Moonbase::ItemPointer
 
       attr_accessor type: :"value/relation"
 
-      def initialize: (item: Moonbase::Item, ?type: :"value/relation") -> void
+      def initialize: (
+        item: Moonbase::ItemPointer,
+        ?type: :"value/relation"
+      ) -> void
 
-      def to_hash: -> { item: Moonbase::Item, type: :"value/relation" }
+      def to_hash: -> { item: Moonbase::ItemPointer, type: :"value/relation" }
     end
   end
 end

@@ -1,12 +1,12 @@
 module Moonbase
   module Resources
     class ProgramMessages
-      def create: (
-        person: Moonbase::ProgramMessageCreateParams::Person,
+      def send_: (
+        person: Moonbase::ProgramMessageSendParams::Person,
         program_template_id: String,
         ?custom_variables: ::Hash[Symbol, top],
         ?request_options: Moonbase::request_opts
-      ) -> Moonbase::Models::ProgramMessageCreateResponse
+      ) -> Moonbase::ProgramMessage
 
       def initialize: (client: Moonbase::Client) -> void
     end

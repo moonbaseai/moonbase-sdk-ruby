@@ -14,7 +14,7 @@ module Moonbase
         #
         # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
         #
-        # @return [Moonbase::Models::Field]
+        # @return [Moonbase::Models::SingleLineTextField, Moonbase::Models::MultiLineTextField, Moonbase::Models::IntegerField, Moonbase::Models::FloatField, Moonbase::Models::MonetaryField, Moonbase::Models::PercentageField, Moonbase::Models::BooleanField, Moonbase::Models::EmailField, Moonbase::Models::URLField, Moonbase::Models::DomainField, Moonbase::Models::SocialXField, Moonbase::Models::SocialLinkedInField, Moonbase::Models::TelephoneNumberField, Moonbase::Models::GeoField, Moonbase::Models::DateField, Moonbase::Models::DatetimeField, Moonbase::Models::ChoiceField, Moonbase::Models::StageField, Moonbase::Models::RelationField]
         #
         # @see Moonbase::Models::Collections::FieldRetrieveParams
         def retrieve(id, params)

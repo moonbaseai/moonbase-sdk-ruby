@@ -2,37 +2,33 @@ module Moonbase
   module Models
     type social_linked_in_value =
       {
-        profile: Moonbase::SocialLinkedInValue::Profile,
+        data: Moonbase::SocialLinkedInValue::Data,
         type: :"value/uri/social_linked_in"
       }
 
     class SocialLinkedInValue < Moonbase::Internal::Type::BaseModel
-      attr_accessor profile: Moonbase::SocialLinkedInValue::Profile
+      attr_accessor data: Moonbase::SocialLinkedInValue::Data
 
       attr_accessor type: :"value/uri/social_linked_in"
 
       def initialize: (
-        profile: Moonbase::SocialLinkedInValue::Profile,
+        data: Moonbase::SocialLinkedInValue::Data,
         ?type: :"value/uri/social_linked_in"
       ) -> void
 
       def to_hash: -> {
-        profile: Moonbase::SocialLinkedInValue::Profile,
+        data: Moonbase::SocialLinkedInValue::Data,
         type: :"value/uri/social_linked_in"
       }
 
-      type profile = { url: String, username: String }
+      type data = { url: String, username: String }
 
-      class Profile < Moonbase::Internal::Type::BaseModel
-        attr_reader url: String?
+      class Data < Moonbase::Internal::Type::BaseModel
+        attr_accessor url: String
 
-        def url=: (String) -> String
+        attr_accessor username: String
 
-        attr_reader username: String?
-
-        def username=: (String) -> String
-
-        def initialize: (?url: String, ?username: String) -> void
+        def initialize: (url: String, username: String) -> void
 
         def to_hash: -> { url: String, username: String }
       end

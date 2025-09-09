@@ -9,19 +9,17 @@ module Moonbase
         end
 
       sig { returns(T::Boolean) }
-      attr_accessor :boolean
+      attr_accessor :data
 
       sig { returns(Symbol) }
       attr_accessor :type
 
       # True or false value
-      sig do
-        params(boolean: T::Boolean, type: Symbol).returns(T.attached_class)
-      end
-      def self.new(boolean:, type: :"value/boolean")
+      sig { params(data: T::Boolean, type: Symbol).returns(T.attached_class) }
+      def self.new(data:, type: :"value/boolean")
       end
 
-      sig { override.returns({ boolean: T::Boolean, type: Symbol }) }
+      sig { override.returns({ data: T::Boolean, type: Symbol }) }
       def to_hash
       end
     end

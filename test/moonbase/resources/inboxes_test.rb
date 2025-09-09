@@ -13,12 +13,11 @@ class Moonbase::Test::Resources::InboxesTest < Moonbase::Test::ResourceTest
     assert_pattern do
       response => {
         id: String,
-        links: Moonbase::Inbox::Links,
+        created_at: Time,
         name: String,
         type: Symbol,
-        created_at: Time | nil,
-        tagset: Moonbase::Tagset | nil,
-        updated_at: Time | nil
+        updated_at: Time,
+        tagset: Moonbase::Tagset | nil
       }
     end
   end
@@ -40,12 +39,11 @@ class Moonbase::Test::Resources::InboxesTest < Moonbase::Test::ResourceTest
     assert_pattern do
       row => {
         id: String,
-        links: Moonbase::Inbox::Links,
+        created_at: Time,
         name: String,
         type: Symbol,
-        created_at: Time | nil,
-        tagset: Moonbase::Tagset | nil,
-        updated_at: Time | nil
+        updated_at: Time,
+        tagset: Moonbase::Tagset | nil
       }
     end
   end

@@ -1,0 +1,30 @@
+module Moonbase
+  module Models
+    type choice_value_param =
+      { data: Moonbase::Models::ChoiceValueParam::data, type: :"value/choice" }
+
+    class ChoiceValueParam < Moonbase::Internal::Type::BaseModel
+      attr_accessor data: Moonbase::Models::ChoiceValueParam::data
+
+      attr_accessor type: :"value/choice"
+
+      def initialize: (
+        data: Moonbase::Models::ChoiceValueParam::data,
+        ?type: :"value/choice"
+      ) -> void
+
+      def to_hash: -> {
+        data: Moonbase::Models::ChoiceValueParam::data,
+        type: :"value/choice"
+      }
+
+      type data = Moonbase::ChoiceFieldOption | Moonbase::Pointer
+
+      module Data
+        extend Moonbase::Internal::Type::Union
+
+        def self?.variants: -> ::Array[Moonbase::Models::ChoiceValueParam::data]
+      end
+    end
+  end
+end

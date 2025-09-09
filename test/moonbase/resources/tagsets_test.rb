@@ -13,13 +13,12 @@ class Moonbase::Test::Resources::TagsetsTest < Moonbase::Test::ResourceTest
     assert_pattern do
       response => {
         id: String,
-        links: Moonbase::Tagset::Links,
+        created_at: Time,
         name: String,
+        tags: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Tagset::Tag]),
         type: Symbol,
-        created_at: Time | nil,
-        description: String | nil,
-        tags: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Tagset::Tag]) | nil,
-        updated_at: Time | nil
+        updated_at: Time,
+        description: String | nil
       }
     end
   end
@@ -41,13 +40,12 @@ class Moonbase::Test::Resources::TagsetsTest < Moonbase::Test::ResourceTest
     assert_pattern do
       row => {
         id: String,
-        links: Moonbase::Tagset::Links,
+        created_at: Time,
         name: String,
+        tags: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Tagset::Tag]),
         type: Symbol,
-        created_at: Time | nil,
-        description: String | nil,
-        tags: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Tagset::Tag]) | nil,
-        updated_at: Time | nil
+        updated_at: Time,
+        description: String | nil
       }
     end
   end

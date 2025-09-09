@@ -5,9 +5,9 @@ module Moonbase
     class ProgramMessages
       # Sends a message using a program template.
       #
-      # @overload create(person:, program_template_id:, custom_variables: nil, request_options: {})
+      # @overload send_(person:, program_template_id:, custom_variables: nil, request_options: {})
       #
-      # @param person [Moonbase::Models::ProgramMessageCreateParams::Person] The person to send the message to.
+      # @param person [Moonbase::Models::ProgramMessageSendParams::Person] The person to send the message to.
       #
       # @param program_template_id [String] The ID of the `ProgramTemplate` to use for sending the message.
       #
@@ -15,16 +15,16 @@ module Moonbase
       #
       # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
       #
-      # @return [Moonbase::Models::ProgramMessageCreateResponse]
+      # @return [Moonbase::Models::ProgramMessage]
       #
-      # @see Moonbase::Models::ProgramMessageCreateParams
-      def create(params)
-        parsed, options = Moonbase::ProgramMessageCreateParams.dump_request(params)
+      # @see Moonbase::Models::ProgramMessageSendParams
+      def send_(params)
+        parsed, options = Moonbase::ProgramMessageSendParams.dump_request(params)
         @client.request(
           method: :post,
           path: "program_messages",
           body: parsed,
-          model: Moonbase::Models::ProgramMessageCreateResponse,
+          model: Moonbase::ProgramMessage,
           options: options
         )
       end

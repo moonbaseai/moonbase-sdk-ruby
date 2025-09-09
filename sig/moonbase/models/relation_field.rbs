@@ -1,0 +1,99 @@
+module Moonbase
+  module Models
+    type relation_field =
+      {
+        id: String,
+        cardinality: Moonbase::Models::RelationField::cardinality,
+        created_at: Time,
+        name: String,
+        readonly: bool,
+        ref: String,
+        relation_type: Moonbase::Models::RelationField::relation_type,
+        required: bool,
+        type: :"field/relation",
+        unique: bool,
+        updated_at: Time,
+        description: String
+      }
+
+    class RelationField < Moonbase::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor cardinality: Moonbase::Models::RelationField::cardinality
+
+      attr_accessor created_at: Time
+
+      attr_accessor name: String
+
+      attr_accessor readonly: bool
+
+      attr_accessor ref: String
+
+      attr_accessor relation_type: Moonbase::Models::RelationField::relation_type
+
+      attr_accessor required: bool
+
+      attr_accessor type: :"field/relation"
+
+      attr_accessor unique: bool
+
+      attr_accessor updated_at: Time
+
+      attr_reader description: String?
+
+      def description=: (String) -> String
+
+      def initialize: (
+        id: String,
+        cardinality: Moonbase::Models::RelationField::cardinality,
+        created_at: Time,
+        name: String,
+        readonly: bool,
+        ref: String,
+        relation_type: Moonbase::Models::RelationField::relation_type,
+        required: bool,
+        unique: bool,
+        updated_at: Time,
+        ?description: String,
+        ?type: :"field/relation"
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        cardinality: Moonbase::Models::RelationField::cardinality,
+        created_at: Time,
+        name: String,
+        readonly: bool,
+        ref: String,
+        relation_type: Moonbase::Models::RelationField::relation_type,
+        required: bool,
+        type: :"field/relation",
+        unique: bool,
+        updated_at: Time,
+        description: String
+      }
+
+      type cardinality = :one | :many
+
+      module Cardinality
+        extend Moonbase::Internal::Type::Enum
+
+        ONE: :one
+        MANY: :many
+
+        def self?.values: -> ::Array[Moonbase::Models::RelationField::cardinality]
+      end
+
+      type relation_type = :one_way | :two_way
+
+      module RelationType
+        extend Moonbase::Internal::Type::Enum
+
+        ONE_WAY: :one_way
+        TWO_WAY: :two_way
+
+        def self?.values: -> ::Array[Moonbase::Models::RelationField::relation_type]
+      end
+    end
+  end
+end

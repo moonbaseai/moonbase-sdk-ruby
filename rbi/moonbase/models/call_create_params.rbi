@@ -27,22 +27,22 @@ module Moonbase
       sig { returns(String) }
       attr_accessor :provider_id
 
-      # The time the call started, as an RFC 3339 timestamp.
+      # The status of the call.
+      sig { returns(String) }
+      attr_accessor :provider_status
+
+      # The time the call started, as an ISO 8601 timestamp in UTC.
       sig { returns(Time) }
       attr_accessor :start_at
 
-      # The status of the call.
-      sig { returns(Moonbase::CallCreateParams::Status::OrSymbol) }
-      attr_accessor :status
-
-      # The time the call was answered, as an RFC 3339 timestamp.
+      # The time the call was answered, as an ISO 8601 timestamp in UTC.
       sig { returns(T.nilable(Time)) }
       attr_reader :answered_at
 
       sig { params(answered_at: Time).void }
       attr_writer :answered_at
 
-      # The time the call ended, as an RFC 3339 timestamp.
+      # The time the call ended, as an ISO 8601 timestamp in UTC.
       sig { returns(T.nilable(Time)) }
       attr_reader :end_at
 
@@ -85,8 +85,8 @@ module Moonbase
             T::Array[Moonbase::CallCreateParams::Participant::OrHash],
           provider: String,
           provider_id: String,
+          provider_status: String,
           start_at: Time,
-          status: Moonbase::CallCreateParams::Status::OrSymbol,
           answered_at: Time,
           end_at: Time,
           provider_metadata: T::Hash[Symbol, T.anything],
@@ -104,13 +104,13 @@ module Moonbase
         provider:,
         # The unique identifier for the call from the provider's system.
         provider_id:,
-        # The time the call started, as an RFC 3339 timestamp.
-        start_at:,
         # The status of the call.
-        status:,
-        # The time the call was answered, as an RFC 3339 timestamp.
+        provider_status:,
+        # The time the call started, as an ISO 8601 timestamp in UTC.
+        start_at:,
+        # The time the call was answered, as an ISO 8601 timestamp in UTC.
         answered_at: nil,
-        # The time the call ended, as an RFC 3339 timestamp.
+        # The time the call ended, as an ISO 8601 timestamp in UTC.
         end_at: nil,
         # A hash of additional metadata from the provider.
         provider_metadata: nil,
@@ -129,8 +129,8 @@ module Moonbase
             participants: T::Array[Moonbase::CallCreateParams::Participant],
             provider: String,
             provider_id: String,
+            provider_status: String,
             start_at: Time,
-            status: Moonbase::CallCreateParams::Status::OrSymbol,
             answered_at: Time,
             end_at: Time,
             provider_metadata: T::Hash[Symbol, T.anything],
@@ -243,49 +243,6 @@ module Moonbase
           end
           def self.values
           end
-        end
-      end
-
-      # The status of the call.
-      module Status
-        extend Moonbase::Internal::Type::Enum
-
-        TaggedSymbol =
-          T.type_alias { T.all(Symbol, Moonbase::CallCreateParams::Status) }
-        OrSymbol = T.type_alias { T.any(Symbol, String) }
-
-        QUEUED =
-          T.let(:queued, Moonbase::CallCreateParams::Status::TaggedSymbol)
-        INITIATED =
-          T.let(:initiated, Moonbase::CallCreateParams::Status::TaggedSymbol)
-        RINGING =
-          T.let(:ringing, Moonbase::CallCreateParams::Status::TaggedSymbol)
-        IN_PROGRESS =
-          T.let(:in_progress, Moonbase::CallCreateParams::Status::TaggedSymbol)
-        COMPLETED =
-          T.let(:completed, Moonbase::CallCreateParams::Status::TaggedSymbol)
-        BUSY = T.let(:busy, Moonbase::CallCreateParams::Status::TaggedSymbol)
-        FAILED =
-          T.let(:failed, Moonbase::CallCreateParams::Status::TaggedSymbol)
-        NO_ANSWER =
-          T.let(:no_answer, Moonbase::CallCreateParams::Status::TaggedSymbol)
-        CANCELED =
-          T.let(:canceled, Moonbase::CallCreateParams::Status::TaggedSymbol)
-        MISSED =
-          T.let(:missed, Moonbase::CallCreateParams::Status::TaggedSymbol)
-        ANSWERED =
-          T.let(:answered, Moonbase::CallCreateParams::Status::TaggedSymbol)
-        FORWARDED =
-          T.let(:forwarded, Moonbase::CallCreateParams::Status::TaggedSymbol)
-        ABANDONED =
-          T.let(:abandoned, Moonbase::CallCreateParams::Status::TaggedSymbol)
-
-        sig do
-          override.returns(
-            T::Array[Moonbase::CallCreateParams::Status::TaggedSymbol]
-          )
-        end
-        def self.values
         end
       end
 

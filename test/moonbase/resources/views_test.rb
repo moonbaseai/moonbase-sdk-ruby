@@ -13,11 +13,12 @@ class Moonbase::Test::Resources::ViewsTest < Moonbase::Test::ResourceTest
     assert_pattern do
       response => {
         id: String,
-        links: Moonbase::View::Links,
+        created_at: Time,
         name: String,
         type: Symbol,
-        collection: Moonbase::Collection | nil,
-        view_type: Moonbase::View::ViewType | nil
+        updated_at: Time,
+        view_type: Moonbase::View::ViewType,
+        collection: Moonbase::Collection | nil
       }
     end
   end

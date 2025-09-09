@@ -10,7 +10,7 @@ module Moonbase
             id: String,
             collection_id: String,
             request_options: Moonbase::RequestOptions::OrHash
-          ).returns(Moonbase::Field)
+          ).returns(Moonbase::Field::Variants)
         end
         def retrieve(
           # The ID or `ref` of the Field to retrieve.

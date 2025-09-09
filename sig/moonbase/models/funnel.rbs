@@ -1,0 +1,26 @@
+module Moonbase
+  module Models
+    type funnel =
+      { id: String, steps: ::Array[Moonbase::FunnelStep], type: :funnel }
+
+    class Funnel < Moonbase::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor steps: ::Array[Moonbase::FunnelStep]
+
+      attr_accessor type: :funnel
+
+      def initialize: (
+        id: String,
+        steps: ::Array[Moonbase::FunnelStep],
+        ?type: :funnel
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        steps: ::Array[Moonbase::FunnelStep],
+        type: :funnel
+      }
+    end
+  end
+end

@@ -1,0 +1,15 @@
+module Moonbase
+  module Models
+    type formatted_text = { markdown: String }
+
+    class FormattedText < Moonbase::Internal::Type::BaseModel
+      attr_reader markdown: String?
+
+      def markdown=: (String) -> String
+
+      def initialize: (?markdown: String) -> void
+
+      def to_hash: -> { markdown: String }
+    end
+  end
+end

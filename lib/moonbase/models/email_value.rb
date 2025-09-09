@@ -3,20 +3,22 @@
 module Moonbase
   module Models
     class EmailValue < Moonbase::Internal::Type::BaseModel
-      # @!attribute email
+      # @!attribute data
+      #   A valid email address.
       #
       #   @return [String]
-      required :email, String
+      required :data, String
 
       # @!attribute type
       #
       #   @return [Symbol, :"value/email"]
       required :type, const: :"value/email"
 
-      # @!method initialize(email:, type: :"value/email")
+      # @!method initialize(data:, type: :"value/email")
       #   Email address value
       #
-      #   @param email [String]
+      #   @param data [String] A valid email address.
+      #
       #   @param type [Symbol, :"value/email"]
     end
   end

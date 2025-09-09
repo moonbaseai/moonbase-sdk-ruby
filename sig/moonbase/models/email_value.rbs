@@ -1,15 +1,15 @@
 module Moonbase
   module Models
-    type email_value = { email: String, type: :"value/email" }
+    type email_value = { data: String, type: :"value/email" }
 
     class EmailValue < Moonbase::Internal::Type::BaseModel
-      attr_accessor email: String
+      attr_accessor data: String
 
       attr_accessor type: :"value/email"
 
-      def initialize: (email: String, ?type: :"value/email") -> void
+      def initialize: (data: String, ?type: :"value/email") -> void
 
-      def to_hash: -> { email: String, type: :"value/email" }
+      def to_hash: -> { data: String, type: :"value/email" }
     end
   end
 end

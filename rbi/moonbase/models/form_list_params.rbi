@@ -29,22 +29,6 @@ module Moonbase
       sig { params(before: String).void }
       attr_writer :before
 
-      # Specifies which related objects to include in the response. Valid option is
-      # `collection.fields`.
-      sig do
-        returns(
-          T.nilable(T::Array[Moonbase::FormListParams::Include::OrSymbol])
-        )
-      end
-      attr_reader :include
-
-      sig do
-        params(
-          include: T::Array[Moonbase::FormListParams::Include::OrSymbol]
-        ).void
-      end
-      attr_writer :include
-
       # Maximum number of items to return per page. Must be between 1 and 100. Defaults
       # to 20 if not specified.
       sig { returns(T.nilable(Integer)) }
@@ -57,7 +41,6 @@ module Moonbase
         params(
           after: String,
           before: String,
-          include: T::Array[Moonbase::FormListParams::Include::OrSymbol],
           limit: Integer,
           request_options: Moonbase::RequestOptions::OrHash
         ).returns(T.attached_class)
@@ -71,9 +54,6 @@ module Moonbase
         # by this cursor. Use the cursor value from the response's metadata to fetch the
         # previous page of results.
         before: nil,
-        # Specifies which related objects to include in the response. Valid option is
-        # `collection.fields`.
-        include: nil,
         # Maximum number of items to return per page. Must be between 1 and 100. Defaults
         # to 20 if not specified.
         limit: nil,
@@ -86,35 +66,12 @@ module Moonbase
           {
             after: String,
             before: String,
-            include: T::Array[Moonbase::FormListParams::Include::OrSymbol],
             limit: Integer,
             request_options: Moonbase::RequestOptions
           }
         )
       end
       def to_hash
-      end
-
-      module Include
-        extend Moonbase::Internal::Type::Enum
-
-        TaggedSymbol =
-          T.type_alias { T.all(Symbol, Moonbase::FormListParams::Include) }
-        OrSymbol = T.type_alias { T.any(Symbol, String) }
-
-        COLLECTION_FIELDS =
-          T.let(
-            :"collection.fields",
-            Moonbase::FormListParams::Include::TaggedSymbol
-          )
-
-        sig do
-          override.returns(
-            T::Array[Moonbase::FormListParams::Include::TaggedSymbol]
-          )
-        end
-        def self.values
-        end
       end
     end
   end

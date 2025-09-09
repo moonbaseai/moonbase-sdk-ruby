@@ -3,73 +3,50 @@ module Moonbase
     type tagset =
       {
         id: String,
-        links: Moonbase::Tagset::Links,
-        name: String,
-        type: :tagset,
         created_at: Time,
-        description: String,
+        name: String,
         tags: ::Array[Moonbase::Tagset::Tag],
-        updated_at: Time
+        type: :tagset,
+        updated_at: Time,
+        description: String
       }
 
     class Tagset < Moonbase::Internal::Type::BaseModel
       attr_accessor id: String
 
-      attr_accessor links: Moonbase::Tagset::Links
+      attr_accessor created_at: Time
 
       attr_accessor name: String
 
+      attr_accessor tags: ::Array[Moonbase::Tagset::Tag]
+
       attr_accessor type: :tagset
 
-      attr_reader created_at: Time?
-
-      def created_at=: (Time) -> Time
+      attr_accessor updated_at: Time
 
       attr_reader description: String?
 
       def description=: (String) -> String
 
-      attr_reader tags: ::Array[Moonbase::Tagset::Tag]?
-
-      def tags=: (
-        ::Array[Moonbase::Tagset::Tag]
-      ) -> ::Array[Moonbase::Tagset::Tag]
-
-      attr_reader updated_at: Time?
-
-      def updated_at=: (Time) -> Time
-
       def initialize: (
         id: String,
-        links: Moonbase::Tagset::Links,
+        created_at: Time,
         name: String,
-        ?created_at: Time,
+        tags: ::Array[Moonbase::Tagset::Tag],
+        updated_at: Time,
         ?description: String,
-        ?tags: ::Array[Moonbase::Tagset::Tag],
-        ?updated_at: Time,
         ?type: :tagset
       ) -> void
 
       def to_hash: -> {
         id: String,
-        links: Moonbase::Tagset::Links,
-        name: String,
-        type: :tagset,
         created_at: Time,
-        description: String,
+        name: String,
         tags: ::Array[Moonbase::Tagset::Tag],
-        updated_at: Time
+        type: :tagset,
+        updated_at: Time,
+        description: String
       }
-
-      type links = { self_: String }
-
-      class Links < Moonbase::Internal::Type::BaseModel
-        attr_accessor self_: String
-
-        def initialize: (self_: String) -> void
-
-        def to_hash: -> { self_: String }
-      end
 
       type tag = { id: String, name: String, type: :tag }
 

@@ -1,7 +1,12 @@
 module Moonbase
   module Models
     type inbox_list_params =
-      { after: String, before: String, limit: Integer }
+      {
+        after: String,
+        before: String,
+        include: Moonbase::Models::InboxListParams::include_,
+        limit: Integer
+      }
       & Moonbase::Internal::Type::request_parameters
 
     class InboxListParams < Moonbase::Internal::Type::BaseModel
@@ -16,6 +21,12 @@ module Moonbase
 
       def before=: (String) -> String
 
+      attr_reader include: Moonbase::Models::InboxListParams::include_?
+
+      def include=: (
+        Moonbase::Models::InboxListParams::include_
+      ) -> Moonbase::Models::InboxListParams::include_
+
       attr_reader limit: Integer?
 
       def limit=: (Integer) -> Integer
@@ -23,6 +34,7 @@ module Moonbase
       def initialize: (
         ?after: String,
         ?before: String,
+        ?include: Moonbase::Models::InboxListParams::include_,
         ?limit: Integer,
         ?request_options: Moonbase::request_opts
       ) -> void
@@ -30,9 +42,20 @@ module Moonbase
       def to_hash: -> {
         after: String,
         before: String,
+        include: Moonbase::Models::InboxListParams::include_,
         limit: Integer,
         request_options: Moonbase::RequestOptions
       }
+
+      type include_ = :tagset
+
+      module Include
+        extend Moonbase::Internal::Type::Enum
+
+        TAGSET: :tagset
+
+        def self?.values: -> ::Array[Moonbase::Models::InboxListParams::include_]
+      end
     end
   end
 end
