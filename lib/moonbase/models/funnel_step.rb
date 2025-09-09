@@ -3,43 +3,53 @@
 module Moonbase
   module Models
     class FunnelStep < Moonbase::Internal::Type::BaseModel
-      # @!attribute step
+      # @!attribute id
+      #   Unique identifier for the object.
       #
-      #   @return [Moonbase::Models::FunnelStep::Step]
-      required :step, -> { Moonbase::FunnelStep::Step }
+      #   @return [String]
+      required :id, String
+
+      # @!attribute name
+      #   The name of the step.
+      #
+      #   @return [String]
+      required :name, String
+
+      # @!attribute step_type
+      #   The type of step, which can be `active`, `success`, or `failure`.
+      #
+      #   @return [Symbol, Moonbase::Models::FunnelStep::StepType]
+      required :step_type, enum: -> { Moonbase::FunnelStep::StepType }
 
       # @!attribute type
+      #   String representing the object’s type. Always `funnel_step` for this object.
       #
-      #   @return [Symbol, :"value/funnel_step"]
-      required :type, const: :"value/funnel_step"
+      #   @return [Symbol, :funnel_step]
+      required :type, const: :funnel_step
 
-      # @!method initialize(step:, type: :"value/funnel_step")
-      #   Funnel step value
+      # @!method initialize(id:, name:, step_type:, type: :funnel_step)
+      #   Represents a single step within a `Funnel`.
       #
-      #   @param step [Moonbase::Models::FunnelStep::Step]
-      #   @param type [Symbol, :"value/funnel_step"]
+      #   @param id [String] Unique identifier for the object.
+      #
+      #   @param name [String] The name of the step.
+      #
+      #   @param step_type [Symbol, Moonbase::Models::FunnelStep::StepType] The type of step, which can be `active`, `success`, or `failure`.
+      #
+      #   @param type [Symbol, :funnel_step] String representing the object’s type. Always `funnel_step` for this object.
 
-      # @see Moonbase::Models::FunnelStep#step
-      class Step < Moonbase::Internal::Type::BaseModel
-        # @!attribute id
-        #
-        #   @return [String]
-        required :id, String
+      # The type of step, which can be `active`, `success`, or `failure`.
+      #
+      # @see Moonbase::Models::FunnelStep#step_type
+      module StepType
+        extend Moonbase::Internal::Type::Enum
 
-        # @!attribute type
-        #
-        #   @return [Symbol, :funnel_step]
-        required :type, const: :funnel_step
+        ACTIVE = :active
+        SUCCESS = :success
+        FAILURE = :failure
 
-        # @!attribute name
-        #
-        #   @return [String, nil]
-        optional :name, String
-
-        # @!method initialize(id:, name: nil, type: :funnel_step)
-        #   @param id [String]
-        #   @param name [String]
-        #   @param type [Symbol, :funnel_step]
+        # @!method self.values
+        #   @return [Array<Symbol>]
       end
     end
   end

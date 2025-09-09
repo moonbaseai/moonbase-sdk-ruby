@@ -3,22 +3,21 @@
 require_relative "../test_helper"
 
 class Moonbase::Test::Resources::ProgramMessagesTest < Moonbase::Test::ResourceTest
-  def test_create_required_params
+  def test_send__required_params
     response =
-      @moonbase.program_messages.create(
-        person: {email: "person-57@example-57.com"},
-        program_template_id: "1CSFjSwiF8LXS8a3ERBwp3"
+      @moonbase.program_messages.send_(
+        person: {email: "person-18@example-18.com"},
+        program_template_id: "1CLJt2v1MsDbov8DBEEeWH"
       )
 
     assert_pattern do
-      response => Moonbase::Models::ProgramMessageCreateResponse
+      response => Moonbase::ProgramMessage
     end
 
     assert_pattern do
       response => {
         id: String,
         created_at: Time,
-        links: Moonbase::Models::ProgramMessageCreateResponse::Links,
         program_template: Moonbase::ProgramTemplate,
         type: Symbol,
         updated_at: Time

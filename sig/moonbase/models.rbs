@@ -1,13 +1,49 @@
 module Moonbase
   module Activity = Moonbase::Models::Activity
 
+  class ActivityCallOccurred = Moonbase::Models::ActivityCallOccurred
+
+  class ActivityFormSubmitted = Moonbase::Models::ActivityFormSubmitted
+
+  class ActivityInboxMessageSent = Moonbase::Models::ActivityInboxMessageSent
+
+  class ActivityItemCreated = Moonbase::Models::ActivityItemCreated
+
+  class ActivityItemMentioned = Moonbase::Models::ActivityItemMentioned
+
+  class ActivityItemMerged = Moonbase::Models::ActivityItemMerged
+
   class ActivityListParams = Moonbase::Models::ActivityListParams
+
+  class ActivityMeetingHeld = Moonbase::Models::ActivityMeetingHeld
+
+  class ActivityMeetingScheduled = Moonbase::Models::ActivityMeetingScheduled
+
+  class ActivityNoteCreated = Moonbase::Models::ActivityNoteCreated
+
+  class ActivityProgramMessageBounced = Moonbase::Models::ActivityProgramMessageBounced
+
+  class ActivityProgramMessageClicked = Moonbase::Models::ActivityProgramMessageClicked
+
+  class ActivityProgramMessageComplained = Moonbase::Models::ActivityProgramMessageComplained
+
+  class ActivityProgramMessageFailed = Moonbase::Models::ActivityProgramMessageFailed
+
+  class ActivityProgramMessageOpened = Moonbase::Models::ActivityProgramMessageOpened
+
+  class ActivityProgramMessageSent = Moonbase::Models::ActivityProgramMessageSent
+
+  class ActivityProgramMessageShielded = Moonbase::Models::ActivityProgramMessageShielded
+
+  class ActivityProgramMessageUnsubscribed = Moonbase::Models::ActivityProgramMessageUnsubscribed
 
   class ActivityRetrieveParams = Moonbase::Models::ActivityRetrieveParams
 
   class Address = Moonbase::Models::Address
 
   class Attendee = Moonbase::Models::Attendee
+
+  class BooleanField = Moonbase::Models::BooleanField
 
   class BooleanValue = Moonbase::Models::BooleanValue
 
@@ -17,45 +53,77 @@ module Moonbase
 
   class CallUpsertParams = Moonbase::Models::CallUpsertParams
 
-  class Choice = Moonbase::Models::Choice
+  class ChoiceField = Moonbase::Models::ChoiceField
+
+  class ChoiceFieldOption = Moonbase::Models::ChoiceFieldOption
+
+  class ChoiceValue = Moonbase::Models::ChoiceValue
+
+  class ChoiceValueParam = Moonbase::Models::ChoiceValueParam
 
   class Collection = Moonbase::Models::Collection
 
   class CollectionListParams = Moonbase::Models::CollectionListParams
 
+  class CollectionPointer = Moonbase::Models::CollectionPointer
+
   class CollectionRetrieveParams = Moonbase::Models::CollectionRetrieveParams
 
   module Collections = Moonbase::Models::Collections
+
+  class DateField = Moonbase::Models::DateField
+
+  class DatetimeField = Moonbase::Models::DatetimeField
 
   class DatetimeValue = Moonbase::Models::DatetimeValue
 
   class DateValue = Moonbase::Models::DateValue
 
+  class DomainField = Moonbase::Models::DomainField
+
   class DomainValue = Moonbase::Models::DomainValue
+
+  class EmailField = Moonbase::Models::EmailField
 
   class EmailMessage = Moonbase::Models::EmailMessage
 
   class EmailValue = Moonbase::Models::EmailValue
 
+  class Endpoint = Moonbase::Models::Endpoint
+
   class Error = Moonbase::Models::Error
 
-  class Field = Moonbase::Models::Field
+  module Field = Moonbase::Models::Field
 
   module FieldValue = Moonbase::Models::FieldValue
+
+  module FieldValueParam = Moonbase::Models::FieldValueParam
 
   class FileListParams = Moonbase::Models::FileListParams
 
   class FileRetrieveParams = Moonbase::Models::FileRetrieveParams
 
+  class FloatField = Moonbase::Models::FloatField
+
   class FloatValue = Moonbase::Models::FloatValue
 
   class Form = Moonbase::Models::Form
+
+  class FormattedText = Moonbase::Models::FormattedText
 
   class FormListParams = Moonbase::Models::FormListParams
 
   class FormRetrieveParams = Moonbase::Models::FormRetrieveParams
 
+  class Funnel = Moonbase::Models::Funnel
+
   class FunnelStep = Moonbase::Models::FunnelStep
+
+  class FunnelStepValue = Moonbase::Models::FunnelStepValue
+
+  class FunnelStepValueParam = Moonbase::Models::FunnelStepValueParam
+
+  class GeoField = Moonbase::Models::GeoField
 
   class GeoValue = Moonbase::Models::GeoValue
 
@@ -75,19 +143,13 @@ module Moonbase
 
   class InboxRetrieveParams = Moonbase::Models::InboxRetrieveParams
 
+  class IntegerField = Moonbase::Models::IntegerField
+
   class IntegerValue = Moonbase::Models::IntegerValue
 
   class Item = Moonbase::Models::Item
 
-  class ItemCreateParams = Moonbase::Models::ItemCreateParams
-
-  class ItemDeleteParams = Moonbase::Models::ItemDeleteParams
-
-  class ItemRetrieveParams = Moonbase::Models::ItemRetrieveParams
-
-  class ItemUpdateParams = Moonbase::Models::ItemUpdateParams
-
-  class ItemUpsertParams = Moonbase::Models::ItemUpsertParams
+  class ItemPointer = Moonbase::Models::ItemPointer
 
   class Meeting = Moonbase::Models::Meeting
 
@@ -95,9 +157,13 @@ module Moonbase
 
   class MeetingRetrieveParams = Moonbase::Models::MeetingRetrieveParams
 
+  class MonetaryField = Moonbase::Models::MonetaryField
+
   class MonetaryValue = Moonbase::Models::MonetaryValue
 
   class MoonbaseFile = Moonbase::Models::MoonbaseFile
+
+  class MultiLineTextField = Moonbase::Models::MultiLineTextField
 
   class MultiLineTextValue = Moonbase::Models::MultiLineTextValue
 
@@ -109,13 +175,19 @@ module Moonbase
 
   class Organizer = Moonbase::Models::Organizer
 
+  class PercentageField = Moonbase::Models::PercentageField
+
   class PercentageValue = Moonbase::Models::PercentageValue
+
+  class Pointer = Moonbase::Models::Pointer
 
   class Program = Moonbase::Models::Program
 
   class ProgramListParams = Moonbase::Models::ProgramListParams
 
-  class ProgramMessageCreateParams = Moonbase::Models::ProgramMessageCreateParams
+  class ProgramMessage = Moonbase::Models::ProgramMessage
+
+  class ProgramMessageSendParams = Moonbase::Models::ProgramMessageSendParams
 
   class ProgramRetrieveParams = Moonbase::Models::ProgramRetrieveParams
 
@@ -125,13 +197,27 @@ module Moonbase
 
   class ProgramTemplateRetrieveParams = Moonbase::Models::ProgramTemplateRetrieveParams
 
+  class RelationField = Moonbase::Models::RelationField
+
   class RelationValue = Moonbase::Models::RelationValue
+
+  class RelationValueParam = Moonbase::Models::RelationValueParam
+
+  class SingleLineTextField = Moonbase::Models::SingleLineTextField
 
   class SingleLineTextValue = Moonbase::Models::SingleLineTextValue
 
+  class SocialLinkedInField = Moonbase::Models::SocialLinkedInField
+
   class SocialLinkedInValue = Moonbase::Models::SocialLinkedInValue
 
+  class SocialXField = Moonbase::Models::SocialXField
+
   class SocialXValue = Moonbase::Models::SocialXValue
+
+  class StageField = Moonbase::Models::StageField
+
+  class Subscription = Moonbase::Models::Subscription
 
   class Tagset = Moonbase::Models::Tagset
 
@@ -141,13 +227,29 @@ module Moonbase
 
   class TelephoneNumber = Moonbase::Models::TelephoneNumber
 
+  class TelephoneNumberField = Moonbase::Models::TelephoneNumberField
+
+  class URLField = Moonbase::Models::URLField
+
   class URLValue = Moonbase::Models::URLValue
 
   module Value = Moonbase::Models::Value
+
+  module ValueParam = Moonbase::Models::ValueParam
 
   class View = Moonbase::Models::View
 
   class ViewRetrieveParams = Moonbase::Models::ViewRetrieveParams
 
   module Views = Moonbase::Models::Views
+
+  class WebhookEndpointCreateParams = Moonbase::Models::WebhookEndpointCreateParams
+
+  class WebhookEndpointDeleteParams = Moonbase::Models::WebhookEndpointDeleteParams
+
+  class WebhookEndpointListParams = Moonbase::Models::WebhookEndpointListParams
+
+  class WebhookEndpointRetrieveParams = Moonbase::Models::WebhookEndpointRetrieveParams
+
+  class WebhookEndpointUpdateParams = Moonbase::Models::WebhookEndpointUpdateParams
 end

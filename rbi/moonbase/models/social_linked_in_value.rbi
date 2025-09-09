@@ -8,58 +8,65 @@ module Moonbase
           T.any(Moonbase::SocialLinkedInValue, Moonbase::Internal::AnyHash)
         end
 
-      sig { returns(Moonbase::SocialLinkedInValue::Profile) }
-      attr_reader :profile
+      # The social media profile for the LinkedIn platform
+      sig { returns(Moonbase::SocialLinkedInValue::Data) }
+      attr_reader :data
 
-      sig do
-        params(profile: Moonbase::SocialLinkedInValue::Profile::OrHash).void
-      end
-      attr_writer :profile
+      sig { params(data: Moonbase::SocialLinkedInValue::Data::OrHash).void }
+      attr_writer :data
 
       sig { returns(Symbol) }
       attr_accessor :type
 
-      # LinkedIn profile link
+      # The social media profile for the LinkedIn platform
       sig do
         params(
-          profile: Moonbase::SocialLinkedInValue::Profile::OrHash,
+          data: Moonbase::SocialLinkedInValue::Data::OrHash,
           type: Symbol
         ).returns(T.attached_class)
       end
-      def self.new(profile:, type: :"value/uri/social_linked_in")
+      def self.new(
+        # The social media profile for the LinkedIn platform
+        data:,
+        type: :"value/uri/social_linked_in"
+      )
       end
 
       sig do
         override.returns(
-          { profile: Moonbase::SocialLinkedInValue::Profile, type: Symbol }
+          { data: Moonbase::SocialLinkedInValue::Data, type: Symbol }
         )
       end
       def to_hash
       end
 
-      class Profile < Moonbase::Internal::Type::BaseModel
+      class Data < Moonbase::Internal::Type::BaseModel
         OrHash =
           T.type_alias do
             T.any(
-              Moonbase::SocialLinkedInValue::Profile,
+              Moonbase::SocialLinkedInValue::Data,
               Moonbase::Internal::AnyHash
             )
           end
 
-        sig { returns(T.nilable(String)) }
-        attr_reader :url
+        # The full URL to the LinkedIn profile.
+        sig { returns(String) }
+        attr_accessor :url
 
-        sig { params(url: String).void }
-        attr_writer :url
+        # The LinkedIn username, including the prefix 'company/' for company pages or
+        # 'in/' for personal profiles.
+        sig { returns(String) }
+        attr_accessor :username
 
-        sig { returns(T.nilable(String)) }
-        attr_reader :username
-
-        sig { params(username: String).void }
-        attr_writer :username
-
+        # The social media profile for the LinkedIn platform
         sig { params(url: String, username: String).returns(T.attached_class) }
-        def self.new(url: nil, username: nil)
+        def self.new(
+          # The full URL to the LinkedIn profile.
+          url:,
+          # The LinkedIn username, including the prefix 'company/' for company pages or
+          # 'in/' for personal profiles.
+          username:
+        )
         end
 
         sig { override.returns({ url: String, username: String }) }

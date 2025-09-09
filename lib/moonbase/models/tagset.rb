@@ -10,10 +10,11 @@ module Moonbase
       #   @return [String]
       required :id, String
 
-      # @!attribute links
+      # @!attribute created_at
+      #   Time at which the object was created, as an ISO 8601 timestamp in UTC.
       #
-      #   @return [Moonbase::Models::Tagset::Links]
-      required :links, -> { Moonbase::Tagset::Links }
+      #   @return [Time]
+      required :created_at, Time
 
       # @!attribute name
       #   The name of the tagset.
@@ -21,17 +22,23 @@ module Moonbase
       #   @return [String]
       required :name, String
 
+      # @!attribute tags
+      #   A list of `Tag` objects belonging to this tagset.
+      #
+      #   @return [Array<Moonbase::Models::Tagset::Tag>]
+      required :tags, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::Tagset::Tag] }
+
       # @!attribute type
       #   String representing the object’s type. Always `tagset` for this object.
       #
       #   @return [Symbol, :tagset]
       required :type, const: :tagset
 
-      # @!attribute created_at
-      #   Time at which the object was created, as an RFC 3339 timestamp.
+      # @!attribute updated_at
+      #   Time at which the object was last updated, as an ISO 8601 timestamp in UTC.
       #
-      #   @return [Time, nil]
-      optional :created_at, Time
+      #   @return [Time]
+      required :updated_at, Time
 
       # @!attribute description
       #   An optional description of the tagset's purpose.
@@ -39,49 +46,23 @@ module Moonbase
       #   @return [String, nil]
       optional :description, String
 
-      # @!attribute tags
-      #   A list of `Tag` objects belonging to this tagset.
-      #
-      #   @return [Array<Moonbase::Models::Tagset::Tag>, nil]
-      optional :tags, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::Tagset::Tag] }
-
-      # @!attribute updated_at
-      #   Time at which the object was last updated, as an RFC 3339 timestamp.
-      #
-      #   @return [Time, nil]
-      optional :updated_at, Time
-
-      # @!method initialize(id:, links:, name:, created_at: nil, description: nil, tags: nil, updated_at: nil, type: :tagset)
+      # @!method initialize(id:, created_at:, name:, tags:, updated_at:, description: nil, type: :tagset)
       #   A Tagset is a collection of `Tag` objects that can be applied within a specific
       #   `Inbox`.
       #
       #   @param id [String] Unique identifier for the object.
       #
-      #   @param links [Moonbase::Models::Tagset::Links]
+      #   @param created_at [Time] Time at which the object was created, as an ISO 8601 timestamp in UTC.
       #
       #   @param name [String] The name of the tagset.
       #
-      #   @param created_at [Time] Time at which the object was created, as an RFC 3339 timestamp.
+      #   @param tags [Array<Moonbase::Models::Tagset::Tag>] A list of `Tag` objects belonging to this tagset.
+      #
+      #   @param updated_at [Time] Time at which the object was last updated, as an ISO 8601 timestamp in UTC.
       #
       #   @param description [String] An optional description of the tagset's purpose.
       #
-      #   @param tags [Array<Moonbase::Models::Tagset::Tag>] A list of `Tag` objects belonging to this tagset.
-      #
-      #   @param updated_at [Time] Time at which the object was last updated, as an RFC 3339 timestamp.
-      #
       #   @param type [Symbol, :tagset] String representing the object’s type. Always `tagset` for this object.
-
-      # @see Moonbase::Models::Tagset#links
-      class Links < Moonbase::Internal::Type::BaseModel
-        # @!attribute self_
-        #   The canonical URL for this object.
-        #
-        #   @return [String]
-        required :self_, String, api_name: :self
-
-        # @!method initialize(self_:)
-        #   @param self_ [String] The canonical URL for this object.
-      end
 
       class Tag < Moonbase::Internal::Type::BaseModel
         # @!attribute id

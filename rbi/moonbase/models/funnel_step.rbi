@@ -8,58 +8,74 @@ module Moonbase
           T.any(Moonbase::FunnelStep, Moonbase::Internal::AnyHash)
         end
 
-      sig { returns(Moonbase::FunnelStep::Step) }
-      attr_reader :step
+      # Unique identifier for the object.
+      sig { returns(String) }
+      attr_accessor :id
 
-      sig { params(step: Moonbase::FunnelStep::Step::OrHash).void }
-      attr_writer :step
+      # The name of the step.
+      sig { returns(String) }
+      attr_accessor :name
 
+      # The type of step, which can be `active`, `success`, or `failure`.
+      sig { returns(Moonbase::FunnelStep::StepType::OrSymbol) }
+      attr_accessor :step_type
+
+      # String representing the object’s type. Always `funnel_step` for this object.
       sig { returns(Symbol) }
       attr_accessor :type
 
-      # Funnel step value
+      # Represents a single step within a `Funnel`.
       sig do
-        params(step: Moonbase::FunnelStep::Step::OrHash, type: Symbol).returns(
-          T.attached_class
-        )
+        params(
+          id: String,
+          name: String,
+          step_type: Moonbase::FunnelStep::StepType::OrSymbol,
+          type: Symbol
+        ).returns(T.attached_class)
       end
-      def self.new(step:, type: :"value/funnel_step")
+      def self.new(
+        # Unique identifier for the object.
+        id:,
+        # The name of the step.
+        name:,
+        # The type of step, which can be `active`, `success`, or `failure`.
+        step_type:,
+        # String representing the object’s type. Always `funnel_step` for this object.
+        type: :funnel_step
+      )
       end
 
       sig do
-        override.returns({ step: Moonbase::FunnelStep::Step, type: Symbol })
+        override.returns(
+          {
+            id: String,
+            name: String,
+            step_type: Moonbase::FunnelStep::StepType::OrSymbol,
+            type: Symbol
+          }
+        )
       end
       def to_hash
       end
 
-      class Step < Moonbase::Internal::Type::BaseModel
-        OrHash =
-          T.type_alias do
-            T.any(Moonbase::FunnelStep::Step, Moonbase::Internal::AnyHash)
-          end
+      # The type of step, which can be `active`, `success`, or `failure`.
+      module StepType
+        extend Moonbase::Internal::Type::Enum
 
-        sig { returns(String) }
-        attr_accessor :id
+        TaggedSymbol =
+          T.type_alias { T.all(Symbol, Moonbase::FunnelStep::StepType) }
+        OrSymbol = T.type_alias { T.any(Symbol, String) }
 
-        sig { returns(Symbol) }
-        attr_accessor :type
-
-        sig { returns(T.nilable(String)) }
-        attr_reader :name
-
-        sig { params(name: String).void }
-        attr_writer :name
+        ACTIVE = T.let(:active, Moonbase::FunnelStep::StepType::TaggedSymbol)
+        SUCCESS = T.let(:success, Moonbase::FunnelStep::StepType::TaggedSymbol)
+        FAILURE = T.let(:failure, Moonbase::FunnelStep::StepType::TaggedSymbol)
 
         sig do
-          params(id: String, name: String, type: Symbol).returns(
-            T.attached_class
+          override.returns(
+            T::Array[Moonbase::FunnelStep::StepType::TaggedSymbol]
           )
         end
-        def self.new(id:, name: nil, type: :funnel_step)
-        end
-
-        sig { override.returns({ id: String, type: Symbol, name: String }) }
-        def to_hash
+        def self.values
         end
       end
     end

@@ -10,10 +10,11 @@ module Moonbase
       #   @return [String]
       required :id, String
 
-      # @!attribute links
+      # @!attribute created_at
+      #   Time at which the object was created, as an ISO 8601 timestamp in UTC.
       #
-      #   @return [Moonbase::Models::Program::Links]
-      required :links, -> { Moonbase::Program::Links }
+      #   @return [Time]
+      required :created_at, Time
 
       # @!attribute status
       #   The current status of the program. Can be `draft`, `published`, `paused`, or
@@ -21,6 +22,18 @@ module Moonbase
       #
       #   @return [Symbol, Moonbase::Models::Program::Status]
       required :status, enum: -> { Moonbase::Program::Status }
+
+      # @!attribute track_clicks
+      #   `true` if link clicks are tracked for this program.
+      #
+      #   @return [Boolean]
+      required :track_clicks, Moonbase::Internal::Type::Boolean
+
+      # @!attribute track_opens
+      #   `true` if email opens are tracked for this program.
+      #
+      #   @return [Boolean]
+      required :track_opens, Moonbase::Internal::Type::Boolean
 
       # @!attribute trigger
       #   The sending trigger for the program. Can be `api` for transactional sends or
@@ -35,17 +48,19 @@ module Moonbase
       #   @return [Symbol, :program]
       required :type, const: :program
 
+      # @!attribute updated_at
+      #   Time at which the object was last updated, as an ISO 8601 timestamp in UTC.
+      #
+      #   @return [Time]
+      required :updated_at, Time
+
       # @!attribute activity_metrics
       #   A `ProgramActivityMetrics` object summarizing engagement for this program.
       #
+      #   **Note:** Only present when requested using the `include` query parameter.
+      #
       #   @return [Moonbase::Models::Program::ActivityMetrics, nil]
       optional :activity_metrics, -> { Moonbase::Program::ActivityMetrics }
-
-      # @!attribute created_at
-      #   Time at which the object was created, as an RFC 3339 timestamp.
-      #
-      #   @return [Time, nil]
-      optional :created_at, Time
 
       # @!attribute display_name
       #   The user-facing name of the program.
@@ -56,35 +71,19 @@ module Moonbase
       # @!attribute program_template
       #   The `ProgramTemplate` used for messages in this program.
       #
+      #   **Note:** Only present when requested using the `include` query parameter.
+      #
       #   @return [Moonbase::Models::ProgramTemplate, nil]
       optional :program_template, -> { Moonbase::ProgramTemplate }
 
       # @!attribute scheduled_at
-      #   For `broadcast` programs, the time the program is scheduled to send, as an RFC
-      #   3339 timestamp.
+      #   For `broadcast` programs, the time the program is scheduled to send, as an ISO
+      #   8601 timestamp in UTC.
       #
       #   @return [Time, nil]
       optional :scheduled_at, Time
 
-      # @!attribute track_clicks
-      #   `true` if link clicks are tracked for this program.
-      #
-      #   @return [Boolean, nil]
-      optional :track_clicks, Moonbase::Internal::Type::Boolean
-
-      # @!attribute track_opens
-      #   `true` if email opens are tracked for this program.
-      #
-      #   @return [Boolean, nil]
-      optional :track_opens, Moonbase::Internal::Type::Boolean
-
-      # @!attribute updated_at
-      #   Time at which the object was last updated, as an RFC 3339 timestamp.
-      #
-      #   @return [Time, nil]
-      optional :updated_at, Time
-
-      # @!method initialize(id:, links:, status:, trigger:, activity_metrics: nil, created_at: nil, display_name: nil, program_template: nil, scheduled_at: nil, track_clicks: nil, track_opens: nil, updated_at: nil, type: :program)
+      # @!method initialize(id:, created_at:, status:, track_clicks:, track_opens:, trigger:, updated_at:, activity_metrics: nil, display_name: nil, program_template: nil, scheduled_at: nil, type: :program)
       #   Some parameter documentations has been truncated, see
       #   {Moonbase::Models::Program} for more details.
       #
@@ -93,49 +92,27 @@ module Moonbase
       #
       #   @param id [String] Unique identifier for the object.
       #
-      #   @param links [Moonbase::Models::Program::Links]
+      #   @param created_at [Time] Time at which the object was created, as an ISO 8601 timestamp in UTC.
       #
       #   @param status [Symbol, Moonbase::Models::Program::Status] The current status of the program. Can be `draft`, `published`, `paused`, or `ar
-      #
-      #   @param trigger [Symbol, Moonbase::Models::Program::Trigger] The sending trigger for the program. Can be `api` for transactional sends or `br
-      #
-      #   @param activity_metrics [Moonbase::Models::Program::ActivityMetrics] A `ProgramActivityMetrics` object summarizing engagement for this program.
-      #
-      #   @param created_at [Time] Time at which the object was created, as an RFC 3339 timestamp.
-      #
-      #   @param display_name [String] The user-facing name of the program.
-      #
-      #   @param program_template [Moonbase::Models::ProgramTemplate] The `ProgramTemplate` used for messages in this program.
-      #
-      #   @param scheduled_at [Time] For `broadcast` programs, the time the program is scheduled to send, as an RFC 3
       #
       #   @param track_clicks [Boolean] `true` if link clicks are tracked for this program.
       #
       #   @param track_opens [Boolean] `true` if email opens are tracked for this program.
       #
-      #   @param updated_at [Time] Time at which the object was last updated, as an RFC 3339 timestamp.
+      #   @param trigger [Symbol, Moonbase::Models::Program::Trigger] The sending trigger for the program. Can be `api` for transactional sends or `br
+      #
+      #   @param updated_at [Time] Time at which the object was last updated, as an ISO 8601 timestamp in UTC.
+      #
+      #   @param activity_metrics [Moonbase::Models::Program::ActivityMetrics] A `ProgramActivityMetrics` object summarizing engagement for this program.
+      #
+      #   @param display_name [String] The user-facing name of the program.
+      #
+      #   @param program_template [Moonbase::Models::ProgramTemplate] The `ProgramTemplate` used for messages in this program.
+      #
+      #   @param scheduled_at [Time] For `broadcast` programs, the time the program is scheduled to send, as an ISO 8
       #
       #   @param type [Symbol, :program] String representing the object’s type. Always `program` for this object.
-
-      # @see Moonbase::Models::Program#links
-      class Links < Moonbase::Internal::Type::BaseModel
-        # @!attribute program_template
-        #   A link to the `ProgramTemplate` for this program.
-        #
-        #   @return [String]
-        required :program_template, String
-
-        # @!attribute self_
-        #   The canonical URL for this object.
-        #
-        #   @return [String]
-        required :self_, String, api_name: :self
-
-        # @!method initialize(program_template:, self_:)
-        #   @param program_template [String] A link to the `ProgramTemplate` for this program.
-        #
-        #   @param self_ [String] The canonical URL for this object.
-      end
 
       # The current status of the program. Can be `draft`, `published`, `paused`, or
       # `archived`.
@@ -172,53 +149,55 @@ module Moonbase
         # @!attribute bounced
         #   The number of emails that could not be delivered.
         #
-        #   @return [Integer, nil]
-        optional :bounced, Integer
+        #   @return [Integer]
+        required :bounced, Integer
 
         # @!attribute clicked
         #   The number of recipients who clicked at least one link.
         #
-        #   @return [Integer, nil]
-        optional :clicked, Integer
+        #   @return [Integer]
+        required :clicked, Integer
 
         # @!attribute complained
         #   The number of recipients who marked the email as spam.
         #
-        #   @return [Integer, nil]
-        optional :complained, Integer
+        #   @return [Integer]
+        required :complained, Integer
 
         # @!attribute failed
         #   The number of emails that failed to send due to a technical issue.
         #
-        #   @return [Integer, nil]
-        optional :failed, Integer
+        #   @return [Integer]
+        required :failed, Integer
 
         # @!attribute opened
         #   The number of recipients who opened the email.
         #
-        #   @return [Integer, nil]
-        optional :opened, Integer
+        #   @return [Integer]
+        required :opened, Integer
 
         # @!attribute sent
         #   The total number of emails successfully sent.
         #
-        #   @return [Integer, nil]
-        optional :sent, Integer
+        #   @return [Integer]
+        required :sent, Integer
 
         # @!attribute shielded
         #   The number of emails blocked by delivery protection rules.
         #
-        #   @return [Integer, nil]
-        optional :shielded, Integer
+        #   @return [Integer]
+        required :shielded, Integer
 
         # @!attribute unsubscribed
         #   The number of recipients who unsubscribed.
         #
-        #   @return [Integer, nil]
-        optional :unsubscribed, Integer
+        #   @return [Integer]
+        required :unsubscribed, Integer
 
-        # @!method initialize(bounced: nil, clicked: nil, complained: nil, failed: nil, opened: nil, sent: nil, shielded: nil, unsubscribed: nil)
+        # @!method initialize(bounced:, clicked:, complained:, failed:, opened:, sent:, shielded:, unsubscribed:)
         #   A `ProgramActivityMetrics` object summarizing engagement for this program.
+        #
+        #   **Note:** Only present when requested using the `include` query parameter.
         #
         #   @param bounced [Integer] The number of emails that could not be delivered.
         #

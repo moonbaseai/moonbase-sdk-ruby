@@ -1,0 +1,68 @@
+module Moonbase
+  module Models
+    type endpoint =
+      {
+        id: String,
+        created_at: Time,
+        status: Moonbase::Models::Endpoint::status,
+        subscriptions: ::Array[Moonbase::Subscription],
+        type: :webhook_endpoint,
+        updated_at: Time,
+        url: String,
+        secret: String
+      }
+
+    class Endpoint < Moonbase::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor created_at: Time
+
+      attr_accessor status: Moonbase::Models::Endpoint::status
+
+      attr_accessor subscriptions: ::Array[Moonbase::Subscription]
+
+      attr_accessor type: :webhook_endpoint
+
+      attr_accessor updated_at: Time
+
+      attr_accessor url: String
+
+      attr_reader secret: String?
+
+      def secret=: (String) -> String
+
+      def initialize: (
+        id: String,
+        created_at: Time,
+        status: Moonbase::Models::Endpoint::status,
+        subscriptions: ::Array[Moonbase::Subscription],
+        updated_at: Time,
+        url: String,
+        ?secret: String,
+        ?type: :webhook_endpoint
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        created_at: Time,
+        status: Moonbase::Models::Endpoint::status,
+        subscriptions: ::Array[Moonbase::Subscription],
+        type: :webhook_endpoint,
+        updated_at: Time,
+        url: String,
+        secret: String
+      }
+
+      type status = :disabled | :enabled
+
+      module Status
+        extend Moonbase::Internal::Type::Enum
+
+        DISABLED: :disabled
+        ENABLED: :enabled
+
+        def self?.values: -> ::Array[Moonbase::Models::Endpoint::status]
+      end
+    end
+  end
+end

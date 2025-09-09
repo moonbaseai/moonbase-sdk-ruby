@@ -10,8 +10,7 @@ module Moonbase
       def list: (
         ?after: String,
         ?before: String,
-        ?conversation: ::Array[String],
-        ?inbox: ::Array[String],
+        ?filter: Moonbase::InboxMessageListParams::Filter,
         ?include: ::Array[Moonbase::Models::InboxMessageListParams::include_],
         ?limit: Integer,
         ?request_options: Moonbase::request_opts

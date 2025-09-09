@@ -1,0 +1,40 @@
+module Moonbase
+  module Models
+    type activity_program_message_complained =
+      {
+        id: String,
+        occurred_at: Time,
+        program_message: Moonbase::Pointer?,
+        recipient: Moonbase::ItemPointer?,
+        type: :"activity/program_message_complained"
+      }
+
+    class ActivityProgramMessageComplained < Moonbase::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor occurred_at: Time
+
+      attr_accessor program_message: Moonbase::Pointer?
+
+      attr_accessor recipient: Moonbase::ItemPointer?
+
+      attr_accessor type: :"activity/program_message_complained"
+
+      def initialize: (
+        id: String,
+        occurred_at: Time,
+        program_message: Moonbase::Pointer?,
+        recipient: Moonbase::ItemPointer?,
+        ?type: :"activity/program_message_complained"
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        occurred_at: Time,
+        program_message: Moonbase::Pointer?,
+        recipient: Moonbase::ItemPointer?,
+        type: :"activity/program_message_complained"
+      }
+    end
+  end
+end

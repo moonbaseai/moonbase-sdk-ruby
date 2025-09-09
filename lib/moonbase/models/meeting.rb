@@ -10,8 +10,14 @@ module Moonbase
       #   @return [String]
       required :id, String
 
+      # @!attribute created_at
+      #   Time at which the object was created, as an ISO 8601 timestamp in UTC.
+      #
+      #   @return [Time]
+      required :created_at, Time
+
       # @!attribute end_at
-      #   The end time of the meeting, as an RFC 3339 timestamp.
+      #   The end time of the meeting, as an ISO 8601 timestamp in UTC.
       #
       #   @return [Time]
       required :end_at, Time
@@ -22,11 +28,6 @@ module Moonbase
       #   @return [String]
       required :i_cal_uid, String
 
-      # @!attribute links
-      #
-      #   @return [Moonbase::Models::Meeting::Links]
-      required :links, -> { Moonbase::Meeting::Links }
-
       # @!attribute provider_id
       #   The unique identifier for the meeting from the external calendar provider (e.g.,
       #   Google Calendar).
@@ -35,7 +36,7 @@ module Moonbase
       required :provider_id, String
 
       # @!attribute start_at
-      #   The start time of the meeting, as an RFC 3339 timestamp.
+      #   The start time of the meeting, as an ISO 8601 timestamp in UTC.
       #
       #   @return [Time]
       required :start_at, Time
@@ -53,17 +54,19 @@ module Moonbase
       #   @return [Symbol, :meeting]
       required :type, const: :meeting
 
+      # @!attribute updated_at
+      #   Time at which the object was last updated, as an ISO 8601 timestamp in UTC.
+      #
+      #   @return [Time]
+      required :updated_at, Time
+
       # @!attribute attendees
       #   A list of `Attendee` objects for the meeting.
       #
+      #   **Note:** Only present when requested using the `include` query parameter.
+      #
       #   @return [Array<Moonbase::Models::Attendee>, nil]
       optional :attendees, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::Attendee] }
-
-      # @!attribute created_at
-      #   Time at which the object was created, as an RFC 3339 timestamp.
-      #
-      #   @return [Time, nil]
-      optional :created_at, Time
 
       # @!attribute description
       #   A detailed description or agenda for the meeting.
@@ -86,6 +89,8 @@ module Moonbase
       # @!attribute organizer
       #   The `Organizer` of the meeting.
       #
+      #   **Note:** Only present when requested using the `include` query parameter.
+      #
       #   @return [Moonbase::Models::Organizer, nil]
       optional :organizer, -> { Moonbase::Organizer }
 
@@ -94,6 +99,13 @@ module Moonbase
       #
       #   @return [String, nil]
       optional :provider_uri, String
+
+      # @!attribute recording_url
+      #   A temporary, signed URL to download the meeting recording. The URL expires after
+      #   one hour.
+      #
+      #   @return [String, nil]
+      optional :recording_url, String
 
       # @!attribute summary_ante
       #   A summary or notes generated before the meeting.
@@ -113,13 +125,14 @@ module Moonbase
       #   @return [String, nil]
       optional :title, String
 
-      # @!attribute updated_at
-      #   Time at which the object was last updated, as an RFC 3339 timestamp.
+      # @!attribute transcript_url
+      #   A temporary, signed URL to download the meeting transcript. The URL expires
+      #   after one hour.
       #
-      #   @return [Time, nil]
-      optional :updated_at, Time
+      #   @return [String, nil]
+      optional :transcript_url, String
 
-      # @!method initialize(id:, end_at:, i_cal_uid:, links:, provider_id:, start_at:, time_zone:, attendees: nil, created_at: nil, description: nil, duration: nil, location: nil, organizer: nil, provider_uri: nil, summary_ante: nil, summary_post: nil, title: nil, updated_at: nil, type: :meeting)
+      # @!method initialize(id:, created_at:, end_at:, i_cal_uid:, provider_id:, start_at:, time_zone:, updated_at:, attendees: nil, description: nil, duration: nil, location: nil, organizer: nil, provider_uri: nil, recording_url: nil, summary_ante: nil, summary_post: nil, title: nil, transcript_url: nil, type: :meeting)
       #   Some parameter documentations has been truncated, see
       #   {Moonbase::Models::Meeting} for more details.
       #
@@ -128,21 +141,21 @@ module Moonbase
       #
       #   @param id [String] Unique identifier for the object.
       #
-      #   @param end_at [Time] The end time of the meeting, as an RFC 3339 timestamp.
+      #   @param created_at [Time] Time at which the object was created, as an ISO 8601 timestamp in UTC.
+      #
+      #   @param end_at [Time] The end time of the meeting, as an ISO 8601 timestamp in UTC.
       #
       #   @param i_cal_uid [String] The globally unique iCalendar UID for the meeting event.
       #
-      #   @param links [Moonbase::Models::Meeting::Links]
-      #
       #   @param provider_id [String] The unique identifier for the meeting from the external calendar provider (e.g.,
       #
-      #   @param start_at [Time] The start time of the meeting, as an RFC 3339 timestamp.
+      #   @param start_at [Time] The start time of the meeting, as an ISO 8601 timestamp in UTC.
       #
       #   @param time_zone [String] The IANA time zone in which the meeting is scheduled (e.g., `America/Los_Angeles
       #
-      #   @param attendees [Array<Moonbase::Models::Attendee>] A list of `Attendee` objects for the meeting.
+      #   @param updated_at [Time] Time at which the object was last updated, as an ISO 8601 timestamp in UTC.
       #
-      #   @param created_at [Time] Time at which the object was created, as an RFC 3339 timestamp.
+      #   @param attendees [Array<Moonbase::Models::Attendee>] A list of `Attendee` objects for the meeting.
       #
       #   @param description [String] A detailed description or agenda for the meeting.
       #
@@ -154,64 +167,17 @@ module Moonbase
       #
       #   @param provider_uri [String] A URL to access the meeting in the external provider's system.
       #
+      #   @param recording_url [String] A temporary, signed URL to download the meeting recording. The URL expires after
+      #
       #   @param summary_ante [String] A summary or notes generated before the meeting.
       #
       #   @param summary_post [String] A summary or notes generated after the meeting.
       #
       #   @param title [String] The title or subject of the meeting.
       #
-      #   @param updated_at [Time] Time at which the object was last updated, as an RFC 3339 timestamp.
+      #   @param transcript_url [String] A temporary, signed URL to download the meeting transcript. The URL expires afte
       #
       #   @param type [Symbol, :meeting] String representing the object’s type. Always `meeting` for this object.
-
-      # @see Moonbase::Models::Meeting#links
-      class Links < Moonbase::Internal::Type::BaseModel
-        # @!attribute self_
-        #   The canonical URL for this object.
-        #
-        #   @return [String]
-        required :self_, String, api_name: :self
-
-        # @!attribute note
-        #   A link to an associated `Note` object.
-        #
-        #   @return [String, nil]
-        optional :note, String
-
-        # @!attribute recording_url
-        #   A temporary, signed URL to download the meeting recording. The URL expires after
-        #   one hour.
-        #
-        #   @return [String, nil]
-        optional :recording_url, String
-
-        # @!attribute summary
-        #   A link to a long-form summary of the meeting.
-        #
-        #   @return [String, nil]
-        optional :summary, String
-
-        # @!attribute transcript_url
-        #   A temporary, signed URL to download the meeting transcript. The URL expires
-        #   after one hour.
-        #
-        #   @return [String, nil]
-        optional :transcript_url, String
-
-        # @!method initialize(self_:, note: nil, recording_url: nil, summary: nil, transcript_url: nil)
-        #   Some parameter documentations has been truncated, see
-        #   {Moonbase::Models::Meeting::Links} for more details.
-        #
-        #   @param self_ [String] The canonical URL for this object.
-        #
-        #   @param note [String] A link to an associated `Note` object.
-        #
-        #   @param recording_url [String] A temporary, signed URL to download the meeting recording. The URL expires after
-        #
-        #   @param summary [String] A link to a long-form summary of the meeting.
-        #
-        #   @param transcript_url [String] A temporary, signed URL to download the meeting transcript. The URL expires afte
-      end
     end
   end
 end

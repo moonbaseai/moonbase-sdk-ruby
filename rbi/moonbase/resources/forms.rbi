@@ -7,16 +7,12 @@ module Moonbase
       sig do
         params(
           id: String,
-          include: T::Array[Moonbase::FormRetrieveParams::Include::OrSymbol],
           request_options: Moonbase::RequestOptions::OrHash
         ).returns(Moonbase::Form)
       end
       def retrieve(
         # The ID of the Form to retrieve.
         id,
-        # Specifies which related objects to include in the response. Valid option is
-        # `collection.fields`.
-        include: nil,
         request_options: {}
       )
       end
@@ -26,7 +22,6 @@ module Moonbase
         params(
           after: String,
           before: String,
-          include: T::Array[Moonbase::FormListParams::Include::OrSymbol],
           limit: Integer,
           request_options: Moonbase::RequestOptions::OrHash
         ).returns(Moonbase::Internal::CursorPage[Moonbase::Form])
@@ -40,9 +35,6 @@ module Moonbase
         # by this cursor. Use the cursor value from the response's metadata to fetch the
         # previous page of results.
         before: nil,
-        # Specifies which related objects to include in the response. Valid option is
-        # `collection.fields`.
-        include: nil,
         # Maximum number of items to return per page. Must be between 1 and 100. Defaults
         # to 20 if not specified.
         limit: nil,

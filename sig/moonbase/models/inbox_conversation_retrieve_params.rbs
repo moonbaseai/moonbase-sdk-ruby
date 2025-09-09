@@ -26,13 +26,14 @@ module Moonbase
         request_options: Moonbase::RequestOptions
       }
 
-      type include_ = :addresses | :tags
+      type include_ = :inbox | :messages | :"messages.addresses"
 
       module Include
         extend Moonbase::Internal::Type::Enum
 
-        ADDRESSES: :addresses
-        TAGS: :tags
+        INBOX: :inbox
+        MESSAGES: :messages
+        MESSAGES_ADDRESSES: :"messages.addresses"
 
         def self?.values: -> ::Array[Moonbase::Models::InboxConversationRetrieveParams::include_]
       end

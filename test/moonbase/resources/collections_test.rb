@@ -13,14 +13,13 @@ class Moonbase::Test::Resources::CollectionsTest < Moonbase::Test::ResourceTest
     assert_pattern do
       response => {
         id: String,
-        links: Moonbase::Collection::Links,
+        created_at: Time,
+        fields: ^(Moonbase::Internal::Type::ArrayOf[union: Moonbase::Field]),
         name: String,
         ref: String,
         type: Symbol,
-        created_at: Time | nil,
+        updated_at: Time,
         description: String | nil,
-        fields: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Field]) | nil,
-        updated_at: Time | nil,
         views: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::View]) | nil
       }
     end
@@ -43,14 +42,13 @@ class Moonbase::Test::Resources::CollectionsTest < Moonbase::Test::ResourceTest
     assert_pattern do
       row => {
         id: String,
-        links: Moonbase::Collection::Links,
+        created_at: Time,
+        fields: ^(Moonbase::Internal::Type::ArrayOf[union: Moonbase::Field]),
         name: String,
         ref: String,
         type: Symbol,
-        created_at: Time | nil,
+        updated_at: Time,
         description: String | nil,
-        fields: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Field]) | nil,
-        updated_at: Time | nil,
         views: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::View]) | nil
       }
     end

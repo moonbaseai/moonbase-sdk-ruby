@@ -1,0 +1,36 @@
+module Moonbase
+  module Resources
+    class WebhookEndpoints
+      def create: (
+        status: Moonbase::Models::WebhookEndpointCreateParams::status,
+        url: String,
+        ?subscriptions: ::Array[Moonbase::WebhookEndpointCreateParams::Subscription],
+        ?request_options: Moonbase::request_opts
+      ) -> Moonbase::Endpoint
+
+      def retrieve: (
+        String id,
+        ?request_options: Moonbase::request_opts
+      ) -> Moonbase::Endpoint
+
+      def update: (
+        String id,
+        ?status: Moonbase::Models::WebhookEndpointUpdateParams::status,
+        ?subscriptions: ::Array[Moonbase::WebhookEndpointUpdateParams::Subscription],
+        ?url: String,
+        ?request_options: Moonbase::request_opts
+      ) -> Moonbase::Endpoint
+
+      def list: (
+        ?after: String,
+        ?before: String,
+        ?limit: Integer,
+        ?request_options: Moonbase::request_opts
+      ) -> Moonbase::Internal::CursorPage[Moonbase::Endpoint]
+
+      def delete: (String id, ?request_options: Moonbase::request_opts) -> nil
+
+      def initialize: (client: Moonbase::Client) -> void
+    end
+  end
+end

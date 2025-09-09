@@ -10,10 +10,11 @@ module Moonbase
       #   @return [String]
       required :id, String
 
-      # @!attribute links
+      # @!attribute created_at
+      #   Time at which the object was created, as an ISO 8601 timestamp in UTC.
       #
-      #   @return [Moonbase::Models::View::Links]
-      required :links, -> { Moonbase::View::Links }
+      #   @return [Time]
+      required :created_at, Time
 
       # @!attribute name
       #   The name of the view.
@@ -27,61 +28,46 @@ module Moonbase
       #   @return [Symbol, :view]
       required :type, const: :view
 
-      # @!attribute collection
-      #   The `Collection` this view belongs to.
+      # @!attribute updated_at
+      #   Time at which the object was last updated, as an ISO 8601 timestamp in UTC.
       #
-      #   @return [Moonbase::Models::Collection, nil]
-      optional :collection, -> { Moonbase::Collection }
+      #   @return [Time]
+      required :updated_at, Time
 
       # @!attribute view_type
       #   The type of view, such as `table` or `board`.
       #
-      #   @return [Symbol, Moonbase::Models::View::ViewType, nil]
-      optional :view_type, enum: -> { Moonbase::View::ViewType }
+      #   @return [Symbol, Moonbase::Models::View::ViewType]
+      required :view_type, enum: -> { Moonbase::View::ViewType }
 
-      # @!method initialize(id:, links:, name:, collection: nil, view_type: nil, type: :view)
+      # @!attribute collection
+      #   The `Collection` this view belongs to.
+      #
+      #   **Note:** Only present when requested using the `include` query parameter.
+      #
+      #   @return [Moonbase::Models::Collection, nil]
+      optional :collection, -> { Moonbase::Collection }
+
+      # @!method initialize(id:, created_at:, name:, updated_at:, view_type:, collection: nil, type: :view)
+      #   Some parameter documentations has been truncated, see {Moonbase::Models::View}
+      #   for more details.
+      #
       #   A View represents a saved configuration for displaying items in a collection,
       #   including filters and sorting rules.
       #
       #   @param id [String] Unique identifier for the object.
       #
-      #   @param links [Moonbase::Models::View::Links]
+      #   @param created_at [Time] Time at which the object was created, as an ISO 8601 timestamp in UTC.
       #
       #   @param name [String] The name of the view.
       #
-      #   @param collection [Moonbase::Models::Collection] The `Collection` this view belongs to.
+      #   @param updated_at [Time] Time at which the object was last updated, as an ISO 8601 timestamp in UTC.
       #
       #   @param view_type [Symbol, Moonbase::Models::View::ViewType] The type of view, such as `table` or `board`.
       #
+      #   @param collection [Moonbase::Models::Collection] The `Collection` this view belongs to.
+      #
       #   @param type [Symbol, :view] String representing the object’s type. Always `view` for this object.
-
-      # @see Moonbase::Models::View#links
-      class Links < Moonbase::Internal::Type::BaseModel
-        # @!attribute collection
-        #   A link to the `Collection` this view belongs to.
-        #
-        #   @return [String]
-        required :collection, String
-
-        # @!attribute items
-        #   A link to the list of `Item` objects that are visible in this view.
-        #
-        #   @return [String]
-        required :items, String
-
-        # @!attribute self_
-        #   The canonical URL for this object.
-        #
-        #   @return [String]
-        required :self_, String, api_name: :self
-
-        # @!method initialize(collection:, items:, self_:)
-        #   @param collection [String] A link to the `Collection` this view belongs to.
-        #
-        #   @param items [String] A link to the list of `Item` objects that are visible in this view.
-        #
-        #   @param self_ [String] The canonical URL for this object.
-      end
 
       # The type of view, such as `table` or `board`.
       #

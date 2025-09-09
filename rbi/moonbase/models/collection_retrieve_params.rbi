@@ -11,8 +11,7 @@ module Moonbase
           T.any(Moonbase::CollectionRetrieveParams, Moonbase::Internal::AnyHash)
         end
 
-      # Specifies which related objects to include in the response. Valid options are
-      # `fields` and `views`.
+      # Specifies which related objects to include in the response.
       sig do
         returns(
           T.nilable(
@@ -38,8 +37,7 @@ module Moonbase
         ).returns(T.attached_class)
       end
       def self.new(
-        # Specifies which related objects to include in the response. Valid options are
-        # `fields` and `views`.
+        # Specifies which related objects to include in the response.
         include: nil,
         request_options: {}
       )
@@ -66,11 +64,6 @@ module Moonbase
           end
         OrSymbol = T.type_alias { T.any(Symbol, String) }
 
-        FIELDS =
-          T.let(
-            :fields,
-            Moonbase::CollectionRetrieveParams::Include::TaggedSymbol
-          )
         VIEWS =
           T.let(
             :views,

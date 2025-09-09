@@ -27,8 +27,7 @@ module Moonbase
         params(
           after: String,
           before: String,
-          conversation: T::Array[String],
-          inbox: T::Array[String],
+          filter: Moonbase::InboxMessageListParams::Filter::OrHash,
           include:
             T::Array[Moonbase::InboxMessageListParams::Include::OrSymbol],
           limit: Integer,
@@ -44,10 +43,7 @@ module Moonbase
         # by this cursor. Use the cursor value from the response's metadata to fetch the
         # previous page of results.
         before: nil,
-        # Filter messages by one or more conversation IDs.
-        conversation: nil,
-        # Filter messages by one or more inbox IDs.
-        inbox: nil,
+        filter: nil,
         # Specifies which related objects to include in the response. Valid options are
         # `addresses`, `attachments`, and `conversation`.
         include: nil,

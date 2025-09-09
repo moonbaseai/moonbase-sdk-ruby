@@ -8,20 +8,25 @@ module Moonbase
           T.any(Moonbase::TelephoneNumber, Moonbase::Internal::AnyHash)
         end
 
+      # A telephone number in strictly formatted E.164 format. Do not include spaces,
+      # dashes, or parentheses etc.
       sig { returns(String) }
-      attr_accessor :telephone_number
+      attr_accessor :data
 
       sig { returns(Symbol) }
       attr_accessor :type
 
       # Telephone number value
-      sig do
-        params(telephone_number: String, type: Symbol).returns(T.attached_class)
-      end
-      def self.new(telephone_number:, type: :"value/telephone_number")
+      sig { params(data: String, type: Symbol).returns(T.attached_class) }
+      def self.new(
+        # A telephone number in strictly formatted E.164 format. Do not include spaces,
+        # dashes, or parentheses etc.
+        data:,
+        type: :"value/telephone_number"
+      )
       end
 
-      sig { override.returns({ telephone_number: String, type: Symbol }) }
+      sig { override.returns({ data: String, type: Symbol }) }
       def to_hash
       end
     end

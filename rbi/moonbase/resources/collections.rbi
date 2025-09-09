@@ -6,6 +6,9 @@ module Moonbase
       sig { returns(Moonbase::Resources::Collections::Fields) }
       attr_reader :fields
 
+      sig { returns(Moonbase::Resources::Collections::Items) }
+      attr_reader :items
+
       # Retrieves the details of an existing collection.
       sig do
         params(
@@ -18,8 +21,7 @@ module Moonbase
       def retrieve(
         # The ID or `ref` of the Collection to retrieve.
         id,
-        # Specifies which related objects to include in the response. Valid options are
-        # `fields` and `views`.
+        # Specifies which related objects to include in the response.
         include: nil,
         request_options: {}
       )

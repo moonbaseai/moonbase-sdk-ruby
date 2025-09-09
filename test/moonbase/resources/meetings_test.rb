@@ -13,24 +13,25 @@ class Moonbase::Test::Resources::MeetingsTest < Moonbase::Test::ResourceTest
     assert_pattern do
       response => {
         id: String,
+        created_at: Time,
         end_at: Time,
         i_cal_uid: String,
-        links: Moonbase::Meeting::Links,
         provider_id: String,
         start_at: Time,
         time_zone: String,
         type: Symbol,
+        updated_at: Time,
         attendees: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Attendee]) | nil,
-        created_at: Time | nil,
         description: String | nil,
         duration: Float | nil,
         location: String | nil,
         organizer: Moonbase::Organizer | nil,
         provider_uri: String | nil,
+        recording_url: String | nil,
         summary_ante: String | nil,
         summary_post: String | nil,
         title: String | nil,
-        updated_at: Time | nil
+        transcript_url: String | nil
       }
     end
   end
@@ -52,24 +53,25 @@ class Moonbase::Test::Resources::MeetingsTest < Moonbase::Test::ResourceTest
     assert_pattern do
       row => {
         id: String,
+        created_at: Time,
         end_at: Time,
         i_cal_uid: String,
-        links: Moonbase::Meeting::Links,
         provider_id: String,
         start_at: Time,
         time_zone: String,
         type: Symbol,
+        updated_at: Time,
         attendees: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Attendee]) | nil,
-        created_at: Time | nil,
         description: String | nil,
         duration: Float | nil,
         location: String | nil,
         organizer: Moonbase::Organizer | nil,
         provider_uri: String | nil,
+        recording_url: String | nil,
         summary_ante: String | nil,
         summary_post: String | nil,
         title: String | nil,
-        updated_at: Time | nil
+        transcript_url: String | nil
       }
     end
   end

@@ -9,17 +9,17 @@ module Moonbase
         end
 
       sig { returns(Float) }
-      attr_accessor :number
+      attr_accessor :data
 
       sig { returns(Symbol) }
       attr_accessor :type
 
       # Floating point number
-      sig { params(number: Float, type: Symbol).returns(T.attached_class) }
-      def self.new(number:, type: :"value/number/unitless_float")
+      sig { params(data: Float, type: Symbol).returns(T.attached_class) }
+      def self.new(data:, type: :"value/number/unitless_float")
       end
 
-      sig { override.returns({ number: Float, type: Symbol }) }
+      sig { override.returns({ data: Float, type: Symbol }) }
       def to_hash
       end
     end

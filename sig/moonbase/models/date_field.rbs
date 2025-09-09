@@ -1,0 +1,83 @@
+module Moonbase
+  module Models
+    type date_field =
+      {
+        id: String,
+        cardinality: Moonbase::Models::DateField::cardinality,
+        created_at: Time,
+        name: String,
+        readonly: bool,
+        ref: String,
+        required: bool,
+        type: :"field/date",
+        unique: bool,
+        updated_at: Time,
+        description: String
+      }
+
+    class DateField < Moonbase::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor cardinality: Moonbase::Models::DateField::cardinality
+
+      attr_accessor created_at: Time
+
+      attr_accessor name: String
+
+      attr_accessor readonly: bool
+
+      attr_accessor ref: String
+
+      attr_accessor required: bool
+
+      attr_accessor type: :"field/date"
+
+      attr_accessor unique: bool
+
+      attr_accessor updated_at: Time
+
+      attr_reader description: String?
+
+      def description=: (String) -> String
+
+      def initialize: (
+        id: String,
+        cardinality: Moonbase::Models::DateField::cardinality,
+        created_at: Time,
+        name: String,
+        readonly: bool,
+        ref: String,
+        required: bool,
+        unique: bool,
+        updated_at: Time,
+        ?description: String,
+        ?type: :"field/date"
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        cardinality: Moonbase::Models::DateField::cardinality,
+        created_at: Time,
+        name: String,
+        readonly: bool,
+        ref: String,
+        required: bool,
+        type: :"field/date",
+        unique: bool,
+        updated_at: Time,
+        description: String
+      }
+
+      type cardinality = :one | :many
+
+      module Cardinality
+        extend Moonbase::Internal::Type::Enum
+
+        ONE: :one
+        MANY: :many
+
+        def self?.values: -> ::Array[Moonbase::Models::DateField::cardinality]
+      end
+    end
+  end
+end

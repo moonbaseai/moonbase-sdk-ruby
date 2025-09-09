@@ -8,18 +8,23 @@ module Moonbase
           T.any(Moonbase::EmailValue, Moonbase::Internal::AnyHash)
         end
 
+      # A valid email address.
       sig { returns(String) }
-      attr_accessor :email
+      attr_accessor :data
 
       sig { returns(Symbol) }
       attr_accessor :type
 
       # Email address value
-      sig { params(email: String, type: Symbol).returns(T.attached_class) }
-      def self.new(email:, type: :"value/email")
+      sig { params(data: String, type: Symbol).returns(T.attached_class) }
+      def self.new(
+        # A valid email address.
+        data:,
+        type: :"value/email"
+      )
       end
 
-      sig { override.returns({ email: String, type: Symbol }) }
+      sig { override.returns({ data: String, type: Symbol }) }
       def to_hash
       end
     end

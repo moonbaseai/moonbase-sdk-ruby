@@ -3,21 +3,22 @@ module Moonbase
     type collection =
       {
         id: String,
-        links: Moonbase::Collection::Links,
+        created_at: Time,
+        fields: ::Array[Moonbase::Models::field],
         name: String,
         ref: String,
         type: :collection,
-        created_at: Time,
-        description: String,
-        fields: ::Array[Moonbase::Field],
         updated_at: Time,
+        description: String,
         views: ::Array[Moonbase::View]
       }
 
     class Collection < Moonbase::Internal::Type::BaseModel
       attr_accessor id: String
 
-      attr_accessor links: Moonbase::Collection::Links
+      attr_accessor created_at: Time
+
+      attr_accessor fields: ::Array[Moonbase::Models::field]
 
       attr_accessor name: String
 
@@ -25,21 +26,11 @@ module Moonbase
 
       attr_accessor type: :collection
 
-      attr_reader created_at: Time?
-
-      def created_at=: (Time) -> Time
+      attr_accessor updated_at: Time
 
       attr_reader description: String?
 
       def description=: (String) -> String
-
-      attr_reader fields: ::Array[Moonbase::Field]?
-
-      def fields=: (::Array[Moonbase::Field]) -> ::Array[Moonbase::Field]
-
-      attr_reader updated_at: Time?
-
-      def updated_at=: (Time) -> Time
 
       attr_reader views: ::Array[Moonbase::View]?
 
@@ -47,39 +38,27 @@ module Moonbase
 
       def initialize: (
         id: String,
-        links: Moonbase::Collection::Links,
+        created_at: Time,
+        fields: ::Array[Moonbase::Models::field],
         name: String,
         ref: String,
-        ?created_at: Time,
+        updated_at: Time,
         ?description: String,
-        ?fields: ::Array[Moonbase::Field],
-        ?updated_at: Time,
         ?views: ::Array[Moonbase::View],
         ?type: :collection
       ) -> void
 
       def to_hash: -> {
         id: String,
-        links: Moonbase::Collection::Links,
+        created_at: Time,
+        fields: ::Array[Moonbase::Models::field],
         name: String,
         ref: String,
         type: :collection,
-        created_at: Time,
-        description: String,
-        fields: ::Array[Moonbase::Field],
         updated_at: Time,
+        description: String,
         views: ::Array[Moonbase::View]
       }
-
-      type links = { self_: String }
-
-      class Links < Moonbase::Internal::Type::BaseModel
-        attr_accessor self_: String
-
-        def initialize: (self_: String) -> void
-
-        def to_hash: -> { self_: String }
-      end
     end
   end
 end

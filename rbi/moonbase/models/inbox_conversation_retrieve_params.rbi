@@ -15,7 +15,7 @@ module Moonbase
         end
 
       # Specifies which related objects to include in the response. Valid options are
-      # `addresses` and `tags`.
+      # `inbox`, `messages`, and `messages.addresses`.
       sig do
         returns(
           T.nilable(
@@ -48,7 +48,7 @@ module Moonbase
       end
       def self.new(
         # Specifies which related objects to include in the response. Valid options are
-        # `addresses` and `tags`.
+        # `inbox`, `messages`, and `messages.addresses`.
         include: nil,
         request_options: {}
       )
@@ -77,14 +77,19 @@ module Moonbase
           end
         OrSymbol = T.type_alias { T.any(Symbol, String) }
 
-        ADDRESSES =
+        INBOX =
           T.let(
-            :addresses,
+            :inbox,
             Moonbase::InboxConversationRetrieveParams::Include::TaggedSymbol
           )
-        TAGS =
+        MESSAGES =
           T.let(
-            :tags,
+            :messages,
+            Moonbase::InboxConversationRetrieveParams::Include::TaggedSymbol
+          )
+        MESSAGES_ADDRESSES =
+          T.let(
+            :"messages.addresses",
             Moonbase::InboxConversationRetrieveParams::Include::TaggedSymbol
           )
 

@@ -1,22 +1,19 @@
 module Moonbase
   module Models
     type integer_value =
-      { number: Integer, type: :"value/number/unitless_integer" }
+      { data: Integer, type: :"value/number/unitless_integer" }
 
     class IntegerValue < Moonbase::Internal::Type::BaseModel
-      attr_accessor number: Integer
+      attr_accessor data: Integer
 
       attr_accessor type: :"value/number/unitless_integer"
 
       def initialize: (
-        number: Integer,
+        data: Integer,
         ?type: :"value/number/unitless_integer"
       ) -> void
 
-      def to_hash: -> {
-        number: Integer,
-        type: :"value/number/unitless_integer"
-      }
+      def to_hash: -> { data: Integer, type: :"value/number/unitless_integer" }
     end
   end
 end

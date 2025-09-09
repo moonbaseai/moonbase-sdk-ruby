@@ -10,16 +10,22 @@ module Moonbase
       sig { returns(String) }
       attr_accessor :id
 
-      sig { returns(Moonbase::Program::Links) }
-      attr_reader :links
-
-      sig { params(links: Moonbase::Program::Links::OrHash).void }
-      attr_writer :links
+      # Time at which the object was created, as an ISO 8601 timestamp in UTC.
+      sig { returns(Time) }
+      attr_accessor :created_at
 
       # The current status of the program. Can be `draft`, `published`, `paused`, or
       # `archived`.
       sig { returns(Moonbase::Program::Status::TaggedSymbol) }
       attr_accessor :status
+
+      # `true` if link clicks are tracked for this program.
+      sig { returns(T::Boolean) }
+      attr_accessor :track_clicks
+
+      # `true` if email opens are tracked for this program.
+      sig { returns(T::Boolean) }
+      attr_accessor :track_opens
 
       # The sending trigger for the program. Can be `api` for transactional sends or
       # `broadcast` for scheduled sends.
@@ -30,7 +36,13 @@ module Moonbase
       sig { returns(Symbol) }
       attr_accessor :type
 
+      # Time at which the object was last updated, as an ISO 8601 timestamp in UTC.
+      sig { returns(Time) }
+      attr_accessor :updated_at
+
       # A `ProgramActivityMetrics` object summarizing engagement for this program.
+      #
+      # **Note:** Only present when requested using the `include` query parameter.
       sig { returns(T.nilable(Moonbase::Program::ActivityMetrics)) }
       attr_reader :activity_metrics
 
@@ -41,13 +53,6 @@ module Moonbase
       end
       attr_writer :activity_metrics
 
-      # Time at which the object was created, as an RFC 3339 timestamp.
-      sig { returns(T.nilable(Time)) }
-      attr_reader :created_at
-
-      sig { params(created_at: Time).void }
-      attr_writer :created_at
-
       # The user-facing name of the program.
       sig { returns(T.nilable(String)) }
       attr_reader :display_name
@@ -56,87 +61,70 @@ module Moonbase
       attr_writer :display_name
 
       # The `ProgramTemplate` used for messages in this program.
+      #
+      # **Note:** Only present when requested using the `include` query parameter.
       sig { returns(T.nilable(Moonbase::ProgramTemplate)) }
       attr_reader :program_template
 
       sig { params(program_template: Moonbase::ProgramTemplate).void }
       attr_writer :program_template
 
-      # For `broadcast` programs, the time the program is scheduled to send, as an RFC
-      # 3339 timestamp.
+      # For `broadcast` programs, the time the program is scheduled to send, as an ISO
+      # 8601 timestamp in UTC.
       sig { returns(T.nilable(Time)) }
       attr_reader :scheduled_at
 
       sig { params(scheduled_at: Time).void }
       attr_writer :scheduled_at
 
-      # `true` if link clicks are tracked for this program.
-      sig { returns(T.nilable(T::Boolean)) }
-      attr_reader :track_clicks
-
-      sig { params(track_clicks: T::Boolean).void }
-      attr_writer :track_clicks
-
-      # `true` if email opens are tracked for this program.
-      sig { returns(T.nilable(T::Boolean)) }
-      attr_reader :track_opens
-
-      sig { params(track_opens: T::Boolean).void }
-      attr_writer :track_opens
-
-      # Time at which the object was last updated, as an RFC 3339 timestamp.
-      sig { returns(T.nilable(Time)) }
-      attr_reader :updated_at
-
-      sig { params(updated_at: Time).void }
-      attr_writer :updated_at
-
       # The Program object represents an email campaign. It defines the sending behavior
       # and tracks engagement metrics.
       sig do
         params(
           id: String,
-          links: Moonbase::Program::Links::OrHash,
-          status: Moonbase::Program::Status::OrSymbol,
-          trigger: Moonbase::Program::Trigger::OrSymbol,
-          activity_metrics: Moonbase::Program::ActivityMetrics::OrHash,
           created_at: Time,
+          status: Moonbase::Program::Status::OrSymbol,
+          track_clicks: T::Boolean,
+          track_opens: T::Boolean,
+          trigger: Moonbase::Program::Trigger::OrSymbol,
+          updated_at: Time,
+          activity_metrics: Moonbase::Program::ActivityMetrics::OrHash,
           display_name: String,
           program_template: Moonbase::ProgramTemplate,
           scheduled_at: Time,
-          track_clicks: T::Boolean,
-          track_opens: T::Boolean,
-          updated_at: Time,
           type: Symbol
         ).returns(T.attached_class)
       end
       def self.new(
         # Unique identifier for the object.
         id:,
-        links:,
+        # Time at which the object was created, as an ISO 8601 timestamp in UTC.
+        created_at:,
         # The current status of the program. Can be `draft`, `published`, `paused`, or
         # `archived`.
         status:,
+        # `true` if link clicks are tracked for this program.
+        track_clicks:,
+        # `true` if email opens are tracked for this program.
+        track_opens:,
         # The sending trigger for the program. Can be `api` for transactional sends or
         # `broadcast` for scheduled sends.
         trigger:,
+        # Time at which the object was last updated, as an ISO 8601 timestamp in UTC.
+        updated_at:,
         # A `ProgramActivityMetrics` object summarizing engagement for this program.
+        #
+        # **Note:** Only present when requested using the `include` query parameter.
         activity_metrics: nil,
-        # Time at which the object was created, as an RFC 3339 timestamp.
-        created_at: nil,
         # The user-facing name of the program.
         display_name: nil,
         # The `ProgramTemplate` used for messages in this program.
+        #
+        # **Note:** Only present when requested using the `include` query parameter.
         program_template: nil,
-        # For `broadcast` programs, the time the program is scheduled to send, as an RFC
-        # 3339 timestamp.
+        # For `broadcast` programs, the time the program is scheduled to send, as an ISO
+        # 8601 timestamp in UTC.
         scheduled_at: nil,
-        # `true` if link clicks are tracked for this program.
-        track_clicks: nil,
-        # `true` if email opens are tracked for this program.
-        track_opens: nil,
-        # Time at which the object was last updated, as an RFC 3339 timestamp.
-        updated_at: nil,
         # String representing the object’s type. Always `program` for this object.
         type: :program
       )
@@ -146,54 +134,21 @@ module Moonbase
         override.returns(
           {
             id: String,
-            links: Moonbase::Program::Links,
-            status: Moonbase::Program::Status::TaggedSymbol,
-            trigger: Moonbase::Program::Trigger::TaggedSymbol,
-            type: Symbol,
-            activity_metrics: Moonbase::Program::ActivityMetrics,
             created_at: Time,
-            display_name: String,
-            program_template: Moonbase::ProgramTemplate,
-            scheduled_at: Time,
+            status: Moonbase::Program::Status::TaggedSymbol,
             track_clicks: T::Boolean,
             track_opens: T::Boolean,
-            updated_at: Time
+            trigger: Moonbase::Program::Trigger::TaggedSymbol,
+            type: Symbol,
+            updated_at: Time,
+            activity_metrics: Moonbase::Program::ActivityMetrics,
+            display_name: String,
+            program_template: Moonbase::ProgramTemplate,
+            scheduled_at: Time
           }
         )
       end
       def to_hash
-      end
-
-      class Links < Moonbase::Internal::Type::BaseModel
-        OrHash =
-          T.type_alias do
-            T.any(Moonbase::Program::Links, Moonbase::Internal::AnyHash)
-          end
-
-        # A link to the `ProgramTemplate` for this program.
-        sig { returns(String) }
-        attr_accessor :program_template
-
-        # The canonical URL for this object.
-        sig { returns(String) }
-        attr_accessor :self_
-
-        sig do
-          params(program_template: String, self_: String).returns(
-            T.attached_class
-          )
-        end
-        def self.new(
-          # A link to the `ProgramTemplate` for this program.
-          program_template:,
-          # The canonical URL for this object.
-          self_:
-        )
-        end
-
-        sig { override.returns({ program_template: String, self_: String }) }
-        def to_hash
-        end
       end
 
       # The current status of the program. Can be `draft`, `published`, `paused`, or
@@ -245,62 +200,40 @@ module Moonbase
           end
 
         # The number of emails that could not be delivered.
-        sig { returns(T.nilable(Integer)) }
-        attr_reader :bounced
-
-        sig { params(bounced: Integer).void }
-        attr_writer :bounced
+        sig { returns(Integer) }
+        attr_accessor :bounced
 
         # The number of recipients who clicked at least one link.
-        sig { returns(T.nilable(Integer)) }
-        attr_reader :clicked
-
-        sig { params(clicked: Integer).void }
-        attr_writer :clicked
+        sig { returns(Integer) }
+        attr_accessor :clicked
 
         # The number of recipients who marked the email as spam.
-        sig { returns(T.nilable(Integer)) }
-        attr_reader :complained
-
-        sig { params(complained: Integer).void }
-        attr_writer :complained
+        sig { returns(Integer) }
+        attr_accessor :complained
 
         # The number of emails that failed to send due to a technical issue.
-        sig { returns(T.nilable(Integer)) }
-        attr_reader :failed
-
-        sig { params(failed: Integer).void }
-        attr_writer :failed
+        sig { returns(Integer) }
+        attr_accessor :failed
 
         # The number of recipients who opened the email.
-        sig { returns(T.nilable(Integer)) }
-        attr_reader :opened
-
-        sig { params(opened: Integer).void }
-        attr_writer :opened
+        sig { returns(Integer) }
+        attr_accessor :opened
 
         # The total number of emails successfully sent.
-        sig { returns(T.nilable(Integer)) }
-        attr_reader :sent
-
-        sig { params(sent: Integer).void }
-        attr_writer :sent
+        sig { returns(Integer) }
+        attr_accessor :sent
 
         # The number of emails blocked by delivery protection rules.
-        sig { returns(T.nilable(Integer)) }
-        attr_reader :shielded
-
-        sig { params(shielded: Integer).void }
-        attr_writer :shielded
+        sig { returns(Integer) }
+        attr_accessor :shielded
 
         # The number of recipients who unsubscribed.
-        sig { returns(T.nilable(Integer)) }
-        attr_reader :unsubscribed
-
-        sig { params(unsubscribed: Integer).void }
-        attr_writer :unsubscribed
+        sig { returns(Integer) }
+        attr_accessor :unsubscribed
 
         # A `ProgramActivityMetrics` object summarizing engagement for this program.
+        #
+        # **Note:** Only present when requested using the `include` query parameter.
         sig do
           params(
             bounced: Integer,
@@ -315,21 +248,21 @@ module Moonbase
         end
         def self.new(
           # The number of emails that could not be delivered.
-          bounced: nil,
+          bounced:,
           # The number of recipients who clicked at least one link.
-          clicked: nil,
+          clicked:,
           # The number of recipients who marked the email as spam.
-          complained: nil,
+          complained:,
           # The number of emails that failed to send due to a technical issue.
-          failed: nil,
+          failed:,
           # The number of recipients who opened the email.
-          opened: nil,
+          opened:,
           # The total number of emails successfully sent.
-          sent: nil,
+          sent:,
           # The number of emails blocked by delivery protection rules.
-          shielded: nil,
+          shielded:,
           # The number of recipients who unsubscribed.
-          unsubscribed: nil
+          unsubscribed:
         )
         end
 

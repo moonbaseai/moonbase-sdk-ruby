@@ -14,30 +14,24 @@ module Moonbase
       sig { returns(String) }
       attr_accessor :email
 
-      # A hash of related links.
-      sig { returns(Moonbase::Attendee::Links) }
-      attr_reader :links
-
-      sig { params(links: Moonbase::Attendee::Links::OrHash).void }
-      attr_writer :links
-
-      # String representing the object’s type. Always `attendee` for this object.
+      # String representing the object’s type. Always `meeting_attendee` for this
+      # object.
       sig { returns(Symbol) }
       attr_accessor :type
 
-      # Time at which the object was created, as an RFC 3339 timestamp.
-      sig { returns(T.nilable(Time)) }
-      attr_reader :created_at
+      # A lightweight reference to another resource.
+      sig { returns(T.nilable(Moonbase::Pointer)) }
+      attr_reader :organization
 
-      sig { params(created_at: Time).void }
-      attr_writer :created_at
+      sig { params(organization: Moonbase::Pointer::OrHash).void }
+      attr_writer :organization
 
-      # Time at which the object was last updated, as an RFC 3339 timestamp.
-      sig { returns(T.nilable(Time)) }
-      attr_reader :updated_at
+      # A lightweight reference to another resource.
+      sig { returns(T.nilable(Moonbase::Pointer)) }
+      attr_reader :person
 
-      sig { params(updated_at: Time).void }
-      attr_writer :updated_at
+      sig { params(person: Moonbase::Pointer::OrHash).void }
+      attr_writer :person
 
       # The Attendee object represents a participant in a meeting. It includes their
       # email address and links to associated `Person` and `Organization` items, if they
@@ -46,9 +40,8 @@ module Moonbase
         params(
           id: String,
           email: String,
-          links: Moonbase::Attendee::Links::OrHash,
-          created_at: Time,
-          updated_at: Time,
+          organization: Moonbase::Pointer::OrHash,
+          person: Moonbase::Pointer::OrHash,
           type: Symbol
         ).returns(T.attached_class)
       end
@@ -57,14 +50,13 @@ module Moonbase
         id:,
         # The email address of the attendee.
         email:,
-        # A hash of related links.
-        links:,
-        # Time at which the object was created, as an RFC 3339 timestamp.
-        created_at: nil,
-        # Time at which the object was last updated, as an RFC 3339 timestamp.
-        updated_at: nil,
-        # String representing the object’s type. Always `attendee` for this object.
-        type: :attendee
+        # A lightweight reference to another resource.
+        organization: nil,
+        # A lightweight reference to another resource.
+        person: nil,
+        # String representing the object’s type. Always `meeting_attendee` for this
+        # object.
+        type: :meeting_attendee
       )
       end
 
@@ -73,45 +65,13 @@ module Moonbase
           {
             id: String,
             email: String,
-            links: Moonbase::Attendee::Links,
             type: Symbol,
-            created_at: Time,
-            updated_at: Time
+            organization: Moonbase::Pointer,
+            person: Moonbase::Pointer
           }
         )
       end
       def to_hash
-      end
-
-      class Links < Moonbase::Internal::Type::BaseModel
-        OrHash =
-          T.type_alias do
-            T.any(Moonbase::Attendee::Links, Moonbase::Internal::AnyHash)
-          end
-
-        # A link to the associated `Organization` item.
-        sig { returns(String) }
-        attr_accessor :organization
-
-        # A link to the associated `Person` item.
-        sig { returns(String) }
-        attr_accessor :person
-
-        # A hash of related links.
-        sig do
-          params(organization: String, person: String).returns(T.attached_class)
-        end
-        def self.new(
-          # A link to the associated `Organization` item.
-          organization:,
-          # A link to the associated `Person` item.
-          person:
-        )
-        end
-
-        sig { override.returns({ organization: String, person: String }) }
-        def to_hash
-        end
       end
     end
   end

@@ -9,7 +9,7 @@ module Moonbase
 
       # @!attribute include
       #   Specifies which related objects to include in the response. Valid options are
-      #   `addresses` and `tags`.
+      #   `inbox`, `messages`, and `messages.addresses`.
       #
       #   @return [Array<Symbol, Moonbase::Models::InboxConversationRetrieveParams::Include>, nil]
       optional :include,
@@ -19,15 +19,16 @@ module Moonbase
       #   Some parameter documentations has been truncated, see
       #   {Moonbase::Models::InboxConversationRetrieveParams} for more details.
       #
-      #   @param include [Array<Symbol, Moonbase::Models::InboxConversationRetrieveParams::Include>] Specifies which related objects to include in the response. Valid options are `a
+      #   @param include [Array<Symbol, Moonbase::Models::InboxConversationRetrieveParams::Include>] Specifies which related objects to include in the response. Valid options are `i
       #
       #   @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}]
 
       module Include
         extend Moonbase::Internal::Type::Enum
 
-        ADDRESSES = :addresses
-        TAGS = :tags
+        INBOX = :inbox
+        MESSAGES = :messages
+        MESSAGES_ADDRESSES = :"messages.addresses"
 
         # @!method self.values
         #   @return [Array<Symbol>]

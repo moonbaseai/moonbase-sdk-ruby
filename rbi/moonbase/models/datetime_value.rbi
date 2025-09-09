@@ -9,17 +9,17 @@ module Moonbase
         end
 
       sig { returns(Time) }
-      attr_accessor :datetime
+      attr_accessor :data
 
       sig { returns(Symbol) }
       attr_accessor :type
 
       # Date and time value
-      sig { params(datetime: Time, type: Symbol).returns(T.attached_class) }
-      def self.new(datetime:, type: :"value/datetime")
+      sig { params(data: Time, type: Symbol).returns(T.attached_class) }
+      def self.new(data:, type: :"value/datetime")
       end
 
-      sig { override.returns({ datetime: Time, type: Symbol }) }
+      sig { override.returns({ data: Time, type: Symbol }) }
       def to_hash
       end
     end

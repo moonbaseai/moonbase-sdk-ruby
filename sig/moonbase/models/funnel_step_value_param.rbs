@@ -1,0 +1,33 @@
+module Moonbase
+  module Models
+    type funnel_step_value_param =
+      {
+        data: Moonbase::Models::FunnelStepValueParam::data,
+        type: :"value/funnel_step"
+      }
+
+    class FunnelStepValueParam < Moonbase::Internal::Type::BaseModel
+      attr_accessor data: Moonbase::Models::FunnelStepValueParam::data
+
+      attr_accessor type: :"value/funnel_step"
+
+      def initialize: (
+        data: Moonbase::Models::FunnelStepValueParam::data,
+        ?type: :"value/funnel_step"
+      ) -> void
+
+      def to_hash: -> {
+        data: Moonbase::Models::FunnelStepValueParam::data,
+        type: :"value/funnel_step"
+      }
+
+      type data = Moonbase::FunnelStep | Moonbase::Pointer
+
+      module Data
+        extend Moonbase::Internal::Type::Union
+
+        def self?.variants: -> ::Array[Moonbase::Models::FunnelStepValueParam::data]
+      end
+    end
+  end
+end

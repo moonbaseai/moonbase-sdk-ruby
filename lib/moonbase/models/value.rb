@@ -38,10 +38,10 @@ module Moonbase
       # Internet domain name
       variant :"value/uri/domain", -> { Moonbase::DomainValue }
 
-      # X (formerly Twitter) username
+      # The social media profile for the X (formerly Twitter) platform
       variant :"value/uri/social_x", -> { Moonbase::SocialXValue }
 
-      # LinkedIn profile link
+      # The social media profile for the LinkedIn platform
       variant :"value/uri/social_linked_in", -> { Moonbase::SocialLinkedInValue }
 
       # Telephone number value
@@ -57,16 +57,16 @@ module Moonbase
       variant :"value/datetime", -> { Moonbase::DatetimeValue }
 
       # Selected choice option
-      variant :"value/choice", -> { Moonbase::Choice }
+      variant :"value/choice", -> { Moonbase::ChoiceValue }
 
       # Funnel step value
-      variant :"value/funnel_step", -> { Moonbase::FunnelStep }
+      variant :"value/funnel_step", -> { Moonbase::FunnelStepValue }
 
       # Related item reference
       variant :"value/relation", -> { Moonbase::RelationValue }
 
       # @!method self.variants
-      #   @return [Array(Moonbase::Models::SingleLineTextValue, Moonbase::Models::MultiLineTextValue, Moonbase::Models::IntegerValue, Moonbase::Models::FloatValue, Moonbase::Models::MonetaryValue, Moonbase::Models::PercentageValue, Moonbase::Models::BooleanValue, Moonbase::Models::EmailValue, Moonbase::Models::URLValue, Moonbase::Models::DomainValue, Moonbase::Models::SocialXValue, Moonbase::Models::SocialLinkedInValue, Moonbase::Models::TelephoneNumber, Moonbase::Models::GeoValue, Moonbase::Models::DateValue, Moonbase::Models::DatetimeValue, Moonbase::Models::Choice, Moonbase::Models::FunnelStep, Moonbase::Models::RelationValue)]
+      #   @return [Array(Moonbase::Models::SingleLineTextValue, Moonbase::Models::MultiLineTextValue, Moonbase::Models::IntegerValue, Moonbase::Models::FloatValue, Moonbase::Models::MonetaryValue, Moonbase::Models::PercentageValue, Moonbase::Models::BooleanValue, Moonbase::Models::EmailValue, Moonbase::Models::URLValue, Moonbase::Models::DomainValue, Moonbase::Models::SocialXValue, Moonbase::Models::SocialLinkedInValue, Moonbase::Models::TelephoneNumber, Moonbase::Models::GeoValue, Moonbase::Models::DateValue, Moonbase::Models::DatetimeValue, Moonbase::Models::ChoiceValue, Moonbase::Models::FunnelStepValue, Moonbase::Models::RelationValue)]
     end
   end
 end

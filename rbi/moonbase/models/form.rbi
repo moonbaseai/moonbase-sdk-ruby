@@ -17,33 +17,25 @@ module Moonbase
       sig { params(collection: Moonbase::Collection::OrHash).void }
       attr_writer :collection
 
-      sig { returns(Moonbase::Form::Links) }
-      attr_reader :links
-
-      sig { params(links: Moonbase::Form::Links::OrHash).void }
-      attr_writer :links
+      # Time at which the object was created, as an ISO 8601 timestamp in UTC.
+      sig { returns(Time) }
+      attr_accessor :created_at
 
       # The name of the form, used as the title on its public page.
       sig { returns(String) }
       attr_accessor :name
 
+      # `true` if the form is available at a public URL.
+      sig { returns(T::Boolean) }
+      attr_accessor :pages_enabled
+
       # String representing the object’s type. Always `form` for this object.
       sig { returns(Symbol) }
       attr_accessor :type
 
-      # Time at which the object was created, as an RFC 3339 timestamp.
-      sig { returns(T.nilable(Time)) }
-      attr_reader :created_at
-
-      sig { params(created_at: Time).void }
-      attr_writer :created_at
-
-      # `true` if the form is available at a public URL.
-      sig { returns(T.nilable(T::Boolean)) }
-      attr_reader :pages_enabled
-
-      sig { params(pages_enabled: T::Boolean).void }
-      attr_writer :pages_enabled
+      # Time at which the object was last updated, as an ISO 8601 timestamp in UTC.
+      sig { returns(Time) }
+      attr_accessor :updated_at
 
       # The public URL for the form, if `pages_enabled` is `true`.
       sig { returns(T.nilable(String)) }
@@ -59,26 +51,18 @@ module Moonbase
       sig { params(redirect_url: String).void }
       attr_writer :redirect_url
 
-      # Time at which the object was last updated, as an RFC 3339 timestamp.
-      sig { returns(T.nilable(Time)) }
-      attr_reader :updated_at
-
-      sig { params(updated_at: Time).void }
-      attr_writer :updated_at
-
       # A Form provides a way to create `Items` in a `Collection`, often via a public
       # URL for external users. Each form submission creates a new item.
       sig do
         params(
           id: String,
           collection: Moonbase::Collection::OrHash,
-          links: Moonbase::Form::Links::OrHash,
-          name: String,
           created_at: Time,
+          name: String,
           pages_enabled: T::Boolean,
+          updated_at: Time,
           pages_url: String,
           redirect_url: String,
-          updated_at: Time,
           type: Symbol
         ).returns(T.attached_class)
       end
@@ -87,19 +71,18 @@ module Moonbase
         id:,
         # The `Collection` that submissions to this form are saved to.
         collection:,
-        links:,
+        # Time at which the object was created, as an ISO 8601 timestamp in UTC.
+        created_at:,
         # The name of the form, used as the title on its public page.
         name:,
-        # Time at which the object was created, as an RFC 3339 timestamp.
-        created_at: nil,
         # `true` if the form is available at a public URL.
-        pages_enabled: nil,
+        pages_enabled:,
+        # Time at which the object was last updated, as an ISO 8601 timestamp in UTC.
+        updated_at:,
         # The public URL for the form, if `pages_enabled` is `true`.
         pages_url: nil,
         # An optional URL to redirect users to after a successful submission.
         redirect_url: nil,
-        # Time at which the object was last updated, as an RFC 3339 timestamp.
-        updated_at: nil,
         # String representing the object’s type. Always `form` for this object.
         type: :form
       )
@@ -110,51 +93,17 @@ module Moonbase
           {
             id: String,
             collection: Moonbase::Collection,
-            links: Moonbase::Form::Links,
-            name: String,
-            type: Symbol,
             created_at: Time,
+            name: String,
             pages_enabled: T::Boolean,
+            type: Symbol,
+            updated_at: Time,
             pages_url: String,
-            redirect_url: String,
-            updated_at: Time
+            redirect_url: String
           }
         )
       end
       def to_hash
-      end
-
-      class Links < Moonbase::Internal::Type::BaseModel
-        OrHash =
-          T.type_alias do
-            T.any(Moonbase::Form::Links, Moonbase::Internal::AnyHash)
-          end
-
-        # The canonical URL for this object.
-        sig { returns(String) }
-        attr_accessor :self_
-
-        # A link to the `Collection` where form submissions are saved.
-        sig { returns(T.nilable(String)) }
-        attr_reader :collection
-
-        sig { params(collection: String).void }
-        attr_writer :collection
-
-        sig do
-          params(self_: String, collection: String).returns(T.attached_class)
-        end
-        def self.new(
-          # The canonical URL for this object.
-          self_:,
-          # A link to the `Collection` where form submissions are saved.
-          collection: nil
-        )
-        end
-
-        sig { override.returns({ self_: String, collection: String }) }
-        def to_hash
-        end
       end
     end
   end

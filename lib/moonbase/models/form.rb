@@ -16,10 +16,11 @@ module Moonbase
       #   @return [Moonbase::Models::Collection]
       required :collection, -> { Moonbase::Collection }
 
-      # @!attribute links
+      # @!attribute created_at
+      #   Time at which the object was created, as an ISO 8601 timestamp in UTC.
       #
-      #   @return [Moonbase::Models::Form::Links]
-      required :links, -> { Moonbase::Form::Links }
+      #   @return [Time]
+      required :created_at, Time
 
       # @!attribute name
       #   The name of the form, used as the title on its public page.
@@ -27,23 +28,23 @@ module Moonbase
       #   @return [String]
       required :name, String
 
+      # @!attribute pages_enabled
+      #   `true` if the form is available at a public URL.
+      #
+      #   @return [Boolean]
+      required :pages_enabled, Moonbase::Internal::Type::Boolean
+
       # @!attribute type
       #   String representing the object’s type. Always `form` for this object.
       #
       #   @return [Symbol, :form]
       required :type, const: :form
 
-      # @!attribute created_at
-      #   Time at which the object was created, as an RFC 3339 timestamp.
+      # @!attribute updated_at
+      #   Time at which the object was last updated, as an ISO 8601 timestamp in UTC.
       #
-      #   @return [Time, nil]
-      optional :created_at, Time
-
-      # @!attribute pages_enabled
-      #   `true` if the form is available at a public URL.
-      #
-      #   @return [Boolean, nil]
-      optional :pages_enabled, Moonbase::Internal::Type::Boolean
+      #   @return [Time]
+      required :updated_at, Time
 
       # @!attribute pages_url
       #   The public URL for the form, if `pages_enabled` is `true`.
@@ -57,13 +58,7 @@ module Moonbase
       #   @return [String, nil]
       optional :redirect_url, String
 
-      # @!attribute updated_at
-      #   Time at which the object was last updated, as an RFC 3339 timestamp.
-      #
-      #   @return [Time, nil]
-      optional :updated_at, Time
-
-      # @!method initialize(id:, collection:, links:, name:, created_at: nil, pages_enabled: nil, pages_url: nil, redirect_url: nil, updated_at: nil, type: :form)
+      # @!method initialize(id:, collection:, created_at:, name:, pages_enabled:, updated_at:, pages_url: nil, redirect_url: nil, type: :form)
       #   A Form provides a way to create `Items` in a `Collection`, often via a public
       #   URL for external users. Each form submission creates a new item.
       #
@@ -71,41 +66,19 @@ module Moonbase
       #
       #   @param collection [Moonbase::Models::Collection] The `Collection` that submissions to this form are saved to.
       #
-      #   @param links [Moonbase::Models::Form::Links]
+      #   @param created_at [Time] Time at which the object was created, as an ISO 8601 timestamp in UTC.
       #
       #   @param name [String] The name of the form, used as the title on its public page.
       #
-      #   @param created_at [Time] Time at which the object was created, as an RFC 3339 timestamp.
-      #
       #   @param pages_enabled [Boolean] `true` if the form is available at a public URL.
+      #
+      #   @param updated_at [Time] Time at which the object was last updated, as an ISO 8601 timestamp in UTC.
       #
       #   @param pages_url [String] The public URL for the form, if `pages_enabled` is `true`.
       #
       #   @param redirect_url [String] An optional URL to redirect users to after a successful submission.
       #
-      #   @param updated_at [Time] Time at which the object was last updated, as an RFC 3339 timestamp.
-      #
       #   @param type [Symbol, :form] String representing the object’s type. Always `form` for this object.
-
-      # @see Moonbase::Models::Form#links
-      class Links < Moonbase::Internal::Type::BaseModel
-        # @!attribute self_
-        #   The canonical URL for this object.
-        #
-        #   @return [String]
-        required :self_, String, api_name: :self
-
-        # @!attribute collection
-        #   A link to the `Collection` where form submissions are saved.
-        #
-        #   @return [String, nil]
-        optional :collection, String
-
-        # @!method initialize(self_:, collection: nil)
-        #   @param self_ [String] The canonical URL for this object.
-        #
-        #   @param collection [String] A link to the `Collection` where form submissions are saved.
-      end
     end
   end
 end

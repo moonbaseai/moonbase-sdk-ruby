@@ -14,14 +14,13 @@ class Moonbase::Test::Resources::FormsTest < Moonbase::Test::ResourceTest
       response => {
         id: String,
         collection: Moonbase::Collection,
-        links: Moonbase::Form::Links,
+        created_at: Time,
         name: String,
+        pages_enabled: Moonbase::Internal::Type::Boolean,
         type: Symbol,
-        created_at: Time | nil,
-        pages_enabled: Moonbase::Internal::Type::Boolean | nil,
+        updated_at: Time,
         pages_url: String | nil,
-        redirect_url: String | nil,
-        updated_at: Time | nil
+        redirect_url: String | nil
       }
     end
   end
@@ -44,14 +43,13 @@ class Moonbase::Test::Resources::FormsTest < Moonbase::Test::ResourceTest
       row => {
         id: String,
         collection: Moonbase::Collection,
-        links: Moonbase::Form::Links,
+        created_at: Time,
         name: String,
+        pages_enabled: Moonbase::Internal::Type::Boolean,
         type: Symbol,
-        created_at: Time | nil,
-        pages_enabled: Moonbase::Internal::Type::Boolean | nil,
+        updated_at: Time,
         pages_url: String | nil,
-        redirect_url: String | nil,
-        updated_at: Time | nil
+        redirect_url: String | nil
       }
     end
   end

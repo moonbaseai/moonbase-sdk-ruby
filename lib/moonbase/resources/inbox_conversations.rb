@@ -12,7 +12,7 @@ module Moonbase
       #
       # @param id [String] The ID of the Conversation to retrieve.
       #
-      # @param include [Array<Symbol, Moonbase::Models::InboxConversationRetrieveParams::Include>] Specifies which related objects to include in the response. Valid options are `a
+      # @param include [Array<Symbol, Moonbase::Models::InboxConversationRetrieveParams::Include>] Specifies which related objects to include in the response. Valid options are `i
       #
       # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
       #
@@ -35,15 +35,15 @@ module Moonbase
       #
       # Returns a list of your conversations.
       #
-      # @overload list(after: nil, before: nil, inbox: nil, include: nil, limit: nil, request_options: {})
+      # @overload list(after: nil, before: nil, filter: nil, include: nil, limit: nil, request_options: {})
       #
       # @param after [String] When specified, returns results starting immediately after the item identified b
       #
       # @param before [String] When specified, returns results starting immediately before the item identified
       #
-      # @param inbox [Array<String>] Filter conversations by one or more inbox IDs.
+      # @param filter [Moonbase::Models::InboxConversationListParams::Filter]
       #
-      # @param include [Array<Symbol, Moonbase::Models::InboxConversationListParams::Include>] Specifies which related objects to include in the response. Valid options are `a
+      # @param include [Array<Symbol, Moonbase::Models::InboxConversationListParams::Include>] Specifies which related objects to include in the response. Valid options are `i
       #
       # @param limit [Integer] Maximum number of items to return per page. Must be between 1 and 100. Defaults
       #

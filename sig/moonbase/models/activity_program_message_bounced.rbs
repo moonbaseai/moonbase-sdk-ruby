@@ -1,0 +1,54 @@
+module Moonbase
+  module Models
+    type activity_program_message_bounced =
+      {
+        id: String,
+        occurred_at: Time,
+        program_message: Moonbase::Pointer?,
+        recipient: Moonbase::ItemPointer?,
+        type: :"activity/program_message_bounced",
+        bounce_type: String,
+        bounced_recipient_emails: ::Array[String]
+      }
+
+    class ActivityProgramMessageBounced < Moonbase::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor occurred_at: Time
+
+      attr_accessor program_message: Moonbase::Pointer?
+
+      attr_accessor recipient: Moonbase::ItemPointer?
+
+      attr_accessor type: :"activity/program_message_bounced"
+
+      attr_reader bounce_type: String?
+
+      def bounce_type=: (String) -> String
+
+      attr_reader bounced_recipient_emails: ::Array[String]?
+
+      def bounced_recipient_emails=: (::Array[String]) -> ::Array[String]
+
+      def initialize: (
+        id: String,
+        occurred_at: Time,
+        program_message: Moonbase::Pointer?,
+        recipient: Moonbase::ItemPointer?,
+        ?bounce_type: String,
+        ?bounced_recipient_emails: ::Array[String],
+        ?type: :"activity/program_message_bounced"
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        occurred_at: Time,
+        program_message: Moonbase::Pointer?,
+        recipient: Moonbase::ItemPointer?,
+        type: :"activity/program_message_bounced",
+        bounce_type: String,
+        bounced_recipient_emails: ::Array[String]
+      }
+    end
+  end
+end
