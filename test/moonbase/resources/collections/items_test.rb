@@ -9,7 +9,7 @@ class Moonbase::Test::Resources::Collections::ItemsTest < Moonbase::Test::Resour
         "collection_id",
         values: {
           name: {data: "Aperture Science", type: :"value/text/single_line"},
-          ceo: {item: {id: "1CLJt2v2rARKGD4MLziBCw", type: "item"}, type: :"value/relation"}
+          ceo: {data: {id: "1CLJt2v2rARKGD4MLziBCw", type: "item"}, type: :"value/relation"}
         }
       )
 
