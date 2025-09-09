@@ -3,33 +3,28 @@
 module Moonbase
   module Models
     class RelationValueParam < Moonbase::Internal::Type::BaseModel
-      # @!attribute item
-      #   A reference to an `Item` within a specific `Collection`, providing the context
-      #   needed to locate the item.
+      # @!attribute data
+      #   A reference to another Moonbase item.
       #
       #   @return [Moonbase::Models::ItemPointer, Moonbase::Models::Pointer]
-      required :item, union: -> { Moonbase::RelationValueParam::Item }
+      required :data, union: -> { Moonbase::RelationValueParam::Data }
 
       # @!attribute type
       #
       #   @return [Symbol, :"value/relation"]
       required :type, const: :"value/relation"
 
-      # @!method initialize(item:, type: :"value/relation")
-      #   Some parameter documentations has been truncated, see
-      #   {Moonbase::Models::RelationValueParam} for more details.
-      #
+      # @!method initialize(data:, type: :"value/relation")
       #   Related item reference
       #
-      #   @param item [Moonbase::Models::ItemPointer, Moonbase::Models::Pointer] A reference to an `Item` within a specific `Collection`, providing the context n
+      #   @param data [Moonbase::Models::ItemPointer, Moonbase::Models::Pointer] A reference to another Moonbase item.
       #
       #   @param type [Symbol, :"value/relation"]
 
-      # A reference to an `Item` within a specific `Collection`, providing the context
-      # needed to locate the item.
+      # A reference to another Moonbase item.
       #
-      # @see Moonbase::Models::RelationValueParam#item
-      module Item
+      # @see Moonbase::Models::RelationValueParam#data
+      module Data
         extend Moonbase::Internal::Type::Union
 
         # A reference to an `Item` within a specific `Collection`, providing the context needed to locate the item.

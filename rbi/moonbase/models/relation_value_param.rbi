@@ -8,10 +8,9 @@ module Moonbase
           T.any(Moonbase::RelationValueParam, Moonbase::Internal::AnyHash)
         end
 
-      # A reference to an `Item` within a specific `Collection`, providing the context
-      # needed to locate the item.
+      # A reference to another Moonbase item.
       sig { returns(T.any(Moonbase::ItemPointer, Moonbase::Pointer)) }
-      attr_accessor :item
+      attr_accessor :data
 
       sig { returns(Symbol) }
       attr_accessor :type
@@ -19,14 +18,13 @@ module Moonbase
       # Related item reference
       sig do
         params(
-          item: T.any(Moonbase::ItemPointer::OrHash, Moonbase::Pointer::OrHash),
+          data: T.any(Moonbase::ItemPointer::OrHash, Moonbase::Pointer::OrHash),
           type: Symbol
         ).returns(T.attached_class)
       end
       def self.new(
-        # A reference to an `Item` within a specific `Collection`, providing the context
-        # needed to locate the item.
-        item:,
+        # A reference to another Moonbase item.
+        data:,
         type: :"value/relation"
       )
       end
@@ -34,7 +32,7 @@ module Moonbase
       sig do
         override.returns(
           {
-            item: T.any(Moonbase::ItemPointer, Moonbase::Pointer),
+            data: T.any(Moonbase::ItemPointer, Moonbase::Pointer),
             type: Symbol
           }
         )
@@ -42,9 +40,8 @@ module Moonbase
       def to_hash
       end
 
-      # A reference to an `Item` within a specific `Collection`, providing the context
-      # needed to locate the item.
-      module Item
+      # A reference to another Moonbase item.
+      module Data
         extend Moonbase::Internal::Type::Union
 
         Variants =
@@ -52,7 +49,7 @@ module Moonbase
 
         sig do
           override.returns(
-            T::Array[Moonbase::RelationValueParam::Item::Variants]
+            T::Array[Moonbase::RelationValueParam::Data::Variants]
           )
         end
         def self.variants
