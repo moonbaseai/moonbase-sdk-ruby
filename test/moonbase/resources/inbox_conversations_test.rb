@@ -13,22 +13,22 @@ class Moonbase::Test::Resources::InboxConversationsTest < Moonbase::Test::Resour
     assert_pattern do
       response => {
         id: String,
-        links: Moonbase::InboxConversation::Links,
+        bulk: Moonbase::Internal::Type::Boolean,
+        created_at: Time,
+        draft: Moonbase::Internal::Type::Boolean,
+        follow_up: Moonbase::Internal::Type::Boolean,
+        last_message_at: Time,
+        spam: Moonbase::Internal::Type::Boolean,
         state: Moonbase::InboxConversation::State,
+        subject: String,
+        tags: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::InboxConversation::Tag]),
+        trash: Moonbase::Internal::Type::Boolean,
         type: Symbol,
-        addresses: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Address]) | nil,
-        bulk: Moonbase::Internal::Type::Boolean | nil,
-        created_at: Time | nil,
-        follow_up: Moonbase::Internal::Type::Boolean | nil,
-        new_draft_conversation: Moonbase::Internal::Type::Boolean | nil,
-        spam: Moonbase::Internal::Type::Boolean | nil,
-        subject: String | nil,
-        tags: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::InboxConversation::Tag]) | nil,
-        timestamp: String | nil,
-        trash: Moonbase::Internal::Type::Boolean | nil,
-        unread: Moonbase::Internal::Type::Boolean | nil,
-        unsnooze_at: Time | nil,
-        updated_at: Time | nil
+        unread: Moonbase::Internal::Type::Boolean,
+        updated_at: Time,
+        inbox: Moonbase::Inbox | nil,
+        messages: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::EmailMessage]) | nil,
+        unsnooze_at: Time | nil
       }
     end
   end
@@ -50,22 +50,22 @@ class Moonbase::Test::Resources::InboxConversationsTest < Moonbase::Test::Resour
     assert_pattern do
       row => {
         id: String,
-        links: Moonbase::InboxConversation::Links,
+        bulk: Moonbase::Internal::Type::Boolean,
+        created_at: Time,
+        draft: Moonbase::Internal::Type::Boolean,
+        follow_up: Moonbase::Internal::Type::Boolean,
+        last_message_at: Time,
+        spam: Moonbase::Internal::Type::Boolean,
         state: Moonbase::InboxConversation::State,
+        subject: String,
+        tags: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::InboxConversation::Tag]),
+        trash: Moonbase::Internal::Type::Boolean,
         type: Symbol,
-        addresses: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Address]) | nil,
-        bulk: Moonbase::Internal::Type::Boolean | nil,
-        created_at: Time | nil,
-        follow_up: Moonbase::Internal::Type::Boolean | nil,
-        new_draft_conversation: Moonbase::Internal::Type::Boolean | nil,
-        spam: Moonbase::Internal::Type::Boolean | nil,
-        subject: String | nil,
-        tags: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::InboxConversation::Tag]) | nil,
-        timestamp: String | nil,
-        trash: Moonbase::Internal::Type::Boolean | nil,
-        unread: Moonbase::Internal::Type::Boolean | nil,
-        unsnooze_at: Time | nil,
-        updated_at: Time | nil
+        unread: Moonbase::Internal::Type::Boolean,
+        updated_at: Time,
+        inbox: Moonbase::Inbox | nil,
+        messages: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::EmailMessage]) | nil,
+        unsnooze_at: Time | nil
       }
     end
   end

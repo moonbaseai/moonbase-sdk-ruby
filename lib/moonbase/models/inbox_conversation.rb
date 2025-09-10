@@ -10,16 +10,66 @@ module Moonbase
       #   @return [String]
       required :id, String
 
-      # @!attribute links
+      # @!attribute bulk
+      #   `true` if the conversation appears to be part of a bulk mailing.
       #
-      #   @return [Moonbase::Models::InboxConversation::Links]
-      required :links, -> { Moonbase::InboxConversation::Links }
+      #   @return [Boolean]
+      required :bulk, Moonbase::Internal::Type::Boolean
+
+      # @!attribute created_at
+      #   Time at which the object was created, as an ISO 8601 timestamp in UTC.
+      #
+      #   @return [Time]
+      required :created_at, Time
+
+      # @!attribute draft
+      #   `true` if a new draft reply to this conversation has been started.
+      #
+      #   @return [Boolean]
+      required :draft, Moonbase::Internal::Type::Boolean
+
+      # @!attribute follow_up
+      #   Whether the conversation is marked for follow-up.
+      #
+      #   @return [Boolean]
+      required :follow_up, Moonbase::Internal::Type::Boolean
+
+      # @!attribute last_message_at
+      #   The time of the most recent activity in the conversation, as an ISO 8601
+      #   timestamp in UTC.
+      #
+      #   @return [Time]
+      required :last_message_at, Time
+
+      # @!attribute spam
+      #   `true` if the conversation is marked as spam.
+      #
+      #   @return [Boolean]
+      required :spam, Moonbase::Internal::Type::Boolean
 
       # @!attribute state
       #   The current state, which can be `unassigned`, `active`, `closed`, or `waiting`.
       #
       #   @return [Symbol, Moonbase::Models::InboxConversation::State]
       required :state, enum: -> { Moonbase::InboxConversation::State }
+
+      # @!attribute subject
+      #   The subject line of the conversation.
+      #
+      #   @return [String]
+      required :subject, String
+
+      # @!attribute tags
+      #   A list of `Tag` objects applied to this conversation.
+      #
+      #   @return [Array<Moonbase::Models::InboxConversation::Tag>]
+      required :tags, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::InboxConversation::Tag] }
+
+      # @!attribute trash
+      #   `true` if the conversation is in the trash.
+      #
+      #   @return [Boolean]
+      required :trash, Moonbase::Internal::Type::Boolean
 
       # @!attribute type
       #   String representing the object’s type. Always `inbox_conversation` for this
@@ -28,87 +78,42 @@ module Moonbase
       #   @return [Symbol, :inbox_conversation]
       required :type, const: :inbox_conversation
 
-      # @!attribute addresses
-      #   A list of `Address` objects (participants) in this conversation.
-      #
-      #   @return [Array<Moonbase::Models::Address>, nil]
-      optional :addresses, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::Address] }
-
-      # @!attribute bulk
-      #   `true` if the conversation appears to be part of a bulk mailing.
-      #
-      #   @return [Boolean, nil]
-      optional :bulk, Moonbase::Internal::Type::Boolean
-
-      # @!attribute created_at
-      #   Time at which the object was created, as an RFC 3339 timestamp.
-      #
-      #   @return [Time, nil]
-      optional :created_at, Time
-
-      # @!attribute follow_up
-      #   Whether the conversation is marked for follow-up.
-      #
-      #   @return [Boolean, nil]
-      optional :follow_up, Moonbase::Internal::Type::Boolean
-
-      # @!attribute new_draft_conversation
-      #   `true` if a new draft reply to this conversation has been started.
-      #
-      #   @return [Boolean, nil]
-      optional :new_draft_conversation, Moonbase::Internal::Type::Boolean
-
-      # @!attribute spam
-      #   `true` if the conversation is marked as spam.
-      #
-      #   @return [Boolean, nil]
-      optional :spam, Moonbase::Internal::Type::Boolean
-
-      # @!attribute subject
-      #   The subject line of the conversation.
-      #
-      #   @return [String, nil]
-      optional :subject, String
-
-      # @!attribute tags
-      #   A list of `Tag` objects applied to this conversation.
-      #
-      #   @return [Array<Moonbase::Models::InboxConversation::Tag>, nil]
-      optional :tags, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::InboxConversation::Tag] }
-
-      # @!attribute timestamp
-      #   The time of the most recent activity in the conversation, as an RFC 3339
-      #   timestamp.
-      #
-      #   @return [String, nil]
-      optional :timestamp, String
-
-      # @!attribute trash
-      #   `true` if the conversation is in the trash.
-      #
-      #   @return [Boolean, nil]
-      optional :trash, Moonbase::Internal::Type::Boolean
-
       # @!attribute unread
       #   `true` if the conversation contains unread messages.
       #
-      #   @return [Boolean, nil]
-      optional :unread, Moonbase::Internal::Type::Boolean
+      #   @return [Boolean]
+      required :unread, Moonbase::Internal::Type::Boolean
+
+      # @!attribute updated_at
+      #   Time at which the object was last updated, as an ISO 8601 timestamp in UTC.
+      #
+      #   @return [Time]
+      required :updated_at, Time
+
+      # @!attribute inbox
+      #   The `Inbox` that this conversations belongs to.
+      #
+      #   **Note:** Only present when requested using the `include` query parameter.
+      #
+      #   @return [Moonbase::Models::Inbox, nil]
+      optional :inbox, -> { Moonbase::Inbox }
+
+      # @!attribute messages
+      #   The `EmailMessage` objects that belong to this conversation.
+      #
+      #   **Note:** Only present when requested using the `include` query parameter.
+      #
+      #   @return [Array<Moonbase::Models::EmailMessage>, nil]
+      optional :messages, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::EmailMessage] }
 
       # @!attribute unsnooze_at
       #   If the conversation is snoozed, this is the time it will reappear in the inbox,
-      #   as an RFC 3339 timestamp.
+      #   as an ISO 8601 timestamp in UTC.
       #
       #   @return [Time, nil]
       optional :unsnooze_at, Time
 
-      # @!attribute updated_at
-      #   Time at which the object was last updated, as an RFC 3339 timestamp.
-      #
-      #   @return [Time, nil]
-      optional :updated_at, Time
-
-      # @!method initialize(id:, links:, state:, addresses: nil, bulk: nil, created_at: nil, follow_up: nil, new_draft_conversation: nil, spam: nil, subject: nil, tags: nil, timestamp: nil, trash: nil, unread: nil, unsnooze_at: nil, updated_at: nil, type: :inbox_conversation)
+      # @!method initialize(id:, bulk:, created_at:, draft:, follow_up:, last_message_at:, spam:, state:, subject:, tags:, trash:, unread:, updated_at:, inbox: nil, messages: nil, unsnooze_at: nil, type: :inbox_conversation)
       #   Some parameter documentations has been truncated, see
       #   {Moonbase::Models::InboxConversation} for more details.
       #
@@ -116,65 +121,37 @@ module Moonbase
       #
       #   @param id [String] Unique identifier for the object.
       #
-      #   @param links [Moonbase::Models::InboxConversation::Links]
-      #
-      #   @param state [Symbol, Moonbase::Models::InboxConversation::State] The current state, which can be `unassigned`, `active`, `closed`, or `waiting`.
-      #
-      #   @param addresses [Array<Moonbase::Models::Address>] A list of `Address` objects (participants) in this conversation.
-      #
       #   @param bulk [Boolean] `true` if the conversation appears to be part of a bulk mailing.
       #
-      #   @param created_at [Time] Time at which the object was created, as an RFC 3339 timestamp.
+      #   @param created_at [Time] Time at which the object was created, as an ISO 8601 timestamp in UTC.
+      #
+      #   @param draft [Boolean] `true` if a new draft reply to this conversation has been started.
       #
       #   @param follow_up [Boolean] Whether the conversation is marked for follow-up.
       #
-      #   @param new_draft_conversation [Boolean] `true` if a new draft reply to this conversation has been started.
+      #   @param last_message_at [Time] The time of the most recent activity in the conversation, as an ISO 8601 timesta
       #
       #   @param spam [Boolean] `true` if the conversation is marked as spam.
+      #
+      #   @param state [Symbol, Moonbase::Models::InboxConversation::State] The current state, which can be `unassigned`, `active`, `closed`, or `waiting`.
       #
       #   @param subject [String] The subject line of the conversation.
       #
       #   @param tags [Array<Moonbase::Models::InboxConversation::Tag>] A list of `Tag` objects applied to this conversation.
       #
-      #   @param timestamp [String] The time of the most recent activity in the conversation, as an RFC 3339 timesta
-      #
       #   @param trash [Boolean] `true` if the conversation is in the trash.
       #
       #   @param unread [Boolean] `true` if the conversation contains unread messages.
       #
+      #   @param updated_at [Time] Time at which the object was last updated, as an ISO 8601 timestamp in UTC.
+      #
+      #   @param inbox [Moonbase::Models::Inbox] The `Inbox` that this conversations belongs to.
+      #
+      #   @param messages [Array<Moonbase::Models::EmailMessage>] The `EmailMessage` objects that belong to this conversation.
+      #
       #   @param unsnooze_at [Time] If the conversation is snoozed, this is the time it will reappear in the inbox,
       #
-      #   @param updated_at [Time] Time at which the object was last updated, as an RFC 3339 timestamp.
-      #
       #   @param type [Symbol, :inbox_conversation] String representing the object’s type. Always `inbox_conversation` for this obje
-
-      # @see Moonbase::Models::InboxConversation#links
-      class Links < Moonbase::Internal::Type::BaseModel
-        # @!attribute inbox
-        #   A link to the `Inbox` this conversation belongs to.
-        #
-        #   @return [String]
-        required :inbox, String
-
-        # @!attribute messages
-        #   A link to the list of `Message` objects in this conversation.
-        #
-        #   @return [String]
-        required :messages, String
-
-        # @!attribute self_
-        #   The canonical URL for this object.
-        #
-        #   @return [String]
-        required :self_, String, api_name: :self
-
-        # @!method initialize(inbox:, messages:, self_:)
-        #   @param inbox [String] A link to the `Inbox` this conversation belongs to.
-        #
-        #   @param messages [String] A link to the list of `Message` objects in this conversation.
-        #
-        #   @param self_ [String] The canonical URL for this object.
-      end
 
       # The current state, which can be `unassigned`, `active`, `closed`, or `waiting`.
       #

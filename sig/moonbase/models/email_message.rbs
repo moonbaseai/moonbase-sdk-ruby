@@ -3,35 +3,41 @@ module Moonbase
     type email_message =
       {
         id: String,
-        links: Moonbase::EmailMessage::Links,
-        :rfc822_message_id => String,
-        subject: String,
-        type: :email_message,
-        addresses: ::Array[Moonbase::Address],
-        attachments: ::Array[Moonbase::EmailMessage::Attachment],
-        body_html: String,
-        body_plain: String,
+        body: Moonbase::FormattedText,
         bulk: bool,
-        conversation: Moonbase::InboxConversation,
         created_at: Time,
         draft: bool,
-        :in_reply_to_rfc822_message_id => String,
         spam: bool,
-        summary: String,
+        subject: String,
         trash: bool,
-        unread: bool
+        type: :email_message,
+        unread: bool,
+        addresses: ::Array[Moonbase::Address],
+        attachments: ::Array[Moonbase::EmailMessage::Attachment],
+        conversation: Moonbase::InboxConversation,
+        summary: String
       }
 
     class EmailMessage < Moonbase::Internal::Type::BaseModel
       attr_accessor id: String
 
-      attr_accessor links: Moonbase::EmailMessage::Links
+      attr_accessor body: Moonbase::FormattedText
 
-      attr_accessor rfc822_message_id: String
+      attr_accessor bulk: bool
+
+      attr_accessor created_at: Time
+
+      attr_accessor draft: bool
+
+      attr_accessor spam: bool
 
       attr_accessor subject: String
 
+      attr_accessor trash: bool
+
       attr_accessor type: :email_message
+
+      attr_accessor unread: bool
 
       attr_reader addresses: ::Array[Moonbase::Address]?
 
@@ -43,178 +49,90 @@ module Moonbase
         ::Array[Moonbase::EmailMessage::Attachment]
       ) -> ::Array[Moonbase::EmailMessage::Attachment]
 
-      attr_reader body_html: String?
-
-      def body_html=: (String) -> String
-
-      attr_reader body_plain: String?
-
-      def body_plain=: (String) -> String
-
-      attr_reader bulk: bool?
-
-      def bulk=: (bool) -> bool
-
       attr_reader conversation: Moonbase::InboxConversation?
 
       def conversation=: (
         Moonbase::InboxConversation
       ) -> Moonbase::InboxConversation
 
-      attr_reader created_at: Time?
-
-      def created_at=: (Time) -> Time
-
-      attr_reader draft: bool?
-
-      def draft=: (bool) -> bool
-
-      attr_reader in_reply_to_rfc822_message_id: String?
-
-      def in_reply_to_rfc822_message_id=: (String) -> String
-
-      attr_reader spam: bool?
-
-      def spam=: (bool) -> bool
-
       attr_reader summary: String?
 
       def summary=: (String) -> String
 
-      attr_reader trash: bool?
-
-      def trash=: (bool) -> bool
-
-      attr_reader unread: bool?
-
-      def unread=: (bool) -> bool
-
       def initialize: (
         id: String,
-        links: Moonbase::EmailMessage::Links,
-        rfc822_message_id: String,
+        body: Moonbase::FormattedText,
+        bulk: bool,
+        created_at: Time,
+        draft: bool,
+        spam: bool,
         subject: String,
+        trash: bool,
+        unread: bool,
         ?addresses: ::Array[Moonbase::Address],
         ?attachments: ::Array[Moonbase::EmailMessage::Attachment],
-        ?body_html: String,
-        ?body_plain: String,
-        ?bulk: bool,
         ?conversation: Moonbase::InboxConversation,
-        ?created_at: Time,
-        ?draft: bool,
-        ?in_reply_to_rfc822_message_id: String,
-        ?spam: bool,
         ?summary: String,
-        ?trash: bool,
-        ?unread: bool,
         ?type: :email_message
       ) -> void
 
       def to_hash: -> {
         id: String,
-        links: Moonbase::EmailMessage::Links,
-        :rfc822_message_id => String,
-        subject: String,
-        type: :email_message,
-        addresses: ::Array[Moonbase::Address],
-        attachments: ::Array[Moonbase::EmailMessage::Attachment],
-        body_html: String,
-        body_plain: String,
+        body: Moonbase::FormattedText,
         bulk: bool,
-        conversation: Moonbase::InboxConversation,
         created_at: Time,
         draft: bool,
-        :in_reply_to_rfc822_message_id => String,
         spam: bool,
-        summary: String,
+        subject: String,
         trash: bool,
-        unread: bool
+        type: :email_message,
+        unread: bool,
+        addresses: ::Array[Moonbase::Address],
+        attachments: ::Array[Moonbase::EmailMessage::Attachment],
+        conversation: Moonbase::InboxConversation,
+        summary: String
       }
-
-      type links = { conversation: String, self_: String }
-
-      class Links < Moonbase::Internal::Type::BaseModel
-        attr_accessor conversation: String
-
-        attr_accessor self_: String
-
-        def initialize: (conversation: String, self_: String) -> void
-
-        def to_hash: -> { conversation: String, self_: String }
-      end
 
       type attachment =
         {
           id: String,
-          filename: String,
-          links: Moonbase::EmailMessage::Attachment::Links,
-          size: Integer,
-          type: :attachment,
           created_at: Time,
-          updated_at: String
+          download_url: String,
+          filename: String,
+          size: Integer,
+          type: :message_attachment
         }
 
       class Attachment < Moonbase::Internal::Type::BaseModel
         attr_accessor id: String
 
-        attr_accessor filename: String
+        attr_accessor created_at: Time
 
-        attr_accessor links: Moonbase::EmailMessage::Attachment::Links
+        attr_accessor download_url: String
+
+        attr_accessor filename: String
 
         attr_accessor size: Integer
 
-        attr_accessor type: :attachment
-
-        attr_reader created_at: Time?
-
-        def created_at=: (Time) -> Time
-
-        attr_reader updated_at: String?
-
-        def updated_at=: (String) -> String
+        attr_accessor type: :message_attachment
 
         def initialize: (
           id: String,
+          created_at: Time,
+          download_url: String,
           filename: String,
-          links: Moonbase::EmailMessage::Attachment::Links,
           size: Integer,
-          ?created_at: Time,
-          ?updated_at: String,
-          ?type: :attachment
+          ?type: :message_attachment
         ) -> void
 
         def to_hash: -> {
           id: String,
-          filename: String,
-          links: Moonbase::EmailMessage::Attachment::Links,
-          size: Integer,
-          type: :attachment,
           created_at: Time,
-          updated_at: String
+          download_url: String,
+          filename: String,
+          size: Integer,
+          type: :message_attachment
         }
-
-        type links =
-          { conversation: String, download_url: String, message: String }
-
-        class Links < Moonbase::Internal::Type::BaseModel
-          attr_accessor conversation: String
-
-          attr_accessor download_url: String
-
-          attr_accessor message: String
-
-          def initialize: (
-            conversation: String,
-            download_url: String,
-            message: String
-          ) -> void
-
-          def to_hash: -> {
-            conversation: String,
-            download_url: String,
-            message: String
-          }
-        end
       end
     end
   end

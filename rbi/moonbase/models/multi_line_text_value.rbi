@@ -8,18 +8,25 @@ module Moonbase
           T.any(Moonbase::MultiLineTextValue, Moonbase::Internal::AnyHash)
         end
 
+      # Text which may contain line breaks, can be up to 65,536 characters long. Do not
+      # use markdown formatting, just plain text.
       sig { returns(String) }
-      attr_accessor :text
+      attr_accessor :data
 
       sig { returns(Symbol) }
       attr_accessor :type
 
       # Multiple lines of text
-      sig { params(text: String, type: Symbol).returns(T.attached_class) }
-      def self.new(text:, type: :"value/text/multi_line")
+      sig { params(data: String, type: Symbol).returns(T.attached_class) }
+      def self.new(
+        # Text which may contain line breaks, can be up to 65,536 characters long. Do not
+        # use markdown formatting, just plain text.
+        data:,
+        type: :"value/text/multi_line"
+      )
       end
 
-      sig { override.returns({ text: String, type: Symbol }) }
+      sig { override.returns({ data: String, type: Symbol }) }
       def to_hash
       end
     end

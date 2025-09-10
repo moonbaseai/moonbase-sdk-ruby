@@ -6,16 +6,16 @@ module Moonbase
       # @return [Moonbase::Resources::Collections::Fields]
       attr_reader :fields
 
-      # Some parameter documentations has been truncated, see
-      # {Moonbase::Models::CollectionRetrieveParams} for more details.
-      #
+      # @return [Moonbase::Resources::Collections::Items]
+      attr_reader :items
+
       # Retrieves the details of an existing collection.
       #
       # @overload retrieve(id, include: nil, request_options: {})
       #
       # @param id [String] The ID or `ref` of the Collection to retrieve.
       #
-      # @param include [Array<Symbol, Moonbase::Models::CollectionRetrieveParams::Include>] Specifies which related objects to include in the response. Valid options are `f
+      # @param include [Array<Symbol, Moonbase::Models::CollectionRetrieveParams::Include>] Specifies which related objects to include in the response.
       #
       # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
       #
@@ -69,6 +69,7 @@ module Moonbase
       def initialize(client:)
         @client = client
         @fields = Moonbase::Resources::Collections::Fields.new(client: client)
+        @items = Moonbase::Resources::Collections::Items.new(client: client)
       end
     end
   end

@@ -1,0 +1,74 @@
+module Moonbase
+  module Models
+    module Collections
+      type item_upsert_params =
+        {
+          identifiers: ::Hash[Symbol, Moonbase::Models::field_value_param?],
+          values: ::Hash[Symbol, Moonbase::Models::field_value_param?],
+          update_many_strategy: Moonbase::Models::Collections::ItemUpsertParams::update_many_strategy,
+          update_one_strategy: Moonbase::Models::Collections::ItemUpsertParams::update_one_strategy
+        }
+        & Moonbase::Internal::Type::request_parameters
+
+      class ItemUpsertParams < Moonbase::Internal::Type::BaseModel
+        extend Moonbase::Internal::Type::RequestParameters::Converter
+        include Moonbase::Internal::Type::RequestParameters
+
+        attr_accessor identifiers: ::Hash[Symbol, Moonbase::Models::field_value_param?]
+
+        attr_accessor values: ::Hash[Symbol, Moonbase::Models::field_value_param?]
+
+        attr_reader update_many_strategy: Moonbase::Models::Collections::ItemUpsertParams::update_many_strategy?
+
+        def update_many_strategy=: (
+          Moonbase::Models::Collections::ItemUpsertParams::update_many_strategy
+        ) -> Moonbase::Models::Collections::ItemUpsertParams::update_many_strategy
+
+        attr_reader update_one_strategy: Moonbase::Models::Collections::ItemUpsertParams::update_one_strategy?
+
+        def update_one_strategy=: (
+          Moonbase::Models::Collections::ItemUpsertParams::update_one_strategy
+        ) -> Moonbase::Models::Collections::ItemUpsertParams::update_one_strategy
+
+        def initialize: (
+          identifiers: ::Hash[Symbol, Moonbase::Models::field_value_param?],
+          values: ::Hash[Symbol, Moonbase::Models::field_value_param?],
+          ?update_many_strategy: Moonbase::Models::Collections::ItemUpsertParams::update_many_strategy,
+          ?update_one_strategy: Moonbase::Models::Collections::ItemUpsertParams::update_one_strategy,
+          ?request_options: Moonbase::request_opts
+        ) -> void
+
+        def to_hash: -> {
+          identifiers: ::Hash[Symbol, Moonbase::Models::field_value_param?],
+          values: ::Hash[Symbol, Moonbase::Models::field_value_param?],
+          update_many_strategy: Moonbase::Models::Collections::ItemUpsertParams::update_many_strategy,
+          update_one_strategy: Moonbase::Models::Collections::ItemUpsertParams::update_one_strategy,
+          request_options: Moonbase::RequestOptions
+        }
+
+        type update_many_strategy = :replace | :preserve | :merge
+
+        module UpdateManyStrategy
+          extend Moonbase::Internal::Type::Enum
+
+          REPLACE: :replace
+          PRESERVE: :preserve
+          MERGE: :merge
+
+          def self?.values: -> ::Array[Moonbase::Models::Collections::ItemUpsertParams::update_many_strategy]
+        end
+
+        type update_one_strategy = :replace | :preserve
+
+        module UpdateOneStrategy
+          extend Moonbase::Internal::Type::Enum
+
+          REPLACE: :replace
+          PRESERVE: :preserve
+
+          def self?.values: -> ::Array[Moonbase::Models::Collections::ItemUpsertParams::update_one_strategy]
+        end
+      end
+    end
+  end
+end

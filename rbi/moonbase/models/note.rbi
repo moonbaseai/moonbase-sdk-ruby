@@ -10,29 +10,24 @@ module Moonbase
       sig { returns(String) }
       attr_accessor :id
 
-      sig { returns(Moonbase::Note::Links) }
-      attr_reader :links
+      # The main content of the note.
+      sig { returns(Moonbase::FormattedText) }
+      attr_reader :body
 
-      sig { params(links: Moonbase::Note::Links::OrHash).void }
-      attr_writer :links
+      sig { params(body: Moonbase::FormattedText::OrHash).void }
+      attr_writer :body
+
+      # Time at which the object was created, as an ISO 8601 timestamp in UTC.
+      sig { returns(Time) }
+      attr_accessor :created_at
 
       # String representing the object’s type. Always `note` for this object.
       sig { returns(Symbol) }
       attr_accessor :type
 
-      # The main content of the note.
-      sig { returns(T.nilable(String)) }
-      attr_reader :body
-
-      sig { params(body: String).void }
-      attr_writer :body
-
-      # Time at which the object was created, as an RFC 3339 timestamp.
-      sig { returns(T.nilable(Time)) }
-      attr_reader :created_at
-
-      sig { params(created_at: Time).void }
-      attr_writer :created_at
+      # Time at which the object was last updated, as an ISO 8601 timestamp in UTC.
+      sig { returns(Time) }
+      attr_accessor :updated_at
 
       # A short, system-generated summary of the note's content.
       sig { returns(T.nilable(String)) }
@@ -48,41 +43,32 @@ module Moonbase
       sig { params(title: String).void }
       attr_writer :title
 
-      # Time at which the object was last updated, as an RFC 3339 timestamp.
-      sig { returns(T.nilable(Time)) }
-      attr_reader :updated_at
-
-      sig { params(updated_at: Time).void }
-      attr_writer :updated_at
-
       # The Note object represents a block of text content, often used for meeting notes
       # or summaries.
       sig do
         params(
           id: String,
-          links: Moonbase::Note::Links::OrHash,
-          body: String,
+          body: Moonbase::FormattedText::OrHash,
           created_at: Time,
+          updated_at: Time,
           summary: String,
           title: String,
-          updated_at: Time,
           type: Symbol
         ).returns(T.attached_class)
       end
       def self.new(
         # Unique identifier for the object.
         id:,
-        links:,
         # The main content of the note.
-        body: nil,
-        # Time at which the object was created, as an RFC 3339 timestamp.
-        created_at: nil,
+        body:,
+        # Time at which the object was created, as an ISO 8601 timestamp in UTC.
+        created_at:,
+        # Time at which the object was last updated, as an ISO 8601 timestamp in UTC.
+        updated_at:,
         # A short, system-generated summary of the note's content.
         summary: nil,
         # An optional title for the note.
         title: nil,
-        # Time at which the object was last updated, as an RFC 3339 timestamp.
-        updated_at: nil,
         # String representing the object’s type. Always `note` for this object.
         type: :note
       )
@@ -92,39 +78,16 @@ module Moonbase
         override.returns(
           {
             id: String,
-            links: Moonbase::Note::Links,
-            type: Symbol,
-            body: String,
+            body: Moonbase::FormattedText,
             created_at: Time,
+            type: Symbol,
+            updated_at: Time,
             summary: String,
-            title: String,
-            updated_at: Time
+            title: String
           }
         )
       end
       def to_hash
-      end
-
-      class Links < Moonbase::Internal::Type::BaseModel
-        OrHash =
-          T.type_alias do
-            T.any(Moonbase::Note::Links, Moonbase::Internal::AnyHash)
-          end
-
-        # The canonical URL for this object.
-        sig { returns(String) }
-        attr_accessor :self_
-
-        sig { params(self_: String).returns(T.attached_class) }
-        def self.new(
-          # The canonical URL for this object.
-          self_:
-        )
-        end
-
-        sig { override.returns({ self_: String }) }
-        def to_hash
-        end
       end
     end
   end

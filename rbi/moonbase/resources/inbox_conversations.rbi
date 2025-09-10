@@ -18,7 +18,7 @@ module Moonbase
         # The ID of the Conversation to retrieve.
         id,
         # Specifies which related objects to include in the response. Valid options are
-        # `addresses` and `tags`.
+        # `inbox`, `messages`, and `messages.addresses`.
         include: nil,
         request_options: {}
       )
@@ -29,7 +29,7 @@ module Moonbase
         params(
           after: String,
           before: String,
-          inbox: T::Array[String],
+          filter: Moonbase::InboxConversationListParams::Filter::OrHash,
           include:
             T::Array[Moonbase::InboxConversationListParams::Include::OrSymbol],
           limit: Integer,
@@ -45,10 +45,9 @@ module Moonbase
         # by this cursor. Use the cursor value from the response's metadata to fetch the
         # previous page of results.
         before: nil,
-        # Filter conversations by one or more inbox IDs.
-        inbox: nil,
+        filter: nil,
         # Specifies which related objects to include in the response. Valid options are
-        # `addresses` and `tags`.
+        # `inbox`, `messages`, and `messages.addresses`.
         include: nil,
         # Maximum number of items to return per page. Must be between 1 and 100. Defaults
         # to 20 if not specified.

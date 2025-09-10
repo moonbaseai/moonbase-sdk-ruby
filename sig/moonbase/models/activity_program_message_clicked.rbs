@@ -1,0 +1,54 @@
+module Moonbase
+  module Models
+    type activity_program_message_clicked =
+      {
+        id: String,
+        occurred_at: Time,
+        program_message: Moonbase::Pointer?,
+        recipient: Moonbase::ItemPointer?,
+        type: :"activity/program_message_clicked",
+        link_text: String,
+        link_url_unsafe: String
+      }
+
+    class ActivityProgramMessageClicked < Moonbase::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor occurred_at: Time
+
+      attr_accessor program_message: Moonbase::Pointer?
+
+      attr_accessor recipient: Moonbase::ItemPointer?
+
+      attr_accessor type: :"activity/program_message_clicked"
+
+      attr_reader link_text: String?
+
+      def link_text=: (String) -> String
+
+      attr_reader link_url_unsafe: String?
+
+      def link_url_unsafe=: (String) -> String
+
+      def initialize: (
+        id: String,
+        occurred_at: Time,
+        program_message: Moonbase::Pointer?,
+        recipient: Moonbase::ItemPointer?,
+        ?link_text: String,
+        ?link_url_unsafe: String,
+        ?type: :"activity/program_message_clicked"
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        occurred_at: Time,
+        program_message: Moonbase::Pointer?,
+        recipient: Moonbase::ItemPointer?,
+        type: :"activity/program_message_clicked",
+        link_text: String,
+        link_url_unsafe: String
+      }
+    end
+  end
+end

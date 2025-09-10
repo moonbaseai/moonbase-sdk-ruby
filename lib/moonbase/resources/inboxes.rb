@@ -35,11 +35,13 @@ module Moonbase
       #
       # Returns a list of shared inboxes.
       #
-      # @overload list(after: nil, before: nil, limit: nil, request_options: {})
+      # @overload list(after: nil, before: nil, include: nil, limit: nil, request_options: {})
       #
       # @param after [String] When specified, returns results starting immediately after the item identified b
       #
       # @param before [String] When specified, returns results starting immediately before the item identified
+      #
+      # @param include [Symbol, Moonbase::Models::InboxListParams::Include]
       #
       # @param limit [Integer] Maximum number of items to return per page. Must be between 1 and 100. Defaults
       #
@@ -53,7 +55,7 @@ module Moonbase
         @client.request(
           method: :get,
           path: "inboxes",
-          query: parsed,
+          query: parsed.transform_keys(include: "include[]"),
           page: Moonbase::Internal::CursorPage,
           model: Moonbase::Inbox,
           options: options

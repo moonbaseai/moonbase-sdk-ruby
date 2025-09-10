@@ -24,12 +24,11 @@ module Moonbase
         request_options: Moonbase::RequestOptions
       }
 
-      type include_ = :fields | :views
+      type include_ = :views
 
       module Include
         extend Moonbase::Internal::Type::Enum
 
-        FIELDS: :fields
         VIEWS: :views
 
         def self?.values: -> ::Array[Moonbase::Models::CollectionRetrieveParams::include_]

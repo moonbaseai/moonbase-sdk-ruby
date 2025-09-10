@@ -10,6 +10,7 @@ module Moonbase
       def list: (
         ?after: String,
         ?before: String,
+        ?include: Moonbase::Models::InboxListParams::include_,
         ?limit: Integer,
         ?request_options: Moonbase::request_opts
       ) -> Moonbase::Internal::CursorPage[Moonbase::Inbox]

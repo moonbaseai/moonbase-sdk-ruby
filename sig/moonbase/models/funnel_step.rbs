@@ -1,37 +1,46 @@
 module Moonbase
   module Models
     type funnel_step =
-      { step: Moonbase::FunnelStep::Step, type: :"value/funnel_step" }
+      {
+        id: String,
+        name: String,
+        step_type: Moonbase::Models::FunnelStep::step_type,
+        type: :funnel_step
+      }
 
     class FunnelStep < Moonbase::Internal::Type::BaseModel
-      attr_accessor step: Moonbase::FunnelStep::Step
+      attr_accessor id: String
 
-      attr_accessor type: :"value/funnel_step"
+      attr_accessor name: String
+
+      attr_accessor step_type: Moonbase::Models::FunnelStep::step_type
+
+      attr_accessor type: :funnel_step
 
       def initialize: (
-        step: Moonbase::FunnelStep::Step,
-        ?type: :"value/funnel_step"
+        id: String,
+        name: String,
+        step_type: Moonbase::Models::FunnelStep::step_type,
+        ?type: :funnel_step
       ) -> void
 
       def to_hash: -> {
-        step: Moonbase::FunnelStep::Step,
-        type: :"value/funnel_step"
+        id: String,
+        name: String,
+        step_type: Moonbase::Models::FunnelStep::step_type,
+        type: :funnel_step
       }
 
-      type step = { id: String, type: :funnel_step, name: String }
+      type step_type = :active | :success | :failure
 
-      class Step < Moonbase::Internal::Type::BaseModel
-        attr_accessor id: String
+      module StepType
+        extend Moonbase::Internal::Type::Enum
 
-        attr_accessor type: :funnel_step
+        ACTIVE: :active
+        SUCCESS: :success
+        FAILURE: :failure
 
-        attr_reader name: String?
-
-        def name=: (String) -> String
-
-        def initialize: (id: String, ?name: String, ?type: :funnel_step) -> void
-
-        def to_hash: -> { id: String, type: :funnel_step, name: String }
+        def self?.values: -> ::Array[Moonbase::Models::FunnelStep::step_type]
       end
     end
   end

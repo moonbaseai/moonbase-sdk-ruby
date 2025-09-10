@@ -17,10 +17,7 @@ module Moonbase
       #   An array of participants involved in the call.
       #
       #   @return [Array<Moonbase::Models::CallCreateParams::Participant>]
-      required :participants,
-               -> {
-                 Moonbase::Internal::Type::ArrayOf[Moonbase::CallCreateParams::Participant]
-               }
+      required :participants, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::CallCreateParams::Participant] }
 
       # @!attribute provider
       #   The name of the phone provider that handled the call (e.g., `openphone`).
@@ -34,26 +31,26 @@ module Moonbase
       #   @return [String]
       required :provider_id, String
 
+      # @!attribute provider_status
+      #   The status of the call.
+      #
+      #   @return [String]
+      required :provider_status, String
+
       # @!attribute start_at
-      #   The time the call started, as an RFC 3339 timestamp.
+      #   The time the call started, as an ISO 8601 timestamp in UTC.
       #
       #   @return [Time]
       required :start_at, Time
 
-      # @!attribute status
-      #   The status of the call.
-      #
-      #   @return [Symbol, Moonbase::Models::CallCreateParams::Status]
-      required :status, enum: -> { Moonbase::CallCreateParams::Status }
-
       # @!attribute answered_at
-      #   The time the call was answered, as an RFC 3339 timestamp.
+      #   The time the call was answered, as an ISO 8601 timestamp in UTC.
       #
       #   @return [Time, nil]
       optional :answered_at, Time
 
       # @!attribute end_at
-      #   The time the call ended, as an RFC 3339 timestamp.
+      #   The time the call ended, as an ISO 8601 timestamp in UTC.
       #
       #   @return [Time, nil]
       optional :end_at, Time
@@ -64,7 +61,19 @@ module Moonbase
       #   @return [Hash{Symbol=>Object}, nil]
       optional :provider_metadata, Moonbase::Internal::Type::HashOf[Moonbase::Internal::Type::Unknown]
 
-      # @!method initialize(direction:, participants:, provider:, provider_id:, start_at:, status:, answered_at: nil, end_at: nil, provider_metadata: nil, request_options: {})
+      # @!attribute recordings
+      #   Any recordings associated with the call.
+      #
+      #   @return [Array<Moonbase::Models::CallCreateParams::Recording>, nil]
+      optional :recordings, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::CallCreateParams::Recording] }
+
+      # @!attribute transcript
+      #   A transcript of the call.
+      #
+      #   @return [Moonbase::Models::CallCreateParams::Transcript, nil]
+      optional :transcript, -> { Moonbase::CallCreateParams::Transcript }
+
+      # @!method initialize(direction:, participants:, provider:, provider_id:, provider_status:, start_at:, answered_at: nil, end_at: nil, provider_metadata: nil, recordings: nil, transcript: nil, request_options: {})
       #   @param direction [Symbol, Moonbase::Models::CallCreateParams::Direction] The direction of the call, either `incoming` or `outgoing`.
       #
       #   @param participants [Array<Moonbase::Models::CallCreateParams::Participant>] An array of participants involved in the call.
@@ -73,15 +82,19 @@ module Moonbase
       #
       #   @param provider_id [String] The unique identifier for the call from the provider's system.
       #
-      #   @param start_at [Time] The time the call started, as an RFC 3339 timestamp.
+      #   @param provider_status [String] The status of the call.
       #
-      #   @param status [Symbol, Moonbase::Models::CallCreateParams::Status] The status of the call.
+      #   @param start_at [Time] The time the call started, as an ISO 8601 timestamp in UTC.
       #
-      #   @param answered_at [Time] The time the call was answered, as an RFC 3339 timestamp.
+      #   @param answered_at [Time] The time the call was answered, as an ISO 8601 timestamp in UTC.
       #
-      #   @param end_at [Time] The time the call ended, as an RFC 3339 timestamp.
+      #   @param end_at [Time] The time the call ended, as an ISO 8601 timestamp in UTC.
       #
       #   @param provider_metadata [Hash{Symbol=>Object}] A hash of additional metadata from the provider.
+      #
+      #   @param recordings [Array<Moonbase::Models::CallCreateParams::Recording>] Any recordings associated with the call.
+      #
+      #   @param transcript [Moonbase::Models::CallCreateParams::Transcript] A transcript of the call.
       #
       #   @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}]
 
@@ -131,26 +144,92 @@ module Moonbase
         end
       end
 
-      # The status of the call.
-      module Status
-        extend Moonbase::Internal::Type::Enum
+      class Recording < Moonbase::Internal::Type::BaseModel
+        # @!attribute content_type
+        #   The content type of the recording. Note that only `audio/mpeg` is supported at
+        #   this time.
+        #
+        #   @return [String]
+        required :content_type, String
 
-        QUEUED = :queued
-        INITIATED = :initiated
-        RINGING = :ringing
-        IN_PROGRESS = :in_progress
-        COMPLETED = :completed
-        BUSY = :busy
-        FAILED = :failed
-        NO_ANSWER = :no_answer
-        CANCELED = :canceled
-        MISSED = :missed
-        ANSWERED = :answered
-        FORWARDED = :forwarded
-        ABANDONED = :abandoned
+        # @!attribute provider_id
+        #   The unique identifier for the recording from the provider's system.
+        #
+        #   @return [String]
+        required :provider_id, String
 
-        # @!method self.values
-        #   @return [Array<Symbol>]
+        # @!attribute url
+        #   The URL pointing to the recording.
+        #
+        #   @return [String]
+        required :url, String
+
+        # @!method initialize(content_type:, provider_id:, url:)
+        #   Some parameter documentations has been truncated, see
+        #   {Moonbase::Models::CallCreateParams::Recording} for more details.
+        #
+        #   Parameters for creating a `CallRecording` object.
+        #
+        #   @param content_type [String] The content type of the recording. Note that only `audio/mpeg` is supported at t
+        #
+        #   @param provider_id [String] The unique identifier for the recording from the provider's system.
+        #
+        #   @param url [String] The URL pointing to the recording.
+      end
+
+      class Transcript < Moonbase::Internal::Type::BaseModel
+        # @!attribute cues
+        #   A list of cues that identify the text spoken in specific time slices of the
+        #   call.
+        #
+        #   @return [Array<Moonbase::Models::CallCreateParams::Transcript::Cue>]
+        required :cues, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::CallCreateParams::Transcript::Cue] }
+
+        # @!method initialize(cues:)
+        #   Some parameter documentations has been truncated, see
+        #   {Moonbase::Models::CallCreateParams::Transcript} for more details.
+        #
+        #   A transcript of the call.
+        #
+        #   @param cues [Array<Moonbase::Models::CallCreateParams::Transcript::Cue>] A list of cues that identify the text spoken in specific time slices of the call
+
+        class Cue < Moonbase::Internal::Type::BaseModel
+          # @!attribute from
+          #   The start time of the slice, in fractional seconds from the start of the call.
+          #
+          #   @return [Float]
+          required :from, Float
+
+          # @!attribute speaker
+          #   The E.164 formatted phone number of the speaker.
+          #
+          #   @return [String]
+          required :speaker, String
+
+          # @!attribute text
+          #   The text spoken during the slice.
+          #
+          #   @return [String]
+          required :text, String
+
+          # @!attribute to
+          #   The end time of the slice, in fractional seconds from the start of the call.
+          #
+          #   @return [Float]
+          required :to, Float
+
+          # @!method initialize(from:, speaker:, text:, to:)
+          #   Parameters for creating a `CallTranscriptCue` object to capture the text spoken
+          #   in a specific time slice.
+          #
+          #   @param from [Float] The start time of the slice, in fractional seconds from the start of the call.
+          #
+          #   @param speaker [String] The E.164 formatted phone number of the speaker.
+          #
+          #   @param text [String] The text spoken during the slice.
+          #
+          #   @param to [Float] The end time of the slice, in fractional seconds from the start of the call.
+        end
       end
     end
   end

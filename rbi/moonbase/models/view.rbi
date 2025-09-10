@@ -10,11 +10,9 @@ module Moonbase
       sig { returns(String) }
       attr_accessor :id
 
-      sig { returns(Moonbase::View::Links) }
-      attr_reader :links
-
-      sig { params(links: Moonbase::View::Links::OrHash).void }
-      attr_writer :links
+      # Time at which the object was created, as an ISO 8601 timestamp in UTC.
+      sig { returns(Time) }
+      attr_accessor :created_at
 
       # The name of the view.
       sig { returns(String) }
@@ -24,42 +22,51 @@ module Moonbase
       sig { returns(Symbol) }
       attr_accessor :type
 
+      # Time at which the object was last updated, as an ISO 8601 timestamp in UTC.
+      sig { returns(Time) }
+      attr_accessor :updated_at
+
+      # The type of view, such as `table` or `board`.
+      sig { returns(Moonbase::View::ViewType::TaggedSymbol) }
+      attr_accessor :view_type
+
       # The `Collection` this view belongs to.
+      #
+      # **Note:** Only present when requested using the `include` query parameter.
       sig { returns(T.nilable(Moonbase::Collection)) }
       attr_reader :collection
 
       sig { params(collection: Moonbase::Collection).void }
       attr_writer :collection
 
-      # The type of view, such as `table` or `board`.
-      sig { returns(T.nilable(Moonbase::View::ViewType::TaggedSymbol)) }
-      attr_reader :view_type
-
-      sig { params(view_type: Moonbase::View::ViewType::OrSymbol).void }
-      attr_writer :view_type
-
       # A View represents a saved configuration for displaying items in a collection,
       # including filters and sorting rules.
       sig do
         params(
           id: String,
-          links: Moonbase::View::Links::OrHash,
+          created_at: Time,
           name: String,
-          collection: Moonbase::Collection,
+          updated_at: Time,
           view_type: Moonbase::View::ViewType::OrSymbol,
+          collection: Moonbase::Collection,
           type: Symbol
         ).returns(T.attached_class)
       end
       def self.new(
         # Unique identifier for the object.
         id:,
-        links:,
+        # Time at which the object was created, as an ISO 8601 timestamp in UTC.
+        created_at:,
         # The name of the view.
         name:,
-        # The `Collection` this view belongs to.
-        collection: nil,
+        # Time at which the object was last updated, as an ISO 8601 timestamp in UTC.
+        updated_at:,
         # The type of view, such as `table` or `board`.
-        view_type: nil,
+        view_type:,
+        # The `Collection` this view belongs to.
+        #
+        # **Note:** Only present when requested using the `include` query parameter.
+        collection: nil,
         # String representing the object’s type. Always `view` for this object.
         type: :view
       )
@@ -69,55 +76,16 @@ module Moonbase
         override.returns(
           {
             id: String,
-            links: Moonbase::View::Links,
+            created_at: Time,
             name: String,
             type: Symbol,
-            collection: Moonbase::Collection,
-            view_type: Moonbase::View::ViewType::TaggedSymbol
+            updated_at: Time,
+            view_type: Moonbase::View::ViewType::TaggedSymbol,
+            collection: Moonbase::Collection
           }
         )
       end
       def to_hash
-      end
-
-      class Links < Moonbase::Internal::Type::BaseModel
-        OrHash =
-          T.type_alias do
-            T.any(Moonbase::View::Links, Moonbase::Internal::AnyHash)
-          end
-
-        # A link to the `Collection` this view belongs to.
-        sig { returns(String) }
-        attr_accessor :collection
-
-        # A link to the list of `Item` objects that are visible in this view.
-        sig { returns(String) }
-        attr_accessor :items
-
-        # The canonical URL for this object.
-        sig { returns(String) }
-        attr_accessor :self_
-
-        sig do
-          params(collection: String, items: String, self_: String).returns(
-            T.attached_class
-          )
-        end
-        def self.new(
-          # A link to the `Collection` this view belongs to.
-          collection:,
-          # A link to the list of `Item` objects that are visible in this view.
-          items:,
-          # The canonical URL for this object.
-          self_:
-        )
-        end
-
-        sig do
-          override.returns({ collection: String, items: String, self_: String })
-        end
-        def to_hash
-        end
       end
 
       # The type of view, such as `table` or `board`.

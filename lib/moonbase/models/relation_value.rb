@@ -3,25 +3,21 @@
 module Moonbase
   module Models
     class RelationValue < Moonbase::Internal::Type::BaseModel
-      # @!attribute item
-      #   An Item represents a single record or row within a Collection. It holds a set of
-      #   `values` corresponding to the Collection's `fields`.
+      # @!attribute data
+      #   A reference to another Moonbase item.
       #
-      #   @return [Moonbase::Models::Item]
-      required :item, -> { Moonbase::Item }
+      #   @return [Moonbase::Models::ItemPointer]
+      required :data, -> { Moonbase::ItemPointer }
 
       # @!attribute type
       #
       #   @return [Symbol, :"value/relation"]
       required :type, const: :"value/relation"
 
-      # @!method initialize(item:, type: :"value/relation")
-      #   Some parameter documentations has been truncated, see
-      #   {Moonbase::Models::RelationValue} for more details.
-      #
+      # @!method initialize(data:, type: :"value/relation")
       #   Related item reference
       #
-      #   @param item [Moonbase::Models::Item] An Item represents a single record or row within a Collection. It holds a set of
+      #   @param data [Moonbase::Models::ItemPointer] A reference to another Moonbase item.
       #
       #   @param type [Symbol, :"value/relation"]
     end

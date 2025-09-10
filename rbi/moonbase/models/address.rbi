@@ -14,38 +14,28 @@ module Moonbase
       sig { returns(String) }
       attr_accessor :email
 
-      # String representing the object’s type. Always `address` for this object.
+      # The role of the address in the message. Can be `from`, `reply_to`, `to`, `cc`,
+      # or `bcc`.
+      sig { returns(Moonbase::Address::Role::TaggedSymbol) }
+      attr_accessor :role
+
+      # String representing the object’s type. Always `message_address` for this object.
       sig { returns(Symbol) }
       attr_accessor :type
 
-      # Time at which the object was created, as an RFC 3339 timestamp.
-      sig { returns(T.nilable(Time)) }
-      attr_reader :created_at
+      # A lightweight reference to another resource.
+      sig { returns(T.nilable(Moonbase::Pointer)) }
+      attr_reader :organization
 
-      sig { params(created_at: Time).void }
-      attr_writer :created_at
+      sig { params(organization: Moonbase::Pointer::OrHash).void }
+      attr_writer :organization
 
-      # A hash of related links.
-      sig { returns(T.nilable(Moonbase::Address::Links)) }
-      attr_reader :links
+      # A lightweight reference to another resource.
+      sig { returns(T.nilable(Moonbase::Pointer)) }
+      attr_reader :person
 
-      sig { params(links: Moonbase::Address::Links::OrHash).void }
-      attr_writer :links
-
-      # The role of the address in the message. Can be `from`, `reply_to`, `to`, `cc`,
-      # or `bcc`.
-      sig { returns(T.nilable(Moonbase::Address::Role::TaggedSymbol)) }
-      attr_reader :role
-
-      sig { params(role: Moonbase::Address::Role::OrSymbol).void }
-      attr_writer :role
-
-      # Time at which the object was last updated, as an RFC 3339 timestamp.
-      sig { returns(T.nilable(Time)) }
-      attr_reader :updated_at
-
-      sig { params(updated_at: Time).void }
-      attr_writer :updated_at
+      sig { params(person: Moonbase::Pointer::OrHash).void }
+      attr_writer :person
 
       # The Address object represents a recipient or sender of a message. It contains an
       # email address and can be linked to a person and an organization in your
@@ -54,10 +44,9 @@ module Moonbase
         params(
           id: String,
           email: String,
-          created_at: Time,
-          links: Moonbase::Address::Links::OrHash,
           role: Moonbase::Address::Role::OrSymbol,
-          updated_at: Time,
+          organization: Moonbase::Pointer::OrHash,
+          person: Moonbase::Pointer::OrHash,
           type: Symbol
         ).returns(T.attached_class)
       end
@@ -66,17 +55,15 @@ module Moonbase
         id:,
         # The email address.
         email:,
-        # Time at which the object was created, as an RFC 3339 timestamp.
-        created_at: nil,
-        # A hash of related links.
-        links: nil,
         # The role of the address in the message. Can be `from`, `reply_to`, `to`, `cc`,
         # or `bcc`.
-        role: nil,
-        # Time at which the object was last updated, as an RFC 3339 timestamp.
-        updated_at: nil,
-        # String representing the object’s type. Always `address` for this object.
-        type: :address
+        role:,
+        # A lightweight reference to another resource.
+        organization: nil,
+        # A lightweight reference to another resource.
+        person: nil,
+        # String representing the object’s type. Always `message_address` for this object.
+        type: :message_address
       )
       end
 
@@ -85,52 +72,14 @@ module Moonbase
           {
             id: String,
             email: String,
-            type: Symbol,
-            created_at: Time,
-            links: Moonbase::Address::Links,
             role: Moonbase::Address::Role::TaggedSymbol,
-            updated_at: Time
+            type: Symbol,
+            organization: Moonbase::Pointer,
+            person: Moonbase::Pointer
           }
         )
       end
       def to_hash
-      end
-
-      class Links < Moonbase::Internal::Type::BaseModel
-        OrHash =
-          T.type_alias do
-            T.any(Moonbase::Address::Links, Moonbase::Internal::AnyHash)
-          end
-
-        # A link to the associated `Organization` item.
-        sig { returns(T.nilable(String)) }
-        attr_reader :organization
-
-        sig { params(organization: String).void }
-        attr_writer :organization
-
-        # A link to the associated `Person` item.
-        sig { returns(T.nilable(String)) }
-        attr_reader :person
-
-        sig { params(person: String).void }
-        attr_writer :person
-
-        # A hash of related links.
-        sig do
-          params(organization: String, person: String).returns(T.attached_class)
-        end
-        def self.new(
-          # A link to the associated `Organization` item.
-          organization: nil,
-          # A link to the associated `Person` item.
-          person: nil
-        )
-        end
-
-        sig { override.returns({ organization: String, person: String }) }
-        def to_hash
-        end
       end
 
       # The role of the address in the message. Can be `from`, `reply_to`, `to`, `cc`,

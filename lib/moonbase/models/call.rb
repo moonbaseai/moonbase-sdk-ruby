@@ -10,6 +10,12 @@ module Moonbase
       #   @return [String]
       required :id, String
 
+      # @!attribute created_at
+      #   Time at which the object was created, as an ISO 8601 timestamp in UTC.
+      #
+      #   @return [Time]
+      required :created_at, Time
+
       # @!attribute direction
       #   The direction of the call, either `incoming` or `outgoing`.
       #
@@ -34,17 +40,17 @@ module Moonbase
       #   @return [String]
       required :provider_id, String
 
+      # @!attribute provider_status
+      #   The current status of the call.
+      #
+      #   @return [String]
+      required :provider_status, String
+
       # @!attribute start_at
-      #   The time the call started, as an RFC 3339 timestamp.
+      #   The time the call started, as an ISO 8601 timestamp in UTC.
       #
       #   @return [Time]
       required :start_at, Time
-
-      # @!attribute status
-      #   The current status of the call.
-      #
-      #   @return [Symbol, Moonbase::Models::Call::Status]
-      required :status, enum: -> { Moonbase::Call::Status }
 
       # @!attribute type
       #   String representing the object’s type. Always `call` for this object.
@@ -52,20 +58,20 @@ module Moonbase
       #   @return [Symbol, :call]
       required :type, const: :call
 
+      # @!attribute updated_at
+      #   Time at which the object was last updated, as an ISO 8601 timestamp in UTC.
+      #
+      #   @return [Time]
+      required :updated_at, Time
+
       # @!attribute answered_at
-      #   The time the call was answered, if available, as an RFC 3339 timestamp.
+      #   The time the call was answered, if available, as an ISO 8601 timestamp in UTC.
       #
       #   @return [Time, nil]
       optional :answered_at, Time
 
-      # @!attribute created_at
-      #   Time at which the object was created, as an RFC 3339 timestamp.
-      #
-      #   @return [Time, nil]
-      optional :created_at, Time
-
       # @!attribute end_at
-      #   The time the call ended, if available, as an RFC 3339 timestamp.
+      #   The time the call ended, if available, as an ISO 8601 timestamp in UTC.
       #
       #   @return [Time, nil]
       optional :end_at, Time
@@ -76,17 +82,13 @@ module Moonbase
       #   @return [Hash{Symbol=>Object}, nil]
       optional :provider_metadata, Moonbase::Internal::Type::HashOf[Moonbase::Internal::Type::Unknown]
 
-      # @!attribute updated_at
-      #   Time at which the object was last updated, as an RFC 3339 timestamp.
-      #
-      #   @return [Time, nil]
-      optional :updated_at, Time
-
-      # @!method initialize(id:, direction:, participants:, provider:, provider_id:, start_at:, status:, answered_at: nil, created_at: nil, end_at: nil, provider_metadata: nil, updated_at: nil, type: :call)
+      # @!method initialize(id:, created_at:, direction:, participants:, provider:, provider_id:, provider_status:, start_at:, updated_at:, answered_at: nil, end_at: nil, provider_metadata: nil, type: :call)
       #   The Call object represents a phone call that has been logged in the system. It
       #   contains details about the participants, timing, and outcome of the call.
       #
       #   @param id [String] Unique identifier for the object.
+      #
+      #   @param created_at [Time] Time at which the object was created, as an ISO 8601 timestamp in UTC.
       #
       #   @param direction [Symbol, Moonbase::Models::Call::Direction] The direction of the call, either `incoming` or `outgoing`.
       #
@@ -96,19 +98,17 @@ module Moonbase
       #
       #   @param provider_id [String] The unique identifier for the call from the provider's system.
       #
-      #   @param start_at [Time] The time the call started, as an RFC 3339 timestamp.
+      #   @param provider_status [String] The current status of the call.
       #
-      #   @param status [Symbol, Moonbase::Models::Call::Status] The current status of the call.
+      #   @param start_at [Time] The time the call started, as an ISO 8601 timestamp in UTC.
       #
-      #   @param answered_at [Time] The time the call was answered, if available, as an RFC 3339 timestamp.
+      #   @param updated_at [Time] Time at which the object was last updated, as an ISO 8601 timestamp in UTC.
       #
-      #   @param created_at [Time] Time at which the object was created, as an RFC 3339 timestamp.
+      #   @param answered_at [Time] The time the call was answered, if available, as an ISO 8601 timestamp in UTC.
       #
-      #   @param end_at [Time] The time the call ended, if available, as an RFC 3339 timestamp.
+      #   @param end_at [Time] The time the call ended, if available, as an ISO 8601 timestamp in UTC.
       #
       #   @param provider_metadata [Hash{Symbol=>Object}] A hash of additional metadata from the provider.
-      #
-      #   @param updated_at [Time] Time at which the object was last updated, as an RFC 3339 timestamp.
       #
       #   @param type [Symbol, :call] String representing the object’s type. Always `call` for this object.
 
@@ -145,24 +145,28 @@ module Moonbase
         required :role, enum: -> { Moonbase::Call::Participant::Role }
 
         # @!attribute type
-        #   String representing the object’s type. Always `participant` for this object.
+        #   String representing the object’s type. Always `call_participant` for this
+        #   object.
         #
-        #   @return [Symbol, :participant]
-        required :type, const: :participant
+        #   @return [Symbol, :call_participant]
+        required :type, const: :call_participant
 
-        # @!attribute created_at
-        #   Time at which the object was created, as an RFC 3339 timestamp.
+        # @!attribute organization
+        #   A lightweight reference to another resource.
         #
-        #   @return [Time, nil]
-        optional :created_at, Time
+        #   @return [Moonbase::Models::Pointer, nil]
+        optional :organization, -> { Moonbase::Pointer }
 
-        # @!attribute updated_at
-        #   Time at which the object was last updated, as an RFC 3339 timestamp.
+        # @!attribute person
+        #   A lightweight reference to another resource.
         #
-        #   @return [Time, nil]
-        optional :updated_at, Time
+        #   @return [Moonbase::Models::Pointer, nil]
+        optional :person, -> { Moonbase::Pointer }
 
-        # @!method initialize(id:, phone:, role:, created_at: nil, updated_at: nil, type: :participant)
+        # @!method initialize(id:, phone:, role:, organization: nil, person: nil, type: :call_participant)
+        #   Some parameter documentations has been truncated, see
+        #   {Moonbase::Models::Call::Participant} for more details.
+        #
         #   Represents a participant in a call.
         #
         #   @param id [String] Unique identifier for the object.
@@ -171,11 +175,11 @@ module Moonbase
         #
         #   @param role [Symbol, Moonbase::Models::Call::Participant::Role] The role of the participant in the call. Can be `caller`, `callee`, or `other`.
         #
-        #   @param created_at [Time] Time at which the object was created, as an RFC 3339 timestamp.
+        #   @param organization [Moonbase::Models::Pointer] A lightweight reference to another resource.
         #
-        #   @param updated_at [Time] Time at which the object was last updated, as an RFC 3339 timestamp.
+        #   @param person [Moonbase::Models::Pointer] A lightweight reference to another resource.
         #
-        #   @param type [Symbol, :participant] String representing the object’s type. Always `participant` for this object.
+        #   @param type [Symbol, :call_participant] String representing the object’s type. Always `call_participant` for this object
 
         # The role of the participant in the call. Can be `caller`, `callee`, or `other`.
         #
@@ -190,30 +194,6 @@ module Moonbase
           # @!method self.values
           #   @return [Array<Symbol>]
         end
-      end
-
-      # The current status of the call.
-      #
-      # @see Moonbase::Models::Call#status
-      module Status
-        extend Moonbase::Internal::Type::Enum
-
-        QUEUED = :queued
-        INITIATED = :initiated
-        RINGING = :ringing
-        IN_PROGRESS = :in_progress
-        COMPLETED = :completed
-        BUSY = :busy
-        FAILED = :failed
-        NO_ANSWER = :no_answer
-        CANCELED = :canceled
-        MISSED = :missed
-        ANSWERED = :answered
-        FORWARDED = :forwarded
-        ABANDONED = :abandoned
-
-        # @!method self.values
-        #   @return [Array<Symbol>]
       end
     end
   end

@@ -1,15 +1,15 @@
 module Moonbase
   module Models
-    type geo_value = { geo: String, type: :"value/geo" }
+    type geo_value = { data: String, type: :"value/geo" }
 
     class GeoValue < Moonbase::Internal::Type::BaseModel
-      attr_accessor geo: String
+      attr_accessor data: String
 
       attr_accessor type: :"value/geo"
 
-      def initialize: (geo: String, ?type: :"value/geo") -> void
+      def initialize: (data: String, ?type: :"value/geo") -> void
 
-      def to_hash: -> { geo: String, type: :"value/geo" }
+      def to_hash: -> { data: String, type: :"value/geo" }
     end
   end
 end

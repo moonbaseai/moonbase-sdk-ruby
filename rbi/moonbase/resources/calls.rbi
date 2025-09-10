@@ -11,11 +11,13 @@ module Moonbase
             T::Array[Moonbase::CallCreateParams::Participant::OrHash],
           provider: String,
           provider_id: String,
+          provider_status: String,
           start_at: Time,
-          status: Moonbase::CallCreateParams::Status::OrSymbol,
           answered_at: Time,
           end_at: Time,
           provider_metadata: T::Hash[Symbol, T.anything],
+          recordings: T::Array[Moonbase::CallCreateParams::Recording::OrHash],
+          transcript: Moonbase::CallCreateParams::Transcript::OrHash,
           request_options: Moonbase::RequestOptions::OrHash
         ).returns(Moonbase::Call)
       end
@@ -28,16 +30,65 @@ module Moonbase
         provider:,
         # The unique identifier for the call from the provider's system.
         provider_id:,
-        # The time the call started, as an RFC 3339 timestamp.
-        start_at:,
         # The status of the call.
-        status:,
-        # The time the call was answered, as an RFC 3339 timestamp.
+        provider_status:,
+        # The time the call started, as an ISO 8601 timestamp in UTC.
+        start_at:,
+        # The time the call was answered, as an ISO 8601 timestamp in UTC.
         answered_at: nil,
-        # The time the call ended, as an RFC 3339 timestamp.
+        # The time the call ended, as an ISO 8601 timestamp in UTC.
         end_at: nil,
         # A hash of additional metadata from the provider.
         provider_metadata: nil,
+        # Any recordings associated with the call.
+        recordings: nil,
+        # A transcript of the call.
+        transcript: nil,
+        request_options: {}
+      )
+      end
+
+      # Find and update an existing phone call, or create a new one.
+      sig do
+        params(
+          direction: Moonbase::CallUpsertParams::Direction::OrSymbol,
+          participants:
+            T::Array[Moonbase::CallUpsertParams::Participant::OrHash],
+          provider: String,
+          provider_id: String,
+          provider_status: String,
+          start_at: Time,
+          answered_at: Time,
+          end_at: Time,
+          provider_metadata: T::Hash[Symbol, T.anything],
+          recordings: T::Array[Moonbase::CallUpsertParams::Recording::OrHash],
+          transcript: Moonbase::CallUpsertParams::Transcript::OrHash,
+          request_options: Moonbase::RequestOptions::OrHash
+        ).returns(Moonbase::Call)
+      end
+      def upsert(
+        # The direction of the call, either `incoming` or `outgoing`.
+        direction:,
+        # An array of participants involved in the call.
+        participants:,
+        # The name of the phone provider that handled the call (e.g., `openphone`).
+        provider:,
+        # The unique identifier for the call from the provider's system.
+        provider_id:,
+        # The status of the call.
+        provider_status:,
+        # The time the call started, as an ISO 8601 timestamp in UTC.
+        start_at:,
+        # The time the call was answered, as an ISO 8601 timestamp in UTC.
+        answered_at: nil,
+        # The time the call ended, as an ISO 8601 timestamp in UTC.
+        end_at: nil,
+        # A hash of additional metadata from the provider.
+        provider_metadata: nil,
+        # Any recordings associated with the call.
+        recordings: nil,
+        # A transcript of the call.
+        transcript: nil,
         request_options: {}
       )
       end

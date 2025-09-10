@@ -23,17 +23,10 @@ module Moonbase
       #   @return [String, nil]
       optional :before, String
 
-      # @!attribute conversation
-      #   Filter messages by one or more conversation IDs.
+      # @!attribute filter
       #
-      #   @return [Array<String>, nil]
-      optional :conversation, Moonbase::Internal::Type::ArrayOf[String]
-
-      # @!attribute inbox
-      #   Filter messages by one or more inbox IDs.
-      #
-      #   @return [Array<String>, nil]
-      optional :inbox, Moonbase::Internal::Type::ArrayOf[String]
+      #   @return [Moonbase::Models::InboxMessageListParams::Filter, nil]
+      optional :filter, -> { Moonbase::InboxMessageListParams::Filter }
 
       # @!attribute include
       #   Specifies which related objects to include in the response. Valid options are
@@ -50,7 +43,7 @@ module Moonbase
       #   @return [Integer, nil]
       optional :limit, Integer
 
-      # @!method initialize(after: nil, before: nil, conversation: nil, inbox: nil, include: nil, limit: nil, request_options: {})
+      # @!method initialize(after: nil, before: nil, filter: nil, include: nil, limit: nil, request_options: {})
       #   Some parameter documentations has been truncated, see
       #   {Moonbase::Models::InboxMessageListParams} for more details.
       #
@@ -58,15 +51,51 @@ module Moonbase
       #
       #   @param before [String] When specified, returns results starting immediately before the item identified
       #
-      #   @param conversation [Array<String>] Filter messages by one or more conversation IDs.
-      #
-      #   @param inbox [Array<String>] Filter messages by one or more inbox IDs.
+      #   @param filter [Moonbase::Models::InboxMessageListParams::Filter]
       #
       #   @param include [Array<Symbol, Moonbase::Models::InboxMessageListParams::Include>] Specifies which related objects to include in the response. Valid options are `a
       #
       #   @param limit [Integer] Maximum number of items to return per page. Must be between 1 and 100. Defaults
       #
       #   @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}]
+
+      class Filter < Moonbase::Internal::Type::BaseModel
+        # @!attribute conversation_id
+        #
+        #   @return [Moonbase::Models::InboxMessageListParams::Filter::ConversationID, nil]
+        optional :conversation_id, -> { Moonbase::InboxMessageListParams::Filter::ConversationID }
+
+        # @!attribute inbox_id
+        #
+        #   @return [Moonbase::Models::InboxMessageListParams::Filter::InboxID, nil]
+        optional :inbox_id, -> { Moonbase::InboxMessageListParams::Filter::InboxID }
+
+        # @!method initialize(conversation_id: nil, inbox_id: nil)
+        #   @param conversation_id [Moonbase::Models::InboxMessageListParams::Filter::ConversationID]
+        #   @param inbox_id [Moonbase::Models::InboxMessageListParams::Filter::InboxID]
+
+        # @see Moonbase::Models::InboxMessageListParams::Filter#conversation_id
+        class ConversationID < Moonbase::Internal::Type::BaseModel
+          # @!attribute eq
+          #
+          #   @return [String, nil]
+          optional :eq, String
+
+          # @!method initialize(eq: nil)
+          #   @param eq [String]
+        end
+
+        # @see Moonbase::Models::InboxMessageListParams::Filter#inbox_id
+        class InboxID < Moonbase::Internal::Type::BaseModel
+          # @!attribute eq
+          #
+          #   @return [String, nil]
+          optional :eq, String
+
+          # @!method initialize(eq: nil)
+          #   @param eq [String]
+        end
+      end
 
       module Include
         extend Moonbase::Internal::Type::Enum

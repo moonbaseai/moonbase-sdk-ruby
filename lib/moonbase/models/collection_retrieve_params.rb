@@ -8,25 +8,20 @@ module Moonbase
       include Moonbase::Internal::Type::RequestParameters
 
       # @!attribute include
-      #   Specifies which related objects to include in the response. Valid options are
-      #   `fields` and `views`.
+      #   Specifies which related objects to include in the response.
       #
       #   @return [Array<Symbol, Moonbase::Models::CollectionRetrieveParams::Include>, nil]
       optional :include,
                -> { Moonbase::Internal::Type::ArrayOf[enum: Moonbase::CollectionRetrieveParams::Include] }
 
       # @!method initialize(include: nil, request_options: {})
-      #   Some parameter documentations has been truncated, see
-      #   {Moonbase::Models::CollectionRetrieveParams} for more details.
-      #
-      #   @param include [Array<Symbol, Moonbase::Models::CollectionRetrieveParams::Include>] Specifies which related objects to include in the response. Valid options are `f
+      #   @param include [Array<Symbol, Moonbase::Models::CollectionRetrieveParams::Include>] Specifies which related objects to include in the response.
       #
       #   @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}]
 
       module Include
         extend Moonbase::Internal::Type::Enum
 
-        FIELDS = :fields
         VIEWS = :views
 
         # @!method self.values

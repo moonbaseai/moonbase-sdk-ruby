@@ -35,15 +35,13 @@ module Moonbase
       #
       # Returns a list of messages.
       #
-      # @overload list(after: nil, before: nil, conversation: nil, inbox: nil, include: nil, limit: nil, request_options: {})
+      # @overload list(after: nil, before: nil, filter: nil, include: nil, limit: nil, request_options: {})
       #
       # @param after [String] When specified, returns results starting immediately after the item identified b
       #
       # @param before [String] When specified, returns results starting immediately before the item identified
       #
-      # @param conversation [Array<String>] Filter messages by one or more conversation IDs.
-      #
-      # @param inbox [Array<String>] Filter messages by one or more inbox IDs.
+      # @param filter [Moonbase::Models::InboxMessageListParams::Filter]
       #
       # @param include [Array<Symbol, Moonbase::Models::InboxMessageListParams::Include>] Specifies which related objects to include in the response. Valid options are `a
       #

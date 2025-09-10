@@ -25,8 +25,8 @@ module Moonbase
             Moonbase::GeoValue,
             Moonbase::DateValue,
             Moonbase::DatetimeValue,
-            Moonbase::Choice,
-            Moonbase::FunnelStep,
+            Moonbase::ChoiceValue,
+            Moonbase::FunnelStepValue,
             Moonbase::RelationValue
           )
         end

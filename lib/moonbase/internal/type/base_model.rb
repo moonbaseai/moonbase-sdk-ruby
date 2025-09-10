@@ -52,6 +52,7 @@ module Moonbase
           #
           #   @option spec [Boolean] :"nil?"
           private def add_field(name_sym, required:, type_info:, spec:)
+            meta = Moonbase::Internal::Type::Converter.meta_info(type_info, spec)
             type_fn, info =
               case type_info
               in Proc | Moonbase::Internal::Type::Converter | Class
@@ -63,14 +64,7 @@ module Moonbase
             setter = :"#{name_sym}="
             api_name = info.fetch(:api_name, name_sym)
             nilable = info.fetch(:nil?, false)
-            const = if required && !nilable
-              info.fetch(
-                :const,
-                Moonbase::Internal::OMIT
-              )
-            else
-              Moonbase::Internal::OMIT
-            end
+            const = required && !nilable ? info.fetch(:const, Moonbase::Internal::OMIT) : Moonbase::Internal::OMIT
 
             [name_sym, setter].each { undef_method(_1) } if known_fields.key?(name_sym)
 
@@ -81,7 +75,8 @@ module Moonbase
                 required: required,
                 nilable: nilable,
                 const: const,
-                type_fn: type_fn
+                type_fn: type_fn,
+                meta: meta
               }
 
             define_method(setter) do |value|

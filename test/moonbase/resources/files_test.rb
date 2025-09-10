@@ -13,13 +13,13 @@ class Moonbase::Test::Resources::FilesTest < Moonbase::Test::ResourceTest
     assert_pattern do
       response => {
         id: String,
+        created_at: Time,
+        download_url: String,
         filename: String,
-        links: Moonbase::MoonbaseFile::Links,
         name: String,
         size: Float,
         type: Symbol,
-        created_at: Time | nil,
-        updated_at: Time | nil
+        updated_at: Time
       }
     end
   end
@@ -41,13 +41,13 @@ class Moonbase::Test::Resources::FilesTest < Moonbase::Test::ResourceTest
     assert_pattern do
       row => {
         id: String,
+        created_at: Time,
+        download_url: String,
         filename: String,
-        links: Moonbase::MoonbaseFile::Links,
         name: String,
         size: Float,
         type: Symbol,
-        created_at: Time | nil,
-        updated_at: Time | nil
+        updated_at: Time
       }
     end
   end

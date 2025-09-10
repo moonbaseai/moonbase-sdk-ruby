@@ -4,7 +4,7 @@ module Moonbase
       {
         after: String,
         before: String,
-        inbox: ::Array[String],
+        filter: Moonbase::InboxConversationListParams::Filter,
         include: ::Array[Moonbase::Models::InboxConversationListParams::include_],
         limit: Integer
       }
@@ -22,9 +22,11 @@ module Moonbase
 
       def before=: (String) -> String
 
-      attr_reader inbox: ::Array[String]?
+      attr_reader filter: Moonbase::InboxConversationListParams::Filter?
 
-      def inbox=: (::Array[String]) -> ::Array[String]
+      def filter=: (
+        Moonbase::InboxConversationListParams::Filter
+      ) -> Moonbase::InboxConversationListParams::Filter
 
       attr_reader include: ::Array[Moonbase::Models::InboxConversationListParams::include_]?
 
@@ -39,7 +41,7 @@ module Moonbase
       def initialize: (
         ?after: String,
         ?before: String,
-        ?inbox: ::Array[String],
+        ?filter: Moonbase::InboxConversationListParams::Filter,
         ?include: ::Array[Moonbase::Models::InboxConversationListParams::include_],
         ?limit: Integer,
         ?request_options: Moonbase::request_opts
@@ -48,19 +50,74 @@ module Moonbase
       def to_hash: -> {
         after: String,
         before: String,
-        inbox: ::Array[String],
+        filter: Moonbase::InboxConversationListParams::Filter,
         include: ::Array[Moonbase::Models::InboxConversationListParams::include_],
         limit: Integer,
         request_options: Moonbase::RequestOptions
       }
 
-      type include_ = :addresses | :tags
+      type filter =
+        {
+          conversation_id: Moonbase::InboxConversationListParams::Filter::ConversationID,
+          inbox_id: Moonbase::InboxConversationListParams::Filter::InboxID
+        }
+
+      class Filter < Moonbase::Internal::Type::BaseModel
+        attr_reader conversation_id: Moonbase::InboxConversationListParams::Filter::ConversationID?
+
+        def conversation_id=: (
+          Moonbase::InboxConversationListParams::Filter::ConversationID
+        ) -> Moonbase::InboxConversationListParams::Filter::ConversationID
+
+        attr_reader inbox_id: Moonbase::InboxConversationListParams::Filter::InboxID?
+
+        def inbox_id=: (
+          Moonbase::InboxConversationListParams::Filter::InboxID
+        ) -> Moonbase::InboxConversationListParams::Filter::InboxID
+
+        def initialize: (
+          ?conversation_id: Moonbase::InboxConversationListParams::Filter::ConversationID,
+          ?inbox_id: Moonbase::InboxConversationListParams::Filter::InboxID
+        ) -> void
+
+        def to_hash: -> {
+          conversation_id: Moonbase::InboxConversationListParams::Filter::ConversationID,
+          inbox_id: Moonbase::InboxConversationListParams::Filter::InboxID
+        }
+
+        type conversation_id = { eq: String }
+
+        class ConversationID < Moonbase::Internal::Type::BaseModel
+          attr_reader eq: String?
+
+          def eq=: (String) -> String
+
+          def initialize: (?eq: String) -> void
+
+          def to_hash: -> { eq: String }
+        end
+
+        type inbox_id = { eq: String }
+
+        class InboxID < Moonbase::Internal::Type::BaseModel
+          attr_reader eq: String?
+
+          def eq=: (String) -> String
+
+          def initialize: (?eq: String) -> void
+
+          def to_hash: -> { eq: String }
+        end
+      end
+
+      type include_ = :inbox | :messages | :"messages.addresses"
 
       module Include
         extend Moonbase::Internal::Type::Enum
 
-        ADDRESSES: :addresses
-        TAGS: :tags
+        INBOX: :inbox
+        MESSAGES: :messages
+        MESSAGES_ADDRESSES: :"messages.addresses"
 
         def self?.values: -> ::Array[Moonbase::Models::InboxConversationListParams::include_]
       end

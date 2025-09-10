@@ -1,0 +1,35 @@
+module Moonbase
+  module Models
+    type activity_form_submitted =
+      {
+        id: String,
+        item: Moonbase::ItemPointer?,
+        occurred_at: Time,
+        type: :"activity/form_submitted"
+      }
+
+    class ActivityFormSubmitted < Moonbase::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor item: Moonbase::ItemPointer?
+
+      attr_accessor occurred_at: Time
+
+      attr_accessor type: :"activity/form_submitted"
+
+      def initialize: (
+        id: String,
+        item: Moonbase::ItemPointer?,
+        occurred_at: Time,
+        ?type: :"activity/form_submitted"
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        item: Moonbase::ItemPointer?,
+        occurred_at: Time,
+        type: :"activity/form_submitted"
+      }
+    end
+  end
+end

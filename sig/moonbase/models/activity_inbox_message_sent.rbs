@@ -1,0 +1,35 @@
+module Moonbase
+  module Models
+    type activity_inbox_message_sent =
+      {
+        id: String,
+        message: Moonbase::Pointer?,
+        occurred_at: Time,
+        type: :"activity/inbox_message_sent"
+      }
+
+    class ActivityInboxMessageSent < Moonbase::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor message: Moonbase::Pointer?
+
+      attr_accessor occurred_at: Time
+
+      attr_accessor type: :"activity/inbox_message_sent"
+
+      def initialize: (
+        id: String,
+        message: Moonbase::Pointer?,
+        occurred_at: Time,
+        ?type: :"activity/inbox_message_sent"
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        message: Moonbase::Pointer?,
+        occurred_at: Time,
+        type: :"activity/inbox_message_sent"
+      }
+    end
+  end
+end

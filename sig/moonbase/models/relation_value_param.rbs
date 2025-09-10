@@ -1,0 +1,33 @@
+module Moonbase
+  module Models
+    type relation_value_param =
+      {
+        data: Moonbase::Models::RelationValueParam::data,
+        type: :"value/relation"
+      }
+
+    class RelationValueParam < Moonbase::Internal::Type::BaseModel
+      attr_accessor data: Moonbase::Models::RelationValueParam::data
+
+      attr_accessor type: :"value/relation"
+
+      def initialize: (
+        data: Moonbase::Models::RelationValueParam::data,
+        ?type: :"value/relation"
+      ) -> void
+
+      def to_hash: -> {
+        data: Moonbase::Models::RelationValueParam::data,
+        type: :"value/relation"
+      }
+
+      type data = Moonbase::ItemPointer | Moonbase::Pointer
+
+      module Data
+        extend Moonbase::Internal::Type::Union
+
+        def self?.variants: -> ::Array[Moonbase::Models::RelationValueParam::data]
+      end
+    end
+  end
+end

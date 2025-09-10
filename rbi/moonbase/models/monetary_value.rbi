@@ -8,11 +8,13 @@ module Moonbase
           T.any(Moonbase::MonetaryValue, Moonbase::Internal::AnyHash)
         end
 
-      sig { returns(Moonbase::MonetaryValue::Amount) }
-      attr_reader :amount
+      # A monetary amount is composed of the amount in the smallest unit of a currency
+      # and an ISO currency code.
+      sig { returns(Moonbase::MonetaryValue::Data) }
+      attr_reader :data
 
-      sig { params(amount: Moonbase::MonetaryValue::Amount::OrHash).void }
-      attr_writer :amount
+      sig { params(data: Moonbase::MonetaryValue::Data::OrHash).void }
+      attr_writer :data
 
       sig { returns(Symbol) }
       attr_accessor :type
@@ -20,51 +22,56 @@ module Moonbase
       # Monetary or currency value
       sig do
         params(
-          amount: Moonbase::MonetaryValue::Amount::OrHash,
+          data: Moonbase::MonetaryValue::Data::OrHash,
           type: Symbol
         ).returns(T.attached_class)
       end
-      def self.new(amount:, type: :"value/number/monetary")
+      def self.new(
+        # A monetary amount is composed of the amount in the smallest unit of a currency
+        # and an ISO currency code.
+        data:,
+        type: :"value/number/monetary"
+      )
       end
 
       sig do
-        override.returns(
-          { amount: Moonbase::MonetaryValue::Amount, type: Symbol }
-        )
+        override.returns({ data: Moonbase::MonetaryValue::Data, type: Symbol })
       end
       def to_hash
       end
 
-      class Amount < Moonbase::Internal::Type::BaseModel
+      class Data < Moonbase::Internal::Type::BaseModel
         OrHash =
           T.type_alias do
-            T.any(Moonbase::MonetaryValue::Amount, Moonbase::Internal::AnyHash)
+            T.any(Moonbase::MonetaryValue::Data, Moonbase::Internal::AnyHash)
           end
 
-        sig { returns(Integer) }
-        attr_accessor :amount_in_minor_units
-
+        # The 3-letter ISO 4217 currency code
         sig { returns(String) }
         attr_accessor :currency
 
-        sig { returns(Symbol) }
-        attr_accessor :type
+        # The amount in the minor units of the currency. For example, $10 (10 USD) would
+        # be 1000. Minor units conversion depends on the currency.
+        sig { returns(Integer) }
+        attr_accessor :in_minor_units
 
+        # A monetary amount is composed of the amount in the smallest unit of a currency
+        # and an ISO currency code.
         sig do
-          params(
-            amount_in_minor_units: Integer,
-            currency: String,
-            type: Symbol
-          ).returns(T.attached_class)
-        end
-        def self.new(amount_in_minor_units:, currency:, type: :currency)
-        end
-
-        sig do
-          override.returns(
-            { amount_in_minor_units: Integer, currency: String, type: Symbol }
+          params(currency: String, in_minor_units: Integer).returns(
+            T.attached_class
           )
         end
+        def self.new(
+          # The 3-letter ISO 4217 currency code
+          currency:,
+          # The amount in the minor units of the currency. For example, $10 (10 USD) would
+          # be 1000. Minor units conversion depends on the currency.
+          in_minor_units:
+        )
+        end
+
+        sig { override.returns({ currency: String, in_minor_units: Integer }) }
         def to_hash
         end
       end

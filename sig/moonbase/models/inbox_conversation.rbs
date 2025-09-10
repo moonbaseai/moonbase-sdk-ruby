@@ -3,140 +3,106 @@ module Moonbase
     type inbox_conversation =
       {
         id: String,
-        links: Moonbase::InboxConversation::Links,
-        state: Moonbase::Models::InboxConversation::state,
-        type: :inbox_conversation,
-        addresses: ::Array[Moonbase::Address],
         bulk: bool,
         created_at: Time,
+        draft: bool,
         follow_up: bool,
-        new_draft_conversation: bool,
+        last_message_at: Time,
         spam: bool,
+        state: Moonbase::Models::InboxConversation::state,
         subject: String,
         tags: ::Array[Moonbase::InboxConversation::Tag],
-        timestamp: String,
         trash: bool,
+        type: :inbox_conversation,
         unread: bool,
-        unsnooze_at: Time,
-        updated_at: Time
+        updated_at: Time,
+        inbox: Moonbase::Inbox,
+        messages: ::Array[Moonbase::EmailMessage],
+        unsnooze_at: Time
       }
 
     class InboxConversation < Moonbase::Internal::Type::BaseModel
       attr_accessor id: String
 
-      attr_accessor links: Moonbase::InboxConversation::Links
+      attr_accessor bulk: bool
+
+      attr_accessor created_at: Time
+
+      attr_accessor draft: bool
+
+      attr_accessor follow_up: bool
+
+      attr_accessor last_message_at: Time
+
+      attr_accessor spam: bool
 
       attr_accessor state: Moonbase::Models::InboxConversation::state
 
+      attr_accessor subject: String
+
+      attr_accessor tags: ::Array[Moonbase::InboxConversation::Tag]
+
+      attr_accessor trash: bool
+
       attr_accessor type: :inbox_conversation
 
-      attr_reader addresses: ::Array[Moonbase::Address]?
+      attr_accessor unread: bool
 
-      def addresses=: (::Array[Moonbase::Address]) -> ::Array[Moonbase::Address]
+      attr_accessor updated_at: Time
 
-      attr_reader bulk: bool?
+      attr_reader inbox: Moonbase::Inbox?
 
-      def bulk=: (bool) -> bool
+      def inbox=: (Moonbase::Inbox) -> Moonbase::Inbox
 
-      attr_reader created_at: Time?
+      attr_reader messages: ::Array[Moonbase::EmailMessage]?
 
-      def created_at=: (Time) -> Time
-
-      attr_reader follow_up: bool?
-
-      def follow_up=: (bool) -> bool
-
-      attr_reader new_draft_conversation: bool?
-
-      def new_draft_conversation=: (bool) -> bool
-
-      attr_reader spam: bool?
-
-      def spam=: (bool) -> bool
-
-      attr_reader subject: String?
-
-      def subject=: (String) -> String
-
-      attr_reader tags: ::Array[Moonbase::InboxConversation::Tag]?
-
-      def tags=: (
-        ::Array[Moonbase::InboxConversation::Tag]
-      ) -> ::Array[Moonbase::InboxConversation::Tag]
-
-      attr_reader timestamp: String?
-
-      def timestamp=: (String) -> String
-
-      attr_reader trash: bool?
-
-      def trash=: (bool) -> bool
-
-      attr_reader unread: bool?
-
-      def unread=: (bool) -> bool
+      def messages=: (
+        ::Array[Moonbase::EmailMessage]
+      ) -> ::Array[Moonbase::EmailMessage]
 
       attr_reader unsnooze_at: Time?
 
       def unsnooze_at=: (Time) -> Time
 
-      attr_reader updated_at: Time?
-
-      def updated_at=: (Time) -> Time
-
       def initialize: (
         id: String,
-        links: Moonbase::InboxConversation::Links,
+        bulk: bool,
+        created_at: Time,
+        draft: bool,
+        follow_up: bool,
+        last_message_at: Time,
+        spam: bool,
         state: Moonbase::Models::InboxConversation::state,
-        ?addresses: ::Array[Moonbase::Address],
-        ?bulk: bool,
-        ?created_at: Time,
-        ?follow_up: bool,
-        ?new_draft_conversation: bool,
-        ?spam: bool,
-        ?subject: String,
-        ?tags: ::Array[Moonbase::InboxConversation::Tag],
-        ?timestamp: String,
-        ?trash: bool,
-        ?unread: bool,
+        subject: String,
+        tags: ::Array[Moonbase::InboxConversation::Tag],
+        trash: bool,
+        unread: bool,
+        updated_at: Time,
+        ?inbox: Moonbase::Inbox,
+        ?messages: ::Array[Moonbase::EmailMessage],
         ?unsnooze_at: Time,
-        ?updated_at: Time,
         ?type: :inbox_conversation
       ) -> void
 
       def to_hash: -> {
         id: String,
-        links: Moonbase::InboxConversation::Links,
-        state: Moonbase::Models::InboxConversation::state,
-        type: :inbox_conversation,
-        addresses: ::Array[Moonbase::Address],
         bulk: bool,
         created_at: Time,
+        draft: bool,
         follow_up: bool,
-        new_draft_conversation: bool,
+        last_message_at: Time,
         spam: bool,
+        state: Moonbase::Models::InboxConversation::state,
         subject: String,
         tags: ::Array[Moonbase::InboxConversation::Tag],
-        timestamp: String,
         trash: bool,
+        type: :inbox_conversation,
         unread: bool,
-        unsnooze_at: Time,
-        updated_at: Time
+        updated_at: Time,
+        inbox: Moonbase::Inbox,
+        messages: ::Array[Moonbase::EmailMessage],
+        unsnooze_at: Time
       }
-
-      type links = { inbox: String, messages: String, self_: String }
-
-      class Links < Moonbase::Internal::Type::BaseModel
-        attr_accessor inbox: String
-
-        attr_accessor messages: String
-
-        attr_accessor self_: String
-
-        def initialize: (inbox: String, messages: String, self_: String) -> void
-
-        def to_hash: -> { inbox: String, messages: String, self_: String }
-      end
 
       type state = :unassigned | :active | :closed | :waiting
 

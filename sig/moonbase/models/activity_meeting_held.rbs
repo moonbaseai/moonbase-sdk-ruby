@@ -1,0 +1,35 @@
+module Moonbase
+  module Models
+    type activity_meeting_held =
+      {
+        id: String,
+        meeting: Moonbase::Pointer?,
+        occurred_at: Time,
+        type: :"activity/meeting_held"
+      }
+
+    class ActivityMeetingHeld < Moonbase::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor meeting: Moonbase::Pointer?
+
+      attr_accessor occurred_at: Time
+
+      attr_accessor type: :"activity/meeting_held"
+
+      def initialize: (
+        id: String,
+        meeting: Moonbase::Pointer?,
+        occurred_at: Time,
+        ?type: :"activity/meeting_held"
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        meeting: Moonbase::Pointer?,
+        occurred_at: Time,
+        type: :"activity/meeting_held"
+      }
+    end
+  end
+end

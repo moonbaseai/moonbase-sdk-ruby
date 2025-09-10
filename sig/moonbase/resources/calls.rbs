@@ -6,11 +6,28 @@ module Moonbase
         participants: ::Array[Moonbase::CallCreateParams::Participant],
         provider: String,
         provider_id: String,
+        provider_status: String,
         start_at: Time,
-        status: Moonbase::Models::CallCreateParams::status,
         ?answered_at: Time,
         ?end_at: Time,
         ?provider_metadata: ::Hash[Symbol, top],
+        ?recordings: ::Array[Moonbase::CallCreateParams::Recording],
+        ?transcript: Moonbase::CallCreateParams::Transcript,
+        ?request_options: Moonbase::request_opts
+      ) -> Moonbase::Call
+
+      def upsert: (
+        direction: Moonbase::Models::CallUpsertParams::direction,
+        participants: ::Array[Moonbase::CallUpsertParams::Participant],
+        provider: String,
+        provider_id: String,
+        provider_status: String,
+        start_at: Time,
+        ?answered_at: Time,
+        ?end_at: Time,
+        ?provider_metadata: ::Hash[Symbol, top],
+        ?recordings: ::Array[Moonbase::CallUpsertParams::Recording],
+        ?transcript: Moonbase::CallUpsertParams::Transcript,
         ?request_options: Moonbase::request_opts
       ) -> Moonbase::Call
 

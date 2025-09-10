@@ -13,13 +13,14 @@ module Moonbase
       # @!attribute body
       #   The body content of the email, which can include Liquid variables.
       #
-      #   @return [String]
-      required :body, String
+      #   @return [Moonbase::Models::FormattedText]
+      required :body, -> { Moonbase::FormattedText }
 
-      # @!attribute links
+      # @!attribute created_at
+      #   Time at which the object was created, as an ISO 8601 timestamp in UTC.
       #
-      #   @return [Moonbase::Models::ProgramTemplate::Links]
-      required :links, -> { Moonbase::ProgramTemplate::Links }
+      #   @return [Time]
+      required :created_at, Time
 
       # @!attribute subject
       #   The subject line of the email, which can include Liquid variables.
@@ -34,25 +35,21 @@ module Moonbase
       #   @return [Symbol, :program_template]
       required :type, const: :program_template
 
-      # @!attribute created_at
-      #   Time at which the object was created, as an RFC 3339 timestamp.
+      # @!attribute updated_at
+      #   Time at which the object was last updated, as an ISO 8601 timestamp in UTC.
       #
-      #   @return [Time, nil]
-      optional :created_at, Time
+      #   @return [Time]
+      required :updated_at, Time
 
       # @!attribute program
       #   The `Program` that uses this template.
       #
+      #   **Note:** Only present when requested using the `include` query parameter.
+      #
       #   @return [Moonbase::Models::Program, nil]
       optional :program, -> { Moonbase::Program }
 
-      # @!attribute updated_at
-      #   Time at which the object was last updated, as an RFC 3339 timestamp.
-      #
-      #   @return [Time, nil]
-      optional :updated_at, Time
-
-      # @!method initialize(id:, body:, links:, subject:, created_at: nil, program: nil, updated_at: nil, type: :program_template)
+      # @!method initialize(id:, body:, created_at:, subject:, updated_at:, program: nil, type: :program_template)
       #   Some parameter documentations has been truncated, see
       #   {Moonbase::Models::ProgramTemplate} for more details.
       #
@@ -61,39 +58,17 @@ module Moonbase
       #
       #   @param id [String] Unique identifier for the object.
       #
-      #   @param body [String] The body content of the email, which can include Liquid variables.
+      #   @param body [Moonbase::Models::FormattedText] The body content of the email, which can include Liquid variables.
       #
-      #   @param links [Moonbase::Models::ProgramTemplate::Links]
+      #   @param created_at [Time] Time at which the object was created, as an ISO 8601 timestamp in UTC.
       #
       #   @param subject [String] The subject line of the email, which can include Liquid variables.
       #
-      #   @param created_at [Time] Time at which the object was created, as an RFC 3339 timestamp.
+      #   @param updated_at [Time] Time at which the object was last updated, as an ISO 8601 timestamp in UTC.
       #
       #   @param program [Moonbase::Models::Program] The `Program` that uses this template.
       #
-      #   @param updated_at [Time] Time at which the object was last updated, as an RFC 3339 timestamp.
-      #
       #   @param type [Symbol, :program_template] String representing the object’s type. Always `program_template` for this object
-
-      # @see Moonbase::Models::ProgramTemplate#links
-      class Links < Moonbase::Internal::Type::BaseModel
-        # @!attribute self_
-        #   The canonical URL for this object.
-        #
-        #   @return [String]
-        required :self_, String, api_name: :self
-
-        # @!attribute program
-        #   A link to the `Program` using this template.
-        #
-        #   @return [String, nil]
-        optional :program, String
-
-        # @!method initialize(self_:, program: nil)
-        #   @param self_ [String] The canonical URL for this object.
-        #
-        #   @param program [String] A link to the `Program` using this template.
-      end
     end
   end
 end

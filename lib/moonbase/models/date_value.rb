@@ -3,20 +3,20 @@
 module Moonbase
   module Models
     class DateValue < Moonbase::Internal::Type::BaseModel
-      # @!attribute date
+      # @!attribute data
       #
       #   @return [Date]
-      required :date, Date
+      required :data, Date
 
       # @!attribute type
       #
       #   @return [Symbol, :"value/date"]
       required :type, const: :"value/date"
 
-      # @!method initialize(date:, type: :"value/date")
+      # @!method initialize(data:, type: :"value/date")
       #   Date without time
       #
-      #   @param date [Date]
+      #   @param data [Date]
       #   @param type [Symbol, :"value/date"]
     end
   end

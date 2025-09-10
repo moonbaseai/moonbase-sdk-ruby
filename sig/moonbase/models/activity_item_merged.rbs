@@ -1,0 +1,45 @@
+module Moonbase
+  module Models
+    type activity_item_merged =
+      {
+        id: String,
+        destination: Moonbase::ItemPointer?,
+        initiator: Moonbase::ItemPointer?,
+        occurred_at: Time,
+        source: Moonbase::ItemPointer?,
+        type: :"activity/item_merged"
+      }
+
+    class ActivityItemMerged < Moonbase::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor destination: Moonbase::ItemPointer?
+
+      attr_accessor initiator: Moonbase::ItemPointer?
+
+      attr_accessor occurred_at: Time
+
+      attr_accessor source: Moonbase::ItemPointer?
+
+      attr_accessor type: :"activity/item_merged"
+
+      def initialize: (
+        id: String,
+        destination: Moonbase::ItemPointer?,
+        initiator: Moonbase::ItemPointer?,
+        occurred_at: Time,
+        source: Moonbase::ItemPointer?,
+        ?type: :"activity/item_merged"
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        destination: Moonbase::ItemPointer?,
+        initiator: Moonbase::ItemPointer?,
+        occurred_at: Time,
+        source: Moonbase::ItemPointer?,
+        type: :"activity/item_merged"
+      }
+    end
+  end
+end

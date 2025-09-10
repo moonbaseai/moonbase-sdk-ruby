@@ -3,21 +3,23 @@ module Moonbase
     type moonbase_file =
       {
         id: String,
+        created_at: Time,
+        download_url: String,
         filename: String,
-        links: Moonbase::MoonbaseFile::Links,
         name: String,
         size: Float,
         type: :file,
-        created_at: Time,
         updated_at: Time
       }
 
     class MoonbaseFile < Moonbase::Internal::Type::BaseModel
       attr_accessor id: String
 
-      attr_accessor filename: String
+      attr_accessor created_at: Time
 
-      attr_accessor links: Moonbase::MoonbaseFile::Links
+      attr_accessor download_url: String
+
+      attr_accessor filename: String
 
       attr_accessor name: String
 
@@ -25,47 +27,29 @@ module Moonbase
 
       attr_accessor type: :file
 
-      attr_reader created_at: Time?
-
-      def created_at=: (Time) -> Time
-
-      attr_reader updated_at: Time?
-
-      def updated_at=: (Time) -> Time
+      attr_accessor updated_at: Time
 
       def initialize: (
         id: String,
+        created_at: Time,
+        download_url: String,
         filename: String,
-        links: Moonbase::MoonbaseFile::Links,
         name: String,
         size: Float,
-        ?created_at: Time,
-        ?updated_at: Time,
+        updated_at: Time,
         ?type: :file
       ) -> void
 
       def to_hash: -> {
         id: String,
+        created_at: Time,
+        download_url: String,
         filename: String,
-        links: Moonbase::MoonbaseFile::Links,
         name: String,
         size: Float,
         type: :file,
-        created_at: Time,
         updated_at: Time
       }
-
-      type links = { download_url: String, self_: String }
-
-      class Links < Moonbase::Internal::Type::BaseModel
-        attr_accessor download_url: String
-
-        attr_accessor self_: String
-
-        def initialize: (download_url: String, self_: String) -> void
-
-        def to_hash: -> { download_url: String, self_: String }
-      end
     end
   end
 end

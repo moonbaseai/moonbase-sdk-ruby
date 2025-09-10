@@ -1,0 +1,35 @@
+module Moonbase
+  module Models
+    type activity_call_occurred =
+      {
+        id: String,
+        call: Moonbase::Pointer?,
+        occurred_at: Time,
+        type: :"activity/call_occurred"
+      }
+
+    class ActivityCallOccurred < Moonbase::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor call: Moonbase::Pointer?
+
+      attr_accessor occurred_at: Time
+
+      attr_accessor type: :"activity/call_occurred"
+
+      def initialize: (
+        id: String,
+        call: Moonbase::Pointer?,
+        occurred_at: Time,
+        ?type: :"activity/call_occurred"
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        call: Moonbase::Pointer?,
+        occurred_at: Time,
+        type: :"activity/call_occurred"
+      }
+    end
+  end
+end

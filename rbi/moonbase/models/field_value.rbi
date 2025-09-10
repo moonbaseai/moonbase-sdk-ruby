@@ -25,10 +25,10 @@ module Moonbase
             Moonbase::GeoValue,
             Moonbase::DateValue,
             Moonbase::DatetimeValue,
-            Moonbase::Choice,
-            Moonbase::FunnelStep,
+            Moonbase::ChoiceValue,
+            Moonbase::FunnelStepValue,
             Moonbase::RelationValue,
-            T::Array[Moonbase::Value]
+            T::Array[Moonbase::Value::Variants]
           )
         end
 

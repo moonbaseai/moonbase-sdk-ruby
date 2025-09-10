@@ -8,30 +8,30 @@ module Moonbase
           T.any(Moonbase::RelationValue, Moonbase::Internal::AnyHash)
         end
 
-      # An Item represents a single record or row within a Collection. It holds a set of
-      # `values` corresponding to the Collection's `fields`.
-      sig { returns(Moonbase::Item) }
-      attr_reader :item
+      # A reference to another Moonbase item.
+      sig { returns(Moonbase::ItemPointer) }
+      attr_reader :data
 
-      sig { params(item: Moonbase::Item).void }
-      attr_writer :item
+      sig { params(data: Moonbase::ItemPointer::OrHash).void }
+      attr_writer :data
 
       sig { returns(Symbol) }
       attr_accessor :type
 
       # Related item reference
       sig do
-        params(item: Moonbase::Item, type: Symbol).returns(T.attached_class)
+        params(data: Moonbase::ItemPointer::OrHash, type: Symbol).returns(
+          T.attached_class
+        )
       end
       def self.new(
-        # An Item represents a single record or row within a Collection. It holds a set of
-        # `values` corresponding to the Collection's `fields`.
-        item:,
+        # A reference to another Moonbase item.
+        data:,
         type: :"value/relation"
       )
       end
 
-      sig { override.returns({ item: Moonbase::Item, type: Symbol }) }
+      sig { override.returns({ data: Moonbase::ItemPointer, type: Symbol }) }
       def to_hash
       end
     end

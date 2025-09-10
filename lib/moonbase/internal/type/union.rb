@@ -6,28 +6,28 @@ module Moonbase
       # @api private
       #
       # @example
-      #   # `activity` is a `Moonbase::Activity`
-      #   case activity
-      #   when Moonbase::Activity::ActivityCallOccurred
-      #     puts(activity.id)
-      #   when Moonbase::Activity::ActivityFormSubmitted
-      #     puts(activity.links)
-      #   when Moonbase::Activity::ActivityInboxMessageSent
-      #     puts(activity.occurred_at)
+      #   # `field` is a `Moonbase::Field`
+      #   case field
+      #   when Moonbase::SingleLineTextField
+      #     puts(field.id)
+      #   when Moonbase::MultiLineTextField
+      #     puts(field.cardinality)
+      #   when Moonbase::IntegerField
+      #     puts(field.created_at)
       #   else
-      #     puts(activity)
+      #     puts(field)
       #   end
       #
       # @example
-      #   case activity
-      #   in {type: :"activity/call_occurred", id: id, links: links, occurred_at: occurred_at}
+      #   case field
+      #   in {type: :"field/text/single_line", id: id, cardinality: cardinality, created_at: created_at}
       #     puts(id)
-      #   in {type: :"activity/form_submitted", id: id, links: links, occurred_at: occurred_at}
-      #     puts(links)
-      #   in {type: :"activity/inbox_message_sent", id: id, links: links, occurred_at: occurred_at}
-      #     puts(occurred_at)
+      #   in {type: :"field/text/multi_line", id: id, cardinality: cardinality, created_at: created_at}
+      #     puts(cardinality)
+      #   in {type: :"field/number/unitless_integer", id: id, cardinality: cardinality, created_at: created_at}
+      #     puts(created_at)
       #   else
-      #     puts(activity)
+      #     puts(field)
       #   end
       module Union
         include Moonbase::Internal::Type::Converter
@@ -37,20 +37,20 @@ module Moonbase
         #
         # All of the specified variant info for this union.
         #
-        # @return [Array<Array(Symbol, Proc)>]
+        # @return [Array<Array(Symbol, Proc, Hash{Symbol=>Object})>]
         private def known_variants = (@known_variants ||= [])
 
         # @api private
         #
-        # @return [Array<Array(Symbol, Object)>]
+        # @return [Array<Array(Symbol, Object, Hash{Symbol=>Object})>]
         protected def derefed_variants
-          known_variants.map { |key, variant_fn| [key, variant_fn.call] }
+          known_variants.map { |key, variant_fn, meta| [key, variant_fn.call, meta] }
         end
 
         # All of the specified variants for this union.
         #
         # @return [Array<Object>]
-        def variants = derefed_variants.map(&:last)
+        def variants = derefed_variants.map { _2 }
 
         # @api private
         #
@@ -76,12 +76,13 @@ module Moonbase
         #
         #   @option spec [Boolean] :"nil?"
         private def variant(key, spec = nil)
+          meta = Moonbase::Internal::Type::Converter.meta_info(nil, spec)
           variant_info =
             case key
             in Symbol
-              [key, Moonbase::Internal::Type::Converter.type_info(spec)]
+              [key, Moonbase::Internal::Type::Converter.type_info(spec), meta]
             in Proc | Moonbase::Internal::Type::Converter | Class | Hash
-              [nil, Moonbase::Internal::Type::Converter.type_info(key)]
+              [nil, Moonbase::Internal::Type::Converter.type_info(key), meta]
             end
 
           known_variants << variant_info
@@ -104,7 +105,8 @@ module Moonbase
             return nil if key == Moonbase::Internal::OMIT
 
             key = key.to_sym if key.is_a?(String)
-            known_variants.find { |k,| k == key }&.last&.call
+            _, found = known_variants.find { |k,| k == key }
+            found&.call
           else
             nil
           end

@@ -1,0 +1,26 @@
+module Moonbase
+  module Models
+    module Collections
+      type item_create_params =
+        { values: ::Hash[Symbol, Moonbase::Models::field_value_param?] }
+        & Moonbase::Internal::Type::request_parameters
+
+      class ItemCreateParams < Moonbase::Internal::Type::BaseModel
+        extend Moonbase::Internal::Type::RequestParameters::Converter
+        include Moonbase::Internal::Type::RequestParameters
+
+        attr_accessor values: ::Hash[Symbol, Moonbase::Models::field_value_param?]
+
+        def initialize: (
+          values: ::Hash[Symbol, Moonbase::Models::field_value_param?],
+          ?request_options: Moonbase::request_opts
+        ) -> void
+
+        def to_hash: -> {
+          values: ::Hash[Symbol, Moonbase::Models::field_value_param?],
+          request_options: Moonbase::RequestOptions
+        }
+      end
+    end
+  end
+end

@@ -1,0 +1,47 @@
+module Moonbase
+  module Models
+    type activity_program_message_failed =
+      {
+        id: String,
+        occurred_at: Time,
+        program_message: Moonbase::Pointer?,
+        recipient: Moonbase::ItemPointer?,
+        type: :"activity/program_message_failed",
+        reason_code: String
+      }
+
+    class ActivityProgramMessageFailed < Moonbase::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor occurred_at: Time
+
+      attr_accessor program_message: Moonbase::Pointer?
+
+      attr_accessor recipient: Moonbase::ItemPointer?
+
+      attr_accessor type: :"activity/program_message_failed"
+
+      attr_reader reason_code: String?
+
+      def reason_code=: (String) -> String
+
+      def initialize: (
+        id: String,
+        occurred_at: Time,
+        program_message: Moonbase::Pointer?,
+        recipient: Moonbase::ItemPointer?,
+        ?reason_code: String,
+        ?type: :"activity/program_message_failed"
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        occurred_at: Time,
+        program_message: Moonbase::Pointer?,
+        recipient: Moonbase::ItemPointer?,
+        type: :"activity/program_message_failed",
+        reason_code: String
+      }
+    end
+  end
+end
