@@ -1,22 +1,22 @@
 module Moonbase
   module Models
     type choice_field_option =
-      { id: String, label: String, type: :choice_field_option }
+      { id: String, name: String, type: :choice_field_option }
 
     class ChoiceFieldOption < Moonbase::Internal::Type::BaseModel
       attr_accessor id: String
 
-      attr_accessor label: String
+      attr_accessor name: String
 
       attr_accessor type: :choice_field_option
 
       def initialize: (
         id: String,
-        label: String,
+        name: String,
         ?type: :choice_field_option
       ) -> void
 
-      def to_hash: -> { id: String, label: String, type: :choice_field_option }
+      def to_hash: -> { id: String, name: String, type: :choice_field_option }
     end
   end
 end
