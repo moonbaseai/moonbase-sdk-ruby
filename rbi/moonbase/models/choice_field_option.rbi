@@ -14,7 +14,7 @@ module Moonbase
 
       # The human-readable text displayed for this option.
       sig { returns(String) }
-      attr_accessor :label
+      attr_accessor :name
 
       # String representing the object’s type. Always `choice_field_option` for this
       # object.
@@ -23,22 +23,20 @@ module Moonbase
 
       # Represents a single selectable option within a choice field.
       sig do
-        params(id: String, label: String, type: Symbol).returns(
-          T.attached_class
-        )
+        params(id: String, name: String, type: Symbol).returns(T.attached_class)
       end
       def self.new(
         # Unique identifier for the option.
         id:,
         # The human-readable text displayed for this option.
-        label:,
+        name:,
         # String representing the object’s type. Always `choice_field_option` for this
         # object.
         type: :choice_field_option
       )
       end
 
-      sig { override.returns({ id: String, label: String, type: Symbol }) }
+      sig { override.returns({ id: String, name: String, type: Symbol }) }
       def to_hash
       end
     end
