@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.1.0-alpha.4 (2025-09-12)
+
+Full Changelog: [v0.1.0-alpha.3...v0.1.0-alpha.4](https://github.com/moonbaseai/moonbase-sdk-ruby/compare/v0.1.0-alpha.3...v0.1.0-alpha.4)
+
+### Features
+
+* Improve examples of API errors ([840de2a](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/840de2a8ea5438cc3f50f31fc13caba3469926a7))
+
+
+### Documentation
+
+* improve webhook endpoints examples ([c7851fe](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/c7851fe6f336b8892ae016fdc8ac97175a71124f))
+
+
+### Refactors
+
+* rename ChoiceFieldOption label to name for consistency ([0a9ef9a](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/0a9ef9a75fb619b856d70c68ccb147ef5909b32a))
+
 ## 0.1.0-alpha.3 (2025-09-09)
 
 Full Changelog: [v0.1.0-alpha.2...v0.1.0-alpha.3](https://github.com/moonbaseai/moonbase-sdk-ruby/compare/v0.1.0-alpha.2...v0.1.0-alpha.3)
