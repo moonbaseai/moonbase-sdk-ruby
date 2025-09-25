@@ -28,6 +28,7 @@ module Moonbase
 
         ORGANIZER = :organizer
         ATTENDEES = :attendees
+        TRANSCRIPT = :transcript
 
         # @!method self.values
         #   @return [Array<Symbol>]

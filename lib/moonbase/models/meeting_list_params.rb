@@ -23,6 +23,11 @@ module Moonbase
       #   @return [String, nil]
       optional :before, String
 
+      # @!attribute filter
+      #
+      #   @return [Moonbase::Models::MeetingListParams::Filter, nil]
+      optional :filter, -> { Moonbase::MeetingListParams::Filter }
+
       # @!attribute limit
       #   Maximum number of items to return per page. Must be between 1 and 100. Defaults
       #   to 20 if not specified.
@@ -30,7 +35,7 @@ module Moonbase
       #   @return [Integer, nil]
       optional :limit, Integer
 
-      # @!method initialize(after: nil, before: nil, limit: nil, request_options: {})
+      # @!method initialize(after: nil, before: nil, filter: nil, limit: nil, request_options: {})
       #   Some parameter documentations has been truncated, see
       #   {Moonbase::Models::MeetingListParams} for more details.
       #
@@ -38,9 +43,32 @@ module Moonbase
       #
       #   @param before [String] When specified, returns results starting immediately before the item identified
       #
+      #   @param filter [Moonbase::Models::MeetingListParams::Filter]
+      #
       #   @param limit [Integer] Maximum number of items to return per page. Must be between 1 and 100. Defaults
       #
       #   @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}]
+
+      class Filter < Moonbase::Internal::Type::BaseModel
+        # @!attribute i_cal_uid
+        #
+        #   @return [Moonbase::Models::MeetingListParams::Filter::ICalUid, nil]
+        optional :i_cal_uid, -> { Moonbase::MeetingListParams::Filter::ICalUid }
+
+        # @!method initialize(i_cal_uid: nil)
+        #   @param i_cal_uid [Moonbase::Models::MeetingListParams::Filter::ICalUid]
+
+        # @see Moonbase::Models::MeetingListParams::Filter#i_cal_uid
+        class ICalUid < Moonbase::Internal::Type::BaseModel
+          # @!attribute eq
+          #
+          #   @return [String, nil]
+          optional :eq, String
+
+          # @!method initialize(eq: nil)
+          #   @param eq [String]
+        end
+      end
     end
   end
 end
