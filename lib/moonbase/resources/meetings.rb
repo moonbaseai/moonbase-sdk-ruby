@@ -30,16 +30,39 @@ module Moonbase
         )
       end
 
+      # @overload update(id, recording: nil, transcript: nil, request_options: {})
+      #
+      # @param id [String]
+      # @param recording [Moonbase::Models::MeetingUpdateParams::Recording]
+      # @param transcript [Moonbase::Models::MeetingUpdateParams::Transcript]
+      # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
+      #
+      # @return [Moonbase::Models::Meeting]
+      #
+      # @see Moonbase::Models::MeetingUpdateParams
+      def update(id, params = {})
+        parsed, options = Moonbase::MeetingUpdateParams.dump_request(params)
+        @client.request(
+          method: :patch,
+          path: ["meetings/%1$s", id],
+          body: parsed,
+          model: Moonbase::Meeting,
+          options: options
+        )
+      end
+
       # Some parameter documentations has been truncated, see
       # {Moonbase::Models::MeetingListParams} for more details.
       #
       # Returns a list of meetings.
       #
-      # @overload list(after: nil, before: nil, limit: nil, request_options: {})
+      # @overload list(after: nil, before: nil, filter: nil, limit: nil, request_options: {})
       #
       # @param after [String] When specified, returns results starting immediately after the item identified b
       #
       # @param before [String] When specified, returns results starting immediately before the item identified
+      #
+      # @param filter [Moonbase::Models::MeetingListParams::Filter]
       #
       # @param limit [Integer] Maximum number of items to return per page. Must be between 1 and 100. Defaults
       #

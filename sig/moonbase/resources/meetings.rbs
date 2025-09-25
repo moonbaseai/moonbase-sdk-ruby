@@ -7,9 +7,17 @@ module Moonbase
         ?request_options: Moonbase::request_opts
       ) -> Moonbase::Meeting
 
+      def update: (
+        String id,
+        ?recording: Moonbase::MeetingUpdateParams::Recording,
+        ?transcript: Moonbase::MeetingUpdateParams::Transcript,
+        ?request_options: Moonbase::request_opts
+      ) -> Moonbase::Meeting
+
       def list: (
         ?after: String,
         ?before: String,
+        ?filter: Moonbase::MeetingListParams::Filter,
         ?limit: Integer,
         ?request_options: Moonbase::request_opts
       ) -> Moonbase::Internal::CursorPage[Moonbase::Meeting]

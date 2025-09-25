@@ -165,6 +165,8 @@ module Moonbase
 
   MeetingRetrieveParams = Moonbase::Models::MeetingRetrieveParams
 
+  MeetingUpdateParams = Moonbase::Models::MeetingUpdateParams
+
   MonetaryField = Moonbase::Models::MonetaryField
 
   MonetaryValue = Moonbase::Models::MonetaryValue
