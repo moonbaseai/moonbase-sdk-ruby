@@ -12,7 +12,7 @@ module Moonbase
         end
 
       # Specifies which related objects to include in the response. Valid option is
-      # `tagset`.
+      # `tagsets`.
       sig do
         returns(T.nilable(Moonbase::InboxRetrieveParams::Include::OrSymbol))
       end
@@ -31,7 +31,7 @@ module Moonbase
       end
       def self.new(
         # Specifies which related objects to include in the response. Valid option is
-        # `tagset`.
+        # `tagsets`.
         include: nil,
         request_options: {}
       )
@@ -49,7 +49,7 @@ module Moonbase
       end
 
       # Specifies which related objects to include in the response. Valid option is
-      # `tagset`.
+      # `tagsets`.
       module Include
         extend Moonbase::Internal::Type::Enum
 
@@ -57,8 +57,8 @@ module Moonbase
           T.type_alias { T.all(Symbol, Moonbase::InboxRetrieveParams::Include) }
         OrSymbol = T.type_alias { T.any(Symbol, String) }
 
-        TAGSET =
-          T.let(:tagset, Moonbase::InboxRetrieveParams::Include::TaggedSymbol)
+        TAGSETS =
+          T.let(:tagsets, Moonbase::InboxRetrieveParams::Include::TaggedSymbol)
 
         sig do
           override.returns(
