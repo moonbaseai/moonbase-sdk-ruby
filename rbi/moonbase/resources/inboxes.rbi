@@ -15,7 +15,7 @@ module Moonbase
         # The ID of the Inbox to retrieve.
         id,
         # Specifies which related objects to include in the response. Valid option is
-        # `tagset`.
+        # `tagsets`.
         include: nil,
         request_options: {}
       )

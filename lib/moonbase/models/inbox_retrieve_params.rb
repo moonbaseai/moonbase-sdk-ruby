@@ -9,7 +9,7 @@ module Moonbase
 
       # @!attribute include
       #   Specifies which related objects to include in the response. Valid option is
-      #   `tagset`.
+      #   `tagsets`.
       #
       #   @return [Symbol, Moonbase::Models::InboxRetrieveParams::Include, nil]
       optional :include, enum: -> { Moonbase::InboxRetrieveParams::Include }
@@ -23,11 +23,11 @@ module Moonbase
       #   @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}]
 
       # Specifies which related objects to include in the response. Valid option is
-      # `tagset`.
+      # `tagsets`.
       module Include
         extend Moonbase::Internal::Type::Enum
 
-        TAGSET = :tagset
+        TAGSETS = :tagsets
 
         # @!method self.values
         #   @return [Array<Symbol>]

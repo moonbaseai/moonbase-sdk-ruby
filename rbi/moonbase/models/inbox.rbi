@@ -26,15 +26,15 @@ module Moonbase
       sig { returns(Time) }
       attr_accessor :updated_at
 
-      # The `Tagset` associated with this inbox, which defines the tags available for
-      # its conversations.
+      # The list of `Tagset` objects associated with this inbox, which defines the tags
+      # available for its conversations.
       #
       # **Note:** Only present when requested using the `include` query parameter.
-      sig { returns(T.nilable(Moonbase::Tagset)) }
-      attr_reader :tagset
+      sig { returns(T.nilable(T::Array[Moonbase::Tagset])) }
+      attr_reader :tagsets
 
-      sig { params(tagset: Moonbase::Tagset::OrHash).void }
-      attr_writer :tagset
+      sig { params(tagsets: T::Array[Moonbase::Tagset::OrHash]).void }
+      attr_writer :tagsets
 
       # The Inbox object represents a shared inbox for receiving and sending messages.
       sig do
@@ -43,7 +43,7 @@ module Moonbase
           created_at: Time,
           name: String,
           updated_at: Time,
-          tagset: Moonbase::Tagset::OrHash,
+          tagsets: T::Array[Moonbase::Tagset::OrHash],
           type: Symbol
         ).returns(T.attached_class)
       end
@@ -56,11 +56,11 @@ module Moonbase
         name:,
         # Time at which the object was last updated, as an ISO 8601 timestamp in UTC.
         updated_at:,
-        # The `Tagset` associated with this inbox, which defines the tags available for
-        # its conversations.
+        # The list of `Tagset` objects associated with this inbox, which defines the tags
+        # available for its conversations.
         #
         # **Note:** Only present when requested using the `include` query parameter.
-        tagset: nil,
+        tagsets: nil,
         # String representing the object’s type. Always `inbox` for this object.
         type: :inbox
       )
@@ -74,7 +74,7 @@ module Moonbase
             name: String,
             type: Symbol,
             updated_at: Time,
-            tagset: Moonbase::Tagset
+            tagsets: T::Array[Moonbase::Tagset]
           }
         )
       end

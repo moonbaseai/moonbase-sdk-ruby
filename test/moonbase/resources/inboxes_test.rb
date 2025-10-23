@@ -17,7 +17,7 @@ class Moonbase::Test::Resources::InboxesTest < Moonbase::Test::ResourceTest
         name: String,
         type: Symbol,
         updated_at: Time,
-        tagset: Moonbase::Tagset | nil
+        tagsets: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Tagset]) | nil
       }
     end
   end
@@ -43,7 +43,7 @@ class Moonbase::Test::Resources::InboxesTest < Moonbase::Test::ResourceTest
         name: String,
         type: Symbol,
         updated_at: Time,
-        tagset: Moonbase::Tagset | nil
+        tagsets: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Tagset]) | nil
       }
     end
   end
