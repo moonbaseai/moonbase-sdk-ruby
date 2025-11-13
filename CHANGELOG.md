@@ -1,5 +1,41 @@
 # Changelog
 
+## 0.1.0-alpha.5 (2025-11-13)
+
+Full Changelog: [v0.1.0-alpha.4...v0.1.0-alpha.5](https://github.com/moonbaseai/moonbase-sdk-ruby/compare/v0.1.0-alpha.4...v0.1.0-alpha.5)
+
+### Features
+
+* Add PATCH /v0/meetings/{id} ([2cb2339](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/2cb23391e356cd92aae56c0c1509f73018260482))
+* **api:** manual updates ([fa67751](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/fa67751e7ec83a1f1ce33c47e8c94b5ab3ae31d6))
+* **api:** update api ([e3c9ad0](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/e3c9ad0433de6cddd5f4a903d1593fac88efd9c9))
+* expose response headers for both streams and errors ([39b34b0](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/39b34b0c68a778fd30d6349e577c8f64b1ff647d))
+* handle thread interrupts in the core HTTP client ([ecedb52](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/ecedb5205ba87a29e5d650ca6d1600348c813c17))
+
+
+### Bug Fixes
+
+* absolutely qualified uris should always override the default ([4f9d377](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/4f9d3776eec58bf9d57dd060bbd69b28c4b11acf))
+* always send `filename=...` for multipart requests where a file is expected ([67a4aca](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/67a4aca74fb0f190800c6a514a2778453ff35c33))
+* better thread safety via early initializing SSL store during HTTP client creation ([bd6d5d3](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/bd6d5d3ee42ef1218cebc1de4a20a7bec6df604c))
+* coroutine leaks from connection pool ([ca7118b](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/ca7118b2108de43ef1fd07759a99cc4712777444))
+* shorten multipart boundary sep to less than RFC specificed max length ([1325f54](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/1325f5410253d8f6bb41ef20552d95b452021185))
+* should not reuse buffers for `IO.copy_stream` interop ([2a7f948](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/2a7f9482c054c3c7cc1a5ee89fcc10334db8f4fa))
+
+
+### Performance Improvements
+
+* faster code formatting ([84f021f](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/84f021fc5251a01d8b836bcaa09de27ee8898f29))
+
+
+### Chores
+
+* allow fast-format to use bsd sed as well ([80db719](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/80db719c03aad42092719fdedca8b54a1cae95cc))
+* bump dependency version and update sorbet types ([22aaba5](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/22aaba59955a621fb070d977b654212cb1f0d45e))
+* do not install brew dependencies in ./scripts/bootstrap by default ([91df728](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/91df728ae9d09148f185043a8193bc7235bf4884))
+* ignore linter error for tests having large collections ([c0059a2](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/c0059a249133f0c39f08ba3a3418cfb8117e3890))
+* **internal:** codegen related update ([dc876ed](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/dc876ed1ccfb8994dc415b23fa4b1bf3bfe6a2b0))
+
 ## 0.1.0-alpha.4 (2025-09-12)
 
 Full Changelog: [v0.1.0-alpha.3...v0.1.0-alpha.4](https://github.com/moonbaseai/moonbase-sdk-ruby/compare/v0.1.0-alpha.3...v0.1.0-alpha.4)
