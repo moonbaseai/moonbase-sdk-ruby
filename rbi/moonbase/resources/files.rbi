@@ -42,6 +42,27 @@ module Moonbase
       )
       end
 
+      # Upload a file
+      sig do
+        params(
+          file: Moonbase::Internal::FileInput,
+          associations: T::Array[Moonbase::Pointer::OrHash],
+          name: String,
+          request_options: Moonbase::RequestOptions::OrHash
+        ).returns(Moonbase::MoonbaseFile)
+      end
+      def upload(
+        # The File object to be uploaded.
+        file:,
+        # Link the File to Moonbase items like a person, organization, deal, task, or an
+        # item in a custom collection.
+        associations: nil,
+        # The display name of the file.
+        name: nil,
+        request_options: {}
+      )
+      end
+
       # @api private
       sig { params(client: Moonbase::Client).returns(T.attached_class) }
       def self.new(client:)

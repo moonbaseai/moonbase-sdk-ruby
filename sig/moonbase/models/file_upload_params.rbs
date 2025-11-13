@@ -1,0 +1,42 @@
+module Moonbase
+  module Models
+    type file_upload_params =
+      {
+        file: Moonbase::Internal::file_input,
+        associations: ::Array[Moonbase::Pointer],
+        name: String
+      }
+      & Moonbase::Internal::Type::request_parameters
+
+    class FileUploadParams < Moonbase::Internal::Type::BaseModel
+      extend Moonbase::Internal::Type::RequestParameters::Converter
+      include Moonbase::Internal::Type::RequestParameters
+
+      attr_accessor file: Moonbase::Internal::file_input
+
+      attr_reader associations: ::Array[Moonbase::Pointer]?
+
+      def associations=: (
+        ::Array[Moonbase::Pointer]
+      ) -> ::Array[Moonbase::Pointer]
+
+      attr_reader name: String?
+
+      def name=: (String) -> String
+
+      def initialize: (
+        file: Moonbase::Internal::file_input,
+        ?associations: ::Array[Moonbase::Pointer],
+        ?name: String,
+        ?request_options: Moonbase::request_opts
+      ) -> void
+
+      def to_hash: -> {
+        file: Moonbase::Internal::file_input,
+        associations: ::Array[Moonbase::Pointer],
+        name: String,
+        request_options: Moonbase::RequestOptions
+      }
+    end
+  end
+end

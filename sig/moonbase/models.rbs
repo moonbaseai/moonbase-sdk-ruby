@@ -103,6 +103,8 @@ module Moonbase
 
   class FileRetrieveParams = Moonbase::Models::FileRetrieveParams
 
+  class FileUploadParams = Moonbase::Models::FileUploadParams
+
   class FloatField = Moonbase::Models::FloatField
 
   class FloatValue = Moonbase::Models::FloatValue

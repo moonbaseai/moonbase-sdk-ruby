@@ -53,6 +53,36 @@ module Moonbase
         )
       end
 
+      # Some parameter documentations has been truncated, see
+      # {Moonbase::Models::FileUploadParams} for more details.
+      #
+      # Upload a file
+      #
+      # @overload upload(file:, associations: nil, name: nil, request_options: {})
+      #
+      # @param file [Pathname, StringIO, IO, String, Moonbase::FilePart] The File object to be uploaded.
+      #
+      # @param associations [Array<Moonbase::Models::Pointer>] Link the File to Moonbase items like a person, organization, deal, task, or an i
+      #
+      # @param name [String] The display name of the file.
+      #
+      # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
+      #
+      # @return [Moonbase::Models::MoonbaseFile]
+      #
+      # @see Moonbase::Models::FileUploadParams
+      def upload(params)
+        parsed, options = Moonbase::FileUploadParams.dump_request(params)
+        @client.request(
+          method: :post,
+          path: "files",
+          headers: {"content-type" => "multipart/form-data"},
+          body: parsed,
+          model: Moonbase::MoonbaseFile,
+          options: options
+        )
+      end
+
       # @api private
       #
       # @param client [Moonbase::Client]
