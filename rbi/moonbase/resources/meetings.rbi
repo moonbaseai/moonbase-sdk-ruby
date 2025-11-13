@@ -21,6 +21,7 @@ module Moonbase
       )
       end
 
+      # Adds a transcript or recording to an existing meeting.
       sig do
         params(
           id: String,
@@ -29,7 +30,15 @@ module Moonbase
           request_options: Moonbase::RequestOptions::OrHash
         ).returns(Moonbase::Meeting)
       end
-      def update(id, recording: nil, transcript: nil, request_options: {})
+      def update(
+        # The ID of the meeting to update.
+        id,
+        # A video recording of the meeting.
+        recording: nil,
+        # The meeting transcript.
+        transcript: nil,
+        request_options: {}
+      )
       end
 
       # Returns a list of meetings.
