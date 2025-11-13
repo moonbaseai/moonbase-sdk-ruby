@@ -12,6 +12,10 @@ module Moonbase
       sig { returns(String) }
       attr_accessor :id
 
+      # A list of items this file is associated with.
+      sig { returns(T::Array[Moonbase::ItemPointer]) }
+      attr_accessor :associations
+
       # Time at which the object was created, as an ISO 8601 timestamp in UTC.
       sig { returns(Time) }
       attr_accessor :created_at
@@ -45,6 +49,7 @@ module Moonbase
       sig do
         params(
           id: String,
+          associations: T::Array[Moonbase::ItemPointer::OrHash],
           created_at: Time,
           download_url: String,
           filename: String,
@@ -57,6 +62,8 @@ module Moonbase
       def self.new(
         # Unique identifier for the object.
         id:,
+        # A list of items this file is associated with.
+        associations:,
         # Time at which the object was created, as an ISO 8601 timestamp in UTC.
         created_at:,
         # A temporary, signed URL to download the file content. The URL expires after one
@@ -79,6 +86,7 @@ module Moonbase
         override.returns(
           {
             id: String,
+            associations: T::Array[Moonbase::ItemPointer],
             created_at: Time,
             download_url: String,
             filename: String,
