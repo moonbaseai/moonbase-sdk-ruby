@@ -10,6 +10,12 @@ module Moonbase
       #   @return [String]
       required :id, String
 
+      # @!attribute associations
+      #   A list of items this file is associated with.
+      #
+      #   @return [Array<Moonbase::Models::ItemPointer>]
+      required :associations, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::ItemPointer] }
+
       # @!attribute created_at
       #   Time at which the object was created, as an ISO 8601 timestamp in UTC.
       #
@@ -53,13 +59,15 @@ module Moonbase
       #   @return [Time]
       required :updated_at, Time
 
-      # @!method initialize(id:, created_at:, download_url:, filename:, name:, size:, updated_at:, type: :file)
+      # @!method initialize(id:, associations:, created_at:, download_url:, filename:, name:, size:, updated_at:, type: :file)
       #   Some parameter documentations has been truncated, see
       #   {Moonbase::Models::MoonbaseFile} for more details.
       #
       #   The File object represents a file that has been uploaded to your library.
       #
       #   @param id [String] Unique identifier for the object.
+      #
+      #   @param associations [Array<Moonbase::Models::ItemPointer>] A list of items this file is associated with.
       #
       #   @param created_at [Time] Time at which the object was created, as an ISO 8601 timestamp in UTC.
       #

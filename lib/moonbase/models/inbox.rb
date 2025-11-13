@@ -34,16 +34,16 @@ module Moonbase
       #   @return [Time]
       required :updated_at, Time
 
-      # @!attribute tagset
-      #   The `Tagset` associated with this inbox, which defines the tags available for
-      #   its conversations.
+      # @!attribute tagsets
+      #   The list of `Tagset` objects associated with this inbox, which defines the tags
+      #   available for its conversations.
       #
       #   **Note:** Only present when requested using the `include` query parameter.
       #
-      #   @return [Moonbase::Models::Tagset, nil]
-      optional :tagset, -> { Moonbase::Tagset }
+      #   @return [Array<Moonbase::Models::Tagset>, nil]
+      optional :tagsets, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::Tagset] }
 
-      # @!method initialize(id:, created_at:, name:, updated_at:, tagset: nil, type: :inbox)
+      # @!method initialize(id:, created_at:, name:, updated_at:, tagsets: nil, type: :inbox)
       #   Some parameter documentations has been truncated, see {Moonbase::Models::Inbox}
       #   for more details.
       #
@@ -57,7 +57,7 @@ module Moonbase
       #
       #   @param updated_at [Time] Time at which the object was last updated, as an ISO 8601 timestamp in UTC.
       #
-      #   @param tagset [Moonbase::Models::Tagset] The `Tagset` associated with this inbox, which defines the tags available for it
+      #   @param tagsets [Array<Moonbase::Models::Tagset>] The list of `Tagset` objects associated with this inbox, which defines the tags
       #
       #   @param type [Symbol, :inbox] String representing the object’s type. Always `inbox` for this object.
     end

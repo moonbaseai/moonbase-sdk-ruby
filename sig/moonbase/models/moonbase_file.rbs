@@ -3,6 +3,7 @@ module Moonbase
     type moonbase_file =
       {
         id: String,
+        associations: ::Array[Moonbase::ItemPointer],
         created_at: Time,
         download_url: String,
         filename: String,
@@ -14,6 +15,8 @@ module Moonbase
 
     class MoonbaseFile < Moonbase::Internal::Type::BaseModel
       attr_accessor id: String
+
+      attr_accessor associations: ::Array[Moonbase::ItemPointer]
 
       attr_accessor created_at: Time
 
@@ -31,6 +34,7 @@ module Moonbase
 
       def initialize: (
         id: String,
+        associations: ::Array[Moonbase::ItemPointer],
         created_at: Time,
         download_url: String,
         filename: String,
@@ -42,6 +46,7 @@ module Moonbase
 
       def to_hash: -> {
         id: String,
+        associations: ::Array[Moonbase::ItemPointer],
         created_at: Time,
         download_url: String,
         filename: String,

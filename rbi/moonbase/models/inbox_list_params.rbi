@@ -90,8 +90,8 @@ module Moonbase
           T.type_alias { T.all(Symbol, Moonbase::InboxListParams::Include) }
         OrSymbol = T.type_alias { T.any(Symbol, String) }
 
-        TAGSET =
-          T.let(:tagset, Moonbase::InboxListParams::Include::TaggedSymbol)
+        TAGSETS =
+          T.let(:tagsets, Moonbase::InboxListParams::Include::TaggedSymbol)
 
         sig do
           override.returns(

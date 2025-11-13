@@ -52,7 +52,7 @@ module Moonbase
       module Include
         extend Moonbase::Internal::Type::Enum
 
-        TAGSET = :tagset
+        TAGSETS = :tagsets
 
         # @!method self.values
         #   @return [Array<Symbol>]

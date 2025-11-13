@@ -13,6 +13,13 @@ module Moonbase
         ?request_options: Moonbase::request_opts
       ) -> Moonbase::Internal::CursorPage[Moonbase::MoonbaseFile]
 
+      def upload: (
+        file: Moonbase::Internal::file_input,
+        ?associations: ::Array[Moonbase::Pointer],
+        ?name: String,
+        ?request_options: Moonbase::request_opts
+      ) -> Moonbase::MoonbaseFile
+
       def initialize: (client: Moonbase::Client) -> void
     end
   end

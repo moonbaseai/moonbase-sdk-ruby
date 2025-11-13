@@ -24,12 +24,12 @@ module Moonbase
         request_options: Moonbase::RequestOptions
       }
 
-      type include_ = :tagset
+      type include_ = :tagsets
 
       module Include
         extend Moonbase::Internal::Type::Enum
 
-        TAGSET: :tagset
+        TAGSETS: :tagsets
 
         def self?.values: -> ::Array[Moonbase::Models::InboxRetrieveParams::include_]
       end

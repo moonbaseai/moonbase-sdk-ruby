@@ -124,6 +124,14 @@ class Moonbase::Test::UtilUriHandlingTest < Minitest::Test
           path: "/c",
           query: {"d" => ["e"]}
         }
+      ],
+      [
+        "h://a.b/c?d=e",
+        "h://nope",
+        {
+          path: "h://a.b/c",
+          query: {"d" => ["e"]}
+        }
       ]
     ]
 
@@ -213,22 +221,38 @@ class Moonbase::Test::UtilFormDataEncodingTest < Minitest::Test
     end
   end
 
+  def test_encoding_length
+    headers, = Moonbase::Internal::Util.encode_content(
+      {"content-type" => "multipart/form-data"},
+      Pathname(__FILE__)
+    )
+    assert_pattern do
+      headers.fetch("content-type") => /boundary=(.+)$/
+    end
+    field, = Regexp.last_match.captures
+    assert(field.length < 70 - 6)
+  end
+
   def test_file_encode
     file = Pathname(__FILE__)
+    fileinput = Moonbase::Internal::Type::Converter.dump(Moonbase::Internal::Type::FileInput, "abc")
     headers = {"content-type" => "multipart/form-data"}
     cases = {
-      "abc" => "abc",
-      StringIO.new("abc") => "abc",
-      Moonbase::FilePart.new("abc") => "abc",
-      Moonbase::FilePart.new(StringIO.new("abc")) => "abc",
-      file => /^class Moonbase/,
-      Moonbase::FilePart.new(file) => /^class Moonbase/
+      "abc" => ["", "abc"],
+      StringIO.new("abc") => ["", "abc"],
+      fileinput => %w[upload abc],
+      Moonbase::FilePart.new(StringIO.new("abc")) => ["", "abc"],
+      file => [file.basename.to_path, /^class Moonbase/],
+      Moonbase::FilePart.new(file, filename: "d o g") => ["d%20o%20g", /^class Moonbase/]
     }
-    cases.each do |body, val|
+    cases.each do |body, testcase|
+      filename, val = testcase
       encoded = Moonbase::Internal::Util.encode_content(headers, body)
       cgi = FakeCGI.new(*encoded)
+      io = cgi[""]
       assert_pattern do
-        cgi[""].read => ^val
+        io.original_filename => ^filename
+        io.read => ^val
       end
     end
   end
@@ -249,7 +273,14 @@ class Moonbase::Test::UtilFormDataEncodingTest < Minitest::Test
       cgi = FakeCGI.new(*encoded)
       testcase.each do |key, val|
         assert_pattern do
-          cgi[key] => ^val
+          parsed =
+            case (p = cgi[key])
+            in StringIO
+              p.read
+            else
+              p
+            end
+          parsed => ^val
         end
       end
     end
@@ -287,6 +318,54 @@ class Moonbase::Test::UtilIOAdapterTest < Minitest::Test
 end
 
 class Moonbase::Test::UtilFusedEnumTest < Minitest::Test
+  def test_rewind_closing
+    touched = false
+    once = 0
+    steps = 0
+    enum = Enumerator.new do |y|
+      next if touched
+
+      10.times do
+        steps = _1
+        y << _1
+      end
+    ensure
+      once = once.succ
+    end
+
+    fused = Moonbase::Internal::Util.fused_enum(enum, external: true) do
+      touched = true
+      loop { enum.next }
+    end
+    Moonbase::Internal::Util.close_fused!(fused)
+
+    assert_equal(1, once)
+    assert_equal(0, steps)
+  end
+
+  def test_thread_interrupts
+    once = 0
+    que = Queue.new
+    enum = Enumerator.new do |y|
+      10.times { y << _1 }
+    ensure
+      once = once.succ
+    end
+
+    fused_1 = Moonbase::Internal::Util.fused_enum(enum, external: true) { loop { enum.next } }
+    fused_2 = Moonbase::Internal::Util.chain_fused(fused_1) { fused_1.each(&_1) }
+    fused_3 = Moonbase::Internal::Util.chain_fused(fused_2) { fused_2.each(&_1) }
+
+    th = ::Thread.new do
+      que << "🐶"
+      fused_3.each { sleep(10) }
+    end
+
+    assert_equal("🐶", que.pop)
+    th.kill.join
+    assert_equal(1, once)
+  end
+
   def test_closing
     arr = [1, 2, 3]
     once = 0

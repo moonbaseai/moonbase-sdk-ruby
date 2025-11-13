@@ -74,6 +74,11 @@ module Moonbase
             :attendees,
             Moonbase::MeetingRetrieveParams::Include::TaggedSymbol
           )
+        TRANSCRIPT =
+          T.let(
+            :transcript,
+            Moonbase::MeetingRetrieveParams::Include::TaggedSymbol
+          )
 
         sig do
           override.returns(

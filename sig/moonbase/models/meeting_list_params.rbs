@@ -1,7 +1,12 @@
 module Moonbase
   module Models
     type meeting_list_params =
-      { after: String, before: String, limit: Integer }
+      {
+        after: String,
+        before: String,
+        filter: Moonbase::MeetingListParams::Filter,
+        limit: Integer
+      }
       & Moonbase::Internal::Type::request_parameters
 
     class MeetingListParams < Moonbase::Internal::Type::BaseModel
@@ -16,6 +21,12 @@ module Moonbase
 
       def before=: (String) -> String
 
+      attr_reader filter: Moonbase::MeetingListParams::Filter?
+
+      def filter=: (
+        Moonbase::MeetingListParams::Filter
+      ) -> Moonbase::MeetingListParams::Filter
+
       attr_reader limit: Integer?
 
       def limit=: (Integer) -> Integer
@@ -23,6 +34,7 @@ module Moonbase
       def initialize: (
         ?after: String,
         ?before: String,
+        ?filter: Moonbase::MeetingListParams::Filter,
         ?limit: Integer,
         ?request_options: Moonbase::request_opts
       ) -> void
@@ -30,9 +42,40 @@ module Moonbase
       def to_hash: -> {
         after: String,
         before: String,
+        filter: Moonbase::MeetingListParams::Filter,
         limit: Integer,
         request_options: Moonbase::RequestOptions
       }
+
+      type filter = { i_cal_uid: Moonbase::MeetingListParams::Filter::ICalUid }
+
+      class Filter < Moonbase::Internal::Type::BaseModel
+        attr_reader i_cal_uid: Moonbase::MeetingListParams::Filter::ICalUid?
+
+        def i_cal_uid=: (
+          Moonbase::MeetingListParams::Filter::ICalUid
+        ) -> Moonbase::MeetingListParams::Filter::ICalUid
+
+        def initialize: (
+          ?i_cal_uid: Moonbase::MeetingListParams::Filter::ICalUid
+        ) -> void
+
+        def to_hash: -> {
+          i_cal_uid: Moonbase::MeetingListParams::Filter::ICalUid
+        }
+
+        type i_cal_uid = { eq: String }
+
+        class ICalUid < Moonbase::Internal::Type::BaseModel
+          attr_reader eq: String?
+
+          def eq=: (String) -> String
+
+          def initialize: (?eq: String) -> void
+
+          def to_hash: -> { eq: String }
+        end
+      end
     end
   end
 end

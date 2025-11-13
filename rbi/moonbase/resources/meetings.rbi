@@ -21,11 +21,23 @@ module Moonbase
       )
       end
 
+      sig do
+        params(
+          id: String,
+          recording: Moonbase::MeetingUpdateParams::Recording::OrHash,
+          transcript: Moonbase::MeetingUpdateParams::Transcript::OrHash,
+          request_options: Moonbase::RequestOptions::OrHash
+        ).returns(Moonbase::Meeting)
+      end
+      def update(id, recording: nil, transcript: nil, request_options: {})
+      end
+
       # Returns a list of meetings.
       sig do
         params(
           after: String,
           before: String,
+          filter: Moonbase::MeetingListParams::Filter::OrHash,
           limit: Integer,
           request_options: Moonbase::RequestOptions::OrHash
         ).returns(Moonbase::Internal::CursorPage[Moonbase::Meeting])
@@ -39,6 +51,7 @@ module Moonbase
         # by this cursor. Use the cursor value from the response's metadata to fetch the
         # previous page of results.
         before: nil,
+        filter: nil,
         # Maximum number of items to return per page. Must be between 1 and 100. Defaults
         # to 20 if not specified.
         limit: nil,

@@ -1,0 +1,115 @@
+module Moonbase
+  module Models
+    type meeting_update_params =
+      {
+        recording: Moonbase::MeetingUpdateParams::Recording,
+        transcript: Moonbase::MeetingUpdateParams::Transcript
+      }
+      & Moonbase::Internal::Type::request_parameters
+
+    class MeetingUpdateParams < Moonbase::Internal::Type::BaseModel
+      extend Moonbase::Internal::Type::RequestParameters::Converter
+      include Moonbase::Internal::Type::RequestParameters
+
+      attr_reader recording: Moonbase::MeetingUpdateParams::Recording?
+
+      def recording=: (
+        Moonbase::MeetingUpdateParams::Recording
+      ) -> Moonbase::MeetingUpdateParams::Recording
+
+      attr_reader transcript: Moonbase::MeetingUpdateParams::Transcript?
+
+      def transcript=: (
+        Moonbase::MeetingUpdateParams::Transcript
+      ) -> Moonbase::MeetingUpdateParams::Transcript
+
+      def initialize: (
+        ?recording: Moonbase::MeetingUpdateParams::Recording,
+        ?transcript: Moonbase::MeetingUpdateParams::Transcript,
+        ?request_options: Moonbase::request_opts
+      ) -> void
+
+      def to_hash: -> {
+        recording: Moonbase::MeetingUpdateParams::Recording,
+        transcript: Moonbase::MeetingUpdateParams::Transcript,
+        request_options: Moonbase::RequestOptions
+      }
+
+      type recording =
+        { content_type: String, provider_id: String, url: String }
+
+      class Recording < Moonbase::Internal::Type::BaseModel
+        attr_accessor content_type: String
+
+        attr_accessor provider_id: String
+
+        attr_accessor url: String
+
+        def initialize: (
+          content_type: String,
+          provider_id: String,
+          url: String
+        ) -> void
+
+        def to_hash: -> {
+          content_type: String,
+          provider_id: String,
+          url: String
+        }
+      end
+
+      type transcript =
+        {
+          cues: ::Array[Moonbase::MeetingUpdateParams::Transcript::Cue],
+          provider: String,
+          provider_id: String
+        }
+
+      class Transcript < Moonbase::Internal::Type::BaseModel
+        attr_accessor cues: ::Array[Moonbase::MeetingUpdateParams::Transcript::Cue]
+
+        attr_accessor provider: String
+
+        attr_accessor provider_id: String
+
+        def initialize: (
+          cues: ::Array[Moonbase::MeetingUpdateParams::Transcript::Cue],
+          provider: String,
+          provider_id: String
+        ) -> void
+
+        def to_hash: -> {
+          cues: ::Array[Moonbase::MeetingUpdateParams::Transcript::Cue],
+          provider: String,
+          provider_id: String
+        }
+
+        type cue = { from: Float, speaker: String, text: String, to: Float }
+
+        class Cue < Moonbase::Internal::Type::BaseModel
+          attr_accessor from: Float
+
+          attr_accessor speaker: String
+
+          attr_accessor text: String
+
+          attr_accessor to: Float
+
+          def initialize: (
+            from: Float,
+            speaker: String,
+            text: String,
+            to: Float
+          ) -> void
+
+          def to_hash: -> {
+            from: Float,
+            speaker: String,
+            text: String,
+            to: Float
+          }
+        end
+      end
+    end
+  end
+end

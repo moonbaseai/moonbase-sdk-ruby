@@ -119,13 +119,15 @@ module Moonbase
       sig { params(title: String).void }
       attr_writer :title
 
-      # A temporary, signed URL to download the meeting transcript. The URL expires
-      # after one hour.
-      sig { returns(T.nilable(String)) }
-      attr_reader :transcript_url
+      sig { returns(T.nilable(Moonbase::Meeting::Transcript)) }
+      attr_reader :transcript
 
-      sig { params(transcript_url: String).void }
-      attr_writer :transcript_url
+      sig do
+        params(
+          transcript: T.nilable(Moonbase::Meeting::Transcript::OrHash)
+        ).void
+      end
+      attr_writer :transcript
 
       # The Meeting object represents a calendar event. It includes details about the
       # participants, timing, and associated content like summaries and recordings.
@@ -149,7 +151,7 @@ module Moonbase
           summary_ante: String,
           summary_post: String,
           title: String,
-          transcript_url: String,
+          transcript: T.nilable(Moonbase::Meeting::Transcript::OrHash),
           type: Symbol
         ).returns(T.attached_class)
       end
@@ -197,9 +199,7 @@ module Moonbase
         summary_post: nil,
         # The title or subject of the meeting.
         title: nil,
-        # A temporary, signed URL to download the meeting transcript. The URL expires
-        # after one hour.
-        transcript_url: nil,
+        transcript: nil,
         # String representing the object’s type. Always `meeting` for this object.
         type: :meeting
       )
@@ -227,11 +227,124 @@ module Moonbase
             summary_ante: String,
             summary_post: String,
             title: String,
-            transcript_url: String
+            transcript: T.nilable(Moonbase::Meeting::Transcript)
           }
         )
       end
       def to_hash
+      end
+
+      class Transcript < Moonbase::Internal::Type::BaseModel
+        OrHash =
+          T.type_alias do
+            T.any(Moonbase::Meeting::Transcript, Moonbase::Internal::AnyHash)
+          end
+
+        sig { returns(T::Array[Moonbase::Meeting::Transcript::Cue]) }
+        attr_accessor :cues
+
+        sig do
+          params(
+            cues: T::Array[Moonbase::Meeting::Transcript::Cue::OrHash]
+          ).returns(T.attached_class)
+        end
+        def self.new(cues:)
+        end
+
+        sig do
+          override.returns(
+            { cues: T::Array[Moonbase::Meeting::Transcript::Cue] }
+          )
+        end
+        def to_hash
+        end
+
+        class Cue < Moonbase::Internal::Type::BaseModel
+          OrHash =
+            T.type_alias do
+              T.any(
+                Moonbase::Meeting::Transcript::Cue,
+                Moonbase::Internal::AnyHash
+              )
+            end
+
+          sig { returns(Float) }
+          attr_accessor :from
+
+          sig { returns(Moonbase::Meeting::Transcript::Cue::Speaker) }
+          attr_reader :speaker
+
+          sig do
+            params(
+              speaker: Moonbase::Meeting::Transcript::Cue::Speaker::OrHash
+            ).void
+          end
+          attr_writer :speaker
+
+          sig { returns(String) }
+          attr_accessor :text
+
+          sig { returns(Float) }
+          attr_accessor :to
+
+          sig do
+            params(
+              from: Float,
+              speaker: Moonbase::Meeting::Transcript::Cue::Speaker::OrHash,
+              text: String,
+              to: Float
+            ).returns(T.attached_class)
+          end
+          def self.new(from:, speaker:, text:, to:)
+          end
+
+          sig do
+            override.returns(
+              {
+                from: Float,
+                speaker: Moonbase::Meeting::Transcript::Cue::Speaker,
+                text: String,
+                to: Float
+              }
+            )
+          end
+          def to_hash
+          end
+
+          class Speaker < Moonbase::Internal::Type::BaseModel
+            OrHash =
+              T.type_alias do
+                T.any(
+                  Moonbase::Meeting::Transcript::Cue::Speaker,
+                  Moonbase::Internal::AnyHash
+                )
+              end
+
+            sig { returns(T.nilable(String)) }
+            attr_reader :attendee_id
+
+            sig { params(attendee_id: String).void }
+            attr_writer :attendee_id
+
+            sig { returns(T.nilable(String)) }
+            attr_reader :label
+
+            sig { params(label: String).void }
+            attr_writer :label
+
+            sig do
+              params(attendee_id: String, label: String).returns(
+                T.attached_class
+              )
+            end
+            def self.new(attendee_id: nil, label: nil)
+            end
+
+            sig { override.returns({ attendee_id: String, label: String }) }
+            def to_hash
+            end
+          end
+        end
       end
     end
   end

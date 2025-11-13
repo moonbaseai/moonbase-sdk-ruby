@@ -47,7 +47,7 @@ module Moonbase
           # @api private
           #
           # @param status [Integer]
-          # @param headers [Hash{String=>String}, Net::HTTPHeader]
+          # @param headers [Hash{String=>String}]
           #
           # @return [Boolean]
           def should_retry?(status, headers:)
@@ -85,7 +85,7 @@ module Moonbase
           #
           # @param status [Integer]
           #
-          # @param response_headers [Hash{String=>String}, Net::HTTPHeader]
+          # @param response_headers [Hash{String=>String}]
           #
           # @return [Hash{Symbol=>Object}]
           def follow_redirect(request, status:, response_headers:)
@@ -201,7 +201,8 @@ module Moonbase
             self.class::PLATFORM_HEADERS,
             {
               "accept" => "application/json",
-              "content-type" => "application/json"
+              "content-type" => "application/json",
+              "user-agent" => user_agent
             },
             headers
           )
@@ -218,6 +219,11 @@ module Moonbase
         #
         # @return [Hash{String=>String}]
         private def auth_headers = {}
+
+        # @api private
+        #
+        # @return [String]
+        private def user_agent = "#{self.class.name}/Ruby #{Moonbase::VERSION}"
 
         # @api private
         #
@@ -378,6 +384,7 @@ module Moonbase
           rescue Moonbase::Errors::APIConnectionError => e
             status = e
           end
+          headers = Moonbase::Internal::Util.normalized_headers(response&.each_header&.to_h)
 
           case status
           in ..299
@@ -390,7 +397,7 @@ module Moonbase
           in 300..399
             self.class.reap_connection!(status, stream: stream)
 
-            request = self.class.follow_redirect(request, status: status, response_headers: response)
+            request = self.class.follow_redirect(request, status: status, response_headers: headers)
             send_request(
               request,
               redirect_count: redirect_count + 1,
@@ -399,9 +406,9 @@ module Moonbase
             )
           in Moonbase::Errors::APIConnectionError if retry_count >= max_retries
             raise status
-          in (400..) if retry_count >= max_retries || !self.class.should_retry?(status, headers: response)
+          in (400..) if retry_count >= max_retries || !self.class.should_retry?(status, headers: headers)
             decoded = Kernel.then do
-              Moonbase::Internal::Util.decode_content(response, stream: stream, suppress_error: true)
+              Moonbase::Internal::Util.decode_content(headers, stream: stream, suppress_error: true)
             ensure
               self.class.reap_connection!(status, stream: stream)
             end
@@ -409,6 +416,7 @@ module Moonbase
             raise Moonbase::Errors::APIStatusError.for(
               url: url,
               status: status,
+              headers: headers,
               body: decoded,
               request: nil,
               response: response
@@ -485,19 +493,21 @@ module Moonbase
             send_retry_header: send_retry_header
           )
 
-          decoded = Moonbase::Internal::Util.decode_content(response, stream: stream)
+          headers = Moonbase::Internal::Util.normalized_headers(response.each_header.to_h)
+          decoded = Moonbase::Internal::Util.decode_content(headers, stream: stream)
           case req
           in {stream: Class => st}
             st.new(
               model: model,
               url: url,
               status: status,
+              headers: headers,
               response: response,
               unwrap: unwrap,
               stream: decoded
             )
           in {page: Class => page}
-            page.new(client: self, req: req, headers: response, page_data: decoded)
+            page.new(client: self, req: req, headers: headers, page_data: decoded)
           else
             unwrapped = Moonbase::Internal::Util.dig(decoded, unwrap)
             Moonbase::Internal::Type::Converter.coerce(model, unwrapped)
