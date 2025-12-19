@@ -3,6 +3,40 @@
 module Moonbase
   module Resources
     class InboxMessages
+      # Creates a new message draft.
+      #
+      # @overload create(body:, inbox_id:, bcc: nil, cc: nil, conversation_id: nil, subject: nil, to: nil, request_options: {})
+      #
+      # @param body [String] The content of the email body in Markdown format.
+      #
+      # @param inbox_id [String] The inbox to use for sending the email.
+      #
+      # @param bcc [Array<Moonbase::Models::InboxMessageCreateParams::Bcc>] A list of `Address` objects for the BCC recipients.
+      #
+      # @param cc [Array<Moonbase::Models::InboxMessageCreateParams::Cc>] A list of `Address` objects for the CC recipients.
+      #
+      # @param conversation_id [String] The ID of the conversation, if responding to an existing conversation.
+      #
+      # @param subject [String] The subject line of the email.
+      #
+      # @param to [Array<Moonbase::Models::InboxMessageCreateParams::To>] A list of `Address` objects for the recipients.
+      #
+      # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
+      #
+      # @return [Moonbase::Models::EmailMessage]
+      #
+      # @see Moonbase::Models::InboxMessageCreateParams
+      def create(params)
+        parsed, options = Moonbase::InboxMessageCreateParams.dump_request(params)
+        @client.request(
+          method: :post,
+          path: "inbox_messages",
+          body: parsed,
+          model: Moonbase::EmailMessage,
+          options: options
+        )
+      end
+
       # Some parameter documentations has been truncated, see
       # {Moonbase::Models::InboxMessageRetrieveParams} for more details.
       #

@@ -86,6 +86,15 @@ module Moonbase
       #   @return [String, nil]
       optional :location, String
 
+      # @!attribute note
+      #   Any personal notes taken during the meeting. It also includes the AI-generated
+      #   pre-meeting briefing.
+      #
+      #   **Note:** Only present when requested using the `include` query parameter.
+      #
+      #   @return [Moonbase::Models::Note, nil]
+      optional :note, -> { Moonbase::Note }
+
       # @!attribute organizer
       #   The `Organizer` of the meeting.
       #
@@ -107,17 +116,13 @@ module Moonbase
       #   @return [String, nil]
       optional :recording_url, String
 
-      # @!attribute summary_ante
-      #   A summary or notes generated before the meeting.
+      # @!attribute summary
+      #   A summary of the meeting.
       #
-      #   @return [String, nil]
-      optional :summary_ante, String
-
-      # @!attribute summary_post
-      #   A summary or notes generated after the meeting.
+      #   **Note:** Only present when requested using the `include` query parameter.
       #
-      #   @return [String, nil]
-      optional :summary_post, String
+      #   @return [Moonbase::Models::Note, nil]
+      optional :summary, -> { Moonbase::Note }
 
       # @!attribute title
       #   The title or subject of the meeting.
@@ -130,7 +135,7 @@ module Moonbase
       #   @return [Moonbase::Models::Meeting::Transcript, nil]
       optional :transcript, -> { Moonbase::Meeting::Transcript }, nil?: true
 
-      # @!method initialize(id:, created_at:, end_at:, i_cal_uid:, provider_id:, start_at:, time_zone:, updated_at:, attendees: nil, description: nil, duration: nil, location: nil, organizer: nil, provider_uri: nil, recording_url: nil, summary_ante: nil, summary_post: nil, title: nil, transcript: nil, type: :meeting)
+      # @!method initialize(id:, created_at:, end_at:, i_cal_uid:, provider_id:, start_at:, time_zone:, updated_at:, attendees: nil, description: nil, duration: nil, location: nil, note: nil, organizer: nil, provider_uri: nil, recording_url: nil, summary: nil, title: nil, transcript: nil, type: :meeting)
       #   Some parameter documentations has been truncated, see
       #   {Moonbase::Models::Meeting} for more details.
       #
@@ -161,15 +166,15 @@ module Moonbase
       #
       #   @param location [String] The physical or virtual location of the meeting.
       #
+      #   @param note [Moonbase::Models::Note] Any personal notes taken during the meeting. It also includes the AI-generated p
+      #
       #   @param organizer [Moonbase::Models::Organizer] The `Organizer` of the meeting.
       #
       #   @param provider_uri [String] A URL to access the meeting in the external provider's system.
       #
       #   @param recording_url [String] A temporary, signed URL to download the meeting recording. The URL expires after
       #
-      #   @param summary_ante [String] A summary or notes generated before the meeting.
-      #
-      #   @param summary_post [String] A summary or notes generated after the meeting.
+      #   @param summary [Moonbase::Models::Note] A summary of the meeting.
       #
       #   @param title [String] The title or subject of the meeting.
       #
