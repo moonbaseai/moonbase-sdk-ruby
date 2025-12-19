@@ -1,6 +1,17 @@
 module Moonbase
   module Resources
     class InboxMessages
+      def create: (
+        body: String,
+        inbox_id: String,
+        ?bcc: ::Array[Moonbase::InboxMessageCreateParams::Bcc],
+        ?cc: ::Array[Moonbase::InboxMessageCreateParams::Cc],
+        ?conversation_id: String,
+        ?subject: String,
+        ?to: ::Array[Moonbase::InboxMessageCreateParams::To],
+        ?request_options: Moonbase::request_opts
+      ) -> Moonbase::EmailMessage
+
       def retrieve: (
         String id,
         ?include: ::Array[Moonbase::Models::InboxMessageRetrieveParams::include_],

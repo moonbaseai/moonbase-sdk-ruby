@@ -2,7 +2,7 @@
 
 module Moonbase
   module Models
-    # @see Moonbase::Resources::InboxMessages#retrieve
+    # @see Moonbase::Resources::InboxMessages#create
     class EmailMessage < Moonbase::Internal::Type::BaseModel
       # @!attribute id
       #   Unique identifier for the object.

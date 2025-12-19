@@ -24,7 +24,7 @@ module Moonbase
         request_options: Moonbase::RequestOptions
       }
 
-      type include_ = :organizer | :attendees | :transcript
+      type include_ = :organizer | :attendees | :transcript | :note | :summary
 
       module Include
         extend Moonbase::Internal::Type::Enum
@@ -32,6 +32,8 @@ module Moonbase
         ORGANIZER: :organizer
         ATTENDEES: :attendees
         TRANSCRIPT: :transcript
+        NOTE: :note
+        SUMMARY: :summary
 
         def self?.values: -> ::Array[Moonbase::Models::MeetingRetrieveParams::include_]
       end

@@ -14,18 +14,22 @@ module Moonbase
       # Specifies which related objects to include in the response. Valid option is
       # `tagsets`.
       sig do
-        returns(T.nilable(Moonbase::InboxRetrieveParams::Include::OrSymbol))
+        returns(
+          T.nilable(T::Array[Moonbase::InboxRetrieveParams::Include::OrSymbol])
+        )
       end
       attr_reader :include
 
       sig do
-        params(include: Moonbase::InboxRetrieveParams::Include::OrSymbol).void
+        params(
+          include: T::Array[Moonbase::InboxRetrieveParams::Include::OrSymbol]
+        ).void
       end
       attr_writer :include
 
       sig do
         params(
-          include: Moonbase::InboxRetrieveParams::Include::OrSymbol,
+          include: T::Array[Moonbase::InboxRetrieveParams::Include::OrSymbol],
           request_options: Moonbase::RequestOptions::OrHash
         ).returns(T.attached_class)
       end
@@ -40,7 +44,7 @@ module Moonbase
       sig do
         override.returns(
           {
-            include: Moonbase::InboxRetrieveParams::Include::OrSymbol,
+            include: T::Array[Moonbase::InboxRetrieveParams::Include::OrSymbol],
             request_options: Moonbase::RequestOptions
           }
         )
@@ -48,8 +52,6 @@ module Moonbase
       def to_hash
       end
 
-      # Specifies which related objects to include in the response. Valid option is
-      # `tagsets`.
       module Include
         extend Moonbase::Internal::Type::Enum
 

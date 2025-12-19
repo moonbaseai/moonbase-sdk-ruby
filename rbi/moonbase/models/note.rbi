@@ -29,6 +29,14 @@ module Moonbase
       sig { returns(Time) }
       attr_accessor :updated_at
 
+      # A reference to an `Item` within a specific `Collection`, providing the context
+      # needed to locate the item.
+      sig { returns(T.nilable(Moonbase::ItemPointer)) }
+      attr_reader :creator
+
+      sig { params(creator: T.nilable(Moonbase::ItemPointer::OrHash)).void }
+      attr_writer :creator
+
       # A short, system-generated summary of the note's content.
       sig { returns(T.nilable(String)) }
       attr_reader :summary
@@ -51,6 +59,7 @@ module Moonbase
           body: Moonbase::FormattedText::OrHash,
           created_at: Time,
           updated_at: Time,
+          creator: T.nilable(Moonbase::ItemPointer::OrHash),
           summary: String,
           title: String,
           type: Symbol
@@ -65,6 +74,9 @@ module Moonbase
         created_at:,
         # Time at which the object was last updated, as an ISO 8601 timestamp in UTC.
         updated_at:,
+        # A reference to an `Item` within a specific `Collection`, providing the context
+        # needed to locate the item.
+        creator: nil,
         # A short, system-generated summary of the note's content.
         summary: nil,
         # An optional title for the note.
@@ -82,6 +94,7 @@ module Moonbase
             created_at: Time,
             type: Symbol,
             updated_at: Time,
+            creator: T.nilable(Moonbase::ItemPointer),
             summary: String,
             title: String
           }

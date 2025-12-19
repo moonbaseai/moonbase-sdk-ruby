@@ -29,10 +29,18 @@ module Moonbase
       sig { params(before: String).void }
       attr_writer :before
 
-      sig { returns(T.nilable(Moonbase::InboxListParams::Include::OrSymbol)) }
+      sig do
+        returns(
+          T.nilable(T::Array[Moonbase::InboxListParams::Include::OrSymbol])
+        )
+      end
       attr_reader :include
 
-      sig { params(include: Moonbase::InboxListParams::Include::OrSymbol).void }
+      sig do
+        params(
+          include: T::Array[Moonbase::InboxListParams::Include::OrSymbol]
+        ).void
+      end
       attr_writer :include
 
       # Maximum number of items to return per page. Must be between 1 and 100. Defaults
@@ -47,7 +55,7 @@ module Moonbase
         params(
           after: String,
           before: String,
-          include: Moonbase::InboxListParams::Include::OrSymbol,
+          include: T::Array[Moonbase::InboxListParams::Include::OrSymbol],
           limit: Integer,
           request_options: Moonbase::RequestOptions::OrHash
         ).returns(T.attached_class)
@@ -74,7 +82,7 @@ module Moonbase
           {
             after: String,
             before: String,
-            include: Moonbase::InboxListParams::Include::OrSymbol,
+            include: T::Array[Moonbase::InboxListParams::Include::OrSymbol],
             limit: Integer,
             request_options: Moonbase::RequestOptions
           }

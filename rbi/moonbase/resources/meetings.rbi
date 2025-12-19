@@ -15,7 +15,7 @@ module Moonbase
         # The ID of the meeting to retrieve.
         id,
         # Specifies which related objects to include in the response. Valid options are
-        # `organizer` and `attendees`.
+        # `organizer`, `attendees`, `transcript`, `note`, and `summary`.
         include: nil,
         request_options: {}
       )

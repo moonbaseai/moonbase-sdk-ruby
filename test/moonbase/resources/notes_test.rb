@@ -17,6 +17,7 @@ class Moonbase::Test::Resources::NotesTest < Moonbase::Test::ResourceTest
         created_at: Time,
         type: Symbol,
         updated_at: Time,
+        creator: Moonbase::ItemPointer | nil,
         summary: String | nil,
         title: String | nil
       }
@@ -44,6 +45,7 @@ class Moonbase::Test::Resources::NotesTest < Moonbase::Test::ResourceTest
         created_at: Time,
         type: Symbol,
         updated_at: Time,
+        creator: Moonbase::ItemPointer | nil,
         summary: String | nil,
         title: String | nil
       }

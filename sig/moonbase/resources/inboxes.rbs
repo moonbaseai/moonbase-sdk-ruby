@@ -3,14 +3,14 @@ module Moonbase
     class Inboxes
       def retrieve: (
         String id,
-        ?include: Moonbase::Models::InboxRetrieveParams::include_,
+        ?include: ::Array[Moonbase::Models::InboxRetrieveParams::include_],
         ?request_options: Moonbase::request_opts
       ) -> Moonbase::Inbox
 
       def list: (
         ?after: String,
         ?before: String,
-        ?include: Moonbase::Models::InboxListParams::include_,
+        ?include: ::Array[Moonbase::Models::InboxListParams::include_],
         ?limit: Integer,
         ?request_options: Moonbase::request_opts
       ) -> Moonbase::Internal::CursorPage[Moonbase::Inbox]

@@ -179,6 +179,8 @@ module Moonbase
 
   InboxListParams = Moonbase::Models::InboxListParams
 
+  InboxMessageCreateParams = Moonbase::Models::InboxMessageCreateParams
+
   InboxMessageListParams = Moonbase::Models::InboxMessageListParams
 
   InboxMessageRetrieveParams = Moonbase::Models::InboxMessageRetrieveParams

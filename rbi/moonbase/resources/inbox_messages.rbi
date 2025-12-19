@@ -3,6 +3,38 @@
 module Moonbase
   module Resources
     class InboxMessages
+      # Creates a new message draft.
+      sig do
+        params(
+          body: String,
+          inbox_id: String,
+          bcc: T::Array[Moonbase::InboxMessageCreateParams::Bcc::OrHash],
+          cc: T::Array[Moonbase::InboxMessageCreateParams::Cc::OrHash],
+          conversation_id: String,
+          subject: String,
+          to: T::Array[Moonbase::InboxMessageCreateParams::To::OrHash],
+          request_options: Moonbase::RequestOptions::OrHash
+        ).returns(Moonbase::EmailMessage)
+      end
+      def create(
+        # The content of the email body in Markdown format.
+        body:,
+        # The inbox to use for sending the email.
+        inbox_id:,
+        # A list of `Address` objects for the BCC recipients.
+        bcc: nil,
+        # A list of `Address` objects for the CC recipients.
+        cc: nil,
+        # The ID of the conversation, if responding to an existing conversation.
+        conversation_id: nil,
+        # The subject line of the email.
+        subject: nil,
+        # A list of `Address` objects for the recipients.
+        to: nil,
+        request_options: {}
+      )
+      end
+
       # Retrieves the details of an existing message.
       sig do
         params(

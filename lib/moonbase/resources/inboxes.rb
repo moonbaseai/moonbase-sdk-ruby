@@ -12,7 +12,7 @@ module Moonbase
       #
       # @param id [String] The ID of the Inbox to retrieve.
       #
-      # @param include [Symbol, Moonbase::Models::InboxRetrieveParams::Include] Specifies which related objects to include in the response. Valid option is `tag
+      # @param include [Array<Symbol, Moonbase::Models::InboxRetrieveParams::Include>] Specifies which related objects to include in the response. Valid option is `tag
       #
       # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
       #
@@ -24,7 +24,7 @@ module Moonbase
         @client.request(
           method: :get,
           path: ["inboxes/%1$s", id],
-          query: parsed.transform_keys(include: "include[]"),
+          query: parsed,
           model: Moonbase::Inbox,
           options: options
         )
@@ -41,7 +41,7 @@ module Moonbase
       #
       # @param before [String] When specified, returns results starting immediately before the item identified
       #
-      # @param include [Symbol, Moonbase::Models::InboxListParams::Include]
+      # @param include [Array<Symbol, Moonbase::Models::InboxListParams::Include>]
       #
       # @param limit [Integer] Maximum number of items to return per page. Must be between 1 and 100. Defaults
       #
@@ -55,7 +55,7 @@ module Moonbase
         @client.request(
           method: :get,
           path: "inboxes",
-          query: parsed.transform_keys(include: "include[]"),
+          query: parsed,
           page: Moonbase::Internal::CursorPage,
           model: Moonbase::Inbox,
           options: options
