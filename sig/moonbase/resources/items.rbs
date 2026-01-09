@@ -1,0 +1,13 @@
+module Moonbase
+  module Resources
+    class Items
+      def search: (
+        query: String,
+        ?filter: Moonbase::ItemSearchParams::Filter,
+        ?request_options: Moonbase::request_opts
+      ) -> Moonbase::Models::ItemSearchResponse
+
+      def initialize: (client: Moonbase::Client) -> void
+    end
+  end
+end

@@ -3,6 +3,7 @@ module Moonbase
     type item =
       {
         id: String,
+        collection: Moonbase::CollectionPointer,
         type: :item,
         values: ::Hash[Symbol, Moonbase::Models::field_value]
       }
@@ -10,18 +11,22 @@ module Moonbase
     class Item < Moonbase::Internal::Type::BaseModel
       attr_accessor id: String
 
+      attr_accessor collection: Moonbase::CollectionPointer
+
       attr_accessor type: :item
 
       attr_accessor values: ::Hash[Symbol, Moonbase::Models::field_value]
 
       def initialize: (
         id: String,
+        collection: Moonbase::CollectionPointer,
         values: ::Hash[Symbol, Moonbase::Models::field_value],
         ?type: :item
       ) -> void
 
       def to_hash: -> {
         id: String,
+        collection: Moonbase::CollectionPointer,
         type: :item,
         values: ::Hash[Symbol, Moonbase::Models::field_value]
       }

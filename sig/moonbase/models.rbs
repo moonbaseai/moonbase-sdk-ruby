@@ -155,6 +155,8 @@ module Moonbase
 
   class ItemPointer = Moonbase::Models::ItemPointer
 
+  class ItemSearchParams = Moonbase::Models::ItemSearchParams
+
   class Meeting = Moonbase::Models::Meeting
 
   class MeetingListParams = Moonbase::Models::MeetingListParams

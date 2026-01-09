@@ -70,6 +70,9 @@ module Moonbase
     # @return [Moonbase::Resources::WebhookEndpoints]
     attr_reader :webhook_endpoints
 
+    # @return [Moonbase::Resources::Items]
+    attr_reader :items
+
     # @api private
     #
     # @return [Hash{String=>String}]
@@ -134,6 +137,7 @@ module Moonbase
       @meetings = Moonbase::Resources::Meetings.new(client: self)
       @notes = Moonbase::Resources::Notes.new(client: self)
       @webhook_endpoints = Moonbase::Resources::WebhookEndpoints.new(client: self)
+      @items = Moonbase::Resources::Items.new(client: self)
     end
   end
 end

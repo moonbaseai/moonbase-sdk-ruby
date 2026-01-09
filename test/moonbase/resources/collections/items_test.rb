@@ -20,6 +20,7 @@ class Moonbase::Test::Resources::Collections::ItemsTest < Moonbase::Test::Resour
     assert_pattern do
       response => {
         id: String,
+        collection: Moonbase::CollectionPointer,
         type: Symbol,
         values: ^(Moonbase::Internal::Type::HashOf[union: Moonbase::FieldValue])
       }
@@ -36,6 +37,7 @@ class Moonbase::Test::Resources::Collections::ItemsTest < Moonbase::Test::Resour
     assert_pattern do
       response => {
         id: String,
+        collection: Moonbase::CollectionPointer,
         type: Symbol,
         values: ^(Moonbase::Internal::Type::HashOf[union: Moonbase::FieldValue])
       }
@@ -57,6 +59,7 @@ class Moonbase::Test::Resources::Collections::ItemsTest < Moonbase::Test::Resour
     assert_pattern do
       response => {
         id: String,
+        collection: Moonbase::CollectionPointer,
         type: Symbol,
         values: ^(Moonbase::Internal::Type::HashOf[union: Moonbase::FieldValue])
       }
@@ -80,6 +83,7 @@ class Moonbase::Test::Resources::Collections::ItemsTest < Moonbase::Test::Resour
     assert_pattern do
       row => {
         id: String,
+        collection: Moonbase::CollectionPointer,
         type: Symbol,
         values: ^(Moonbase::Internal::Type::HashOf[union: Moonbase::FieldValue])
       }
@@ -113,6 +117,7 @@ class Moonbase::Test::Resources::Collections::ItemsTest < Moonbase::Test::Resour
     assert_pattern do
       response => {
         id: String,
+        collection: Moonbase::CollectionPointer,
         type: Symbol,
         values: ^(Moonbase::Internal::Type::HashOf[union: Moonbase::FieldValue])
       }

@@ -10,6 +10,14 @@ module Moonbase
       sig { returns(String) }
       attr_accessor :id
 
+      # A lightweight reference to a `Collection`, containing the minimal information
+      # needed to identify it.
+      sig { returns(Moonbase::CollectionPointer) }
+      attr_reader :collection
+
+      sig { params(collection: Moonbase::CollectionPointer::OrHash).void }
+      attr_writer :collection
+
       # String representing the object’s type. Always `item` for this object.
       sig { returns(Symbol) }
       attr_accessor :type
@@ -24,6 +32,7 @@ module Moonbase
       sig do
         params(
           id: String,
+          collection: Moonbase::CollectionPointer::OrHash,
           values:
             T::Hash[
               Symbol,
@@ -78,6 +87,9 @@ module Moonbase
       def self.new(
         # Unique identifier for the object.
         id:,
+        # A lightweight reference to a `Collection`, containing the minimal information
+        # needed to identify it.
+        collection:,
         # A hash where keys are the `ref` of a `Field` and values are the data stored for
         # that field.
         values:,
@@ -90,6 +102,7 @@ module Moonbase
         override.returns(
           {
             id: String,
+            collection: Moonbase::CollectionPointer,
             type: Symbol,
             values: T::Hash[Symbol, Moonbase::FieldValue::Variants]
           }

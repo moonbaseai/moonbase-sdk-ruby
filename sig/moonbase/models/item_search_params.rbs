@@ -1,0 +1,63 @@
+module Moonbase
+  module Models
+    type item_search_params =
+      { query: String, filter: Moonbase::ItemSearchParams::Filter }
+      & Moonbase::Internal::Type::request_parameters
+
+    class ItemSearchParams < Moonbase::Internal::Type::BaseModel
+      extend Moonbase::Internal::Type::RequestParameters::Converter
+      include Moonbase::Internal::Type::RequestParameters
+
+      attr_accessor query: String
+
+      attr_reader filter: Moonbase::ItemSearchParams::Filter?
+
+      def filter=: (
+        Moonbase::ItemSearchParams::Filter
+      ) -> Moonbase::ItemSearchParams::Filter
+
+      def initialize: (
+        query: String,
+        ?filter: Moonbase::ItemSearchParams::Filter,
+        ?request_options: Moonbase::request_opts
+      ) -> void
+
+      def to_hash: -> {
+        query: String,
+        filter: Moonbase::ItemSearchParams::Filter,
+        request_options: Moonbase::RequestOptions
+      }
+
+      type filter =
+        { collection_id: Moonbase::ItemSearchParams::Filter::CollectionID }
+
+      class Filter < Moonbase::Internal::Type::BaseModel
+        attr_reader collection_id: Moonbase::ItemSearchParams::Filter::CollectionID?
+
+        def collection_id=: (
+          Moonbase::ItemSearchParams::Filter::CollectionID
+        ) -> Moonbase::ItemSearchParams::Filter::CollectionID
+
+        def initialize: (
+          ?collection_id: Moonbase::ItemSearchParams::Filter::CollectionID
+        ) -> void
+
+        def to_hash: -> {
+          collection_id: Moonbase::ItemSearchParams::Filter::CollectionID
+        }
+
+        type collection_id = { in_: ::Array[String] }
+
+        class CollectionID < Moonbase::Internal::Type::BaseModel
+          attr_reader in_: ::Array[String]?
+
+          def in_=: (::Array[String]) -> ::Array[String]
+
+          def initialize: (?in_: ::Array[String]) -> void
+
+          def to_hash: -> { in_: ::Array[String] }
+        end
+      end
+    end
+  end
+end
