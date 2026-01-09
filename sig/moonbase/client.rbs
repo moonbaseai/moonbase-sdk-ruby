@@ -14,6 +14,8 @@ module Moonbase
 
     attr_reader collections: Moonbase::Resources::Collections
 
+    attr_reader items: Moonbase::Resources::Items
+
     attr_reader views: Moonbase::Resources::Views
 
     attr_reader inboxes: Moonbase::Resources::Inboxes
@@ -43,8 +45,6 @@ module Moonbase
     attr_reader notes: Moonbase::Resources::Notes
 
     attr_reader webhook_endpoints: Moonbase::Resources::WebhookEndpoints
-
-    attr_reader items: Moonbase::Resources::Items
 
     private def auth_headers: -> ::Hash[String, String]
 
