@@ -28,11 +28,13 @@ module Moonbase
       #
       # Returns a list of activities.
       #
-      # @overload list(after: nil, before: nil, limit: nil, request_options: {})
+      # @overload list(after: nil, before: nil, filter: nil, limit: nil, request_options: {})
       #
       # @param after [String] When specified, returns results starting immediately after the item identified b
       #
       # @param before [String] When specified, returns results starting immediately before the item identified
+      #
+      # @param filter [Moonbase::Models::ActivityListParams::Filter] Filter activities by type, date, or item.
       #
       # @param limit [Integer] Maximum number of items to return per page. Must be between 1 and 100. Defaults
       #

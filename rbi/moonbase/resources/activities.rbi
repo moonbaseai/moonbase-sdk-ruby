@@ -22,6 +22,7 @@ module Moonbase
         params(
           after: String,
           before: String,
+          filter: Moonbase::ActivityListParams::Filter::OrHash,
           limit: Integer,
           request_options: Moonbase::RequestOptions::OrHash
         ).returns(Moonbase::Internal::CursorPage[Moonbase::Activity::Variants])
@@ -35,6 +36,8 @@ module Moonbase
         # by this cursor. Use the cursor value from the response's metadata to fetch the
         # previous page of results.
         before: nil,
+        # Filter activities by type, date, or item.
+        filter: nil,
         # Maximum number of items to return per page. Must be between 1 and 100. Defaults
         # to 20 if not specified.
         limit: nil,
