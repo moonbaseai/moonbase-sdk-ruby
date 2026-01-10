@@ -17,6 +17,10 @@ module Moonbase
       sig { returns(Moonbase::StageField::Cardinality::TaggedSymbol) }
       attr_accessor :cardinality
 
+      # If `true`, this is a built-in field included by default.
+      sig { returns(T::Boolean) }
+      attr_accessor :core
+
       # Time at which the object was created, as an ISO 8601 timestamp in UTC.
       sig { returns(Time) }
       attr_accessor :created_at
@@ -71,6 +75,7 @@ module Moonbase
         params(
           id: String,
           cardinality: Moonbase::StageField::Cardinality::OrSymbol,
+          core: T::Boolean,
           created_at: Time,
           funnel: Moonbase::Funnel::OrHash,
           name: String,
@@ -89,6 +94,8 @@ module Moonbase
         # Specifies whether the field can hold a single value (`one`) or multiple values
         # (`many`).
         cardinality:,
+        # If `true`, this is a built-in field included by default.
+        core:,
         # Time at which the object was created, as an ISO 8601 timestamp in UTC.
         created_at:,
         # The `Funnel` object that defines the available stages for this field.
@@ -120,6 +127,7 @@ module Moonbase
           {
             id: String,
             cardinality: Moonbase::StageField::Cardinality::TaggedSymbol,
+            core: T::Boolean,
             created_at: Time,
             funnel: Moonbase::Funnel,
             name: String,

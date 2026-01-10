@@ -17,6 +17,10 @@ module Moonbase
       sig { returns(Moonbase::ChoiceField::Cardinality::TaggedSymbol) }
       attr_accessor :cardinality
 
+      # If `true`, this is a built-in field included by default.
+      sig { returns(T::Boolean) }
+      attr_accessor :core
+
       # Time at which the object was created, as an ISO 8601 timestamp in UTC.
       sig { returns(Time) }
       attr_accessor :created_at
@@ -69,6 +73,7 @@ module Moonbase
         params(
           id: String,
           cardinality: Moonbase::ChoiceField::Cardinality::OrSymbol,
+          core: T::Boolean,
           created_at: Time,
           name: String,
           options: T::Array[Moonbase::ChoiceFieldOption::OrHash],
@@ -87,6 +92,8 @@ module Moonbase
         # Specifies whether the field can hold a single value (`one`) or multiple values
         # (`many`).
         cardinality:,
+        # If `true`, this is a built-in field included by default.
+        core:,
         # Time at which the object was created, as an ISO 8601 timestamp in UTC.
         created_at:,
         # The human-readable name of the field (e.g., "Priority").
@@ -119,6 +126,7 @@ module Moonbase
           {
             id: String,
             cardinality: Moonbase::ChoiceField::Cardinality::TaggedSymbol,
+            core: T::Boolean,
             created_at: Time,
             name: String,
             options: T::Array[Moonbase::ChoiceFieldOption],

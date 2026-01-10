@@ -16,6 +16,12 @@ module Moonbase
       #   @return [Symbol, Moonbase::Models::StageField::Cardinality]
       required :cardinality, enum: -> { Moonbase::StageField::Cardinality }
 
+      # @!attribute core
+      #   If `true`, this is a built-in field included by default.
+      #
+      #   @return [Boolean]
+      required :core, Moonbase::Internal::Type::Boolean
+
       # @!attribute created_at
       #   Time at which the object was created, as an ISO 8601 timestamp in UTC.
       #
@@ -79,7 +85,7 @@ module Moonbase
       #   @return [String, nil]
       optional :description, String
 
-      # @!method initialize(id:, cardinality:, created_at:, funnel:, name:, readonly:, ref:, required:, unique:, updated_at:, description: nil, type: :"field/stage")
+      # @!method initialize(id:, cardinality:, core:, created_at:, funnel:, name:, readonly:, ref:, required:, unique:, updated_at:, description: nil, type: :"field/stage")
       #   Some parameter documentations has been truncated, see
       #   {Moonbase::Models::StageField} for more details.
       #
@@ -88,6 +94,8 @@ module Moonbase
       #   @param id [String] Unique identifier for the object.
       #
       #   @param cardinality [Symbol, Moonbase::Models::StageField::Cardinality] Specifies whether the field can hold a single value (`one`) or multiple values (
+      #
+      #   @param core [Boolean] If `true`, this is a built-in field included by default.
       #
       #   @param created_at [Time] Time at which the object was created, as an ISO 8601 timestamp in UTC.
       #

@@ -17,6 +17,10 @@ module Moonbase
       sig { returns(Moonbase::MultiLineTextField::Cardinality::TaggedSymbol) }
       attr_accessor :cardinality
 
+      # If `true`, this is a built-in field included by default.
+      sig { returns(T::Boolean) }
+      attr_accessor :core
+
       # Time at which the object was created, as an ISO 8601 timestamp in UTC.
       sig { returns(Time) }
       attr_accessor :created_at
@@ -64,6 +68,7 @@ module Moonbase
         params(
           id: String,
           cardinality: Moonbase::MultiLineTextField::Cardinality::OrSymbol,
+          core: T::Boolean,
           created_at: Time,
           name: String,
           readonly: T::Boolean,
@@ -81,6 +86,8 @@ module Moonbase
         # Specifies whether the field can hold a single value (`one`) or multiple values
         # (`many`).
         cardinality:,
+        # If `true`, this is a built-in field included by default.
+        core:,
         # Time at which the object was created, as an ISO 8601 timestamp in UTC.
         created_at:,
         # The human-readable name of the field (e.g., "Description").
@@ -111,6 +118,7 @@ module Moonbase
             id: String,
             cardinality:
               Moonbase::MultiLineTextField::Cardinality::TaggedSymbol,
+            core: T::Boolean,
             created_at: Time,
             name: String,
             readonly: T::Boolean,

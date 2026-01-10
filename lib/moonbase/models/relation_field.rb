@@ -9,12 +9,24 @@ module Moonbase
       #   @return [String]
       required :id, String
 
+      # @!attribute allowed_collections
+      #   The set of collections that are valid targets for this relation.
+      #
+      #   @return [Array<Moonbase::Models::CollectionPointer>]
+      required :allowed_collections, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::CollectionPointer] }
+
       # @!attribute cardinality
       #   Specifies whether the field can hold a single value (`one`) or multiple values
       #   (`many`).
       #
       #   @return [Symbol, Moonbase::Models::RelationField::Cardinality]
       required :cardinality, enum: -> { Moonbase::RelationField::Cardinality }
+
+      # @!attribute core
+      #   If `true`, this is a built-in field included by default.
+      #
+      #   @return [Boolean]
+      required :core, Moonbase::Internal::Type::Boolean
 
       # @!attribute created_at
       #   Time at which the object was created, as an ISO 8601 timestamp in UTC.
@@ -80,7 +92,7 @@ module Moonbase
       #   @return [String, nil]
       optional :description, String
 
-      # @!method initialize(id:, cardinality:, created_at:, name:, readonly:, ref:, relation_type:, required:, unique:, updated_at:, description: nil, type: :"field/relation")
+      # @!method initialize(id:, allowed_collections:, cardinality:, core:, created_at:, name:, readonly:, ref:, relation_type:, required:, unique:, updated_at:, description: nil, type: :"field/relation")
       #   Some parameter documentations has been truncated, see
       #   {Moonbase::Models::RelationField} for more details.
       #
@@ -89,7 +101,11 @@ module Moonbase
       #
       #   @param id [String] Unique identifier for the object.
       #
+      #   @param allowed_collections [Array<Moonbase::Models::CollectionPointer>] The set of collections that are valid targets for this relation.
+      #
       #   @param cardinality [Symbol, Moonbase::Models::RelationField::Cardinality] Specifies whether the field can hold a single value (`one`) or multiple values (
+      #
+      #   @param core [Boolean] If `true`, this is a built-in field included by default.
       #
       #   @param created_at [Time] Time at which the object was created, as an ISO 8601 timestamp in UTC.
       #
