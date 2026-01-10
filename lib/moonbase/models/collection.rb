@@ -10,6 +10,13 @@ module Moonbase
       #   @return [String]
       required :id, String
 
+      # @!attribute core
+      #   If `true`, this is one of the foundational collections (People, Organizations,
+      #   Deals, or Tasks).
+      #
+      #   @return [Boolean]
+      required :core, Moonbase::Internal::Type::Boolean
+
       # @!attribute created_at
       #   Time at which the object was created, as an ISO 8601 timestamp in UTC.
       #
@@ -61,7 +68,7 @@ module Moonbase
       #   @return [Array<Moonbase::Models::View>, nil]
       optional :views, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::View] }
 
-      # @!method initialize(id:, created_at:, fields:, name:, ref:, updated_at:, description: nil, views: nil, type: :collection)
+      # @!method initialize(id:, core:, created_at:, fields:, name:, ref:, updated_at:, description: nil, views: nil, type: :collection)
       #   Some parameter documentations has been truncated, see
       #   {Moonbase::Models::Collection} for more details.
       #
@@ -70,6 +77,8 @@ module Moonbase
       #   list of `Items`.
       #
       #   @param id [String] Unique identifier for the object.
+      #
+      #   @param core [Boolean] If `true`, this is one of the foundational collections (People, Organizations, D
       #
       #   @param created_at [Time] Time at which the object was created, as an ISO 8601 timestamp in UTC.
       #

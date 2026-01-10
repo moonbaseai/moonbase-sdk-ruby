@@ -13,6 +13,7 @@ class Moonbase::Test::Resources::CollectionsTest < Moonbase::Test::ResourceTest
     assert_pattern do
       response => {
         id: String,
+        core: Moonbase::Internal::Type::Boolean,
         created_at: Time,
         fields: ^(Moonbase::Internal::Type::ArrayOf[union: Moonbase::Field]),
         name: String,
@@ -42,6 +43,7 @@ class Moonbase::Test::Resources::CollectionsTest < Moonbase::Test::ResourceTest
     assert_pattern do
       row => {
         id: String,
+        core: Moonbase::Internal::Type::Boolean,
         created_at: Time,
         fields: ^(Moonbase::Internal::Type::ArrayOf[union: Moonbase::Field]),
         name: String,

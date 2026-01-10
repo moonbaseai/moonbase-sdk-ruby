@@ -4,6 +4,7 @@ module Moonbase
       {
         id: String,
         cardinality: Moonbase::Models::FloatField::cardinality,
+        core: bool,
         created_at: Time,
         name: String,
         readonly: bool,
@@ -19,6 +20,8 @@ module Moonbase
       attr_accessor id: String
 
       attr_accessor cardinality: Moonbase::Models::FloatField::cardinality
+
+      attr_accessor core: bool
 
       attr_accessor created_at: Time
 
@@ -43,6 +46,7 @@ module Moonbase
       def initialize: (
         id: String,
         cardinality: Moonbase::Models::FloatField::cardinality,
+        core: bool,
         created_at: Time,
         name: String,
         readonly: bool,
@@ -57,6 +61,7 @@ module Moonbase
       def to_hash: -> {
         id: String,
         cardinality: Moonbase::Models::FloatField::cardinality,
+        core: bool,
         created_at: Time,
         name: String,
         readonly: bool,

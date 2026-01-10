@@ -3,7 +3,9 @@ module Moonbase
     type relation_field =
       {
         id: String,
+        allowed_collections: ::Array[Moonbase::CollectionPointer],
         cardinality: Moonbase::Models::RelationField::cardinality,
+        core: bool,
         created_at: Time,
         name: String,
         readonly: bool,
@@ -19,7 +21,11 @@ module Moonbase
     class RelationField < Moonbase::Internal::Type::BaseModel
       attr_accessor id: String
 
+      attr_accessor allowed_collections: ::Array[Moonbase::CollectionPointer]
+
       attr_accessor cardinality: Moonbase::Models::RelationField::cardinality
+
+      attr_accessor core: bool
 
       attr_accessor created_at: Time
 
@@ -45,7 +51,9 @@ module Moonbase
 
       def initialize: (
         id: String,
+        allowed_collections: ::Array[Moonbase::CollectionPointer],
         cardinality: Moonbase::Models::RelationField::cardinality,
+        core: bool,
         created_at: Time,
         name: String,
         readonly: bool,
@@ -60,7 +68,9 @@ module Moonbase
 
       def to_hash: -> {
         id: String,
+        allowed_collections: ::Array[Moonbase::CollectionPointer],
         cardinality: Moonbase::Models::RelationField::cardinality,
+        core: bool,
         created_at: Time,
         name: String,
         readonly: bool,

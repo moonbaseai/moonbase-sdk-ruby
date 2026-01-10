@@ -3,6 +3,7 @@ module Moonbase
     type collection =
       {
         id: String,
+        core: bool,
         created_at: Time,
         fields: ::Array[Moonbase::Models::field],
         name: String,
@@ -15,6 +16,8 @@ module Moonbase
 
     class Collection < Moonbase::Internal::Type::BaseModel
       attr_accessor id: String
+
+      attr_accessor core: bool
 
       attr_accessor created_at: Time
 
@@ -38,6 +41,7 @@ module Moonbase
 
       def initialize: (
         id: String,
+        core: bool,
         created_at: Time,
         fields: ::Array[Moonbase::Models::field],
         name: String,
@@ -50,6 +54,7 @@ module Moonbase
 
       def to_hash: -> {
         id: String,
+        core: bool,
         created_at: Time,
         fields: ::Array[Moonbase::Models::field],
         name: String,

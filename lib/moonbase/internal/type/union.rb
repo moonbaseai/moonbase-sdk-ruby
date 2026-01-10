@@ -13,19 +13,19 @@ module Moonbase
       #   when Moonbase::MultiLineTextField
       #     puts(field.cardinality)
       #   when Moonbase::IntegerField
-      #     puts(field.created_at)
+      #     puts(field.core)
       #   else
       #     puts(field)
       #   end
       #
       # @example
       #   case field
-      #   in {type: :"field/text/single_line", id: id, cardinality: cardinality, created_at: created_at}
+      #   in {type: :"field/text/single_line", id: id, cardinality: cardinality, core: core}
       #     puts(id)
-      #   in {type: :"field/text/multi_line", id: id, cardinality: cardinality, created_at: created_at}
+      #   in {type: :"field/text/multi_line", id: id, cardinality: cardinality, core: core}
       #     puts(cardinality)
-      #   in {type: :"field/number/unitless_integer", id: id, cardinality: cardinality, created_at: created_at}
-      #     puts(created_at)
+      #   in {type: :"field/number/unitless_integer", id: id, cardinality: cardinality, core: core}
+      #     puts(core)
       #   else
       #     puts(field)
       #   end

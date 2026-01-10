@@ -12,6 +12,11 @@ module Moonbase
       sig { returns(String) }
       attr_accessor :id
 
+      # If `true`, this is one of the foundational collections (People, Organizations,
+      # Deals, or Tasks).
+      sig { returns(T::Boolean) }
+      attr_accessor :core
+
       # Time at which the object was created, as an ISO 8601 timestamp in UTC.
       sig { returns(Time) }
       attr_accessor :created_at
@@ -59,6 +64,7 @@ module Moonbase
       sig do
         params(
           id: String,
+          core: T::Boolean,
           created_at: Time,
           fields:
             T::Array[
@@ -95,6 +101,9 @@ module Moonbase
       def self.new(
         # Unique identifier for the object.
         id:,
+        # If `true`, this is one of the foundational collections (People, Organizations,
+        # Deals, or Tasks).
+        core:,
         # Time at which the object was created, as an ISO 8601 timestamp in UTC.
         created_at:,
         # A list of `Field` objects that define the schema for items in this collection.
@@ -121,6 +130,7 @@ module Moonbase
         override.returns(
           {
             id: String,
+            core: T::Boolean,
             created_at: Time,
             fields: T::Array[Moonbase::Field::Variants],
             name: String,
