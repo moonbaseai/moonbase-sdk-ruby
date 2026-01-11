@@ -68,6 +68,9 @@ module Moonbase
     sig { returns(Moonbase::Resources::WebhookEndpoints) }
     attr_reader :webhook_endpoints
 
+    sig { returns(Moonbase::Resources::AgentSettings) }
+    attr_reader :agent_settings
+
     # @api private
     sig { override.returns(T::Hash[String, String]) }
     private def auth_headers
