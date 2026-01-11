@@ -81,6 +81,8 @@ module Moonbase
 
   Address = Moonbase::Models::Address
 
+  AgentSettingRetrieveParams = Moonbase::Models::AgentSettingRetrieveParams
+
   Attendee = Moonbase::Models::Attendee
 
   BooleanField = Moonbase::Models::BooleanField

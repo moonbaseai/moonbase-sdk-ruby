@@ -1,0 +1,11 @@
+module Moonbase
+  module Resources
+    class AgentSettings
+      def retrieve: (
+        ?request_options: Moonbase::request_opts
+      ) -> Moonbase::Models::AgentSettingRetrieveResponse
+
+      def initialize: (client: Moonbase::Client) -> void
+    end
+  end
+end

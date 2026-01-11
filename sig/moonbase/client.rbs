@@ -46,6 +46,8 @@ module Moonbase
 
     attr_reader webhook_endpoints: Moonbase::Resources::WebhookEndpoints
 
+    attr_reader agent_settings: Moonbase::Resources::AgentSettings
+
     private def auth_headers: -> ::Hash[String, String]
 
     def initialize: (

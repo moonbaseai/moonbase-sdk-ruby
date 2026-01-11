@@ -41,6 +41,8 @@ module Moonbase
 
   class Address = Moonbase::Models::Address
 
+  class AgentSettingRetrieveParams = Moonbase::Models::AgentSettingRetrieveParams
+
   class Attendee = Moonbase::Models::Attendee
 
   class BooleanField = Moonbase::Models::BooleanField

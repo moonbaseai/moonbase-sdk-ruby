@@ -73,6 +73,9 @@ module Moonbase
     # @return [Moonbase::Resources::WebhookEndpoints]
     attr_reader :webhook_endpoints
 
+    # @return [Moonbase::Resources::AgentSettings]
+    attr_reader :agent_settings
+
     # @api private
     #
     # @return [Hash{String=>String}]
@@ -138,6 +141,7 @@ module Moonbase
       @meetings = Moonbase::Resources::Meetings.new(client: self)
       @notes = Moonbase::Resources::Notes.new(client: self)
       @webhook_endpoints = Moonbase::Resources::WebhookEndpoints.new(client: self)
+      @agent_settings = Moonbase::Resources::AgentSettings.new(client: self)
     end
   end
 end
