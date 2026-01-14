@@ -150,7 +150,7 @@ module Moonbase
         def update(
           # Path param: The ID of the Item to update.
           id,
-          # Path param:
+          # Path param
           collection_id:,
           # Body param: A hash where keys are the `ref` of a `Field` and values are the new
           # data to be set.
@@ -326,7 +326,7 @@ module Moonbase
           ).returns(Moonbase::Item)
         end
         def upsert(
-          # Path param:
+          # Path param
           collection_id,
           # Body param: A hash where keys are the `ref` of a `Field` and values are used to
           # identify the item to update. When multiple identifiers are provided, the update
