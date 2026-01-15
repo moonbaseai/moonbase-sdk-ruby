@@ -197,6 +197,11 @@ module Moonbase
               :"activity/item_merged",
               Moonbase::WebhookEndpointCreateParams::Subscription::EventType::TaggedSymbol
             )
+          ACTIVITY_FILE_CREATED =
+            T.let(
+              :"activity/file_created",
+              Moonbase::WebhookEndpointCreateParams::Subscription::EventType::TaggedSymbol
+            )
           ACTIVITY_MEETING_HELD =
             T.let(
               :"activity/meeting_held",
