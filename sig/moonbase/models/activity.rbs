@@ -7,6 +7,7 @@ module Moonbase
       | Moonbase::ActivityItemCreated
       | Moonbase::ActivityItemMentioned
       | Moonbase::ActivityItemMerged
+      | Moonbase::Activity::ActivityFileCreated
       | Moonbase::ActivityMeetingHeld
       | Moonbase::ActivityMeetingScheduled
       | Moonbase::ActivityNoteCreated
@@ -21,6 +22,43 @@ module Moonbase
 
     module Activity
       extend Moonbase::Internal::Type::Union
+
+      type activity_file_created =
+        {
+          id: String,
+          file: Moonbase::Pointer?,
+          occurred_at: Time,
+          related_item: Moonbase::ItemPointer?,
+          type: :"activity/file_created"
+        }
+
+      class ActivityFileCreated < Moonbase::Internal::Type::BaseModel
+        attr_accessor id: String
+
+        attr_accessor file: Moonbase::Pointer?
+
+        attr_accessor occurred_at: Time
+
+        attr_accessor related_item: Moonbase::ItemPointer?
+
+        attr_accessor type: :"activity/file_created"
+
+        def initialize: (
+          id: String,
+          file: Moonbase::Pointer?,
+          occurred_at: Time,
+          related_item: Moonbase::ItemPointer?,
+          ?type: :"activity/file_created"
+        ) -> void
+
+        def to_hash: -> {
+          id: String,
+          file: Moonbase::Pointer?,
+          occurred_at: Time,
+          related_item: Moonbase::ItemPointer?,
+          type: :"activity/file_created"
+        }
+      end
 
       def self?.variants: -> ::Array[Moonbase::Models::activity]
     end

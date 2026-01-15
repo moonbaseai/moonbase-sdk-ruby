@@ -18,6 +18,7 @@ class Moonbase::Test::Resources::ActivitiesTest < Moonbase::Test::ResourceTest
       in Moonbase::ActivityItemCreated
       in Moonbase::ActivityItemMentioned
       in Moonbase::ActivityItemMerged
+      in Moonbase::Activity::ActivityFileCreated
       in Moonbase::ActivityMeetingHeld
       in Moonbase::ActivityMeetingScheduled
       in Moonbase::ActivityNoteCreated
@@ -53,6 +54,13 @@ class Moonbase::Test::Resources::ActivitiesTest < Moonbase::Test::ResourceTest
         initiator: Moonbase::ItemPointer | nil,
         occurred_at: Time,
         source: Moonbase::ItemPointer | nil
+      }
+      in {
+        type: :"activity/file_created",
+        id: String,
+        file: Moonbase::Pointer | nil,
+        occurred_at: Time,
+        related_item: Moonbase::ItemPointer | nil
       }
       in {type: :"activity/meeting_held", id: String, meeting: Moonbase::Pointer | nil, occurred_at: Time}
       in {type: :"activity/meeting_scheduled", id: String, meeting: Moonbase::Pointer | nil, occurred_at: Time}
@@ -154,6 +162,7 @@ class Moonbase::Test::Resources::ActivitiesTest < Moonbase::Test::ResourceTest
       in Moonbase::ActivityItemCreated
       in Moonbase::ActivityItemMentioned
       in Moonbase::ActivityItemMerged
+      in Moonbase::Activity::ActivityFileCreated
       in Moonbase::ActivityMeetingHeld
       in Moonbase::ActivityMeetingScheduled
       in Moonbase::ActivityNoteCreated
@@ -189,6 +198,13 @@ class Moonbase::Test::Resources::ActivitiesTest < Moonbase::Test::ResourceTest
         initiator: Moonbase::ItemPointer | nil,
         occurred_at: Time,
         source: Moonbase::ItemPointer | nil
+      }
+      in {
+        type: :"activity/file_created",
+        id: String,
+        file: Moonbase::Pointer | nil,
+        occurred_at: Time,
+        related_item: Moonbase::ItemPointer | nil
       }
       in {type: :"activity/meeting_held", id: String, meeting: Moonbase::Pointer | nil, occurred_at: Time}
       in {type: :"activity/meeting_scheduled", id: String, meeting: Moonbase::Pointer | nil, occurred_at: Time}

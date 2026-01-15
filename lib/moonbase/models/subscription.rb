@@ -41,6 +41,7 @@ module Moonbase
         ACTIVITY_ITEM_CREATED = :"activity/item_created"
         ACTIVITY_ITEM_MENTIONED = :"activity/item_mentioned"
         ACTIVITY_ITEM_MERGED = :"activity/item_merged"
+        ACTIVITY_FILE_CREATED = :"activity/file_created"
         ACTIVITY_MEETING_HELD = :"activity/meeting_held"
         ACTIVITY_MEETING_SCHEDULED = :"activity/meeting_scheduled"
         ACTIVITY_NOTE_CREATED = :"activity/note_created"

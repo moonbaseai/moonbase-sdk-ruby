@@ -34,6 +34,9 @@ module Moonbase
       # Represents an event that occurs when an `Item` is merged into another item.
       variant :"activity/item_merged", -> { Moonbase::ActivityItemMerged }
 
+      # Represents an event that occurs when a `File` is created.
+      variant :"activity/file_created", -> { Moonbase::Activity::ActivityFileCreated }
+
       # Represents an event that occurs when a `Meeting` has concluded.
       variant :"activity/meeting_held", -> { Moonbase::ActivityMeetingHeld }
 
@@ -67,8 +70,57 @@ module Moonbase
       # Represents an event that occurs when a recipient unsubscribes after receiving a `ProgramMessage`.
       variant :"activity/program_message_unsubscribed", -> { Moonbase::ActivityProgramMessageUnsubscribed }
 
+      class ActivityFileCreated < Moonbase::Internal::Type::BaseModel
+        # @!attribute id
+        #   Unique identifier for the object.
+        #
+        #   @return [String]
+        required :id, String
+
+        # @!attribute file
+        #   A lightweight reference to another resource.
+        #
+        #   @return [Moonbase::Models::Pointer, nil]
+        required :file, -> { Moonbase::Pointer }, nil?: true
+
+        # @!attribute occurred_at
+        #   The time at which the event occurred, as an ISO 8601 timestamp in UTC.
+        #
+        #   @return [Time]
+        required :occurred_at, Time
+
+        # @!attribute related_item
+        #   A reference to an `Item` within a specific `Collection`, providing the context
+        #   needed to locate the item.
+        #
+        #   @return [Moonbase::Models::ItemPointer, nil]
+        required :related_item, -> { Moonbase::ItemPointer }, nil?: true
+
+        # @!attribute type
+        #   The type of activity. Always `activity/file_created`.
+        #
+        #   @return [Symbol, :"activity/file_created"]
+        required :type, const: :"activity/file_created"
+
+        # @!method initialize(id:, file:, occurred_at:, related_item:, type: :"activity/file_created")
+        #   Some parameter documentations has been truncated, see
+        #   {Moonbase::Models::Activity::ActivityFileCreated} for more details.
+        #
+        #   Represents an event that occurs when a `File` is created.
+        #
+        #   @param id [String] Unique identifier for the object.
+        #
+        #   @param file [Moonbase::Models::Pointer, nil] A lightweight reference to another resource.
+        #
+        #   @param occurred_at [Time] The time at which the event occurred, as an ISO 8601 timestamp in UTC.
+        #
+        #   @param related_item [Moonbase::Models::ItemPointer, nil] A reference to an `Item` within a specific `Collection`, providing the context n
+        #
+        #   @param type [Symbol, :"activity/file_created"] The type of activity. Always `activity/file_created`.
+      end
+
       # @!method self.variants
-      #   @return [Array(Moonbase::Models::ActivityCallOccurred, Moonbase::Models::ActivityFormSubmitted, Moonbase::Models::ActivityInboxMessageSent, Moonbase::Models::ActivityItemCreated, Moonbase::Models::ActivityItemMentioned, Moonbase::Models::ActivityItemMerged, Moonbase::Models::ActivityMeetingHeld, Moonbase::Models::ActivityMeetingScheduled, Moonbase::Models::ActivityNoteCreated, Moonbase::Models::ActivityProgramMessageBounced, Moonbase::Models::ActivityProgramMessageClicked, Moonbase::Models::ActivityProgramMessageComplained, Moonbase::Models::ActivityProgramMessageFailed, Moonbase::Models::ActivityProgramMessageOpened, Moonbase::Models::ActivityProgramMessageSent, Moonbase::Models::ActivityProgramMessageShielded, Moonbase::Models::ActivityProgramMessageUnsubscribed)]
+      #   @return [Array(Moonbase::Models::ActivityCallOccurred, Moonbase::Models::ActivityFormSubmitted, Moonbase::Models::ActivityInboxMessageSent, Moonbase::Models::ActivityItemCreated, Moonbase::Models::ActivityItemMentioned, Moonbase::Models::ActivityItemMerged, Moonbase::Models::Activity::ActivityFileCreated, Moonbase::Models::ActivityMeetingHeld, Moonbase::Models::ActivityMeetingScheduled, Moonbase::Models::ActivityNoteCreated, Moonbase::Models::ActivityProgramMessageBounced, Moonbase::Models::ActivityProgramMessageClicked, Moonbase::Models::ActivityProgramMessageComplained, Moonbase::Models::ActivityProgramMessageFailed, Moonbase::Models::ActivityProgramMessageOpened, Moonbase::Models::ActivityProgramMessageSent, Moonbase::Models::ActivityProgramMessageShielded, Moonbase::Models::ActivityProgramMessageUnsubscribed)]
     end
   end
 end

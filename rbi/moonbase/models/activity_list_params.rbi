@@ -296,6 +296,11 @@ module Moonbase
                 :"activity/item_merged",
                 Moonbase::ActivityListParams::Filter::Type::In::TaggedSymbol
               )
+            ACTIVITY_FILE_CREATED =
+              T.let(
+                :"activity/file_created",
+                Moonbase::ActivityListParams::Filter::Type::In::TaggedSymbol
+              )
             ACTIVITY_MEETING_HELD =
               T.let(
                 :"activity/meeting_held",
