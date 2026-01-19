@@ -26,6 +26,12 @@ module Moonbase
       sig { returns(Time) }
       attr_accessor :updated_at
 
+      sig { returns(T.nilable(T::Boolean)) }
+      attr_reader :can_read
+
+      sig { params(can_read: T::Boolean).void }
+      attr_writer :can_read
+
       # The list of `Tagset` objects associated with this inbox, which defines the tags
       # available for its conversations.
       #
@@ -43,6 +49,7 @@ module Moonbase
           created_at: Time,
           name: String,
           updated_at: Time,
+          can_read: T::Boolean,
           tagsets: T::Array[Moonbase::Tagset::OrHash],
           type: Symbol
         ).returns(T.attached_class)
@@ -56,6 +63,7 @@ module Moonbase
         name:,
         # Time at which the object was last updated, as an ISO 8601 timestamp in UTC.
         updated_at:,
+        can_read: nil,
         # The list of `Tagset` objects associated with this inbox, which defines the tags
         # available for its conversations.
         #
@@ -74,6 +82,7 @@ module Moonbase
             name: String,
             type: Symbol,
             updated_at: Time,
+            can_read: T::Boolean,
             tagsets: T::Array[Moonbase::Tagset]
           }
         )
