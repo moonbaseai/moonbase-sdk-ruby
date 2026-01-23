@@ -5,6 +5,7 @@ module Moonbase
         id: String,
         body: Moonbase::FormattedText,
         created_at: Time,
+        lock_version: Integer,
         type: :note,
         updated_at: Time,
         creator: Moonbase::ItemPointer?,
@@ -18,6 +19,8 @@ module Moonbase
       attr_accessor body: Moonbase::FormattedText
 
       attr_accessor created_at: Time
+
+      attr_accessor lock_version: Integer
 
       attr_accessor type: :note
 
@@ -37,6 +40,7 @@ module Moonbase
         id: String,
         body: Moonbase::FormattedText,
         created_at: Time,
+        lock_version: Integer,
         updated_at: Time,
         ?creator: Moonbase::ItemPointer?,
         ?summary: String,
@@ -48,6 +52,7 @@ module Moonbase
         id: String,
         body: Moonbase::FormattedText,
         created_at: Time,
+        lock_version: Integer,
         type: :note,
         updated_at: Time,
         creator: Moonbase::ItemPointer?,

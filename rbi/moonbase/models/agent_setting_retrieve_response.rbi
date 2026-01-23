@@ -33,16 +33,22 @@ module Moonbase
       attr_writer :deal_summary_prompt
 
       sig { returns(T.nilable(String)) }
-      attr_reader :meeting_prebrief_model
+      attr_reader :meeting_agent_model
 
-      sig { params(meeting_prebrief_model: String).void }
-      attr_writer :meeting_prebrief_model
+      sig { params(meeting_agent_model: String).void }
+      attr_writer :meeting_agent_model
 
       sig { returns(T.nilable(String)) }
       attr_reader :meeting_prebrief_prompt
 
       sig { params(meeting_prebrief_prompt: String).void }
       attr_writer :meeting_prebrief_prompt
+
+      sig { returns(T.nilable(String)) }
+      attr_reader :meeting_summary_prompt
+
+      sig { params(meeting_summary_prompt: String).void }
+      attr_writer :meeting_summary_prompt
 
       sig { returns(T.nilable(T::Boolean)) }
       attr_reader :meeting_web_search
@@ -62,8 +68,9 @@ module Moonbase
           updated_at: Time,
           deal_summary_model: String,
           deal_summary_prompt: String,
-          meeting_prebrief_model: String,
+          meeting_agent_model: String,
           meeting_prebrief_prompt: String,
+          meeting_summary_prompt: String,
           meeting_web_search: T::Boolean,
           organization_info: String,
           type: Symbol
@@ -74,8 +81,9 @@ module Moonbase
         updated_at:,
         deal_summary_model: nil,
         deal_summary_prompt: nil,
-        meeting_prebrief_model: nil,
+        meeting_agent_model: nil,
         meeting_prebrief_prompt: nil,
+        meeting_summary_prompt: nil,
         meeting_web_search: nil,
         organization_info: nil,
         type: :agent_settings
@@ -90,8 +98,9 @@ module Moonbase
             updated_at: Time,
             deal_summary_model: String,
             deal_summary_prompt: String,
-            meeting_prebrief_model: String,
+            meeting_agent_model: String,
             meeting_prebrief_prompt: String,
+            meeting_summary_prompt: String,
             meeting_web_search: T::Boolean,
             organization_info: String
           }

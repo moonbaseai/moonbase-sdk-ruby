@@ -7,7 +7,7 @@ class Moonbase::Test::Resources::InboxMessagesTest < Moonbase::Test::ResourceTes
     response =
       @moonbase.inbox_messages.create(
         body: "This is the body of the message. It supports [markdown](https://en.wikipedia.org/wiki/Markdown).",
-        inbox_id: "1CLJt2v1rdcqdM6vZpPpjq"
+        inbox_id: "1CLJt2v6KXDyzDuM57pQqo"
       )
 
     assert_pattern do

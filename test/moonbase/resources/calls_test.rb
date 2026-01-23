@@ -9,7 +9,7 @@ class Moonbase::Test::Resources::CallsTest < Moonbase::Test::ResourceTest
         direction: :incoming,
         participants: [{phone: "+14155551212", role: :caller}, {phone: "+16505551212", role: :callee}],
         provider: "openphone",
-        provider_id: "openphone_id_000000000002",
+        provider_id: "openphone_id_000000000006",
         provider_status: "completed",
         start_at: "2025-02-17T15:00:00.000Z"
       )
@@ -43,7 +43,7 @@ class Moonbase::Test::Resources::CallsTest < Moonbase::Test::ResourceTest
         direction: :incoming,
         participants: [{phone: "+14155551212", role: :caller}, {phone: "+16505551212", role: :callee}],
         provider: "openphone",
-        provider_id: "openphone_id_000000000006",
+        provider_id: "openphone_id_000000000003",
         provider_status: "completed",
         start_at: "2025-02-17T15:00:00.000Z"
       )

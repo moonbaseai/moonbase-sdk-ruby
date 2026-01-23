@@ -1,8 +1,20 @@
 module Moonbase
   module Resources
     class Notes
+      def create: (
+        body: Moonbase::FormattedText,
+        ?request_options: Moonbase::request_opts
+      ) -> Moonbase::Note
+
       def retrieve: (
         String id,
+        ?request_options: Moonbase::request_opts
+      ) -> Moonbase::Note
+
+      def update: (
+        String id,
+        body: Moonbase::FormattedText,
+        lock_version: Integer,
         ?request_options: Moonbase::request_opts
       ) -> Moonbase::Note
 
