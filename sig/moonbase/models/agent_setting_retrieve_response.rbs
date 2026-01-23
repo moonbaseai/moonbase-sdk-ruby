@@ -7,8 +7,9 @@ module Moonbase
         updated_at: Time,
         deal_summary_model: String,
         deal_summary_prompt: String,
-        meeting_prebrief_model: String,
+        meeting_agent_model: String,
         meeting_prebrief_prompt: String,
+        meeting_summary_prompt: String,
         meeting_web_search: bool,
         organization_info: String
       }
@@ -28,13 +29,17 @@ module Moonbase
 
       def deal_summary_prompt=: (String) -> String
 
-      attr_reader meeting_prebrief_model: String?
+      attr_reader meeting_agent_model: String?
 
-      def meeting_prebrief_model=: (String) -> String
+      def meeting_agent_model=: (String) -> String
 
       attr_reader meeting_prebrief_prompt: String?
 
       def meeting_prebrief_prompt=: (String) -> String
+
+      attr_reader meeting_summary_prompt: String?
+
+      def meeting_summary_prompt=: (String) -> String
 
       attr_reader meeting_web_search: bool?
 
@@ -49,8 +54,9 @@ module Moonbase
         updated_at: Time,
         ?deal_summary_model: String,
         ?deal_summary_prompt: String,
-        ?meeting_prebrief_model: String,
+        ?meeting_agent_model: String,
         ?meeting_prebrief_prompt: String,
+        ?meeting_summary_prompt: String,
         ?meeting_web_search: bool,
         ?organization_info: String,
         ?type: :agent_settings
@@ -62,8 +68,9 @@ module Moonbase
         updated_at: Time,
         deal_summary_model: String,
         deal_summary_prompt: String,
-        meeting_prebrief_model: String,
+        meeting_agent_model: String,
         meeting_prebrief_prompt: String,
+        meeting_summary_prompt: String,
         meeting_web_search: bool,
         organization_info: String
       }

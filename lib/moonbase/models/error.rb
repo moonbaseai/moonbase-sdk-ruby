@@ -26,6 +26,11 @@ module Moonbase
       #   @return [String, nil]
       optional :detail, String
 
+      # @!attribute meta
+      #
+      #   @return [Hash{Symbol=>Object}, nil]
+      optional :meta, Moonbase::Internal::Type::HashOf[Moonbase::Internal::Type::Unknown]
+
       # @!attribute source
       #   An object containing more specific information about the part of the request
       #   that caused the error.
@@ -45,7 +50,7 @@ module Moonbase
       #   @return [String, nil]
       optional :title, String
 
-      # @!method initialize(id: nil, code: nil, detail: nil, source: nil, status: nil, title: nil, type: :error)
+      # @!method initialize(id: nil, code: nil, detail: nil, meta: nil, source: nil, status: nil, title: nil, type: :error)
       #   Some parameter documentations has been truncated, see {Moonbase::Models::Error}
       #   for more details.
       #
@@ -59,6 +64,8 @@ module Moonbase
       #   @param code [String] An application-specific error code string.
       #
       #   @param detail [String] A human-readable explanation of this specific error.
+      #
+      #   @param meta [Hash{Symbol=>Object}]
       #
       #   @param source [Moonbase::Models::Error::Source] An object containing more specific information about the part of the request tha
       #

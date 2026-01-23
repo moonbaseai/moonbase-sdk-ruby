@@ -219,9 +219,13 @@ module Moonbase
 
   Note = Moonbase::Models::Note
 
+  NoteCreateParams = Moonbase::Models::NoteCreateParams
+
   NoteListParams = Moonbase::Models::NoteListParams
 
   NoteRetrieveParams = Moonbase::Models::NoteRetrieveParams
+
+  NoteUpdateParams = Moonbase::Models::NoteUpdateParams
 
   Organizer = Moonbase::Models::Organizer
 

@@ -30,6 +30,12 @@ module Moonbase
       sig { params(detail: String).void }
       attr_writer :detail
 
+      sig { returns(T.nilable(T::Hash[Symbol, T.anything])) }
+      attr_reader :meta
+
+      sig { params(meta: T::Hash[Symbol, T.anything]).void }
+      attr_writer :meta
+
       # An object containing more specific information about the part of the request
       # that caused the error.
       sig { returns(T.nilable(Moonbase::Error::Source)) }
@@ -61,6 +67,7 @@ module Moonbase
           id: String,
           code: String,
           detail: String,
+          meta: T::Hash[Symbol, T.anything],
           source: Moonbase::Error::Source::OrHash,
           status: String,
           title: String,
@@ -74,6 +81,7 @@ module Moonbase
         code: nil,
         # A human-readable explanation of this specific error.
         detail: nil,
+        meta: nil,
         # An object containing more specific information about the part of the request
         # that caused the error.
         source: nil,
@@ -92,6 +100,7 @@ module Moonbase
             id: String,
             code: String,
             detail: String,
+            meta: T::Hash[Symbol, T.anything],
             source: Moonbase::Error::Source,
             status: String,
             title: String

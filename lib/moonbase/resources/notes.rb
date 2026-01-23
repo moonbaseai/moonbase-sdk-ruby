@@ -3,6 +3,22 @@
 module Moonbase
   module Resources
     class Notes
+      # Create a new note.
+      #
+      # @overload create(body:, request_options: {})
+      #
+      # @param body [Moonbase::Models::FormattedText] The main content of the note.
+      #
+      # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
+      #
+      # @return [Moonbase::Models::Note]
+      #
+      # @see Moonbase::Models::NoteCreateParams
+      def create(params)
+        parsed, options = Moonbase::NoteCreateParams.dump_request(params)
+        @client.request(method: :post, path: "notes", body: parsed, model: Moonbase::Note, options: options)
+      end
+
       # Retrieves the details of an existing note.
       #
       # @overload retrieve(id, request_options: {})
@@ -20,6 +36,32 @@ module Moonbase
           path: ["notes/%1$s", id],
           model: Moonbase::Note,
           options: params[:request_options]
+        )
+      end
+
+      # Update an existing note.
+      #
+      # @overload update(id, body:, lock_version:, request_options: {})
+      #
+      # @param id [String] The ID of the note to update.
+      #
+      # @param body [Moonbase::Models::FormattedText] The main content of the note.
+      #
+      # @param lock_version [Integer] The current lock version of the note for optimistic concurrency control.
+      #
+      # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
+      #
+      # @return [Moonbase::Models::Note]
+      #
+      # @see Moonbase::Models::NoteUpdateParams
+      def update(id, params)
+        parsed, options = Moonbase::NoteUpdateParams.dump_request(params)
+        @client.request(
+          method: :patch,
+          path: ["notes/%1$s", id],
+          body: parsed,
+          model: Moonbase::Note,
+          options: options
         )
       end
 
