@@ -6,7 +6,7 @@ module Moonbase
       # Creates a new message draft.
       sig do
         params(
-          body: String,
+          body: Moonbase::FormattedText::OrHash,
           inbox_id: String,
           bcc: T::Array[Moonbase::InboxMessageCreateParams::Bcc::OrHash],
           cc: T::Array[Moonbase::InboxMessageCreateParams::Cc::OrHash],
@@ -17,19 +17,19 @@ module Moonbase
         ).returns(Moonbase::EmailMessage)
       end
       def create(
-        # The content of the email body in Markdown format.
+        # The email body.
         body:,
         # The inbox to use for sending the email.
         inbox_id:,
-        # A list of `Address` objects for the BCC recipients.
+        # A list of the BCC recipients.
         bcc: nil,
-        # A list of `Address` objects for the CC recipients.
+        # A list of the CC recipients.
         cc: nil,
         # The ID of the conversation, if responding to an existing conversation.
         conversation_id: nil,
         # The subject line of the email.
         subject: nil,
-        # A list of `Address` objects for the recipients.
+        # A list of recipients.
         to: nil,
         request_options: {}
       )
@@ -50,6 +50,38 @@ module Moonbase
         # Specifies which related objects to include in the response. Valid options are
         # `addresses`, `attachments`, and `conversation`.
         include: nil,
+        request_options: {}
+      )
+      end
+
+      # Updates an existing message draft.
+      sig do
+        params(
+          id: String,
+          lock_version: Integer,
+          bcc: T::Array[Moonbase::InboxMessageUpdateParams::Bcc::OrHash],
+          body: Moonbase::FormattedText::OrHash,
+          cc: T::Array[Moonbase::InboxMessageUpdateParams::Cc::OrHash],
+          subject: String,
+          to: T::Array[Moonbase::InboxMessageUpdateParams::To::OrHash],
+          request_options: Moonbase::RequestOptions::OrHash
+        ).returns(Moonbase::EmailMessage)
+      end
+      def update(
+        # The ID of the message to update.
+        id,
+        # The current lock version of the draft for optimistic concurrency control.
+        lock_version:,
+        # A list of the BCC recipients.
+        bcc: nil,
+        # The email body.
+        body: nil,
+        # A list of the CC recipients.
+        cc: nil,
+        # The subject line of the email.
+        subject: nil,
+        # A list of the recipients.
+        to: nil,
         request_options: {}
       )
       end
@@ -82,6 +114,20 @@ module Moonbase
         # Maximum number of items to return per page. Must be between 1 and 100. Defaults
         # to 20 if not specified.
         limit: nil,
+        request_options: {}
+      )
+      end
+
+      # Permanently deletes a message draft.
+      sig do
+        params(
+          id: String,
+          request_options: Moonbase::RequestOptions::OrHash
+        ).void
+      end
+      def delete(
+        # The ID of the message to delete.
+        id,
         request_options: {}
       )
       end

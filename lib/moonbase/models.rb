@@ -183,9 +183,13 @@ module Moonbase
 
   InboxMessageCreateParams = Moonbase::Models::InboxMessageCreateParams
 
+  InboxMessageDeleteParams = Moonbase::Models::InboxMessageDeleteParams
+
   InboxMessageListParams = Moonbase::Models::InboxMessageListParams
 
   InboxMessageRetrieveParams = Moonbase::Models::InboxMessageRetrieveParams
+
+  InboxMessageUpdateParams = Moonbase::Models::InboxMessageUpdateParams
 
   InboxRetrieveParams = Moonbase::Models::InboxRetrieveParams
 
