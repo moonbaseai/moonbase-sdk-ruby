@@ -1,5 +1,44 @@
 # Changelog
 
+## 0.1.0-alpha.6 (2026-02-02)
+
+Full Changelog: [v0.1.0-alpha.5...v0.1.0-alpha.6](https://github.com/moonbaseai/moonbase-sdk-ruby/compare/v0.1.0-alpha.5...v0.1.0-alpha.6)
+
+### Features
+
+* **api:** manual updates ([3fabc34](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/3fabc347ce289a3cf8a0d266219f6320c0d63a07))
+* **api:** update api ([67b52a7](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/67b52a7e5c9c0312670f818c8d353d6cf1e3e114))
+* **api:** update api ([266db3c](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/266db3cae310dde0535bedffc9301f7d323fd324))
+* **api:** update api ([61328d7](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/61328d780497bea423ba771067b1671eb9a1affe))
+* **api:** update api ([99148fb](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/99148fb1ccc82fe89fed858e8a4ef8f83e61bd18))
+* **api:** update api ([f72362d](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/f72362d2c0edda3ef713e9834c10765d20535ace))
+* **api:** update api ([e6de27d](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/e6de27d2e8f278950aa8efc8dcc61fb9eafa8d80))
+* **api:** update api ([24fea89](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/24fea8937042cea67553662c0e28cfd37213875d))
+* **api:** update api ([f727cb9](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/f727cb9ae1f955ac86505c88d97fd046e87de23f))
+* **api:** update api ([f92062d](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/f92062d2ab7faa01a758f5467ef9158509f650df))
+
+
+### Bug Fixes
+
+* calling `break` out of streams should be instantaneous ([669b9e0](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/669b9e04e0a4df3b369ad09493141b3269ab1239))
+* **docs:** fix mcp installation instructions for remote servers ([b89453f](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/b89453fc5700368eb90d41a30c9628b72ca6cf25))
+* issue where json.parse errors when receiving HTTP 204 with nobody ([11743f4](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/11743f4f99f5b5f5642ad6a2e99ad1ed0552b7cb))
+
+
+### Chores
+
+* explicitly require "base64" gem ([0020e52](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/0020e52aa7744eb5a0fb9b833c98c21b34fcada5))
+* fix typo in descriptions ([b511675](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/b5116752b586884b9e1f95b16b9e7147a607af1b))
+* **internal:** codegen related update ([fe17b8f](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/fe17b8f522eca3e43b29d402a69bbc179bfe7f8c))
+* **internal:** update `actions/checkout` version ([62a7cbd](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/62a7cbdefb02014c5bbc9b1fd3fdbc548ee81e8f))
+* move `cgi` into dependencies for ruby 4 ([c6a0551](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/c6a0551112137d81fafc80bad14c15ee9ac161e1))
+
+
+### Documentation
+
+* **api:** update meeting params ([1a643e7](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/1a643e7054aeeaf4e414579c9bfb4127663845a9))
+* prominently feature MCP server setup in root SDK readmes ([82a0fbe](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/82a0fbee2562cd984c5eab13e3650aeda331ae9a))
+
 ## 0.1.0-alpha.5 (2025-11-13)
 
 Full Changelog: [v0.1.0-alpha.4...v0.1.0-alpha.5](https://github.com/moonbaseai/moonbase-sdk-ruby/compare/v0.1.0-alpha.4...v0.1.0-alpha.5)

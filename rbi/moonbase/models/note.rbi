@@ -21,6 +21,10 @@ module Moonbase
       sig { returns(Time) }
       attr_accessor :created_at
 
+      # The current lock version of the note for optimistic concurrency control.
+      sig { returns(Integer) }
+      attr_accessor :lock_version
+
       # String representing the object’s type. Always `note` for this object.
       sig { returns(Symbol) }
       attr_accessor :type
@@ -28,6 +32,14 @@ module Moonbase
       # Time at which the object was last updated, as an ISO 8601 timestamp in UTC.
       sig { returns(Time) }
       attr_accessor :updated_at
+
+      # A reference to an `Item` within a specific `Collection`, providing the context
+      # needed to locate the item.
+      sig { returns(T.nilable(Moonbase::ItemPointer)) }
+      attr_reader :creator
+
+      sig { params(creator: T.nilable(Moonbase::ItemPointer::OrHash)).void }
+      attr_writer :creator
 
       # A short, system-generated summary of the note's content.
       sig { returns(T.nilable(String)) }
@@ -50,7 +62,9 @@ module Moonbase
           id: String,
           body: Moonbase::FormattedText::OrHash,
           created_at: Time,
+          lock_version: Integer,
           updated_at: Time,
+          creator: T.nilable(Moonbase::ItemPointer::OrHash),
           summary: String,
           title: String,
           type: Symbol
@@ -63,8 +77,13 @@ module Moonbase
         body:,
         # Time at which the object was created, as an ISO 8601 timestamp in UTC.
         created_at:,
+        # The current lock version of the note for optimistic concurrency control.
+        lock_version:,
         # Time at which the object was last updated, as an ISO 8601 timestamp in UTC.
         updated_at:,
+        # A reference to an `Item` within a specific `Collection`, providing the context
+        # needed to locate the item.
+        creator: nil,
         # A short, system-generated summary of the note's content.
         summary: nil,
         # An optional title for the note.
@@ -80,8 +99,10 @@ module Moonbase
             id: String,
             body: Moonbase::FormattedText,
             created_at: Time,
+            lock_version: Integer,
             type: Symbol,
             updated_at: Time,
+            creator: T.nilable(Moonbase::ItemPointer),
             summary: String,
             title: String
           }

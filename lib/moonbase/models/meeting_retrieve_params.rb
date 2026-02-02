@@ -9,7 +9,7 @@ module Moonbase
 
       # @!attribute include
       #   Specifies which related objects to include in the response. Valid options are
-      #   `organizer` and `attendees`.
+      #   `organizer`, `attendees`, `transcript`, `note`, and `summary`.
       #
       #   @return [Array<Symbol, Moonbase::Models::MeetingRetrieveParams::Include>, nil]
       optional :include,
@@ -29,6 +29,8 @@ module Moonbase
         ORGANIZER = :organizer
         ATTENDEES = :attendees
         TRANSCRIPT = :transcript
+        NOTE = :note
+        SUMMARY = :summary
 
         # @!method self.values
         #   @return [Array<Symbol>]

@@ -3,6 +3,20 @@
 module Moonbase
   module Resources
     class Notes
+      # Create a new note.
+      sig do
+        params(
+          body: Moonbase::FormattedText::OrHash,
+          request_options: Moonbase::RequestOptions::OrHash
+        ).returns(Moonbase::Note)
+      end
+      def create(
+        # The main content of the note.
+        body:,
+        request_options: {}
+      )
+      end
+
       # Retrieves the details of an existing note.
       sig do
         params(
@@ -13,6 +27,26 @@ module Moonbase
       def retrieve(
         # The ID of the note to retrieve.
         id,
+        request_options: {}
+      )
+      end
+
+      # Update an existing note.
+      sig do
+        params(
+          id: String,
+          body: Moonbase::FormattedText::OrHash,
+          lock_version: Integer,
+          request_options: Moonbase::RequestOptions::OrHash
+        ).returns(Moonbase::Note)
+      end
+      def update(
+        # The ID of the note to update.
+        id,
+        # The main content of the note.
+        body:,
+        # The current lock version of the note for optimistic concurrency control.
+        lock_version:,
         request_options: {}
       )
       end

@@ -1,9 +1,31 @@
 module Moonbase
   module Resources
     class InboxMessages
+      def create: (
+        body: Moonbase::FormattedText,
+        inbox_id: String,
+        ?bcc: ::Array[Moonbase::InboxMessageCreateParams::Bcc],
+        ?cc: ::Array[Moonbase::InboxMessageCreateParams::Cc],
+        ?conversation_id: String,
+        ?subject: String,
+        ?to: ::Array[Moonbase::InboxMessageCreateParams::To],
+        ?request_options: Moonbase::request_opts
+      ) -> Moonbase::EmailMessage
+
       def retrieve: (
         String id,
         ?include: ::Array[Moonbase::Models::InboxMessageRetrieveParams::include_],
+        ?request_options: Moonbase::request_opts
+      ) -> Moonbase::EmailMessage
+
+      def update: (
+        String id,
+        lock_version: Integer,
+        ?bcc: ::Array[Moonbase::InboxMessageUpdateParams::Bcc],
+        ?body: Moonbase::FormattedText,
+        ?cc: ::Array[Moonbase::InboxMessageUpdateParams::Cc],
+        ?subject: String,
+        ?to: ::Array[Moonbase::InboxMessageUpdateParams::To],
         ?request_options: Moonbase::request_opts
       ) -> Moonbase::EmailMessage
 
@@ -15,6 +37,8 @@ module Moonbase
         ?limit: Integer,
         ?request_options: Moonbase::request_opts
       ) -> Moonbase::Internal::CursorPage[Moonbase::EmailMessage]
+
+      def delete: (String id, ?request_options: Moonbase::request_opts) -> nil
 
       def initialize: (client: Moonbase::Client) -> void
     end

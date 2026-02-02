@@ -6,6 +6,7 @@ module Moonbase
         id: String,
         code: String,
         detail: String,
+        meta: ::Hash[Symbol, top],
         source: Moonbase::Error::Source,
         status: String,
         title: String
@@ -26,6 +27,10 @@ module Moonbase
 
       def detail=: (String) -> String
 
+      attr_reader meta: ::Hash[Symbol, top]?
+
+      def meta=: (::Hash[Symbol, top]) -> ::Hash[Symbol, top]
+
       attr_reader source: Moonbase::Error::Source?
 
       def source=: (Moonbase::Error::Source) -> Moonbase::Error::Source
@@ -42,6 +47,7 @@ module Moonbase
         ?id: String,
         ?code: String,
         ?detail: String,
+        ?meta: ::Hash[Symbol, top],
         ?source: Moonbase::Error::Source,
         ?status: String,
         ?title: String,
@@ -53,6 +59,7 @@ module Moonbase
         id: String,
         code: String,
         detail: String,
+        meta: ::Hash[Symbol, top],
         source: Moonbase::Error::Source,
         status: String,
         title: String

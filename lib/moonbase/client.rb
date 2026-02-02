@@ -25,6 +25,9 @@ module Moonbase
     # @return [Moonbase::Resources::Collections]
     attr_reader :collections
 
+    # @return [Moonbase::Resources::Items]
+    attr_reader :items
+
     # @return [Moonbase::Resources::Views]
     attr_reader :views
 
@@ -69,6 +72,9 @@ module Moonbase
 
     # @return [Moonbase::Resources::WebhookEndpoints]
     attr_reader :webhook_endpoints
+
+    # @return [Moonbase::Resources::AgentSettings]
+    attr_reader :agent_settings
 
     # @api private
     #
@@ -119,6 +125,7 @@ module Moonbase
 
       @funnels = Moonbase::Resources::Funnels.new(client: self)
       @collections = Moonbase::Resources::Collections.new(client: self)
+      @items = Moonbase::Resources::Items.new(client: self)
       @views = Moonbase::Resources::Views.new(client: self)
       @inboxes = Moonbase::Resources::Inboxes.new(client: self)
       @inbox_conversations = Moonbase::Resources::InboxConversations.new(client: self)
@@ -134,6 +141,7 @@ module Moonbase
       @meetings = Moonbase::Resources::Meetings.new(client: self)
       @notes = Moonbase::Resources::Notes.new(client: self)
       @webhook_endpoints = Moonbase::Resources::WebhookEndpoints.new(client: self)
+      @agent_settings = Moonbase::Resources::AgentSettings.new(client: self)
     end
   end
 end

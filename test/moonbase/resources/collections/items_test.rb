@@ -9,7 +9,7 @@ class Moonbase::Test::Resources::Collections::ItemsTest < Moonbase::Test::Resour
         "collection_id",
         values: {
           name: {data: "Aperture Science", type: :"value/text/single_line"},
-          ceo: {data: {id: "1CLJt2v2rARKGD4MLziBCw", type: "item"}, type: :"value/relation"}
+          ceo: {data: {id: "1CLJt2v84CdKMEKqwBNXfE", type: "item"}, type: :"value/relation"}
         }
       )
 
@@ -20,6 +20,7 @@ class Moonbase::Test::Resources::Collections::ItemsTest < Moonbase::Test::Resour
     assert_pattern do
       response => {
         id: String,
+        collection: Moonbase::CollectionPointer,
         type: Symbol,
         values: ^(Moonbase::Internal::Type::HashOf[union: Moonbase::FieldValue])
       }
@@ -36,6 +37,7 @@ class Moonbase::Test::Resources::Collections::ItemsTest < Moonbase::Test::Resour
     assert_pattern do
       response => {
         id: String,
+        collection: Moonbase::CollectionPointer,
         type: Symbol,
         values: ^(Moonbase::Internal::Type::HashOf[union: Moonbase::FieldValue])
       }
@@ -57,6 +59,7 @@ class Moonbase::Test::Resources::Collections::ItemsTest < Moonbase::Test::Resour
     assert_pattern do
       response => {
         id: String,
+        collection: Moonbase::CollectionPointer,
         type: Symbol,
         values: ^(Moonbase::Internal::Type::HashOf[union: Moonbase::FieldValue])
       }
@@ -80,6 +83,7 @@ class Moonbase::Test::Resources::Collections::ItemsTest < Moonbase::Test::Resour
     assert_pattern do
       row => {
         id: String,
+        collection: Moonbase::CollectionPointer,
         type: Symbol,
         values: ^(Moonbase::Internal::Type::HashOf[union: Moonbase::FieldValue])
       }
@@ -113,6 +117,7 @@ class Moonbase::Test::Resources::Collections::ItemsTest < Moonbase::Test::Resour
     assert_pattern do
       response => {
         id: String,
+        collection: Moonbase::CollectionPointer,
         type: Symbol,
         values: ^(Moonbase::Internal::Type::HashOf[union: Moonbase::FieldValue])
       }

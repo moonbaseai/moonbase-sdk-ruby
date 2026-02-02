@@ -1,0 +1,24 @@
+module Moonbase
+  module Models
+    type note_create_params =
+      { body: Moonbase::FormattedText }
+      & Moonbase::Internal::Type::request_parameters
+
+    class NoteCreateParams < Moonbase::Internal::Type::BaseModel
+      extend Moonbase::Internal::Type::RequestParameters::Converter
+      include Moonbase::Internal::Type::RequestParameters
+
+      attr_accessor body: Moonbase::FormattedText
+
+      def initialize: (
+        body: Moonbase::FormattedText,
+        ?request_options: Moonbase::request_opts
+      ) -> void
+
+      def to_hash: -> {
+        body: Moonbase::FormattedText,
+        request_options: Moonbase::RequestOptions
+      }
+    end
+  end
+end

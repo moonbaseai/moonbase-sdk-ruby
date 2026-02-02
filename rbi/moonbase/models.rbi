@@ -48,6 +48,8 @@ module Moonbase
 
   Address = Moonbase::Models::Address
 
+  AgentSettingRetrieveParams = Moonbase::Models::AgentSettingRetrieveParams
+
   Attendee = Moonbase::Models::Attendee
 
   BooleanField = Moonbase::Models::BooleanField
@@ -147,9 +149,15 @@ module Moonbase
 
   InboxListParams = Moonbase::Models::InboxListParams
 
+  InboxMessageCreateParams = Moonbase::Models::InboxMessageCreateParams
+
+  InboxMessageDeleteParams = Moonbase::Models::InboxMessageDeleteParams
+
   InboxMessageListParams = Moonbase::Models::InboxMessageListParams
 
   InboxMessageRetrieveParams = Moonbase::Models::InboxMessageRetrieveParams
+
+  InboxMessageUpdateParams = Moonbase::Models::InboxMessageUpdateParams
 
   InboxRetrieveParams = Moonbase::Models::InboxRetrieveParams
 
@@ -160,6 +168,8 @@ module Moonbase
   Item = Moonbase::Models::Item
 
   ItemPointer = Moonbase::Models::ItemPointer
+
+  ItemSearchParams = Moonbase::Models::ItemSearchParams
 
   Meeting = Moonbase::Models::Meeting
 
@@ -181,9 +191,13 @@ module Moonbase
 
   Note = Moonbase::Models::Note
 
+  NoteCreateParams = Moonbase::Models::NoteCreateParams
+
   NoteListParams = Moonbase::Models::NoteListParams
 
   NoteRetrieveParams = Moonbase::Models::NoteRetrieveParams
+
+  NoteUpdateParams = Moonbase::Models::NoteUpdateParams
 
   Organizer = Moonbase::Models::Organizer
 

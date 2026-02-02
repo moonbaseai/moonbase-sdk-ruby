@@ -11,6 +11,7 @@ module Moonbase
           T.any(Moonbase::MeetingUpdateParams, Moonbase::Internal::AnyHash)
         end
 
+      # A video recording of the meeting.
       sig { returns(T.nilable(Moonbase::MeetingUpdateParams::Recording)) }
       attr_reader :recording
 
@@ -19,6 +20,7 @@ module Moonbase
       end
       attr_writer :recording
 
+      # The meeting transcript.
       sig { returns(T.nilable(Moonbase::MeetingUpdateParams::Transcript)) }
       attr_reader :transcript
 
@@ -36,7 +38,13 @@ module Moonbase
           request_options: Moonbase::RequestOptions::OrHash
         ).returns(T.attached_class)
       end
-      def self.new(recording: nil, transcript: nil, request_options: {})
+      def self.new(
+        # A video recording of the meeting.
+        recording: nil,
+        # The meeting transcript.
+        transcript: nil,
+        request_options: {}
+      )
       end
 
       sig do
@@ -60,15 +68,20 @@ module Moonbase
             )
           end
 
+        # The content type of the recording. Note that only `video/mp4` is supported at
+        # this time.
         sig { returns(String) }
         attr_accessor :content_type
 
+        # The unique identifier for the recording from the provider's system.
         sig { returns(String) }
         attr_accessor :provider_id
 
+        # The URL pointing to the recording.
         sig { returns(String) }
         attr_accessor :url
 
+        # A video recording of the meeting.
         sig do
           params(
             content_type: String,
@@ -76,7 +89,15 @@ module Moonbase
             url: String
           ).returns(T.attached_class)
         end
-        def self.new(content_type:, provider_id:, url:)
+        def self.new(
+          # The content type of the recording. Note that only `video/mp4` is supported at
+          # this time.
+          content_type:,
+          # The unique identifier for the recording from the provider's system.
+          provider_id:,
+          # The URL pointing to the recording.
+          url:
+        )
         end
 
         sig do
@@ -97,17 +118,22 @@ module Moonbase
             )
           end
 
+        # A list of cues that identify the text spoken in specific time slices of the
+        # meeting.
         sig do
           returns(T::Array[Moonbase::MeetingUpdateParams::Transcript::Cue])
         end
         attr_accessor :cues
 
+        # Identifies the source of the transcript.
         sig { returns(String) }
         attr_accessor :provider
 
+        # The unique identifier for the transcript from the provider's system.
         sig { returns(String) }
         attr_accessor :provider_id
 
+        # The meeting transcript.
         sig do
           params(
             cues:
@@ -116,7 +142,15 @@ module Moonbase
             provider_id: String
           ).returns(T.attached_class)
         end
-        def self.new(cues:, provider:, provider_id:)
+        def self.new(
+          # A list of cues that identify the text spoken in specific time slices of the
+          # meeting.
+          cues:,
+          # Identifies the source of the transcript.
+          provider:,
+          # The unique identifier for the transcript from the provider's system.
+          provider_id:
+        )
         end
 
         sig do
@@ -140,18 +174,25 @@ module Moonbase
               )
             end
 
+          # The start time of the slice, in fractional seconds from the start of the
+          # meeting.
           sig { returns(Float) }
           attr_accessor :from
 
+          # The name of the person speaking.
           sig { returns(String) }
           attr_accessor :speaker
 
+          # The text spoken during the slice.
           sig { returns(String) }
           attr_accessor :text
 
+          # The end time of the slice, in fractional seconds from the start of the meeting.
           sig { returns(Float) }
           attr_accessor :to
 
+          # Parameters for creating a `MeetingTranscriptCue` object to capture the text
+          # spoken in a specific time slice.
           sig do
             params(
               from: Float,
@@ -160,7 +201,17 @@ module Moonbase
               to: Float
             ).returns(T.attached_class)
           end
-          def self.new(from:, speaker:, text:, to:)
+          def self.new(
+            # The start time of the slice, in fractional seconds from the start of the
+            # meeting.
+            from:,
+            # The name of the person speaking.
+            speaker:,
+            # The text spoken during the slice.
+            text:,
+            # The end time of the slice, in fractional seconds from the start of the meeting.
+            to:
+          )
           end
 
           sig do

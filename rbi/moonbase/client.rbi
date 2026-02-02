@@ -20,6 +20,9 @@ module Moonbase
     sig { returns(Moonbase::Resources::Collections) }
     attr_reader :collections
 
+    sig { returns(Moonbase::Resources::Items) }
+    attr_reader :items
+
     sig { returns(Moonbase::Resources::Views) }
     attr_reader :views
 
@@ -64,6 +67,9 @@ module Moonbase
 
     sig { returns(Moonbase::Resources::WebhookEndpoints) }
     attr_reader :webhook_endpoints
+
+    sig { returns(Moonbase::Resources::AgentSettings) }
+    attr_reader :agent_settings
 
     # @api private
     sig { override.returns(T::Hash[String, String]) }

@@ -25,8 +25,8 @@ module Moonbase
 
       # @!attribute include
       #
-      #   @return [Symbol, Moonbase::Models::InboxListParams::Include, nil]
-      optional :include, enum: -> { Moonbase::InboxListParams::Include }
+      #   @return [Array<Symbol, Moonbase::Models::InboxListParams::Include>, nil]
+      optional :include, -> { Moonbase::Internal::Type::ArrayOf[enum: Moonbase::InboxListParams::Include] }
 
       # @!attribute limit
       #   Maximum number of items to return per page. Must be between 1 and 100. Defaults
@@ -43,7 +43,7 @@ module Moonbase
       #
       #   @param before [String] When specified, returns results starting immediately before the item identified
       #
-      #   @param include [Symbol, Moonbase::Models::InboxListParams::Include]
+      #   @param include [Array<Symbol, Moonbase::Models::InboxListParams::Include>]
       #
       #   @param limit [Integer] Maximum number of items to return per page. Must be between 1 and 100. Defaults
       #

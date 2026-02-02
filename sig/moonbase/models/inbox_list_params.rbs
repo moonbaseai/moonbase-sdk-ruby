@@ -4,7 +4,7 @@ module Moonbase
       {
         after: String,
         before: String,
-        include: Moonbase::Models::InboxListParams::include_,
+        include: ::Array[Moonbase::Models::InboxListParams::include_],
         limit: Integer
       }
       & Moonbase::Internal::Type::request_parameters
@@ -21,11 +21,11 @@ module Moonbase
 
       def before=: (String) -> String
 
-      attr_reader include: Moonbase::Models::InboxListParams::include_?
+      attr_reader include: ::Array[Moonbase::Models::InboxListParams::include_]?
 
       def include=: (
-        Moonbase::Models::InboxListParams::include_
-      ) -> Moonbase::Models::InboxListParams::include_
+        ::Array[Moonbase::Models::InboxListParams::include_]
+      ) -> ::Array[Moonbase::Models::InboxListParams::include_]
 
       attr_reader limit: Integer?
 
@@ -34,7 +34,7 @@ module Moonbase
       def initialize: (
         ?after: String,
         ?before: String,
-        ?include: Moonbase::Models::InboxListParams::include_,
+        ?include: ::Array[Moonbase::Models::InboxListParams::include_],
         ?limit: Integer,
         ?request_options: Moonbase::request_opts
       ) -> void
@@ -42,7 +42,7 @@ module Moonbase
       def to_hash: -> {
         after: String,
         before: String,
-        include: Moonbase::Models::InboxListParams::include_,
+        include: ::Array[Moonbase::Models::InboxListParams::include_],
         limit: Integer,
         request_options: Moonbase::RequestOptions
       }

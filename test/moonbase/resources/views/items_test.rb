@@ -20,6 +20,7 @@ class Moonbase::Test::Resources::Views::ItemsTest < Moonbase::Test::ResourceTest
     assert_pattern do
       row => {
         id: String,
+        collection: Moonbase::CollectionPointer,
         type: Symbol,
         values: ^(Moonbase::Internal::Type::HashOf[union: Moonbase::FieldValue])
       }

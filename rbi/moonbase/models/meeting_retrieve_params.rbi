@@ -12,7 +12,7 @@ module Moonbase
         end
 
       # Specifies which related objects to include in the response. Valid options are
-      # `organizer` and `attendees`.
+      # `organizer`, `attendees`, `transcript`, `note`, and `summary`.
       sig do
         returns(
           T.nilable(
@@ -37,7 +37,7 @@ module Moonbase
       end
       def self.new(
         # Specifies which related objects to include in the response. Valid options are
-        # `organizer` and `attendees`.
+        # `organizer`, `attendees`, `transcript`, `note`, and `summary`.
         include: nil,
         request_options: {}
       )
@@ -77,6 +77,13 @@ module Moonbase
         TRANSCRIPT =
           T.let(
             :transcript,
+            Moonbase::MeetingRetrieveParams::Include::TaggedSymbol
+          )
+        NOTE =
+          T.let(:note, Moonbase::MeetingRetrieveParams::Include::TaggedSymbol)
+        SUMMARY =
+          T.let(
+            :summary,
             Moonbase::MeetingRetrieveParams::Include::TaggedSymbol
           )
 

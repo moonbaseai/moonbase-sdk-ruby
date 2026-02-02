@@ -1,0 +1,79 @@
+module Moonbase
+  module Models
+    type agent_setting_retrieve_response =
+      {
+        created_at: Time,
+        type: :agent_settings,
+        updated_at: Time,
+        deal_summary_model: String,
+        deal_summary_prompt: String,
+        meeting_agent_model: String,
+        meeting_prebrief_prompt: String,
+        meeting_summary_prompt: String,
+        meeting_web_search: bool,
+        organization_info: String
+      }
+
+    class AgentSettingRetrieveResponse < Moonbase::Internal::Type::BaseModel
+      attr_accessor created_at: Time
+
+      attr_accessor type: :agent_settings
+
+      attr_accessor updated_at: Time
+
+      attr_reader deal_summary_model: String?
+
+      def deal_summary_model=: (String) -> String
+
+      attr_reader deal_summary_prompt: String?
+
+      def deal_summary_prompt=: (String) -> String
+
+      attr_reader meeting_agent_model: String?
+
+      def meeting_agent_model=: (String) -> String
+
+      attr_reader meeting_prebrief_prompt: String?
+
+      def meeting_prebrief_prompt=: (String) -> String
+
+      attr_reader meeting_summary_prompt: String?
+
+      def meeting_summary_prompt=: (String) -> String
+
+      attr_reader meeting_web_search: bool?
+
+      def meeting_web_search=: (bool) -> bool
+
+      attr_reader organization_info: String?
+
+      def organization_info=: (String) -> String
+
+      def initialize: (
+        created_at: Time,
+        updated_at: Time,
+        ?deal_summary_model: String,
+        ?deal_summary_prompt: String,
+        ?meeting_agent_model: String,
+        ?meeting_prebrief_prompt: String,
+        ?meeting_summary_prompt: String,
+        ?meeting_web_search: bool,
+        ?organization_info: String,
+        ?type: :agent_settings
+      ) -> void
+
+      def to_hash: -> {
+        created_at: Time,
+        type: :agent_settings,
+        updated_at: Time,
+        deal_summary_model: String,
+        deal_summary_prompt: String,
+        meeting_agent_model: String,
+        meeting_prebrief_prompt: String,
+        meeting_summary_prompt: String,
+        meeting_web_search: bool,
+        organization_info: String
+      }
+    end
+  end
+end

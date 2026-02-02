@@ -7,7 +7,7 @@ module Moonbase
       sig do
         params(
           id: String,
-          include: Moonbase::InboxRetrieveParams::Include::OrSymbol,
+          include: T::Array[Moonbase::InboxRetrieveParams::Include::OrSymbol],
           request_options: Moonbase::RequestOptions::OrHash
         ).returns(Moonbase::Inbox)
       end
@@ -26,7 +26,7 @@ module Moonbase
         params(
           after: String,
           before: String,
-          include: Moonbase::InboxListParams::Include::OrSymbol,
+          include: T::Array[Moonbase::InboxListParams::Include::OrSymbol],
           limit: Integer,
           request_options: Moonbase::RequestOptions::OrHash
         ).returns(Moonbase::Internal::CursorPage[Moonbase::Inbox])

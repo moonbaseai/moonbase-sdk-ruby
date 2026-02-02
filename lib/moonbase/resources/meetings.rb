@@ -30,11 +30,16 @@ module Moonbase
         )
       end
 
+      # Adds a transcript or recording to an existing meeting.
+      #
       # @overload update(id, recording: nil, transcript: nil, request_options: {})
       #
-      # @param id [String]
-      # @param recording [Moonbase::Models::MeetingUpdateParams::Recording]
-      # @param transcript [Moonbase::Models::MeetingUpdateParams::Transcript]
+      # @param id [String] The ID of the meeting to update.
+      #
+      # @param recording [Moonbase::Models::MeetingUpdateParams::Recording] A video recording of the meeting.
+      #
+      # @param transcript [Moonbase::Models::MeetingUpdateParams::Transcript] The meeting transcript.
+      #
       # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
       #
       # @return [Moonbase::Models::Meeting]

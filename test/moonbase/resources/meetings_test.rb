@@ -25,11 +25,11 @@ class Moonbase::Test::Resources::MeetingsTest < Moonbase::Test::ResourceTest
         description: String | nil,
         duration: Float | nil,
         location: String | nil,
+        note: Moonbase::Note | nil,
         organizer: Moonbase::Organizer | nil,
         provider_uri: String | nil,
         recording_url: String | nil,
-        summary_ante: String | nil,
-        summary_post: String | nil,
+        summary: Moonbase::Note | nil,
         title: String | nil,
         transcript: Moonbase::Meeting::Transcript | nil
       }
@@ -58,11 +58,11 @@ class Moonbase::Test::Resources::MeetingsTest < Moonbase::Test::ResourceTest
         description: String | nil,
         duration: Float | nil,
         location: String | nil,
+        note: Moonbase::Note | nil,
         organizer: Moonbase::Organizer | nil,
         provider_uri: String | nil,
         recording_url: String | nil,
-        summary_ante: String | nil,
-        summary_post: String | nil,
+        summary: Moonbase::Note | nil,
         title: String | nil,
         transcript: Moonbase::Meeting::Transcript | nil
       }
@@ -98,11 +98,11 @@ class Moonbase::Test::Resources::MeetingsTest < Moonbase::Test::ResourceTest
         description: String | nil,
         duration: Float | nil,
         location: String | nil,
+        note: Moonbase::Note | nil,
         organizer: Moonbase::Organizer | nil,
         provider_uri: String | nil,
         recording_url: String | nil,
-        summary_ante: String | nil,
-        summary_post: String | nil,
+        summary: Moonbase::Note | nil,
         title: String | nil,
         transcript: Moonbase::Meeting::Transcript | nil
       }

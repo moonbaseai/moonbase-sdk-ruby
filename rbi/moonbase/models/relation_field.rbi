@@ -12,10 +12,18 @@ module Moonbase
       sig { returns(String) }
       attr_accessor :id
 
+      # The set of collections that are valid targets for this relation.
+      sig { returns(T::Array[Moonbase::CollectionPointer]) }
+      attr_accessor :allowed_collections
+
       # Specifies whether the field can hold a single value (`one`) or multiple values
       # (`many`).
       sig { returns(Moonbase::RelationField::Cardinality::TaggedSymbol) }
       attr_accessor :cardinality
+
+      # If `true`, this is a built-in field included by default.
+      sig { returns(T::Boolean) }
+      attr_accessor :core
 
       # Time at which the object was created, as an ISO 8601 timestamp in UTC.
       sig { returns(Time) }
@@ -69,7 +77,9 @@ module Moonbase
       sig do
         params(
           id: String,
+          allowed_collections: T::Array[Moonbase::CollectionPointer::OrHash],
           cardinality: Moonbase::RelationField::Cardinality::OrSymbol,
+          core: T::Boolean,
           created_at: Time,
           name: String,
           readonly: T::Boolean,
@@ -85,9 +95,13 @@ module Moonbase
       def self.new(
         # Unique identifier for the object.
         id:,
+        # The set of collections that are valid targets for this relation.
+        allowed_collections:,
         # Specifies whether the field can hold a single value (`one`) or multiple values
         # (`many`).
         cardinality:,
+        # If `true`, this is a built-in field included by default.
+        core:,
         # Time at which the object was created, as an ISO 8601 timestamp in UTC.
         created_at:,
         # The human-readable name of the field (e.g., "Account").
@@ -119,7 +133,9 @@ module Moonbase
         override.returns(
           {
             id: String,
+            allowed_collections: T::Array[Moonbase::CollectionPointer],
             cardinality: Moonbase::RelationField::Cardinality::TaggedSymbol,
+            core: T::Boolean,
             created_at: Time,
             name: String,
             readonly: T::Boolean,

@@ -32,6 +32,10 @@ module Moonbase
       sig { returns(T::Boolean) }
       attr_accessor :draft
 
+      # The current lock version of the message for optimistic concurrency control.
+      sig { returns(Integer) }
+      attr_accessor :lock_version
+
       # `true` if the message is classified as spam.
       sig { returns(T::Boolean) }
       attr_accessor :spam
@@ -98,6 +102,7 @@ module Moonbase
           bulk: T::Boolean,
           created_at: Time,
           draft: T::Boolean,
+          lock_version: Integer,
           spam: T::Boolean,
           subject: String,
           trash: T::Boolean,
@@ -121,6 +126,8 @@ module Moonbase
         created_at:,
         # `true` if the message is a draft that has not been sent.
         draft:,
+        # The current lock version of the message for optimistic concurrency control.
+        lock_version:,
         # `true` if the message is classified as spam.
         spam:,
         # The subject line of the email.
@@ -156,6 +163,7 @@ module Moonbase
             bulk: T::Boolean,
             created_at: Time,
             draft: T::Boolean,
+            lock_version: Integer,
             spam: T::Boolean,
             subject: String,
             trash: T::Boolean,

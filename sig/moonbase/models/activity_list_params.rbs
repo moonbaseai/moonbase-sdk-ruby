@@ -1,7 +1,12 @@
 module Moonbase
   module Models
     type activity_list_params =
-      { after: String, before: String, limit: Integer }
+      {
+        after: String,
+        before: String,
+        filter: Moonbase::ActivityListParams::Filter,
+        limit: Integer
+      }
       & Moonbase::Internal::Type::request_parameters
 
     class ActivityListParams < Moonbase::Internal::Type::BaseModel
@@ -16,6 +21,12 @@ module Moonbase
 
       def before=: (String) -> String
 
+      attr_reader filter: Moonbase::ActivityListParams::Filter?
+
+      def filter=: (
+        Moonbase::ActivityListParams::Filter
+      ) -> Moonbase::ActivityListParams::Filter
+
       attr_reader limit: Integer?
 
       def limit=: (Integer) -> Integer
@@ -23,6 +34,7 @@ module Moonbase
       def initialize: (
         ?after: String,
         ?before: String,
+        ?filter: Moonbase::ActivityListParams::Filter,
         ?limit: Integer,
         ?request_options: Moonbase::request_opts
       ) -> void
@@ -30,9 +42,143 @@ module Moonbase
       def to_hash: -> {
         after: String,
         before: String,
+        filter: Moonbase::ActivityListParams::Filter,
         limit: Integer,
         request_options: Moonbase::RequestOptions
       }
+
+      type filter =
+        {
+          item_id: Moonbase::ActivityListParams::Filter::ItemID,
+          occurred_at: Moonbase::ActivityListParams::Filter::OccurredAt,
+          type: Moonbase::ActivityListParams::Filter::Type
+        }
+
+      class Filter < Moonbase::Internal::Type::BaseModel
+        attr_reader item_id: Moonbase::ActivityListParams::Filter::ItemID?
+
+        def item_id=: (
+          Moonbase::ActivityListParams::Filter::ItemID
+        ) -> Moonbase::ActivityListParams::Filter::ItemID
+
+        attr_reader occurred_at: Moonbase::ActivityListParams::Filter::OccurredAt?
+
+        def occurred_at=: (
+          Moonbase::ActivityListParams::Filter::OccurredAt
+        ) -> Moonbase::ActivityListParams::Filter::OccurredAt
+
+        attr_reader type: Moonbase::ActivityListParams::Filter::Type?
+
+        def type=: (
+          Moonbase::ActivityListParams::Filter::Type
+        ) -> Moonbase::ActivityListParams::Filter::Type
+
+        def initialize: (
+          ?item_id: Moonbase::ActivityListParams::Filter::ItemID,
+          ?occurred_at: Moonbase::ActivityListParams::Filter::OccurredAt,
+          ?type: Moonbase::ActivityListParams::Filter::Type
+        ) -> void
+
+        def to_hash: -> {
+          item_id: Moonbase::ActivityListParams::Filter::ItemID,
+          occurred_at: Moonbase::ActivityListParams::Filter::OccurredAt,
+          type: Moonbase::ActivityListParams::Filter::Type
+        }
+
+        type item_id = { eq: String }
+
+        class ItemID < Moonbase::Internal::Type::BaseModel
+          attr_reader eq: String?
+
+          def eq=: (String) -> String
+
+          def initialize: (?eq: String) -> void
+
+          def to_hash: -> { eq: String }
+        end
+
+        type occurred_at = { gte: Time, lte: Time }
+
+        class OccurredAt < Moonbase::Internal::Type::BaseModel
+          attr_reader gte: Time?
+
+          def gte=: (Time) -> Time
+
+          attr_reader lte: Time?
+
+          def lte=: (Time) -> Time
+
+          def initialize: (?gte: Time, ?lte: Time) -> void
+
+          def to_hash: -> { gte: Time, lte: Time }
+        end
+
+        type type_ =
+          {
+            in_: ::Array[Moonbase::Models::ActivityListParams::Filter::Type::in_]
+          }
+
+        class Type < Moonbase::Internal::Type::BaseModel
+          attr_reader in_: ::Array[Moonbase::Models::ActivityListParams::Filter::Type::in_]?
+
+          def in_=: (
+            ::Array[Moonbase::Models::ActivityListParams::Filter::Type::in_]
+          ) -> ::Array[Moonbase::Models::ActivityListParams::Filter::Type::in_]
+
+          def initialize: (
+            ?in_: ::Array[Moonbase::Models::ActivityListParams::Filter::Type::in_]
+          ) -> void
+
+          def to_hash: -> {
+            in_: ::Array[Moonbase::Models::ActivityListParams::Filter::Type::in_]
+          }
+
+          type in_ =
+            :"activity/call_occurred"
+            | :"activity/form_submitted"
+            | :"activity/inbox_message_sent"
+            | :"activity/item_created"
+            | :"activity/item_mentioned"
+            | :"activity/item_merged"
+            | :"activity/file_created"
+            | :"activity/meeting_held"
+            | :"activity/meeting_scheduled"
+            | :"activity/note_created"
+            | :"activity/program_message_bounced"
+            | :"activity/program_message_clicked"
+            | :"activity/program_message_complained"
+            | :"activity/program_message_failed"
+            | :"activity/program_message_opened"
+            | :"activity/program_message_sent"
+            | :"activity/program_message_shielded"
+            | :"activity/program_message_unsubscribed"
+
+          module In
+            extend Moonbase::Internal::Type::Enum
+
+            ACTIVITY_CALL_OCCURRED: :"activity/call_occurred"
+            ACTIVITY_FORM_SUBMITTED: :"activity/form_submitted"
+            ACTIVITY_INBOX_MESSAGE_SENT: :"activity/inbox_message_sent"
+            ACTIVITY_ITEM_CREATED: :"activity/item_created"
+            ACTIVITY_ITEM_MENTIONED: :"activity/item_mentioned"
+            ACTIVITY_ITEM_MERGED: :"activity/item_merged"
+            ACTIVITY_FILE_CREATED: :"activity/file_created"
+            ACTIVITY_MEETING_HELD: :"activity/meeting_held"
+            ACTIVITY_MEETING_SCHEDULED: :"activity/meeting_scheduled"
+            ACTIVITY_NOTE_CREATED: :"activity/note_created"
+            ACTIVITY_PROGRAM_MESSAGE_BOUNCED: :"activity/program_message_bounced"
+            ACTIVITY_PROGRAM_MESSAGE_CLICKED: :"activity/program_message_clicked"
+            ACTIVITY_PROGRAM_MESSAGE_COMPLAINED: :"activity/program_message_complained"
+            ACTIVITY_PROGRAM_MESSAGE_FAILED: :"activity/program_message_failed"
+            ACTIVITY_PROGRAM_MESSAGE_OPENED: :"activity/program_message_opened"
+            ACTIVITY_PROGRAM_MESSAGE_SENT: :"activity/program_message_sent"
+            ACTIVITY_PROGRAM_MESSAGE_SHIELDED: :"activity/program_message_shielded"
+            ACTIVITY_PROGRAM_MESSAGE_UNSUBSCRIBED: :"activity/program_message_unsubscribed"
+
+            def self?.values: -> ::Array[Moonbase::Models::ActivityListParams::Filter::Type::in_]
+          end
+        end
+      end
     end
   end
 end

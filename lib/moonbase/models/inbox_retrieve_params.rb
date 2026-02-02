@@ -11,19 +11,17 @@ module Moonbase
       #   Specifies which related objects to include in the response. Valid option is
       #   `tagsets`.
       #
-      #   @return [Symbol, Moonbase::Models::InboxRetrieveParams::Include, nil]
-      optional :include, enum: -> { Moonbase::InboxRetrieveParams::Include }
+      #   @return [Array<Symbol, Moonbase::Models::InboxRetrieveParams::Include>, nil]
+      optional :include, -> { Moonbase::Internal::Type::ArrayOf[enum: Moonbase::InboxRetrieveParams::Include] }
 
       # @!method initialize(include: nil, request_options: {})
       #   Some parameter documentations has been truncated, see
       #   {Moonbase::Models::InboxRetrieveParams} for more details.
       #
-      #   @param include [Symbol, Moonbase::Models::InboxRetrieveParams::Include] Specifies which related objects to include in the response. Valid option is `tag
+      #   @param include [Array<Symbol, Moonbase::Models::InboxRetrieveParams::Include>] Specifies which related objects to include in the response. Valid option is `tag
       #
       #   @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}]
 
-      # Specifies which related objects to include in the response. Valid option is
-      # `tagsets`.
       module Include
         extend Moonbase::Internal::Type::Enum
 
