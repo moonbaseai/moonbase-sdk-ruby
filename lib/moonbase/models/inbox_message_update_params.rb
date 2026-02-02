@@ -2,40 +2,34 @@
 
 module Moonbase
   module Models
-    # @see Moonbase::Resources::InboxMessages#create
-    class InboxMessageCreateParams < Moonbase::Internal::Type::BaseModel
+    # @see Moonbase::Resources::InboxMessages#update
+    class InboxMessageUpdateParams < Moonbase::Internal::Type::BaseModel
       extend Moonbase::Internal::Type::RequestParameters::Converter
       include Moonbase::Internal::Type::RequestParameters
 
-      # @!attribute body
-      #   The email body.
+      # @!attribute lock_version
+      #   The current lock version of the draft for optimistic concurrency control.
       #
-      #   @return [Moonbase::Models::FormattedText]
-      required :body, -> { Moonbase::FormattedText }
-
-      # @!attribute inbox_id
-      #   The inbox to use for sending the email.
-      #
-      #   @return [String]
-      required :inbox_id, String
+      #   @return [Integer]
+      required :lock_version, Integer
 
       # @!attribute bcc
       #   A list of the BCC recipients.
       #
-      #   @return [Array<Moonbase::Models::InboxMessageCreateParams::Bcc>, nil]
-      optional :bcc, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::InboxMessageCreateParams::Bcc] }
+      #   @return [Array<Moonbase::Models::InboxMessageUpdateParams::Bcc>, nil]
+      optional :bcc, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::InboxMessageUpdateParams::Bcc] }
+
+      # @!attribute body
+      #   The email body.
+      #
+      #   @return [Moonbase::Models::FormattedText, nil]
+      optional :body, -> { Moonbase::FormattedText }
 
       # @!attribute cc
       #   A list of the CC recipients.
       #
-      #   @return [Array<Moonbase::Models::InboxMessageCreateParams::Cc>, nil]
-      optional :cc, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::InboxMessageCreateParams::Cc] }
-
-      # @!attribute conversation_id
-      #   The ID of the conversation, if responding to an existing conversation.
-      #
-      #   @return [String, nil]
-      optional :conversation_id, String
+      #   @return [Array<Moonbase::Models::InboxMessageUpdateParams::Cc>, nil]
+      optional :cc, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::InboxMessageUpdateParams::Cc] }
 
       # @!attribute subject
       #   The subject line of the email.
@@ -44,25 +38,23 @@ module Moonbase
       optional :subject, String
 
       # @!attribute to
-      #   A list of recipients.
+      #   A list of the recipients.
       #
-      #   @return [Array<Moonbase::Models::InboxMessageCreateParams::To>, nil]
-      optional :to, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::InboxMessageCreateParams::To] }
+      #   @return [Array<Moonbase::Models::InboxMessageUpdateParams::To>, nil]
+      optional :to, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::InboxMessageUpdateParams::To] }
 
-      # @!method initialize(body:, inbox_id:, bcc: nil, cc: nil, conversation_id: nil, subject: nil, to: nil, request_options: {})
+      # @!method initialize(lock_version:, bcc: nil, body: nil, cc: nil, subject: nil, to: nil, request_options: {})
+      #   @param lock_version [Integer] The current lock version of the draft for optimistic concurrency control.
+      #
+      #   @param bcc [Array<Moonbase::Models::InboxMessageUpdateParams::Bcc>] A list of the BCC recipients.
+      #
       #   @param body [Moonbase::Models::FormattedText] The email body.
       #
-      #   @param inbox_id [String] The inbox to use for sending the email.
-      #
-      #   @param bcc [Array<Moonbase::Models::InboxMessageCreateParams::Bcc>] A list of the BCC recipients.
-      #
-      #   @param cc [Array<Moonbase::Models::InboxMessageCreateParams::Cc>] A list of the CC recipients.
-      #
-      #   @param conversation_id [String] The ID of the conversation, if responding to an existing conversation.
+      #   @param cc [Array<Moonbase::Models::InboxMessageUpdateParams::Cc>] A list of the CC recipients.
       #
       #   @param subject [String] The subject line of the email.
       #
-      #   @param to [Array<Moonbase::Models::InboxMessageCreateParams::To>] A list of recipients.
+      #   @param to [Array<Moonbase::Models::InboxMessageUpdateParams::To>] A list of the recipients.
       #
       #   @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}]
 

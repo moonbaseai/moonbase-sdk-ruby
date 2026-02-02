@@ -2,58 +2,51 @@
 
 module Moonbase
   module Models
-    class InboxMessageCreateParams < Moonbase::Internal::Type::BaseModel
+    class InboxMessageUpdateParams < Moonbase::Internal::Type::BaseModel
       extend Moonbase::Internal::Type::RequestParameters::Converter
       include Moonbase::Internal::Type::RequestParameters
 
       OrHash =
         T.type_alias do
-          T.any(Moonbase::InboxMessageCreateParams, Moonbase::Internal::AnyHash)
+          T.any(Moonbase::InboxMessageUpdateParams, Moonbase::Internal::AnyHash)
         end
 
-      # The email body.
-      sig { returns(Moonbase::FormattedText) }
-      attr_reader :body
-
-      sig { params(body: Moonbase::FormattedText::OrHash).void }
-      attr_writer :body
-
-      # The inbox to use for sending the email.
-      sig { returns(String) }
-      attr_accessor :inbox_id
+      # The current lock version of the draft for optimistic concurrency control.
+      sig { returns(Integer) }
+      attr_accessor :lock_version
 
       # A list of the BCC recipients.
       sig do
-        returns(T.nilable(T::Array[Moonbase::InboxMessageCreateParams::Bcc]))
+        returns(T.nilable(T::Array[Moonbase::InboxMessageUpdateParams::Bcc]))
       end
       attr_reader :bcc
 
       sig do
         params(
-          bcc: T::Array[Moonbase::InboxMessageCreateParams::Bcc::OrHash]
+          bcc: T::Array[Moonbase::InboxMessageUpdateParams::Bcc::OrHash]
         ).void
       end
       attr_writer :bcc
 
+      # The email body.
+      sig { returns(T.nilable(Moonbase::FormattedText)) }
+      attr_reader :body
+
+      sig { params(body: Moonbase::FormattedText::OrHash).void }
+      attr_writer :body
+
       # A list of the CC recipients.
       sig do
-        returns(T.nilable(T::Array[Moonbase::InboxMessageCreateParams::Cc]))
+        returns(T.nilable(T::Array[Moonbase::InboxMessageUpdateParams::Cc]))
       end
       attr_reader :cc
 
       sig do
         params(
-          cc: T::Array[Moonbase::InboxMessageCreateParams::Cc::OrHash]
+          cc: T::Array[Moonbase::InboxMessageUpdateParams::Cc::OrHash]
         ).void
       end
       attr_writer :cc
-
-      # The ID of the conversation, if responding to an existing conversation.
-      sig { returns(T.nilable(String)) }
-      attr_reader :conversation_id
-
-      sig { params(conversation_id: String).void }
-      attr_writer :conversation_id
 
       # The subject line of the email.
       sig { returns(T.nilable(String)) }
@@ -62,45 +55,42 @@ module Moonbase
       sig { params(subject: String).void }
       attr_writer :subject
 
-      # A list of recipients.
+      # A list of the recipients.
       sig do
-        returns(T.nilable(T::Array[Moonbase::InboxMessageCreateParams::To]))
+        returns(T.nilable(T::Array[Moonbase::InboxMessageUpdateParams::To]))
       end
       attr_reader :to
 
       sig do
         params(
-          to: T::Array[Moonbase::InboxMessageCreateParams::To::OrHash]
+          to: T::Array[Moonbase::InboxMessageUpdateParams::To::OrHash]
         ).void
       end
       attr_writer :to
 
       sig do
         params(
+          lock_version: Integer,
+          bcc: T::Array[Moonbase::InboxMessageUpdateParams::Bcc::OrHash],
           body: Moonbase::FormattedText::OrHash,
-          inbox_id: String,
-          bcc: T::Array[Moonbase::InboxMessageCreateParams::Bcc::OrHash],
-          cc: T::Array[Moonbase::InboxMessageCreateParams::Cc::OrHash],
-          conversation_id: String,
+          cc: T::Array[Moonbase::InboxMessageUpdateParams::Cc::OrHash],
           subject: String,
-          to: T::Array[Moonbase::InboxMessageCreateParams::To::OrHash],
+          to: T::Array[Moonbase::InboxMessageUpdateParams::To::OrHash],
           request_options: Moonbase::RequestOptions::OrHash
         ).returns(T.attached_class)
       end
       def self.new(
-        # The email body.
-        body:,
-        # The inbox to use for sending the email.
-        inbox_id:,
+        # The current lock version of the draft for optimistic concurrency control.
+        lock_version:,
         # A list of the BCC recipients.
         bcc: nil,
+        # The email body.
+        body: nil,
         # A list of the CC recipients.
         cc: nil,
-        # The ID of the conversation, if responding to an existing conversation.
-        conversation_id: nil,
         # The subject line of the email.
         subject: nil,
-        # A list of recipients.
+        # A list of the recipients.
         to: nil,
         request_options: {}
       )
@@ -109,13 +99,12 @@ module Moonbase
       sig do
         override.returns(
           {
+            lock_version: Integer,
+            bcc: T::Array[Moonbase::InboxMessageUpdateParams::Bcc],
             body: Moonbase::FormattedText,
-            inbox_id: String,
-            bcc: T::Array[Moonbase::InboxMessageCreateParams::Bcc],
-            cc: T::Array[Moonbase::InboxMessageCreateParams::Cc],
-            conversation_id: String,
+            cc: T::Array[Moonbase::InboxMessageUpdateParams::Cc],
             subject: String,
-            to: T::Array[Moonbase::InboxMessageCreateParams::To],
+            to: T::Array[Moonbase::InboxMessageUpdateParams::To],
             request_options: Moonbase::RequestOptions
           }
         )
@@ -127,7 +116,7 @@ module Moonbase
         OrHash =
           T.type_alias do
             T.any(
-              Moonbase::InboxMessageCreateParams::Bcc,
+              Moonbase::InboxMessageUpdateParams::Bcc,
               Moonbase::Internal::AnyHash
             )
           end
@@ -161,7 +150,7 @@ module Moonbase
         OrHash =
           T.type_alias do
             T.any(
-              Moonbase::InboxMessageCreateParams::Cc,
+              Moonbase::InboxMessageUpdateParams::Cc,
               Moonbase::Internal::AnyHash
             )
           end
@@ -195,7 +184,7 @@ module Moonbase
         OrHash =
           T.type_alias do
             T.any(
-              Moonbase::InboxMessageCreateParams::To,
+              Moonbase::InboxMessageUpdateParams::To,
               Moonbase::Internal::AnyHash
             )
           end

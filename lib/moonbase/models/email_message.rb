@@ -35,6 +35,12 @@ module Moonbase
       #   @return [Boolean]
       required :draft, Moonbase::Internal::Type::Boolean
 
+      # @!attribute lock_version
+      #   The current lock version of the message for optimistic concurrency control.
+      #
+      #   @return [Integer]
+      required :lock_version, Integer
+
       # @!attribute spam
       #   `true` if the message is classified as spam.
       #
@@ -95,7 +101,7 @@ module Moonbase
       #   @return [String, nil]
       optional :summary, String
 
-      # @!method initialize(id:, body:, bulk:, created_at:, draft:, spam:, subject:, trash:, unread:, addresses: nil, attachments: nil, conversation: nil, summary: nil, type: :email_message)
+      # @!method initialize(id:, body:, bulk:, created_at:, draft:, lock_version:, spam:, subject:, trash:, unread:, addresses: nil, attachments: nil, conversation: nil, summary: nil, type: :email_message)
       #   Some parameter documentations has been truncated, see
       #   {Moonbase::Models::EmailMessage} for more details.
       #
@@ -110,6 +116,8 @@ module Moonbase
       #   @param created_at [Time] The time the message was received, as an ISO 8601 timestamp in UTC.
       #
       #   @param draft [Boolean] `true` if the message is a draft that has not been sent.
+      #
+      #   @param lock_version [Integer] The current lock version of the message for optimistic concurrency control.
       #
       #   @param spam [Boolean] `true` if the message is classified as spam.
       #

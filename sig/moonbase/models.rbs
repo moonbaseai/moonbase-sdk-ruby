@@ -143,9 +143,13 @@ module Moonbase
 
   class InboxMessageCreateParams = Moonbase::Models::InboxMessageCreateParams
 
+  class InboxMessageDeleteParams = Moonbase::Models::InboxMessageDeleteParams
+
   class InboxMessageListParams = Moonbase::Models::InboxMessageListParams
 
   class InboxMessageRetrieveParams = Moonbase::Models::InboxMessageRetrieveParams
+
+  class InboxMessageUpdateParams = Moonbase::Models::InboxMessageUpdateParams
 
   class InboxRetrieveParams = Moonbase::Models::InboxRetrieveParams
 

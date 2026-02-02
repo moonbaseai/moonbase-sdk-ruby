@@ -1,70 +1,65 @@
 module Moonbase
   module Models
-    type inbox_message_create_params =
+    type inbox_message_update_params =
       {
+        lock_version: Integer,
+        bcc: ::Array[Moonbase::InboxMessageUpdateParams::Bcc],
         body: Moonbase::FormattedText,
-        inbox_id: String,
-        bcc: ::Array[Moonbase::InboxMessageCreateParams::Bcc],
-        cc: ::Array[Moonbase::InboxMessageCreateParams::Cc],
-        conversation_id: String,
+        cc: ::Array[Moonbase::InboxMessageUpdateParams::Cc],
         subject: String,
-        to: ::Array[Moonbase::InboxMessageCreateParams::To]
+        to: ::Array[Moonbase::InboxMessageUpdateParams::To]
       }
       & Moonbase::Internal::Type::request_parameters
 
-    class InboxMessageCreateParams < Moonbase::Internal::Type::BaseModel
+    class InboxMessageUpdateParams < Moonbase::Internal::Type::BaseModel
       extend Moonbase::Internal::Type::RequestParameters::Converter
       include Moonbase::Internal::Type::RequestParameters
 
-      attr_accessor body: Moonbase::FormattedText
+      attr_accessor lock_version: Integer
 
-      attr_accessor inbox_id: String
-
-      attr_reader bcc: ::Array[Moonbase::InboxMessageCreateParams::Bcc]?
+      attr_reader bcc: ::Array[Moonbase::InboxMessageUpdateParams::Bcc]?
 
       def bcc=: (
-        ::Array[Moonbase::InboxMessageCreateParams::Bcc]
-      ) -> ::Array[Moonbase::InboxMessageCreateParams::Bcc]
+        ::Array[Moonbase::InboxMessageUpdateParams::Bcc]
+      ) -> ::Array[Moonbase::InboxMessageUpdateParams::Bcc]
 
-      attr_reader cc: ::Array[Moonbase::InboxMessageCreateParams::Cc]?
+      attr_reader body: Moonbase::FormattedText?
+
+      def body=: (Moonbase::FormattedText) -> Moonbase::FormattedText
+
+      attr_reader cc: ::Array[Moonbase::InboxMessageUpdateParams::Cc]?
 
       def cc=: (
-        ::Array[Moonbase::InboxMessageCreateParams::Cc]
-      ) -> ::Array[Moonbase::InboxMessageCreateParams::Cc]
-
-      attr_reader conversation_id: String?
-
-      def conversation_id=: (String) -> String
+        ::Array[Moonbase::InboxMessageUpdateParams::Cc]
+      ) -> ::Array[Moonbase::InboxMessageUpdateParams::Cc]
 
       attr_reader subject: String?
 
       def subject=: (String) -> String
 
-      attr_reader to: ::Array[Moonbase::InboxMessageCreateParams::To]?
+      attr_reader to: ::Array[Moonbase::InboxMessageUpdateParams::To]?
 
       def to=: (
-        ::Array[Moonbase::InboxMessageCreateParams::To]
-      ) -> ::Array[Moonbase::InboxMessageCreateParams::To]
+        ::Array[Moonbase::InboxMessageUpdateParams::To]
+      ) -> ::Array[Moonbase::InboxMessageUpdateParams::To]
 
       def initialize: (
-        body: Moonbase::FormattedText,
-        inbox_id: String,
-        ?bcc: ::Array[Moonbase::InboxMessageCreateParams::Bcc],
-        ?cc: ::Array[Moonbase::InboxMessageCreateParams::Cc],
-        ?conversation_id: String,
+        lock_version: Integer,
+        ?bcc: ::Array[Moonbase::InboxMessageUpdateParams::Bcc],
+        ?body: Moonbase::FormattedText,
+        ?cc: ::Array[Moonbase::InboxMessageUpdateParams::Cc],
         ?subject: String,
-        ?to: ::Array[Moonbase::InboxMessageCreateParams::To],
+        ?to: ::Array[Moonbase::InboxMessageUpdateParams::To],
         ?request_options: Moonbase::request_opts
       ) -> void
 
       def to_hash: -> {
+        lock_version: Integer,
+        bcc: ::Array[Moonbase::InboxMessageUpdateParams::Bcc],
         body: Moonbase::FormattedText,
-        inbox_id: String,
-        bcc: ::Array[Moonbase::InboxMessageCreateParams::Bcc],
-        cc: ::Array[Moonbase::InboxMessageCreateParams::Cc],
-        conversation_id: String,
+        cc: ::Array[Moonbase::InboxMessageUpdateParams::Cc],
         subject: String,
-        to: ::Array[Moonbase::InboxMessageCreateParams::To],
+        to: ::Array[Moonbase::InboxMessageUpdateParams::To],
         request_options: Moonbase::RequestOptions
       }
 
