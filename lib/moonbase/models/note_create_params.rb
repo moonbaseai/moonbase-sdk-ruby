@@ -13,8 +13,20 @@ module Moonbase
       #   @return [Moonbase::Models::FormattedText]
       required :body, -> { Moonbase::FormattedText }
 
-      # @!method initialize(body:, request_options: {})
+      # @!attribute associations
+      #   Link the Note to Moonbase items (person, organization, deal, task, or an item in
+      #   a custom collection), meetings, or calls.
+      #
+      #   @return [Array<Moonbase::Models::Pointer>, nil]
+      optional :associations, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::Pointer] }
+
+      # @!method initialize(body:, associations: nil, request_options: {})
+      #   Some parameter documentations has been truncated, see
+      #   {Moonbase::Models::NoteCreateParams} for more details.
+      #
       #   @param body [Moonbase::Models::FormattedText] The main content of the note.
+      #
+      #   @param associations [Array<Moonbase::Models::Pointer>] Link the Note to Moonbase items (person, organization, deal, task, or an item in
       #
       #   @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}]
     end

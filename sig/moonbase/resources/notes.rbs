@@ -3,6 +3,7 @@ module Moonbase
     class Notes
       def create: (
         body: Moonbase::FormattedText,
+        ?associations: ::Array[Moonbase::Pointer],
         ?request_options: Moonbase::request_opts
       ) -> Moonbase::Note
 

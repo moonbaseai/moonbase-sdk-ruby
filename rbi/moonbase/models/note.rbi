@@ -10,6 +10,10 @@ module Moonbase
       sig { returns(String) }
       attr_accessor :id
 
+      # A list of items, meetings or calls this note is associated with.
+      sig { returns(T::Array[Moonbase::Pointer]) }
+      attr_accessor :associations
+
       # The main content of the note.
       sig { returns(Moonbase::FormattedText) }
       attr_reader :body
@@ -60,6 +64,7 @@ module Moonbase
       sig do
         params(
           id: String,
+          associations: T::Array[Moonbase::Pointer::OrHash],
           body: Moonbase::FormattedText::OrHash,
           created_at: Time,
           lock_version: Integer,
@@ -73,6 +78,8 @@ module Moonbase
       def self.new(
         # Unique identifier for the object.
         id:,
+        # A list of items, meetings or calls this note is associated with.
+        associations:,
         # The main content of the note.
         body:,
         # Time at which the object was created, as an ISO 8601 timestamp in UTC.
@@ -97,6 +104,7 @@ module Moonbase
         override.returns(
           {
             id: String,
+            associations: T::Array[Moonbase::Pointer],
             body: Moonbase::FormattedText,
             created_at: Time,
             lock_version: Integer,

@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.1.0-alpha.7 (2026-02-09)
+
+Full Changelog: [v0.1.0-alpha.6...v0.1.0-alpha.7](https://github.com/moonbaseai/moonbase-sdk-ruby/compare/v0.1.0-alpha.6...v0.1.0-alpha.7)
+
+### Features
+
+* **api:** update api ([c3df53f](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/c3df53f3bfaaae9c8b4845a5a33bd1af9655e40c))
+
+
+### Bug Fixes
+
+* **client:** always add content-length to post body, even when empty ([ca89d02](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/ca89d0231ec8b4b3c041613075290f502e898e1f))
+* **client:** loosen json header parsing ([016c939](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/016c939ab5c7b27ddfdadb691c9220393929090e))
+
+
+### Chores
+
+* **docs:** remove www prefix ([edcebd5](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/edcebd58133bbb08164e79cbae76d85dcf6107c6))
+
 ## 0.1.0-alpha.6 (2026-02-02)
 
 Full Changelog: [v0.1.0-alpha.5...v0.1.0-alpha.6](https://github.com/moonbaseai/moonbase-sdk-ruby/compare/v0.1.0-alpha.5...v0.1.0-alpha.6)
