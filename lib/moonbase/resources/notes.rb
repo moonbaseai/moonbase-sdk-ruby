@@ -3,11 +3,16 @@
 module Moonbase
   module Resources
     class Notes
+      # Some parameter documentations has been truncated, see
+      # {Moonbase::Models::NoteCreateParams} for more details.
+      #
       # Create a new note.
       #
-      # @overload create(body:, request_options: {})
+      # @overload create(body:, associations: nil, request_options: {})
       #
       # @param body [Moonbase::Models::FormattedText] The main content of the note.
+      #
+      # @param associations [Array<Moonbase::Models::Pointer>] Link the Note to Moonbase items (person, organization, deal, task, or an item in
       #
       # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
       #
