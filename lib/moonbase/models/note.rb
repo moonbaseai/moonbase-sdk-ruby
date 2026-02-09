@@ -10,6 +10,12 @@ module Moonbase
       #   @return [String]
       required :id, String
 
+      # @!attribute associations
+      #   A list of items, meetings or calls this note is associated with.
+      #
+      #   @return [Array<Moonbase::Models::Pointer>]
+      required :associations, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::Pointer] }
+
       # @!attribute body
       #   The main content of the note.
       #
@@ -59,7 +65,7 @@ module Moonbase
       #   @return [String, nil]
       optional :title, String
 
-      # @!method initialize(id:, body:, created_at:, lock_version:, updated_at:, creator: nil, summary: nil, title: nil, type: :note)
+      # @!method initialize(id:, associations:, body:, created_at:, lock_version:, updated_at:, creator: nil, summary: nil, title: nil, type: :note)
       #   Some parameter documentations has been truncated, see {Moonbase::Models::Note}
       #   for more details.
       #
@@ -67,6 +73,8 @@ module Moonbase
       #   or summaries.
       #
       #   @param id [String] Unique identifier for the object.
+      #
+      #   @param associations [Array<Moonbase::Models::Pointer>] A list of items, meetings or calls this note is associated with.
       #
       #   @param body [Moonbase::Models::FormattedText] The main content of the note.
       #

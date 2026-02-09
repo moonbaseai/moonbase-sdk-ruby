@@ -7,12 +7,16 @@ module Moonbase
       sig do
         params(
           body: Moonbase::FormattedText::OrHash,
+          associations: T::Array[Moonbase::Pointer::OrHash],
           request_options: Moonbase::RequestOptions::OrHash
         ).returns(Moonbase::Note)
       end
       def create(
         # The main content of the note.
         body:,
+        # Link the Note to Moonbase items (person, organization, deal, task, or an item in
+        # a custom collection), meetings, or calls.
+        associations: nil,
         request_options: {}
       )
       end
