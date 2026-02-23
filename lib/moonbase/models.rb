@@ -93,6 +93,10 @@ module Moonbase
 
   CallCreateParams = Moonbase::Models::CallCreateParams
 
+  CallListParams = Moonbase::Models::CallListParams
+
+  CallRetrieveParams = Moonbase::Models::CallRetrieveParams
+
   CallUpsertParams = Moonbase::Models::CallUpsertParams
 
   ChoiceField = Moonbase::Models::ChoiceField
@@ -102,6 +106,8 @@ module Moonbase
   ChoiceValue = Moonbase::Models::ChoiceValue
 
   ChoiceValueParam = Moonbase::Models::ChoiceValueParam
+
+  ClientSearchParams = Moonbase::Models::ClientSearchParams
 
   Collection = Moonbase::Models::Collection
 
@@ -140,6 +146,8 @@ module Moonbase
   FieldValue = Moonbase::Models::FieldValue
 
   FieldValueParam = Moonbase::Models::FieldValueParam
+
+  FileDeleteParams = Moonbase::Models::FileDeleteParams
 
   FileListParams = Moonbase::Models::FileListParams
 
@@ -201,7 +209,17 @@ module Moonbase
 
   ItemPointer = Moonbase::Models::ItemPointer
 
-  ItemSearchParams = Moonbase::Models::ItemSearchParams
+  ItemsFilter = Moonbase::Models::ItemsFilter
+
+  ItemsFilterAndGroup = Moonbase::Models::ItemsFilterAndGroup
+
+  ItemsFilterNotGroup = Moonbase::Models::ItemsFilterNotGroup
+
+  ItemsFilterOrGroup = Moonbase::Models::ItemsFilterOrGroup
+
+  ItemsFilterValueExists = Moonbase::Models::ItemsFilterValueExists
+
+  ItemsFilterValueMatches = Moonbase::Models::ItemsFilterValueMatches
 
   Meeting = Moonbase::Models::Meeting
 
@@ -224,6 +242,8 @@ module Moonbase
   Note = Moonbase::Models::Note
 
   NoteCreateParams = Moonbase::Models::NoteCreateParams
+
+  NoteDeleteParams = Moonbase::Models::NoteDeleteParams
 
   NoteListParams = Moonbase::Models::NoteListParams
 

@@ -98,6 +98,27 @@ class Moonbase::Test::Resources::Collections::ItemsTest < Moonbase::Test::Resour
     end
   end
 
+  def test_search
+    response = @moonbase.collections.items.search("collection_id")
+
+    assert_pattern do
+      response => Moonbase::Internal::CursorPage
+    end
+
+    row = response.to_enum.first
+    return if row.nil?
+
+    assert_pattern do
+      row => Moonbase::Models::Collections::ItemSearchResponse
+    end
+
+    assert_pattern do
+      row => {
+        data: Moonbase::Item
+      }
+    end
+  end
+
   def test_upsert_required_params
     response =
       @moonbase.collections.items.upsert(

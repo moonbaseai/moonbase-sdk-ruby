@@ -101,4 +101,12 @@ class Moonbase::Test::Resources::NotesTest < Moonbase::Test::ResourceTest
       }
     end
   end
+
+  def test_delete
+    response = @moonbase.notes.delete("id")
+
+    assert_pattern do
+      response => nil
+    end
+  end
 end

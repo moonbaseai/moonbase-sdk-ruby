@@ -1,0 +1,15 @@
+module Moonbase
+  module Models
+    type items_filter_value_exists = { field: String, op: :exists }
+
+    class ItemsFilterValueExists < Moonbase::Internal::Type::BaseModel
+      attr_accessor field: String
+
+      attr_accessor op: :exists
+
+      def initialize: (field: String, ?op: :exists) -> void
+
+      def to_hash: -> { field: String, op: :exists }
+    end
+  end
+end

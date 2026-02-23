@@ -1,0 +1,16 @@
+module Moonbase
+  module Models
+    type items_filter =
+      Moonbase::ItemsFilterValueMatches
+      | Moonbase::ItemsFilterValueExists
+      | Moonbase::ItemsFilterAndGroup
+      | Moonbase::ItemsFilterOrGroup
+      | Moonbase::ItemsFilterNotGroup
+
+    module ItemsFilter
+      extend Moonbase::Internal::Type::Union
+
+      def self?.variants: -> ::Array[Moonbase::Models::items_filter]
+    end
+  end
+end

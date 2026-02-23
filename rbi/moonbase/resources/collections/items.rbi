@@ -176,7 +176,9 @@ module Moonbase
             collection_id: String,
             after: String,
             before: String,
+            include: T::Array[String],
             limit: Integer,
+            sort: T::Array[String],
             request_options: Moonbase::RequestOptions::OrHash
           ).returns(Moonbase::Internal::CursorPage[Moonbase::Item])
         end
@@ -191,9 +193,14 @@ module Moonbase
           # by this cursor. Use the cursor value from the response's metadata to fetch the
           # previous page of results.
           before: nil,
+          # Include only specific fields in the returned items. Specify fields by id or key.
+          include: nil,
           # Maximum number of items to return per page. Must be between 1 and 100. Defaults
           # to 20 if not specified.
           limit: nil,
+          # Sort items by the specified field ids or keys. Prefix a field with a
+          # hyphen/minus (`-`) to sort in descending order by that field.
+          sort: nil,
           request_options: {}
         )
         end
@@ -210,6 +217,57 @@ module Moonbase
           # The ID of the Item to delete.
           id,
           collection_id:,
+          request_options: {}
+        )
+        end
+
+        # Returns a list of items in the collection that match the given filters.
+        sig do
+          params(
+            collection_id: String,
+            after: String,
+            before: String,
+            limit: Integer,
+            filter:
+              T.any(
+                Moonbase::ItemsFilterValueMatches::OrHash,
+                Moonbase::ItemsFilterValueExists::OrHash,
+                Moonbase::ItemsFilterAndGroup,
+                Moonbase::ItemsFilterOrGroup,
+                Moonbase::ItemsFilterNotGroup
+              ),
+            include: T::Array[String],
+            sort: T::Array[String],
+            request_options: Moonbase::RequestOptions::OrHash
+          ).returns(
+            Moonbase::Internal::CursorPage[
+              Moonbase::Models::Collections::ItemSearchResponse
+            ]
+          )
+        end
+        def search(
+          # Path param
+          collection_id,
+          # Query param: When specified, returns results starting immediately after the item
+          # identified by this cursor. Use the cursor value from the previous response's
+          # metadata to fetch the next page of results.
+          after: nil,
+          # Query param: When specified, returns results starting immediately before the
+          # item identified by this cursor. Use the cursor value from the response's
+          # metadata to fetch the previous page of results.
+          before: nil,
+          # Query param: Maximum number of items to return per page. Must be between 1
+          # and 100. Defaults to 20 if not specified.
+          limit: nil,
+          # Body param: Return only items that match the filter conditions. Complex filters
+          # can be created by nesting filters inside of `AND`, `OR`, and `NOT` filters.
+          filter: nil,
+          # Body param: Include only specific fields in the returned items. Specify fields
+          # by id or key.
+          include: nil,
+          # Body param: Sort items by the specified field ids or keys. Prefix a field with a
+          # hyphen/minus (`-`) to sort in descending order by that field.
+          sort: nil,
           request_options: {}
         )
         end

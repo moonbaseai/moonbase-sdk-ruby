@@ -76,13 +76,35 @@ module Moonbase
       #   @return [Time, nil]
       optional :end_at, Time
 
+      # @!attribute note
+      #   The Note object represents a block of text content, often used for meeting notes
+      #   or summaries.
+      #
+      #   @return [Moonbase::Models::Note, nil]
+      optional :note, -> { Moonbase::Note }
+
       # @!attribute provider_metadata
       #   A hash of additional metadata from the provider.
       #
       #   @return [Hash{Symbol=>Object}, nil]
       optional :provider_metadata, Moonbase::Internal::Type::HashOf[Moonbase::Internal::Type::Unknown]
 
-      # @!method initialize(id:, created_at:, direction:, participants:, provider:, provider_id:, provider_status:, start_at:, updated_at:, answered_at: nil, end_at: nil, provider_metadata: nil, type: :call)
+      # @!attribute summary
+      #   The Note object represents a block of text content, often used for meeting notes
+      #   or summaries.
+      #
+      #   @return [Moonbase::Models::Note, nil]
+      optional :summary, -> { Moonbase::Note }
+
+      # @!attribute transcript
+      #
+      #   @return [Moonbase::Models::Call::Transcript, nil]
+      optional :transcript, -> { Moonbase::Call::Transcript }, nil?: true
+
+      # @!method initialize(id:, created_at:, direction:, participants:, provider:, provider_id:, provider_status:, start_at:, updated_at:, answered_at: nil, end_at: nil, note: nil, provider_metadata: nil, summary: nil, transcript: nil, type: :call)
+      #   Some parameter documentations has been truncated, see {Moonbase::Models::Call}
+      #   for more details.
+      #
       #   The Call object represents a phone call that has been logged in the system. It
       #   contains details about the participants, timing, and outcome of the call.
       #
@@ -108,7 +130,13 @@ module Moonbase
       #
       #   @param end_at [Time] The time the call ended, if available, as an ISO 8601 timestamp in UTC.
       #
+      #   @param note [Moonbase::Models::Note] The Note object represents a block of text content, often used for meeting notes
+      #
       #   @param provider_metadata [Hash{Symbol=>Object}] A hash of additional metadata from the provider.
+      #
+      #   @param summary [Moonbase::Models::Note] The Note object represents a block of text content, often used for meeting notes
+      #
+      #   @param transcript [Moonbase::Models::Call::Transcript, nil]
       #
       #   @param type [Symbol, :call] String representing the object’s type. Always `call` for this object.
 
@@ -193,6 +221,62 @@ module Moonbase
 
           # @!method self.values
           #   @return [Array<Symbol>]
+        end
+      end
+
+      # @see Moonbase::Models::Call#transcript
+      class Transcript < Moonbase::Internal::Type::BaseModel
+        # @!attribute cues
+        #
+        #   @return [Array<Moonbase::Models::Call::Transcript::Cue>]
+        required :cues, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::Call::Transcript::Cue] }
+
+        # @!method initialize(cues:)
+        #   @param cues [Array<Moonbase::Models::Call::Transcript::Cue>]
+
+        class Cue < Moonbase::Internal::Type::BaseModel
+          # @!attribute from
+          #
+          #   @return [Float]
+          required :from, Float
+
+          # @!attribute speaker
+          #
+          #   @return [Moonbase::Models::Call::Transcript::Cue::Speaker]
+          required :speaker, -> { Moonbase::Call::Transcript::Cue::Speaker }
+
+          # @!attribute text
+          #
+          #   @return [String]
+          required :text, String
+
+          # @!attribute to
+          #
+          #   @return [Float]
+          required :to, Float
+
+          # @!method initialize(from:, speaker:, text:, to:)
+          #   @param from [Float]
+          #   @param speaker [Moonbase::Models::Call::Transcript::Cue::Speaker]
+          #   @param text [String]
+          #   @param to [Float]
+
+          # @see Moonbase::Models::Call::Transcript::Cue#speaker
+          class Speaker < Moonbase::Internal::Type::BaseModel
+            # @!attribute attendee_id
+            #
+            #   @return [String, nil]
+            optional :attendee_id, String
+
+            # @!attribute label
+            #
+            #   @return [String, nil]
+            optional :label, String
+
+            # @!method initialize(attendee_id: nil, label: nil)
+            #   @param attendee_id [String]
+            #   @param label [String]
+          end
         end
       end
     end

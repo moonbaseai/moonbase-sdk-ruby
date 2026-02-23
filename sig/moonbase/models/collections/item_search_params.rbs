@@ -1,0 +1,67 @@
+module Moonbase
+  module Models
+    module Collections
+      type item_search_params =
+        {
+          after: String,
+          before: String,
+          limit: Integer,
+          filter: Moonbase::Models::items_filter,
+          include: ::Array[String],
+          sort: ::Array[String]
+        }
+        & Moonbase::Internal::Type::request_parameters
+
+      class ItemSearchParams < Moonbase::Internal::Type::BaseModel
+        extend Moonbase::Internal::Type::RequestParameters::Converter
+        include Moonbase::Internal::Type::RequestParameters
+
+        attr_reader after: String?
+
+        def after=: (String) -> String
+
+        attr_reader before: String?
+
+        def before=: (String) -> String
+
+        attr_reader limit: Integer?
+
+        def limit=: (Integer) -> Integer
+
+        attr_reader filter: Moonbase::Models::items_filter?
+
+        def filter=: (
+          Moonbase::Models::items_filter
+        ) -> Moonbase::Models::items_filter
+
+        attr_reader include: ::Array[String]?
+
+        def include=: (::Array[String]) -> ::Array[String]
+
+        attr_reader sort: ::Array[String]?
+
+        def sort=: (::Array[String]) -> ::Array[String]
+
+        def initialize: (
+          ?after: String,
+          ?before: String,
+          ?limit: Integer,
+          ?filter: Moonbase::Models::items_filter,
+          ?include: ::Array[String],
+          ?sort: ::Array[String],
+          ?request_options: Moonbase::request_opts
+        ) -> void
+
+        def to_hash: -> {
+          after: String,
+          before: String,
+          limit: Integer,
+          filter: Moonbase::Models::items_filter,
+          include: ::Array[String],
+          sort: ::Array[String],
+          request_options: Moonbase::RequestOptions
+        }
+      end
+    end
+  end
+end

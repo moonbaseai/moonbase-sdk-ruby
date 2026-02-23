@@ -1,0 +1,19 @@
+module Moonbase
+  module Models
+    type items_filter_not_group =
+      { filter: Moonbase::Models::items_filter, op: :not }
+
+    class ItemsFilterNotGroup < Moonbase::Internal::Type::BaseModel
+      attr_accessor filter: Moonbase::Models::items_filter
+
+      attr_accessor op: :not
+
+      def initialize: (
+        filter: Moonbase::Models::items_filter,
+        ?op: :not
+      ) -> void
+
+      def to_hash: -> { filter: Moonbase::Models::items_filter, op: :not }
+    end
+  end
+end

@@ -1,0 +1,23 @@
+module Moonbase
+  module Models
+    type client_search_params =
+      { query: String } & Moonbase::Internal::Type::request_parameters
+
+    class ClientSearchParams < Moonbase::Internal::Type::BaseModel
+      extend Moonbase::Internal::Type::RequestParameters::Converter
+      include Moonbase::Internal::Type::RequestParameters
+
+      attr_accessor query: String
+
+      def initialize: (
+        query: String,
+        ?request_options: Moonbase::request_opts
+      ) -> void
+
+      def to_hash: -> {
+        query: String,
+        request_options: Moonbase::RequestOptions
+      }
+    end
+  end
+end
