@@ -14,7 +14,10 @@ module Moonbase
         updated_at: Time,
         answered_at: Time,
         end_at: Time,
-        provider_metadata: ::Hash[Symbol, top]
+        note: Moonbase::Note,
+        provider_metadata: ::Hash[Symbol, top],
+        summary: Moonbase::Note,
+        transcript: Moonbase::Call::Transcript?
       }
 
     class Call < Moonbase::Internal::Type::BaseModel
@@ -46,9 +49,19 @@ module Moonbase
 
       def end_at=: (Time) -> Time
 
+      attr_reader note: Moonbase::Note?
+
+      def note=: (Moonbase::Note) -> Moonbase::Note
+
       attr_reader provider_metadata: ::Hash[Symbol, top]?
 
       def provider_metadata=: (::Hash[Symbol, top]) -> ::Hash[Symbol, top]
+
+      attr_reader summary: Moonbase::Note?
+
+      def summary=: (Moonbase::Note) -> Moonbase::Note
+
+      attr_accessor transcript: Moonbase::Call::Transcript?
 
       def initialize: (
         id: String,
@@ -62,7 +75,10 @@ module Moonbase
         updated_at: Time,
         ?answered_at: Time,
         ?end_at: Time,
+        ?note: Moonbase::Note,
         ?provider_metadata: ::Hash[Symbol, top],
+        ?summary: Moonbase::Note,
+        ?transcript: Moonbase::Call::Transcript?,
         ?type: :call
       ) -> void
 
@@ -79,7 +95,10 @@ module Moonbase
         updated_at: Time,
         answered_at: Time,
         end_at: Time,
-        provider_metadata: ::Hash[Symbol, top]
+        note: Moonbase::Note,
+        provider_metadata: ::Hash[Symbol, top],
+        summary: Moonbase::Note,
+        transcript: Moonbase::Call::Transcript?
       }
 
       type direction = :incoming | :outgoing
@@ -148,6 +167,64 @@ module Moonbase
           OTHER: :other
 
           def self?.values: -> ::Array[Moonbase::Models::Call::Participant::role]
+        end
+      end
+
+      type transcript = { cues: ::Array[Moonbase::Call::Transcript::Cue] }
+
+      class Transcript < Moonbase::Internal::Type::BaseModel
+        attr_accessor cues: ::Array[Moonbase::Call::Transcript::Cue]
+
+        def initialize: (cues: ::Array[Moonbase::Call::Transcript::Cue]) -> void
+
+        def to_hash: -> { cues: ::Array[Moonbase::Call::Transcript::Cue] }
+
+        type cue =
+          {
+            from: Float,
+            speaker: Moonbase::Call::Transcript::Cue::Speaker,
+            text: String,
+            to: Float
+          }
+
+        class Cue < Moonbase::Internal::Type::BaseModel
+          attr_accessor from: Float
+
+          attr_accessor speaker: Moonbase::Call::Transcript::Cue::Speaker
+
+          attr_accessor text: String
+
+          attr_accessor to: Float
+
+          def initialize: (
+            from: Float,
+            speaker: Moonbase::Call::Transcript::Cue::Speaker,
+            text: String,
+            to: Float
+          ) -> void
+
+          def to_hash: -> {
+            from: Float,
+            speaker: Moonbase::Call::Transcript::Cue::Speaker,
+            text: String,
+            to: Float
+          }
+
+          type speaker = { attendee_id: String, label: String }
+
+          class Speaker < Moonbase::Internal::Type::BaseModel
+            attr_reader attendee_id: String?
+
+            def attendee_id=: (String) -> String
+
+            attr_reader label: String?
+
+            def label=: (String) -> String
+
+            def initialize: (?attendee_id: String, ?label: String) -> void
+
+            def to_hash: -> { attendee_id: String, label: String }
+          end
         end
       end
     end

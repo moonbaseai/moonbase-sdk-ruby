@@ -60,12 +60,36 @@ module Moonbase
       sig { params(end_at: Time).void }
       attr_writer :end_at
 
+      # The Note object represents a block of text content, often used for meeting notes
+      # or summaries.
+      sig { returns(T.nilable(Moonbase::Note)) }
+      attr_reader :note
+
+      sig { params(note: Moonbase::Note::OrHash).void }
+      attr_writer :note
+
       # A hash of additional metadata from the provider.
       sig { returns(T.nilable(T::Hash[Symbol, T.anything])) }
       attr_reader :provider_metadata
 
       sig { params(provider_metadata: T::Hash[Symbol, T.anything]).void }
       attr_writer :provider_metadata
+
+      # The Note object represents a block of text content, often used for meeting notes
+      # or summaries.
+      sig { returns(T.nilable(Moonbase::Note)) }
+      attr_reader :summary
+
+      sig { params(summary: Moonbase::Note::OrHash).void }
+      attr_writer :summary
+
+      sig { returns(T.nilable(Moonbase::Call::Transcript)) }
+      attr_reader :transcript
+
+      sig do
+        params(transcript: T.nilable(Moonbase::Call::Transcript::OrHash)).void
+      end
+      attr_writer :transcript
 
       # The Call object represents a phone call that has been logged in the system. It
       # contains details about the participants, timing, and outcome of the call.
@@ -82,7 +106,10 @@ module Moonbase
           updated_at: Time,
           answered_at: Time,
           end_at: Time,
+          note: Moonbase::Note::OrHash,
           provider_metadata: T::Hash[Symbol, T.anything],
+          summary: Moonbase::Note::OrHash,
+          transcript: T.nilable(Moonbase::Call::Transcript::OrHash),
           type: Symbol
         ).returns(T.attached_class)
       end
@@ -109,8 +136,15 @@ module Moonbase
         answered_at: nil,
         # The time the call ended, if available, as an ISO 8601 timestamp in UTC.
         end_at: nil,
+        # The Note object represents a block of text content, often used for meeting notes
+        # or summaries.
+        note: nil,
         # A hash of additional metadata from the provider.
         provider_metadata: nil,
+        # The Note object represents a block of text content, often used for meeting notes
+        # or summaries.
+        summary: nil,
+        transcript: nil,
         # String representing the object’s type. Always `call` for this object.
         type: :call
       )
@@ -131,7 +165,10 @@ module Moonbase
             updated_at: Time,
             answered_at: Time,
             end_at: Time,
-            provider_metadata: T::Hash[Symbol, T.anything]
+            note: Moonbase::Note,
+            provider_metadata: T::Hash[Symbol, T.anything],
+            summary: Moonbase::Note,
+            transcript: T.nilable(Moonbase::Call::Transcript)
           }
         )
       end
@@ -255,6 +292,117 @@ module Moonbase
             )
           end
           def self.values
+          end
+        end
+      end
+
+      class Transcript < Moonbase::Internal::Type::BaseModel
+        OrHash =
+          T.type_alias do
+            T.any(Moonbase::Call::Transcript, Moonbase::Internal::AnyHash)
+          end
+
+        sig { returns(T::Array[Moonbase::Call::Transcript::Cue]) }
+        attr_accessor :cues
+
+        sig do
+          params(
+            cues: T::Array[Moonbase::Call::Transcript::Cue::OrHash]
+          ).returns(T.attached_class)
+        end
+        def self.new(cues:)
+        end
+
+        sig do
+          override.returns({ cues: T::Array[Moonbase::Call::Transcript::Cue] })
+        end
+        def to_hash
+        end
+
+        class Cue < Moonbase::Internal::Type::BaseModel
+          OrHash =
+            T.type_alias do
+              T.any(
+                Moonbase::Call::Transcript::Cue,
+                Moonbase::Internal::AnyHash
+              )
+            end
+
+          sig { returns(Float) }
+          attr_accessor :from
+
+          sig { returns(Moonbase::Call::Transcript::Cue::Speaker) }
+          attr_reader :speaker
+
+          sig do
+            params(
+              speaker: Moonbase::Call::Transcript::Cue::Speaker::OrHash
+            ).void
+          end
+          attr_writer :speaker
+
+          sig { returns(String) }
+          attr_accessor :text
+
+          sig { returns(Float) }
+          attr_accessor :to
+
+          sig do
+            params(
+              from: Float,
+              speaker: Moonbase::Call::Transcript::Cue::Speaker::OrHash,
+              text: String,
+              to: Float
+            ).returns(T.attached_class)
+          end
+          def self.new(from:, speaker:, text:, to:)
+          end
+
+          sig do
+            override.returns(
+              {
+                from: Float,
+                speaker: Moonbase::Call::Transcript::Cue::Speaker,
+                text: String,
+                to: Float
+              }
+            )
+          end
+          def to_hash
+          end
+
+          class Speaker < Moonbase::Internal::Type::BaseModel
+            OrHash =
+              T.type_alias do
+                T.any(
+                  Moonbase::Call::Transcript::Cue::Speaker,
+                  Moonbase::Internal::AnyHash
+                )
+              end
+
+            sig { returns(T.nilable(String)) }
+            attr_reader :attendee_id
+
+            sig { params(attendee_id: String).void }
+            attr_writer :attendee_id
+
+            sig { returns(T.nilable(String)) }
+            attr_reader :label
+
+            sig { params(label: String).void }
+            attr_writer :label
+
+            sig do
+              params(attendee_id: String, label: String).returns(
+                T.attached_class
+              )
+            end
+            def self.new(attendee_id: nil, label: nil)
+            end
+
+            sig { override.returns({ attendee_id: String, label: String }) }
+            def to_hash
+            end
           end
         end
       end

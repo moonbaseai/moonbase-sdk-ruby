@@ -26,6 +26,8 @@ module Moonbase
         ?request_options: Moonbase::request_opts
       ) -> Moonbase::Internal::CursorPage[Moonbase::Note]
 
+      def delete: (String id, ?request_options: Moonbase::request_opts) -> nil
+
       def initialize: (client: Moonbase::Client) -> void
     end
   end

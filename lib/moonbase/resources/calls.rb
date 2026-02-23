@@ -39,6 +39,63 @@ module Moonbase
         @client.request(method: :post, path: "calls", body: parsed, model: Moonbase::Call, options: options)
       end
 
+      # Some parameter documentations has been truncated, see
+      # {Moonbase::Models::CallRetrieveParams} for more details.
+      #
+      # Retrieves the details of an existing call.
+      #
+      # @overload retrieve(id, include: nil, request_options: {})
+      #
+      # @param id [String] The ID of the call to retrieve.
+      #
+      # @param include [Array<Symbol, Moonbase::Models::CallRetrieveParams::Include>] Specifies which related objects to include in the response. Valid options are `t
+      #
+      # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
+      #
+      # @return [Moonbase::Models::Call]
+      #
+      # @see Moonbase::Models::CallRetrieveParams
+      def retrieve(id, params = {})
+        parsed, options = Moonbase::CallRetrieveParams.dump_request(params)
+        @client.request(
+          method: :get,
+          path: ["calls/%1$s", id],
+          query: parsed,
+          model: Moonbase::Call,
+          options: options
+        )
+      end
+
+      # Some parameter documentations has been truncated, see
+      # {Moonbase::Models::CallListParams} for more details.
+      #
+      # Returns a list of calls.
+      #
+      # @overload list(after: nil, before: nil, limit: nil, request_options: {})
+      #
+      # @param after [String] When specified, returns results starting immediately after the item identified b
+      #
+      # @param before [String] When specified, returns results starting immediately before the item identified
+      #
+      # @param limit [Integer] Maximum number of items to return per page. Must be between 1 and 100. Defaults
+      #
+      # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
+      #
+      # @return [Moonbase::Internal::CursorPage<Moonbase::Models::Call>]
+      #
+      # @see Moonbase::Models::CallListParams
+      def list(params = {})
+        parsed, options = Moonbase::CallListParams.dump_request(params)
+        @client.request(
+          method: :get,
+          path: "calls",
+          query: parsed,
+          page: Moonbase::Internal::CursorPage,
+          model: Moonbase::Call,
+          options: options
+        )
+      end
+
       # Find and update an existing phone call, or create a new one.
       #
       # @overload upsert(direction:, participants:, provider:, provider_id:, provider_status:, start_at:, answered_at: nil, end_at: nil, provider_metadata: nil, recordings: nil, transcript: nil, request_options: {})

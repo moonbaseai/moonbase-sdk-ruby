@@ -16,6 +16,19 @@ module Moonbase
         ?request_options: Moonbase::request_opts
       ) -> Moonbase::Call
 
+      def retrieve: (
+        String id,
+        ?include: ::Array[Moonbase::Models::CallRetrieveParams::include_],
+        ?request_options: Moonbase::request_opts
+      ) -> Moonbase::Call
+
+      def list: (
+        ?after: String,
+        ?before: String,
+        ?limit: Integer,
+        ?request_options: Moonbase::request_opts
+      ) -> Moonbase::Internal::CursorPage[Moonbase::Call]
+
       def upsert: (
         direction: Moonbase::Models::CallUpsertParams::direction,
         participants: ::Array[Moonbase::CallUpsertParams::Participant],

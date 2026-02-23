@@ -54,6 +54,14 @@ class Moonbase::Test::Resources::FilesTest < Moonbase::Test::ResourceTest
     end
   end
 
+  def test_delete
+    response = @moonbase.files.delete("id")
+
+    assert_pattern do
+      response => nil
+    end
+  end
+
   def test_upload_required_params
     response = @moonbase.files.upload(file: Pathname(__FILE__))
 

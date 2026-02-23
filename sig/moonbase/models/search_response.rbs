@@ -1,0 +1,32 @@
+module Moonbase
+  module Models
+    type search_response =
+      { data: ::Array[Moonbase::Models::SearchResponse::Data], type: :list }
+
+    class SearchResponse < Moonbase::Internal::Type::BaseModel
+      attr_accessor data: ::Array[Moonbase::Models::SearchResponse::Data]
+
+      attr_accessor type: :list
+
+      def initialize: (
+        data: ::Array[Moonbase::Models::SearchResponse::Data],
+        ?type: :list
+      ) -> void
+
+      def to_hash: -> {
+        data: ::Array[Moonbase::Models::SearchResponse::Data],
+        type: :list
+      }
+
+      type data = { data: Moonbase::Item }
+
+      class Data < Moonbase::Internal::Type::BaseModel
+        attr_accessor data: Moonbase::Item
+
+        def initialize: (data: Moonbase::Item) -> void
+
+        def to_hash: -> { data: Moonbase::Item }
+      end
+    end
+  end
+end

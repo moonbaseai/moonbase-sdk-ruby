@@ -27,7 +27,9 @@ module Moonbase
           String collection_id,
           ?after: String,
           ?before: String,
+          ?include: ::Array[String],
           ?limit: Integer,
+          ?sort: ::Array[String],
           ?request_options: Moonbase::request_opts
         ) -> Moonbase::Internal::CursorPage[Moonbase::Item]
 
@@ -36,6 +38,17 @@ module Moonbase
           collection_id: String,
           ?request_options: Moonbase::request_opts
         ) -> nil
+
+        def search: (
+          String collection_id,
+          ?after: String,
+          ?before: String,
+          ?limit: Integer,
+          ?filter: Moonbase::Models::items_filter,
+          ?include: ::Array[String],
+          ?sort: ::Array[String],
+          ?request_options: Moonbase::request_opts
+        ) -> Moonbase::Internal::CursorPage[Moonbase::Models::Collections::ItemSearchResponse]
 
         def upsert: (
           String collection_id,

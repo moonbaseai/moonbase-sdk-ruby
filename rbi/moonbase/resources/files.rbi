@@ -42,6 +42,20 @@ module Moonbase
       )
       end
 
+      # Permanently deletes a file.
+      sig do
+        params(
+          id: String,
+          request_options: Moonbase::RequestOptions::OrHash
+        ).void
+      end
+      def delete(
+        # The ID of the file to delete.
+        id,
+        request_options: {}
+      )
+      end
+
       # Upload a file
       sig do
         params(

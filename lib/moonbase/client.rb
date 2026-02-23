@@ -25,9 +25,6 @@ module Moonbase
     # @return [Moonbase::Resources::Collections]
     attr_reader :collections
 
-    # @return [Moonbase::Resources::Items]
-    attr_reader :items
-
     # @return [Moonbase::Resources::Views]
     attr_reader :views
 
@@ -75,6 +72,25 @@ module Moonbase
 
     # @return [Moonbase::Resources::AgentSettings]
     attr_reader :agent_settings
+
+    # @overload search(query:, request_options: {})
+    #
+    # @param query [String]
+    # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
+    #
+    # @return [Moonbase::Models::SearchResponse]
+    #
+    # @see Moonbase::Models::ClientSearchParams
+    def search(params)
+      parsed, options = Moonbase::ClientSearchParams.dump_request(params)
+      request(
+        method: :post,
+        path: "search",
+        query: parsed,
+        model: Moonbase::Models::SearchResponse,
+        options: options
+      )
+    end
 
     # @api private
     #
@@ -125,7 +141,6 @@ module Moonbase
 
       @funnels = Moonbase::Resources::Funnels.new(client: self)
       @collections = Moonbase::Resources::Collections.new(client: self)
-      @items = Moonbase::Resources::Items.new(client: self)
       @views = Moonbase::Resources::Views.new(client: self)
       @inboxes = Moonbase::Resources::Inboxes.new(client: self)
       @inbox_conversations = Moonbase::Resources::InboxConversations.new(client: self)
