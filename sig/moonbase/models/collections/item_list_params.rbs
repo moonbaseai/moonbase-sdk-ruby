@@ -2,7 +2,13 @@ module Moonbase
   module Models
     module Collections
       type item_list_params =
-        { after: String, before: String, limit: Integer }
+        {
+          after: String,
+          before: String,
+          include: ::Array[String],
+          limit: Integer,
+          sort: ::Array[String]
+        }
         & Moonbase::Internal::Type::request_parameters
 
       class ItemListParams < Moonbase::Internal::Type::BaseModel
@@ -17,21 +23,33 @@ module Moonbase
 
         def before=: (String) -> String
 
+        attr_reader include: ::Array[String]?
+
+        def include=: (::Array[String]) -> ::Array[String]
+
         attr_reader limit: Integer?
 
         def limit=: (Integer) -> Integer
 
+        attr_reader sort: ::Array[String]?
+
+        def sort=: (::Array[String]) -> ::Array[String]
+
         def initialize: (
           ?after: String,
           ?before: String,
+          ?include: ::Array[String],
           ?limit: Integer,
+          ?sort: ::Array[String],
           ?request_options: Moonbase::request_opts
         ) -> void
 
         def to_hash: -> {
           after: String,
           before: String,
+          include: ::Array[String],
           limit: Integer,
+          sort: ::Array[String],
           request_options: Moonbase::RequestOptions
         }
       end

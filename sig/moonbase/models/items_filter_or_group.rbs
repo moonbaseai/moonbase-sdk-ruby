@@ -1,0 +1,22 @@
+module Moonbase
+  module Models
+    type items_filter_or_group =
+      { filters: ::Array[Moonbase::Models::items_filter], op: :or }
+
+    class ItemsFilterOrGroup < Moonbase::Internal::Type::BaseModel
+      attr_accessor filters: ::Array[Moonbase::Models::items_filter]
+
+      attr_accessor op: :or
+
+      def initialize: (
+        filters: ::Array[Moonbase::Models::items_filter],
+        ?op: :or
+      ) -> void
+
+      def to_hash: -> {
+        filters: ::Array[Moonbase::Models::items_filter],
+        op: :or
+      }
+    end
+  end
+end

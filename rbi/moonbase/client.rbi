@@ -20,9 +20,6 @@ module Moonbase
     sig { returns(Moonbase::Resources::Collections) }
     attr_reader :collections
 
-    sig { returns(Moonbase::Resources::Items) }
-    attr_reader :items
-
     sig { returns(Moonbase::Resources::Views) }
     attr_reader :views
 
@@ -70,6 +67,15 @@ module Moonbase
 
     sig { returns(Moonbase::Resources::AgentSettings) }
     attr_reader :agent_settings
+
+    sig do
+      params(
+        query: String,
+        request_options: Moonbase::RequestOptions::OrHash
+      ).returns(Moonbase::Models::SearchResponse)
+    end
+    def search(query:, request_options: {})
+    end
 
     # @api private
     sig { override.returns(T::Hash[String, String]) }

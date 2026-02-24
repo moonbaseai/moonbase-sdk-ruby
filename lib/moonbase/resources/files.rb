@@ -53,6 +53,26 @@ module Moonbase
         )
       end
 
+      # Permanently deletes a file.
+      #
+      # @overload delete(id, request_options: {})
+      #
+      # @param id [String] The ID of the file to delete.
+      #
+      # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
+      #
+      # @return [nil]
+      #
+      # @see Moonbase::Models::FileDeleteParams
+      def delete(id, params = {})
+        @client.request(
+          method: :delete,
+          path: ["files/%1$s", id],
+          model: NilClass,
+          options: params[:request_options]
+        )
+      end
+
       # Some parameter documentations has been truncated, see
       # {Moonbase::Models::FileUploadParams} for more details.
       #

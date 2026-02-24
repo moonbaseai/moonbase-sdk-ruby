@@ -24,6 +24,12 @@ module Moonbase
         #   @return [String, nil]
         optional :before, String
 
+        # @!attribute include
+        #   Include only specific fields in the returned items. Specify fields by id or key.
+        #
+        #   @return [Array<String>, nil]
+        optional :include, Moonbase::Internal::Type::ArrayOf[String]
+
         # @!attribute limit
         #   Maximum number of items to return per page. Must be between 1 and 100. Defaults
         #   to 20 if not specified.
@@ -31,7 +37,14 @@ module Moonbase
         #   @return [Integer, nil]
         optional :limit, Integer
 
-        # @!method initialize(after: nil, before: nil, limit: nil, request_options: {})
+        # @!attribute sort
+        #   Sort items by the specified field ids or keys. Prefix a field with a
+        #   hyphen/minus (`-`) to sort in descending order by that field.
+        #
+        #   @return [Array<String>, nil]
+        optional :sort, Moonbase::Internal::Type::ArrayOf[String]
+
+        # @!method initialize(after: nil, before: nil, include: nil, limit: nil, sort: nil, request_options: {})
         #   Some parameter documentations has been truncated, see
         #   {Moonbase::Models::Collections::ItemListParams} for more details.
         #
@@ -39,7 +52,11 @@ module Moonbase
         #
         #   @param before [String] When specified, returns results starting immediately before the item identified
         #
+        #   @param include [Array<String>] Include only specific fields in the returned items. Specify fields by id or key.
+        #
         #   @param limit [Integer] Maximum number of items to return per page. Must be between 1 and 100. Defaults
+        #
+        #   @param sort [Array<String>] Sort items by the specified field ids or keys. Prefix a field with a hyphen/minu
         #
         #   @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}]
       end

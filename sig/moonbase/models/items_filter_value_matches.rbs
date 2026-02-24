@@ -1,0 +1,67 @@
+module Moonbase
+  module Models
+    type items_filter_value_matches =
+      {
+        field: String,
+        op: Moonbase::Models::ItemsFilterValueMatches::op,
+        value: Moonbase::Models::ItemsFilterValueMatches::value
+      }
+
+    class ItemsFilterValueMatches < Moonbase::Internal::Type::BaseModel
+      attr_accessor field: String
+
+      attr_accessor op: Moonbase::Models::ItemsFilterValueMatches::op
+
+      attr_accessor value: Moonbase::Models::ItemsFilterValueMatches::value
+
+      def initialize: (
+        field: String,
+        op: Moonbase::Models::ItemsFilterValueMatches::op,
+        value: Moonbase::Models::ItemsFilterValueMatches::value
+      ) -> void
+
+      def to_hash: -> {
+        field: String,
+        op: Moonbase::Models::ItemsFilterValueMatches::op,
+        value: Moonbase::Models::ItemsFilterValueMatches::value
+      }
+
+      type op =
+        :starts_with
+        | :ends_with
+        | :contains
+        | :not_contains
+        | :eq
+        | :not_eq
+        | :gt
+        | :lt
+        | :gte
+        | :lte
+
+      module Op
+        extend Moonbase::Internal::Type::Enum
+
+        STARTS_WITH: :starts_with
+        ENDS_WITH: :ends_with
+        CONTAINS: :contains
+        NOT_CONTAINS: :not_contains
+        EQ: :eq
+        NOT_EQ: :not_eq
+        GT: :gt
+        LT: :lt
+        GTE: :gte
+        LTE: :lte
+
+        def self?.values: -> ::Array[Moonbase::Models::ItemsFilterValueMatches::op]
+      end
+
+      type value = String | Float | bool
+
+      module Value
+        extend Moonbase::Internal::Type::Union
+
+        def self?.variants: -> ::Array[Moonbase::Models::ItemsFilterValueMatches::value]
+      end
+    end
+  end
+end

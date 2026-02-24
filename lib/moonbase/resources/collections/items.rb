@@ -100,7 +100,7 @@ module Moonbase
         #
         # Returns a list of items that are part of the collection.
         #
-        # @overload list(collection_id, after: nil, before: nil, limit: nil, request_options: {})
+        # @overload list(collection_id, after: nil, before: nil, include: nil, limit: nil, sort: nil, request_options: {})
         #
         # @param collection_id [String] The ID of the collection.
         #
@@ -108,7 +108,11 @@ module Moonbase
         #
         # @param before [String] When specified, returns results starting immediately before the item identified
         #
+        # @param include [Array<String>] Include only specific fields in the returned items. Specify fields by id or key.
+        #
         # @param limit [Integer] Maximum number of items to return per page. Must be between 1 and 100. Defaults
+        #
+        # @param sort [Array<String>] Sort items by the specified field ids or keys. Prefix a field with a hyphen/minu
         #
         # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
         #
@@ -150,6 +154,46 @@ module Moonbase
             method: :delete,
             path: ["collections/%1$s/items/%2$s", collection_id, id],
             model: NilClass,
+            options: options
+          )
+        end
+
+        # Some parameter documentations has been truncated, see
+        # {Moonbase::Models::Collections::ItemSearchParams} for more details.
+        #
+        # Returns a list of items in the collection that match the given filters.
+        #
+        # @overload search(collection_id, after: nil, before: nil, limit: nil, filter: nil, include: nil, sort: nil, request_options: {})
+        #
+        # @param collection_id [String] Path param
+        #
+        # @param after [String] Query param: When specified, returns results starting immediately after the item
+        #
+        # @param before [String] Query param: When specified, returns results starting immediately before the ite
+        #
+        # @param limit [Integer] Query param: Maximum number of items to return per page. Must be between 1 and 1
+        #
+        # @param filter [Moonbase::Models::ItemsFilterValueMatches, Moonbase::Models::ItemsFilterValueExists, Moonbase::Models::ItemsFilterAndGroup, Moonbase::Models::ItemsFilterOrGroup, Moonbase::Models::ItemsFilterNotGroup] Body param: Return only items that match the filter conditions. Complex filters
+        #
+        # @param include [Array<String>] Body param: Include only specific fields in the returned items. Specify fields b
+        #
+        # @param sort [Array<String>] Body param: Sort items by the specified field ids or keys. Prefix a field with a
+        #
+        # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
+        #
+        # @return [Moonbase::Internal::CursorPage<Moonbase::Models::Collections::ItemSearchResponse>]
+        #
+        # @see Moonbase::Models::Collections::ItemSearchParams
+        def search(collection_id, params = {})
+          parsed, options = Moonbase::Collections::ItemSearchParams.dump_request(params)
+          query_params = [:after, :before, :limit]
+          @client.request(
+            method: :post,
+            path: ["collections/%1$s/items/search", collection_id],
+            query: parsed.slice(*query_params),
+            body: parsed.except(*query_params),
+            page: Moonbase::Internal::CursorPage,
+            model: Moonbase::Models::Collections::ItemSearchResponse,
             options: options
           )
         end

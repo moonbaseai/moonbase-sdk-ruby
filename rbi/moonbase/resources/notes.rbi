@@ -80,6 +80,20 @@ module Moonbase
       )
       end
 
+      # Permanently deletes a note.
+      sig do
+        params(
+          id: String,
+          request_options: Moonbase::RequestOptions::OrHash
+        ).void
+      end
+      def delete(
+        # The ID of the note to delete.
+        id,
+        request_options: {}
+      )
+      end
+
       # @api private
       sig { params(client: Moonbase::Client).returns(T.attached_class) }
       def self.new(client:)

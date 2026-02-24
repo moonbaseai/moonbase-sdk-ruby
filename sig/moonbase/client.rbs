@@ -14,8 +14,6 @@ module Moonbase
 
     attr_reader collections: Moonbase::Resources::Collections
 
-    attr_reader items: Moonbase::Resources::Items
-
     attr_reader views: Moonbase::Resources::Views
 
     attr_reader inboxes: Moonbase::Resources::Inboxes
@@ -47,6 +45,11 @@ module Moonbase
     attr_reader webhook_endpoints: Moonbase::Resources::WebhookEndpoints
 
     attr_reader agent_settings: Moonbase::Resources::AgentSettings
+
+    def search: (
+      query: String,
+      ?request_options: Moonbase::request_opts
+    ) -> Moonbase::Models::SearchResponse
 
     private def auth_headers: -> ::Hash[String, String]
 

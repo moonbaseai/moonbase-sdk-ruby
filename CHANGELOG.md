@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.1.0-alpha.8 (2026-02-23)
+
+Full Changelog: [v0.1.0-alpha.7...v0.1.0-alpha.8](https://github.com/moonbaseai/moonbase-sdk-ruby/compare/v0.1.0-alpha.7...v0.1.0-alpha.8)
+
+### Features
+
+* **api:** add search resource, move items.search to collections.items, add include/sort params ([d99456c](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/d99456c265311a9c11e88f73ed405a8b34570eb9))
+
+
+### Chores
+
+* update mock server docs ([cefe0f8](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/cefe0f8a2f94b567596d621d8f993d15b3c8a6dd))
+
 ## 0.1.0-alpha.7 (2026-02-09)
 
 Full Changelog: [v0.1.0-alpha.6...v0.1.0-alpha.7](https://github.com/moonbaseai/moonbase-sdk-ruby/compare/v0.1.0-alpha.6...v0.1.0-alpha.7)
