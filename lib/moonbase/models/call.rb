@@ -31,8 +31,8 @@ module Moonbase
       # @!attribute provider
       #   The name of the phone provider that handled the call.
       #
-      #   @return [String]
-      required :provider, String
+      #   @return [Symbol, Moonbase::Models::Call::Provider]
+      required :provider, enum: -> { Moonbase::Call::Provider }
 
       # @!attribute provider_id
       #   The unique identifier for the call from the provider's system.
@@ -116,7 +116,7 @@ module Moonbase
       #
       #   @param participants [Array<Moonbase::Models::Call::Participant>] The participants involved in the call.
       #
-      #   @param provider [String] The name of the phone provider that handled the call.
+      #   @param provider [Symbol, Moonbase::Models::Call::Provider] The name of the phone provider that handled the call.
       #
       #   @param provider_id [String] The unique identifier for the call from the provider's system.
       #
@@ -222,6 +222,20 @@ module Moonbase
           # @!method self.values
           #   @return [Array<Symbol>]
         end
+      end
+
+      # The name of the phone provider that handled the call.
+      #
+      # @see Moonbase::Models::Call#provider
+      module Provider
+        extend Moonbase::Internal::Type::Enum
+
+        OPENPHONE = :openphone
+        USER = :user
+        ZOOM_PHONE = :zoom_phone
+
+        # @!method self.values
+        #   @return [Array<Symbol>]
       end
 
       # @see Moonbase::Models::Call#transcript

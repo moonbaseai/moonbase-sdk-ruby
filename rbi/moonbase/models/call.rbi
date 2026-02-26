@@ -23,7 +23,7 @@ module Moonbase
       attr_accessor :participants
 
       # The name of the phone provider that handled the call.
-      sig { returns(String) }
+      sig { returns(Moonbase::Call::Provider::TaggedSymbol) }
       attr_accessor :provider
 
       # The unique identifier for the call from the provider's system.
@@ -99,7 +99,7 @@ module Moonbase
           created_at: Time,
           direction: Moonbase::Call::Direction::OrSymbol,
           participants: T::Array[Moonbase::Call::Participant::OrHash],
-          provider: String,
+          provider: Moonbase::Call::Provider::OrSymbol,
           provider_id: String,
           provider_status: String,
           start_at: Time,
@@ -157,7 +157,7 @@ module Moonbase
             created_at: Time,
             direction: Moonbase::Call::Direction::TaggedSymbol,
             participants: T::Array[Moonbase::Call::Participant],
-            provider: String,
+            provider: Moonbase::Call::Provider::TaggedSymbol,
             provider_id: String,
             provider_status: String,
             start_at: Time,
@@ -293,6 +293,24 @@ module Moonbase
           end
           def self.values
           end
+        end
+      end
+
+      # The name of the phone provider that handled the call.
+      module Provider
+        extend Moonbase::Internal::Type::Enum
+
+        TaggedSymbol = T.type_alias { T.all(Symbol, Moonbase::Call::Provider) }
+        OrSymbol = T.type_alias { T.any(Symbol, String) }
+
+        OPENPHONE = T.let(:openphone, Moonbase::Call::Provider::TaggedSymbol)
+        USER = T.let(:user, Moonbase::Call::Provider::TaggedSymbol)
+        ZOOM_PHONE = T.let(:zoom_phone, Moonbase::Call::Provider::TaggedSymbol)
+
+        sig do
+          override.returns(T::Array[Moonbase::Call::Provider::TaggedSymbol])
+        end
+        def self.values
         end
       end
 

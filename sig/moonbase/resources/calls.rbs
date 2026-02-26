@@ -4,7 +4,7 @@ module Moonbase
       def create: (
         direction: Moonbase::Models::CallCreateParams::direction,
         participants: ::Array[Moonbase::CallCreateParams::Participant],
-        provider: String,
+        provider: Moonbase::Models::CallCreateParams::provider,
         provider_id: String,
         provider_status: String,
         start_at: Time,
@@ -32,7 +32,7 @@ module Moonbase
       def upsert: (
         direction: Moonbase::Models::CallUpsertParams::direction,
         participants: ::Array[Moonbase::CallUpsertParams::Participant],
-        provider: String,
+        provider: Moonbase::Models::CallUpsertParams::provider,
         provider_id: String,
         provider_status: String,
         start_at: Time,

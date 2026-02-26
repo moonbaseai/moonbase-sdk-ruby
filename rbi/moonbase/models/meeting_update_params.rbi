@@ -70,7 +70,11 @@ module Moonbase
 
         # The content type of the recording. Note that only `video/mp4` is supported at
         # this time.
-        sig { returns(String) }
+        sig do
+          returns(
+            Moonbase::MeetingUpdateParams::Recording::ContentType::OrSymbol
+          )
+        end
         attr_accessor :content_type
 
         # The unique identifier for the recording from the provider's system.
@@ -84,7 +88,8 @@ module Moonbase
         # A video recording of the meeting.
         sig do
           params(
-            content_type: String,
+            content_type:
+              Moonbase::MeetingUpdateParams::Recording::ContentType::OrSymbol,
             provider_id: String,
             url: String
           ).returns(T.attached_class)
@@ -102,10 +107,46 @@ module Moonbase
 
         sig do
           override.returns(
-            { content_type: String, provider_id: String, url: String }
+            {
+              content_type:
+                Moonbase::MeetingUpdateParams::Recording::ContentType::OrSymbol,
+              provider_id: String,
+              url: String
+            }
           )
         end
         def to_hash
+        end
+
+        # The content type of the recording. Note that only `video/mp4` is supported at
+        # this time.
+        module ContentType
+          extend Moonbase::Internal::Type::Enum
+
+          TaggedSymbol =
+            T.type_alias do
+              T.all(
+                Symbol,
+                Moonbase::MeetingUpdateParams::Recording::ContentType
+              )
+            end
+          OrSymbol = T.type_alias { T.any(Symbol, String) }
+
+          VIDEO_MP4 =
+            T.let(
+              :"video/mp4",
+              Moonbase::MeetingUpdateParams::Recording::ContentType::TaggedSymbol
+            )
+
+          sig do
+            override.returns(
+              T::Array[
+                Moonbase::MeetingUpdateParams::Recording::ContentType::TaggedSymbol
+              ]
+            )
+          end
+          def self.values
+          end
         end
       end
 

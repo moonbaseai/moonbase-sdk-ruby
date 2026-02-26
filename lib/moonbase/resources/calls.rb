@@ -11,7 +11,7 @@ module Moonbase
       #
       # @param participants [Array<Moonbase::Models::CallCreateParams::Participant>] An array of participants involved in the call.
       #
-      # @param provider [String] The name of the phone provider that handled the call (e.g., `openphone`).
+      # @param provider [Symbol, Moonbase::Models::CallCreateParams::Provider] The name of the phone provider that handled the call (e.g., `openphone`).
       #
       # @param provider_id [String] The unique identifier for the call from the provider's system.
       #
@@ -104,7 +104,7 @@ module Moonbase
       #
       # @param participants [Array<Moonbase::Models::CallUpsertParams::Participant>] An array of participants involved in the call.
       #
-      # @param provider [String] The name of the phone provider that handled the call (e.g., `openphone`).
+      # @param provider [Symbol, Moonbase::Models::CallUpsertParams::Provider] The name of the phone provider that handled the call (e.g., `openphone`).
       #
       # @param provider_id [String] The unique identifier for the call from the provider's system.
       #

@@ -31,8 +31,8 @@ module Moonbase
         #   The content type of the recording. Note that only `video/mp4` is supported at
         #   this time.
         #
-        #   @return [String]
-        required :content_type, String
+        #   @return [Symbol, Moonbase::Models::MeetingUpdateParams::Recording::ContentType]
+        required :content_type, enum: -> { Moonbase::MeetingUpdateParams::Recording::ContentType }
 
         # @!attribute provider_id
         #   The unique identifier for the recording from the provider's system.
@@ -52,11 +52,24 @@ module Moonbase
         #
         #   A video recording of the meeting.
         #
-        #   @param content_type [String] The content type of the recording. Note that only `video/mp4` is supported at th
+        #   @param content_type [Symbol, Moonbase::Models::MeetingUpdateParams::Recording::ContentType] The content type of the recording. Note that only `video/mp4` is supported at th
         #
         #   @param provider_id [String] The unique identifier for the recording from the provider's system.
         #
         #   @param url [String] The URL pointing to the recording.
+
+        # The content type of the recording. Note that only `video/mp4` is supported at
+        # this time.
+        #
+        # @see Moonbase::Models::MeetingUpdateParams::Recording#content_type
+        module ContentType
+          extend Moonbase::Internal::Type::Enum
+
+          VIDEO_MP4 = :"video/mp4"
+
+          # @!method self.values
+          #   @return [Array<Symbol>]
+        end
       end
 
       class Transcript < Moonbase::Internal::Type::BaseModel
