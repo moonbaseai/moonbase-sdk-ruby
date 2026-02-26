@@ -9,7 +9,7 @@ module Moonbase
           direction: Moonbase::CallCreateParams::Direction::OrSymbol,
           participants:
             T::Array[Moonbase::CallCreateParams::Participant::OrHash],
-          provider: String,
+          provider: Moonbase::CallCreateParams::Provider::OrSymbol,
           provider_id: String,
           provider_status: String,
           start_at: Time,
@@ -97,7 +97,7 @@ module Moonbase
           direction: Moonbase::CallUpsertParams::Direction::OrSymbol,
           participants:
             T::Array[Moonbase::CallUpsertParams::Participant::OrHash],
-          provider: String,
+          provider: Moonbase::CallUpsertParams::Provider::OrSymbol,
           provider_id: String,
           provider_status: String,
           start_at: Time,

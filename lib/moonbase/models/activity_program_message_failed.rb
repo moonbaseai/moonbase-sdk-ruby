@@ -37,8 +37,8 @@ module Moonbase
       # @!attribute reason_code
       #   A code indicating the reason for the failure (e.g., `message_contained_virus`).
       #
-      #   @return [String, nil]
-      optional :reason_code, String
+      #   @return [Symbol, Moonbase::Models::ActivityProgramMessageFailed::ReasonCode, nil]
+      optional :reason_code, enum: -> { Moonbase::ActivityProgramMessageFailed::ReasonCode }
 
       # @!method initialize(id:, occurred_at:, program_message:, recipient:, reason_code: nil, type: :"activity/program_message_failed")
       #   Some parameter documentations has been truncated, see
@@ -55,9 +55,23 @@ module Moonbase
       #
       #   @param recipient [Moonbase::Models::ItemPointer, nil] A reference to an `Item` within a specific `Collection`, providing the context n
       #
-      #   @param reason_code [String] A code indicating the reason for the failure (e.g., `message_contained_virus`).
+      #   @param reason_code [Symbol, Moonbase::Models::ActivityProgramMessageFailed::ReasonCode] A code indicating the reason for the failure (e.g., `message_contained_virus`).
       #
       #   @param type [Symbol, :"activity/program_message_failed"] The type of activity. Always `activity/program_message_failed`.
+
+      # A code indicating the reason for the failure (e.g., `message_contained_virus`).
+      #
+      # @see Moonbase::Models::ActivityProgramMessageFailed#reason_code
+      module ReasonCode
+        extend Moonbase::Internal::Type::Enum
+
+        LIQUID_ERROR = :liquid_error
+        PERSON_MISSING_EMAIL = :person_missing_email
+        MESSAGE_CONTAINED_VIRUS = :message_contained_virus
+
+        # @!method self.values
+        #   @return [Array<Symbol>]
+      end
     end
   end
 end

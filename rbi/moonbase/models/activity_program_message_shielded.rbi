@@ -40,10 +40,21 @@ module Moonbase
 
       # A code indicating why the message was shielded (e.g.,
       # `person_previously_unsubscribed`).
-      sig { returns(T.nilable(String)) }
+      sig do
+        returns(
+          T.nilable(
+            Moonbase::ActivityProgramMessageShielded::ReasonCode::TaggedSymbol
+          )
+        )
+      end
       attr_reader :reason_code
 
-      sig { params(reason_code: String).void }
+      sig do
+        params(
+          reason_code:
+            Moonbase::ActivityProgramMessageShielded::ReasonCode::OrSymbol
+        ).void
+      end
       attr_writer :reason_code
 
       # Represents an event that occurs when a `ProgramMessage` is prevented from being
@@ -54,7 +65,8 @@ module Moonbase
           occurred_at: Time,
           program_message: T.nilable(Moonbase::Pointer::OrHash),
           recipient: T.nilable(Moonbase::ItemPointer::OrHash),
-          reason_code: String,
+          reason_code:
+            Moonbase::ActivityProgramMessageShielded::ReasonCode::OrSymbol,
           type: Symbol
         ).returns(T.attached_class)
       end
@@ -84,11 +96,45 @@ module Moonbase
             program_message: T.nilable(Moonbase::Pointer),
             recipient: T.nilable(Moonbase::ItemPointer),
             type: Symbol,
-            reason_code: String
+            reason_code:
+              Moonbase::ActivityProgramMessageShielded::ReasonCode::TaggedSymbol
           }
         )
       end
       def to_hash
+      end
+
+      # A code indicating why the message was shielded (e.g.,
+      # `person_previously_unsubscribed`).
+      module ReasonCode
+        extend Moonbase::Internal::Type::Enum
+
+        TaggedSymbol =
+          T.type_alias do
+            T.all(Symbol, Moonbase::ActivityProgramMessageShielded::ReasonCode)
+          end
+        OrSymbol = T.type_alias { T.any(Symbol, String) }
+
+        PERSON_PREVIOUSLY_UNSUBSCRIBED =
+          T.let(
+            :person_previously_unsubscribed,
+            Moonbase::ActivityProgramMessageShielded::ReasonCode::TaggedSymbol
+          )
+        EMAIL_ON_UNSUBSCRIBE_LIST =
+          T.let(
+            :email_on_unsubscribe_list,
+            Moonbase::ActivityProgramMessageShielded::ReasonCode::TaggedSymbol
+          )
+
+        sig do
+          override.returns(
+            T::Array[
+              Moonbase::ActivityProgramMessageShielded::ReasonCode::TaggedSymbol
+            ]
+          )
+        end
+        def self.values
+        end
       end
     end
   end

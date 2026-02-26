@@ -6,7 +6,7 @@ module Moonbase
         created_at: Time,
         direction: Moonbase::Models::Call::direction,
         participants: ::Array[Moonbase::Call::Participant],
-        provider: String,
+        provider: Moonbase::Models::Call::provider,
         provider_id: String,
         provider_status: String,
         start_at: Time,
@@ -29,7 +29,7 @@ module Moonbase
 
       attr_accessor participants: ::Array[Moonbase::Call::Participant]
 
-      attr_accessor provider: String
+      attr_accessor provider: Moonbase::Models::Call::provider
 
       attr_accessor provider_id: String
 
@@ -68,7 +68,7 @@ module Moonbase
         created_at: Time,
         direction: Moonbase::Models::Call::direction,
         participants: ::Array[Moonbase::Call::Participant],
-        provider: String,
+        provider: Moonbase::Models::Call::provider,
         provider_id: String,
         provider_status: String,
         start_at: Time,
@@ -87,7 +87,7 @@ module Moonbase
         created_at: Time,
         direction: Moonbase::Models::Call::direction,
         participants: ::Array[Moonbase::Call::Participant],
-        provider: String,
+        provider: Moonbase::Models::Call::provider,
         provider_id: String,
         provider_status: String,
         start_at: Time,
@@ -168,6 +168,18 @@ module Moonbase
 
           def self?.values: -> ::Array[Moonbase::Models::Call::Participant::role]
         end
+      end
+
+      type provider = :openphone | :user | :zoom_phone
+
+      module Provider
+        extend Moonbase::Internal::Type::Enum
+
+        OPENPHONE: :openphone
+        USER: :user
+        ZOOM_PHONE: :zoom_phone
+
+        def self?.values: -> ::Array[Moonbase::Models::Call::provider]
       end
 
       type transcript = { cues: ::Array[Moonbase::Call::Transcript::Cue] }

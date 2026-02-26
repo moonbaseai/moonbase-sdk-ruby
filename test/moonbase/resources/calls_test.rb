@@ -8,7 +8,7 @@ class Moonbase::Test::Resources::CallsTest < Moonbase::Test::ResourceTest
       @moonbase.calls.create(
         direction: :incoming,
         participants: [{phone: "+14155551212", role: :caller}, {phone: "+16505551212", role: :callee}],
-        provider: "openphone",
+        provider: :openphone,
         provider_id: "openphone_id_000000000002",
         provider_status: "completed",
         start_at: "2025-02-17T15:00:00.000Z"
@@ -24,7 +24,7 @@ class Moonbase::Test::Resources::CallsTest < Moonbase::Test::ResourceTest
         created_at: Time,
         direction: Moonbase::Call::Direction,
         participants: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Call::Participant]),
-        provider: String,
+        provider: Moonbase::Call::Provider,
         provider_id: String,
         provider_status: String,
         start_at: Time,
@@ -53,7 +53,7 @@ class Moonbase::Test::Resources::CallsTest < Moonbase::Test::ResourceTest
         created_at: Time,
         direction: Moonbase::Call::Direction,
         participants: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Call::Participant]),
-        provider: String,
+        provider: Moonbase::Call::Provider,
         provider_id: String,
         provider_status: String,
         start_at: Time,
@@ -89,7 +89,7 @@ class Moonbase::Test::Resources::CallsTest < Moonbase::Test::ResourceTest
         created_at: Time,
         direction: Moonbase::Call::Direction,
         participants: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Call::Participant]),
-        provider: String,
+        provider: Moonbase::Call::Provider,
         provider_id: String,
         provider_status: String,
         start_at: Time,
@@ -110,7 +110,7 @@ class Moonbase::Test::Resources::CallsTest < Moonbase::Test::ResourceTest
       @moonbase.calls.upsert(
         direction: :incoming,
         participants: [{phone: "+14155551212", role: :caller}, {phone: "+16505551212", role: :callee}],
-        provider: "openphone",
+        provider: :openphone,
         provider_id: "openphone_id_000000000009",
         provider_status: "completed",
         start_at: "2025-02-17T15:00:00.000Z"
@@ -126,7 +126,7 @@ class Moonbase::Test::Resources::CallsTest < Moonbase::Test::ResourceTest
         created_at: Time,
         direction: Moonbase::Call::Direction,
         participants: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Call::Participant]),
-        provider: String,
+        provider: Moonbase::Call::Provider,
         provider_id: String,
         provider_status: String,
         start_at: Time,

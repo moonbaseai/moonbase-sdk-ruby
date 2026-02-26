@@ -103,7 +103,7 @@ class Moonbase::Test::Resources::ActivitiesTest < Moonbase::Test::ResourceTest
         occurred_at: Time,
         program_message: Moonbase::Pointer | nil,
         recipient: Moonbase::ItemPointer | nil,
-        reason_code: String | nil
+        reason_code: Moonbase::ActivityProgramMessageFailed::ReasonCode | nil
       }
       in {
         type: :"activity/program_message_opened",
@@ -126,7 +126,7 @@ class Moonbase::Test::Resources::ActivitiesTest < Moonbase::Test::ResourceTest
         occurred_at: Time,
         program_message: Moonbase::Pointer | nil,
         recipient: Moonbase::ItemPointer | nil,
-        reason_code: String | nil
+        reason_code: Moonbase::ActivityProgramMessageShielded::ReasonCode | nil
       }
       in {
         type: :"activity/program_message_unsubscribed",
@@ -247,7 +247,7 @@ class Moonbase::Test::Resources::ActivitiesTest < Moonbase::Test::ResourceTest
         occurred_at: Time,
         program_message: Moonbase::Pointer | nil,
         recipient: Moonbase::ItemPointer | nil,
-        reason_code: String | nil
+        reason_code: Moonbase::ActivityProgramMessageFailed::ReasonCode | nil
       }
       in {
         type: :"activity/program_message_opened",
@@ -270,7 +270,7 @@ class Moonbase::Test::Resources::ActivitiesTest < Moonbase::Test::ResourceTest
         occurred_at: Time,
         program_message: Moonbase::Pointer | nil,
         recipient: Moonbase::ItemPointer | nil,
-        reason_code: String | nil
+        reason_code: Moonbase::ActivityProgramMessageShielded::ReasonCode | nil
       }
       in {
         type: :"activity/program_message_unsubscribed",

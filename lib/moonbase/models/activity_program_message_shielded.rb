@@ -38,8 +38,8 @@ module Moonbase
       #   A code indicating why the message was shielded (e.g.,
       #   `person_previously_unsubscribed`).
       #
-      #   @return [String, nil]
-      optional :reason_code, String
+      #   @return [Symbol, Moonbase::Models::ActivityProgramMessageShielded::ReasonCode, nil]
+      optional :reason_code, enum: -> { Moonbase::ActivityProgramMessageShielded::ReasonCode }
 
       # @!method initialize(id:, occurred_at:, program_message:, recipient:, reason_code: nil, type: :"activity/program_message_shielded")
       #   Some parameter documentations has been truncated, see
@@ -56,9 +56,23 @@ module Moonbase
       #
       #   @param recipient [Moonbase::Models::ItemPointer, nil] A reference to an `Item` within a specific `Collection`, providing the context n
       #
-      #   @param reason_code [String] A code indicating why the message was shielded (e.g., `person_previously_unsubsc
+      #   @param reason_code [Symbol, Moonbase::Models::ActivityProgramMessageShielded::ReasonCode] A code indicating why the message was shielded (e.g., `person_previously_unsubsc
       #
       #   @param type [Symbol, :"activity/program_message_shielded"] The type of activity. Always `activity/program_message_shielded`.
+
+      # A code indicating why the message was shielded (e.g.,
+      # `person_previously_unsubscribed`).
+      #
+      # @see Moonbase::Models::ActivityProgramMessageShielded#reason_code
+      module ReasonCode
+        extend Moonbase::Internal::Type::Enum
+
+        PERSON_PREVIOUSLY_UNSUBSCRIBED = :person_previously_unsubscribed
+        EMAIL_ON_UNSUBSCRIBE_LIST = :email_on_unsubscribe_list
+
+        # @!method self.values
+        #   @return [Array<Symbol>]
+      end
     end
   end
 end
