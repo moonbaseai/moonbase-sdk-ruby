@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.1.0-alpha.9 (2026-02-26)
+
+Full Changelog: [v0.1.0-alpha.8...v0.1.0-alpha.9](https://github.com/moonbaseai/moonbase-sdk-ruby/compare/v0.1.0-alpha.8...v0.1.0-alpha.9)
+
+### Bug Fixes
+
+* **types:** convert reason_code/provider/content_type to enums in activities/calls ([3953bb3](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/3953bb32c892812f60b747f6041ab3314ee6f7eb))
+
+
+### Chores
+
+* **api:** update SDK settings ([3a80b66](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/3a80b66e27518c1dd25e949a457cda4ce175e953))
+* update SDK settings ([1675001](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/16750010bbd3d04a64170460c779fcea09d4e0b2))
+
 ## 0.1.0-alpha.8 (2026-02-23)
 
 Full Changelog: [v0.1.0-alpha.7...v0.1.0-alpha.8](https://github.com/moonbaseai/moonbase-sdk-ruby/compare/v0.1.0-alpha.7...v0.1.0-alpha.8)
