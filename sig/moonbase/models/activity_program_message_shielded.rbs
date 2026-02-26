@@ -7,7 +7,7 @@ module Moonbase
         program_message: Moonbase::Pointer?,
         recipient: Moonbase::ItemPointer?,
         type: :"activity/program_message_shielded",
-        reason_code: String
+        reason_code: Moonbase::Models::ActivityProgramMessageShielded::reason_code
       }
 
     class ActivityProgramMessageShielded < Moonbase::Internal::Type::BaseModel
@@ -21,16 +21,18 @@ module Moonbase
 
       attr_accessor type: :"activity/program_message_shielded"
 
-      attr_reader reason_code: String?
+      attr_reader reason_code: Moonbase::Models::ActivityProgramMessageShielded::reason_code?
 
-      def reason_code=: (String) -> String
+      def reason_code=: (
+        Moonbase::Models::ActivityProgramMessageShielded::reason_code
+      ) -> Moonbase::Models::ActivityProgramMessageShielded::reason_code
 
       def initialize: (
         id: String,
         occurred_at: Time,
         program_message: Moonbase::Pointer?,
         recipient: Moonbase::ItemPointer?,
-        ?reason_code: String,
+        ?reason_code: Moonbase::Models::ActivityProgramMessageShielded::reason_code,
         ?type: :"activity/program_message_shielded"
       ) -> void
 
@@ -40,8 +42,20 @@ module Moonbase
         program_message: Moonbase::Pointer?,
         recipient: Moonbase::ItemPointer?,
         type: :"activity/program_message_shielded",
-        reason_code: String
+        reason_code: Moonbase::Models::ActivityProgramMessageShielded::reason_code
       }
+
+      type reason_code =
+        :person_previously_unsubscribed | :email_on_unsubscribe_list
+
+      module ReasonCode
+        extend Moonbase::Internal::Type::Enum
+
+        PERSON_PREVIOUSLY_UNSUBSCRIBED: :person_previously_unsubscribed
+        EMAIL_ON_UNSUBSCRIBE_LIST: :email_on_unsubscribe_list
+
+        def self?.values: -> ::Array[Moonbase::Models::ActivityProgramMessageShielded::reason_code]
+      end
     end
   end
 end

@@ -20,7 +20,7 @@ module Moonbase
       attr_accessor :participants
 
       # The name of the phone provider that handled the call (e.g., `openphone`).
-      sig { returns(String) }
+      sig { returns(Moonbase::CallUpsertParams::Provider::OrSymbol) }
       attr_accessor :provider
 
       # The unique identifier for the call from the provider's system.
@@ -83,7 +83,7 @@ module Moonbase
           direction: Moonbase::CallUpsertParams::Direction::OrSymbol,
           participants:
             T::Array[Moonbase::CallUpsertParams::Participant::OrHash],
-          provider: String,
+          provider: Moonbase::CallUpsertParams::Provider::OrSymbol,
           provider_id: String,
           provider_status: String,
           start_at: Time,
@@ -127,7 +127,7 @@ module Moonbase
           {
             direction: Moonbase::CallUpsertParams::Direction::OrSymbol,
             participants: T::Array[Moonbase::CallUpsertParams::Participant],
-            provider: String,
+            provider: Moonbase::CallUpsertParams::Provider::OrSymbol,
             provider_id: String,
             provider_status: String,
             start_at: Time,
@@ -246,6 +246,29 @@ module Moonbase
         end
       end
 
+      # The name of the phone provider that handled the call (e.g., `openphone`).
+      module Provider
+        extend Moonbase::Internal::Type::Enum
+
+        TaggedSymbol =
+          T.type_alias { T.all(Symbol, Moonbase::CallUpsertParams::Provider) }
+        OrSymbol = T.type_alias { T.any(Symbol, String) }
+
+        OPENPHONE =
+          T.let(:openphone, Moonbase::CallUpsertParams::Provider::TaggedSymbol)
+        USER = T.let(:user, Moonbase::CallUpsertParams::Provider::TaggedSymbol)
+        ZOOM_PHONE =
+          T.let(:zoom_phone, Moonbase::CallUpsertParams::Provider::TaggedSymbol)
+
+        sig do
+          override.returns(
+            T::Array[Moonbase::CallUpsertParams::Provider::TaggedSymbol]
+          )
+        end
+        def self.values
+        end
+      end
+
       class Recording < Moonbase::Internal::Type::BaseModel
         OrHash =
           T.type_alias do
@@ -257,7 +280,9 @@ module Moonbase
 
         # The content type of the recording. Note that only `audio/mpeg` is supported at
         # this time.
-        sig { returns(String) }
+        sig do
+          returns(Moonbase::CallUpsertParams::Recording::ContentType::OrSymbol)
+        end
         attr_accessor :content_type
 
         # The unique identifier for the recording from the provider's system.
@@ -271,7 +296,8 @@ module Moonbase
         # Parameters for creating a `CallRecording` object.
         sig do
           params(
-            content_type: String,
+            content_type:
+              Moonbase::CallUpsertParams::Recording::ContentType::OrSymbol,
             provider_id: String,
             url: String
           ).returns(T.attached_class)
@@ -289,10 +315,43 @@ module Moonbase
 
         sig do
           override.returns(
-            { content_type: String, provider_id: String, url: String }
+            {
+              content_type:
+                Moonbase::CallUpsertParams::Recording::ContentType::OrSymbol,
+              provider_id: String,
+              url: String
+            }
           )
         end
         def to_hash
+        end
+
+        # The content type of the recording. Note that only `audio/mpeg` is supported at
+        # this time.
+        module ContentType
+          extend Moonbase::Internal::Type::Enum
+
+          TaggedSymbol =
+            T.type_alias do
+              T.all(Symbol, Moonbase::CallUpsertParams::Recording::ContentType)
+            end
+          OrSymbol = T.type_alias { T.any(Symbol, String) }
+
+          AUDIO_MPEG =
+            T.let(
+              :"audio/mpeg",
+              Moonbase::CallUpsertParams::Recording::ContentType::TaggedSymbol
+            )
+
+          sig do
+            override.returns(
+              T::Array[
+                Moonbase::CallUpsertParams::Recording::ContentType::TaggedSymbol
+              ]
+            )
+          end
+          def self.values
+          end
         end
       end
 

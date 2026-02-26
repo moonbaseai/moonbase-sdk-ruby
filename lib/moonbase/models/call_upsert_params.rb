@@ -22,8 +22,8 @@ module Moonbase
       # @!attribute provider
       #   The name of the phone provider that handled the call (e.g., `openphone`).
       #
-      #   @return [String]
-      required :provider, String
+      #   @return [Symbol, Moonbase::Models::CallUpsertParams::Provider]
+      required :provider, enum: -> { Moonbase::CallUpsertParams::Provider }
 
       # @!attribute provider_id
       #   The unique identifier for the call from the provider's system.
@@ -78,7 +78,7 @@ module Moonbase
       #
       #   @param participants [Array<Moonbase::Models::CallUpsertParams::Participant>] An array of participants involved in the call.
       #
-      #   @param provider [String] The name of the phone provider that handled the call (e.g., `openphone`).
+      #   @param provider [Symbol, Moonbase::Models::CallUpsertParams::Provider] The name of the phone provider that handled the call (e.g., `openphone`).
       #
       #   @param provider_id [String] The unique identifier for the call from the provider's system.
       #
@@ -144,13 +144,25 @@ module Moonbase
         end
       end
 
+      # The name of the phone provider that handled the call (e.g., `openphone`).
+      module Provider
+        extend Moonbase::Internal::Type::Enum
+
+        OPENPHONE = :openphone
+        USER = :user
+        ZOOM_PHONE = :zoom_phone
+
+        # @!method self.values
+        #   @return [Array<Symbol>]
+      end
+
       class Recording < Moonbase::Internal::Type::BaseModel
         # @!attribute content_type
         #   The content type of the recording. Note that only `audio/mpeg` is supported at
         #   this time.
         #
-        #   @return [String]
-        required :content_type, String
+        #   @return [Symbol, Moonbase::Models::CallUpsertParams::Recording::ContentType]
+        required :content_type, enum: -> { Moonbase::CallUpsertParams::Recording::ContentType }
 
         # @!attribute provider_id
         #   The unique identifier for the recording from the provider's system.
@@ -170,11 +182,24 @@ module Moonbase
         #
         #   Parameters for creating a `CallRecording` object.
         #
-        #   @param content_type [String] The content type of the recording. Note that only `audio/mpeg` is supported at t
+        #   @param content_type [Symbol, Moonbase::Models::CallUpsertParams::Recording::ContentType] The content type of the recording. Note that only `audio/mpeg` is supported at t
         #
         #   @param provider_id [String] The unique identifier for the recording from the provider's system.
         #
         #   @param url [String] The URL pointing to the recording.
+
+        # The content type of the recording. Note that only `audio/mpeg` is supported at
+        # this time.
+        #
+        # @see Moonbase::Models::CallUpsertParams::Recording#content_type
+        module ContentType
+          extend Moonbase::Internal::Type::Enum
+
+          AUDIO_MPEG = :"audio/mpeg"
+
+          # @!method self.values
+          #   @return [Array<Symbol>]
+        end
       end
 
       class Transcript < Moonbase::Internal::Type::BaseModel

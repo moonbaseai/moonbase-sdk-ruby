@@ -7,7 +7,7 @@ module Moonbase
         program_message: Moonbase::Pointer?,
         recipient: Moonbase::ItemPointer?,
         type: :"activity/program_message_failed",
-        reason_code: String
+        reason_code: Moonbase::Models::ActivityProgramMessageFailed::reason_code
       }
 
     class ActivityProgramMessageFailed < Moonbase::Internal::Type::BaseModel
@@ -21,16 +21,18 @@ module Moonbase
 
       attr_accessor type: :"activity/program_message_failed"
 
-      attr_reader reason_code: String?
+      attr_reader reason_code: Moonbase::Models::ActivityProgramMessageFailed::reason_code?
 
-      def reason_code=: (String) -> String
+      def reason_code=: (
+        Moonbase::Models::ActivityProgramMessageFailed::reason_code
+      ) -> Moonbase::Models::ActivityProgramMessageFailed::reason_code
 
       def initialize: (
         id: String,
         occurred_at: Time,
         program_message: Moonbase::Pointer?,
         recipient: Moonbase::ItemPointer?,
-        ?reason_code: String,
+        ?reason_code: Moonbase::Models::ActivityProgramMessageFailed::reason_code,
         ?type: :"activity/program_message_failed"
       ) -> void
 
@@ -40,8 +42,21 @@ module Moonbase
         program_message: Moonbase::Pointer?,
         recipient: Moonbase::ItemPointer?,
         type: :"activity/program_message_failed",
-        reason_code: String
+        reason_code: Moonbase::Models::ActivityProgramMessageFailed::reason_code
       }
+
+      type reason_code =
+        :liquid_error | :person_missing_email | :message_contained_virus
+
+      module ReasonCode
+        extend Moonbase::Internal::Type::Enum
+
+        LIQUID_ERROR: :liquid_error
+        PERSON_MISSING_EMAIL: :person_missing_email
+        MESSAGE_CONTAINED_VIRUS: :message_contained_virus
+
+        def self?.values: -> ::Array[Moonbase::Models::ActivityProgramMessageFailed::reason_code]
+      end
     end
   end
 end
