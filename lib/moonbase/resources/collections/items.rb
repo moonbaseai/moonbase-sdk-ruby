@@ -3,6 +3,7 @@
 module Moonbase
   module Resources
     class Collections
+      # Manage your collections and items
       class Items
         # Creates a new item in a collection.
         #

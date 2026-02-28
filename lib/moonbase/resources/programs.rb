@@ -2,6 +2,7 @@
 
 module Moonbase
   module Resources
+    # Manage your marketing campaigns and forms
     class Programs
       # Some parameter documentations has been truncated, see
       # {Moonbase::Models::ProgramRetrieveParams} for more details.

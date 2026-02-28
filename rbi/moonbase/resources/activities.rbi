@@ -2,6 +2,7 @@
 
 module Moonbase
   module Resources
+    # View activities and capture calls
     class Activities
       # Retrieves the details of an existing activity.
       sig do

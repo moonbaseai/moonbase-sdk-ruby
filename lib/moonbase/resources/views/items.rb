@@ -3,6 +3,7 @@
 module Moonbase
   module Resources
     class Views
+      # Manage your collections and items
       class Items
         # Some parameter documentations has been truncated, see
         # {Moonbase::Models::Views::ItemListParams} for more details.

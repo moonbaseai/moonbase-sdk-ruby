@@ -2,6 +2,7 @@
 
 module Moonbase
   module Resources
+    # Manage your meetings, files, and notes
     class Notes
       # Some parameter documentations has been truncated, see
       # {Moonbase::Models::NoteCreateParams} for more details.

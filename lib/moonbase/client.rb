@@ -22,48 +22,63 @@ module Moonbase
     # @return [Moonbase::Resources::Funnels]
     attr_reader :funnels
 
+    # Manage your collections and items
     # @return [Moonbase::Resources::Collections]
     attr_reader :collections
 
+    # Manage your collections and items
     # @return [Moonbase::Resources::Views]
     attr_reader :views
 
+    # Manage your inboxes, conversations, and messages
     # @return [Moonbase::Resources::Inboxes]
     attr_reader :inboxes
 
+    # Manage your inboxes, conversations, and messages
     # @return [Moonbase::Resources::InboxConversations]
     attr_reader :inbox_conversations
 
+    # Manage your inboxes, conversations, and messages
     # @return [Moonbase::Resources::InboxMessages]
     attr_reader :inbox_messages
 
+    # Manage your inboxes, conversations, and messages
     # @return [Moonbase::Resources::Tagsets]
     attr_reader :tagsets
 
+    # Manage your marketing campaigns and forms
     # @return [Moonbase::Resources::Programs]
     attr_reader :programs
 
+    # Manage your marketing campaigns and forms
     # @return [Moonbase::Resources::ProgramTemplates]
     attr_reader :program_templates
 
+    # Manage your marketing campaigns and forms
     # @return [Moonbase::Resources::ProgramMessages]
     attr_reader :program_messages
 
+    # Manage your marketing campaigns and forms
     # @return [Moonbase::Resources::Forms]
     attr_reader :forms
 
+    # View activities and capture calls
     # @return [Moonbase::Resources::Activities]
     attr_reader :activities
 
+    # View activities and capture calls
     # @return [Moonbase::Resources::Calls]
     attr_reader :calls
 
+    # Manage your meetings, files, and notes
     # @return [Moonbase::Resources::Files]
     attr_reader :files
 
+    # Manage your meetings, files, and notes
     # @return [Moonbase::Resources::Meetings]
     attr_reader :meetings
 
+    # Manage your meetings, files, and notes
     # @return [Moonbase::Resources::Notes]
     attr_reader :notes
 

@@ -2,6 +2,7 @@
 
 module Moonbase
   module Resources
+    # Manage your inboxes, conversations, and messages
     class InboxConversations
       # Some parameter documentations has been truncated, see
       # {Moonbase::Models::InboxConversationRetrieveParams} for more details.
