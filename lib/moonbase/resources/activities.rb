@@ -45,10 +45,11 @@ module Moonbase
       # @see Moonbase::Models::ActivityListParams
       def list(params = {})
         parsed, options = Moonbase::ActivityListParams.dump_request(params)
+        query = Moonbase::Internal::Util.encode_query_params(parsed)
         @client.request(
           method: :get,
           path: "activities",
-          query: parsed,
+          query: query,
           page: Moonbase::Internal::CursorPage,
           model: Moonbase::Activity,
           options: options

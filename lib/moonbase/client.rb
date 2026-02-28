@@ -83,10 +83,11 @@ module Moonbase
     # @see Moonbase::Models::ClientSearchParams
     def search(params)
       parsed, options = Moonbase::ClientSearchParams.dump_request(params)
+      query = Moonbase::Internal::Util.encode_query_params(parsed)
       request(
         method: :post,
         path: "search",
-        query: parsed,
+        query: query,
         model: Moonbase::Models::SearchResponse,
         options: options
       )

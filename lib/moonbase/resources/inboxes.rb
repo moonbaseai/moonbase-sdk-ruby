@@ -21,10 +21,11 @@ module Moonbase
       # @see Moonbase::Models::InboxRetrieveParams
       def retrieve(id, params = {})
         parsed, options = Moonbase::InboxRetrieveParams.dump_request(params)
+        query = Moonbase::Internal::Util.encode_query_params(parsed)
         @client.request(
           method: :get,
           path: ["inboxes/%1$s", id],
-          query: parsed,
+          query: query,
           model: Moonbase::Inbox,
           options: options
         )
@@ -52,10 +53,11 @@ module Moonbase
       # @see Moonbase::Models::InboxListParams
       def list(params = {})
         parsed, options = Moonbase::InboxListParams.dump_request(params)
+        query = Moonbase::Internal::Util.encode_query_params(parsed)
         @client.request(
           method: :get,
           path: "inboxes",
-          query: parsed,
+          query: query,
           page: Moonbase::Internal::CursorPage,
           model: Moonbase::Inbox,
           options: options
