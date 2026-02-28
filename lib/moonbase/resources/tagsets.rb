@@ -2,6 +2,7 @@
 
 module Moonbase
   module Resources
+    # Manage your inboxes, conversations, and messages
     class Tagsets
       # Retrieves the details of an existing tagset.
       #

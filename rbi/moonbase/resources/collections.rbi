@@ -2,10 +2,13 @@
 
 module Moonbase
   module Resources
+    # Manage your collections and items
     class Collections
+      # Manage your collections and items
       sig { returns(Moonbase::Resources::Collections::Fields) }
       attr_reader :fields
 
+      # Manage your collections and items
       sig { returns(Moonbase::Resources::Collections::Items) }
       attr_reader :items
 

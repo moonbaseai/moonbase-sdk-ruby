@@ -2,6 +2,7 @@
 
 module Moonbase
   module Resources
+    # Manage your marketing campaigns and forms
     class ProgramTemplates
       # Retrieves the details of an existing program template.
       sig do

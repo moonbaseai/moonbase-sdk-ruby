@@ -3,6 +3,7 @@
 module Moonbase
   module Resources
     class Collections
+      # Manage your collections and items
       class Fields
         # Retrieves the details of a field in a collection.
         sig do

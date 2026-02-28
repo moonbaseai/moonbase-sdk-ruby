@@ -2,6 +2,7 @@
 
 module Moonbase
   module Resources
+    # Manage your meetings, files, and notes
     class Notes
       # Create a new note.
       sig do

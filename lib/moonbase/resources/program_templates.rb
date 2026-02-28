@@ -2,6 +2,7 @@
 
 module Moonbase
   module Resources
+    # Manage your marketing campaigns and forms
     class ProgramTemplates
       # Some parameter documentations has been truncated, see
       # {Moonbase::Models::ProgramTemplateRetrieveParams} for more details.

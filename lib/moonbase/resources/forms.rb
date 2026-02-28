@@ -2,6 +2,7 @@
 
 module Moonbase
   module Resources
+    # Manage your marketing campaigns and forms
     class Forms
       # Retrieves the details of an existing form.
       #
