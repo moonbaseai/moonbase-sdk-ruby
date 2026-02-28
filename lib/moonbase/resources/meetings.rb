@@ -21,10 +21,11 @@ module Moonbase
       # @see Moonbase::Models::MeetingRetrieveParams
       def retrieve(id, params = {})
         parsed, options = Moonbase::MeetingRetrieveParams.dump_request(params)
+        query = Moonbase::Internal::Util.encode_query_params(parsed)
         @client.request(
           method: :get,
           path: ["meetings/%1$s", id],
-          query: parsed,
+          query: query,
           model: Moonbase::Meeting,
           options: options
         )
@@ -78,10 +79,11 @@ module Moonbase
       # @see Moonbase::Models::MeetingListParams
       def list(params = {})
         parsed, options = Moonbase::MeetingListParams.dump_request(params)
+        query = Moonbase::Internal::Util.encode_query_params(parsed)
         @client.request(
           method: :get,
           path: "meetings",
-          query: parsed,
+          query: query,
           page: Moonbase::Internal::CursorPage,
           model: Moonbase::Meeting,
           options: options

@@ -24,10 +24,11 @@ module Moonbase
       # @see Moonbase::Models::ViewRetrieveParams
       def retrieve(id, params = {})
         parsed, options = Moonbase::ViewRetrieveParams.dump_request(params)
+        query = Moonbase::Internal::Util.encode_query_params(parsed)
         @client.request(
           method: :get,
           path: ["views/%1$s", id],
-          query: parsed,
+          query: query,
           model: Moonbase::View,
           options: options
         )

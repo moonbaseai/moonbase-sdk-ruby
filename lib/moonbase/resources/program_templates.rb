@@ -21,10 +21,11 @@ module Moonbase
       # @see Moonbase::Models::ProgramTemplateRetrieveParams
       def retrieve(id, params = {})
         parsed, options = Moonbase::ProgramTemplateRetrieveParams.dump_request(params)
+        query = Moonbase::Internal::Util.encode_query_params(parsed)
         @client.request(
           method: :get,
           path: ["program_templates/%1$s", id],
-          query: parsed,
+          query: query,
           model: Moonbase::ProgramTemplate,
           options: options
         )
@@ -52,10 +53,11 @@ module Moonbase
       # @see Moonbase::Models::ProgramTemplateListParams
       def list(params = {})
         parsed, options = Moonbase::ProgramTemplateListParams.dump_request(params)
+        query = Moonbase::Internal::Util.encode_query_params(parsed)
         @client.request(
           method: :get,
           path: "program_templates",
-          query: parsed,
+          query: query,
           page: Moonbase::Internal::CursorPage,
           model: Moonbase::ProgramTemplate,
           options: options

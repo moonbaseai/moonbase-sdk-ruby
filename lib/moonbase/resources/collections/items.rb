@@ -121,10 +121,11 @@ module Moonbase
         # @see Moonbase::Models::Collections::ItemListParams
         def list(collection_id, params = {})
           parsed, options = Moonbase::Collections::ItemListParams.dump_request(params)
+          query = Moonbase::Internal::Util.encode_query_params(parsed)
           @client.request(
             method: :get,
             path: ["collections/%1$s/items", collection_id],
-            query: parsed,
+            query: query,
             page: Moonbase::Internal::CursorPage,
             model: Moonbase::Item,
             options: options
@@ -185,12 +186,13 @@ module Moonbase
         #
         # @see Moonbase::Models::Collections::ItemSearchParams
         def search(collection_id, params = {})
-          parsed, options = Moonbase::Collections::ItemSearchParams.dump_request(params)
           query_params = [:after, :before, :limit]
+          parsed, options = Moonbase::Collections::ItemSearchParams.dump_request(params)
+          query = Moonbase::Internal::Util.encode_query_params(parsed.slice(*query_params))
           @client.request(
             method: :post,
             path: ["collections/%1$s/items/search", collection_id],
-            query: parsed.slice(*query_params),
+            query: query,
             body: parsed.except(*query_params),
             page: Moonbase::Internal::CursorPage,
             model: Moonbase::Models::Collections::ItemSearchResponse,

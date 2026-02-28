@@ -43,10 +43,11 @@ module Moonbase
       # @see Moonbase::Models::TagsetListParams
       def list(params = {})
         parsed, options = Moonbase::TagsetListParams.dump_request(params)
+        query = Moonbase::Internal::Util.encode_query_params(parsed)
         @client.request(
           method: :get,
           path: "tagsets",
-          query: parsed,
+          query: query,
           page: Moonbase::Internal::CursorPage,
           model: Moonbase::Tagset,
           options: options

@@ -24,10 +24,11 @@ module Moonbase
       # @see Moonbase::Models::CollectionRetrieveParams
       def retrieve(id, params = {})
         parsed, options = Moonbase::CollectionRetrieveParams.dump_request(params)
+        query = Moonbase::Internal::Util.encode_query_params(parsed)
         @client.request(
           method: :get,
           path: ["collections/%1$s", id],
-          query: parsed,
+          query: query,
           model: Moonbase::Collection,
           options: options
         )
@@ -53,10 +54,11 @@ module Moonbase
       # @see Moonbase::Models::CollectionListParams
       def list(params = {})
         parsed, options = Moonbase::CollectionListParams.dump_request(params)
+        query = Moonbase::Internal::Util.encode_query_params(parsed)
         @client.request(
           method: :get,
           path: "collections",
-          query: parsed,
+          query: query,
           page: Moonbase::Internal::CursorPage,
           model: Moonbase::Collection,
           options: options
