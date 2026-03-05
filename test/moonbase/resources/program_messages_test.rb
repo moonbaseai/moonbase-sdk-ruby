@@ -6,7 +6,7 @@ class Moonbase::Test::Resources::ProgramMessagesTest < Moonbase::Test::ResourceT
   def test_send__required_params
     response =
       @moonbase.program_messages.send_(
-        person: {email: "person-71@example-71.com"},
+        person: {email: "person-130@example-130.com"},
         program_template_id: "1CLJt2v6ZuRbtwPhmQtzxa"
       )
 
