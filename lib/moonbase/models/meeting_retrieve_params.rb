@@ -7,6 +7,11 @@ module Moonbase
       extend Moonbase::Internal::Type::RequestParameters::Converter
       include Moonbase::Internal::Type::RequestParameters
 
+      # @!attribute id
+      #
+      #   @return [String]
+      required :id, String
+
       # @!attribute include
       #   Specifies which related objects to include in the response. Valid options are
       #   `organizer`, `attendees`, `transcript`, `note`, and `summary`.
@@ -15,9 +20,11 @@ module Moonbase
       optional :include,
                -> { Moonbase::Internal::Type::ArrayOf[enum: Moonbase::MeetingRetrieveParams::Include] }
 
-      # @!method initialize(include: nil, request_options: {})
+      # @!method initialize(id:, include: nil, request_options: {})
       #   Some parameter documentations has been truncated, see
       #   {Moonbase::Models::MeetingRetrieveParams} for more details.
+      #
+      #   @param id [String]
       #
       #   @param include [Array<Symbol, Moonbase::Models::MeetingRetrieveParams::Include>] Specifies which related objects to include in the response. Valid options are `o
       #

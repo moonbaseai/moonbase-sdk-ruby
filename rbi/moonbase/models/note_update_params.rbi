@@ -11,6 +11,9 @@ module Moonbase
           T.any(Moonbase::NoteUpdateParams, Moonbase::Internal::AnyHash)
         end
 
+      sig { returns(String) }
+      attr_accessor :id
+
       # The main content of the note.
       sig { returns(Moonbase::FormattedText) }
       attr_reader :body
@@ -24,12 +27,14 @@ module Moonbase
 
       sig do
         params(
+          id: String,
           body: Moonbase::FormattedText::OrHash,
           lock_version: Integer,
           request_options: Moonbase::RequestOptions::OrHash
         ).returns(T.attached_class)
       end
       def self.new(
+        id:,
         # The main content of the note.
         body:,
         # The current lock version of the note for optimistic concurrency control.
@@ -41,6 +46,7 @@ module Moonbase
       sig do
         override.returns(
           {
+            id: String,
             body: Moonbase::FormattedText,
             lock_version: Integer,
             request_options: Moonbase::RequestOptions

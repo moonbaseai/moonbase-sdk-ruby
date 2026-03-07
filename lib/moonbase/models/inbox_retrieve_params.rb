@@ -7,6 +7,11 @@ module Moonbase
       extend Moonbase::Internal::Type::RequestParameters::Converter
       include Moonbase::Internal::Type::RequestParameters
 
+      # @!attribute id
+      #
+      #   @return [String]
+      required :id, String
+
       # @!attribute include
       #   Specifies which related objects to include in the response. Valid option is
       #   `tagsets`.
@@ -14,9 +19,11 @@ module Moonbase
       #   @return [Array<Symbol, Moonbase::Models::InboxRetrieveParams::Include>, nil]
       optional :include, -> { Moonbase::Internal::Type::ArrayOf[enum: Moonbase::InboxRetrieveParams::Include] }
 
-      # @!method initialize(include: nil, request_options: {})
+      # @!method initialize(id:, include: nil, request_options: {})
       #   Some parameter documentations has been truncated, see
       #   {Moonbase::Models::InboxRetrieveParams} for more details.
+      #
+      #   @param id [String]
       #
       #   @param include [Array<Symbol, Moonbase::Models::InboxRetrieveParams::Include>] Specifies which related objects to include in the response. Valid option is `tag
       #

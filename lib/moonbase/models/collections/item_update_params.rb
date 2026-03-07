@@ -13,6 +13,11 @@ module Moonbase
         #   @return [String]
         required :collection_id, String
 
+        # @!attribute id
+        #
+        #   @return [String]
+        required :id, String
+
         # @!attribute values
         #   A hash where keys are the `ref` of a `Field` and values are the new data to be
         #   set.
@@ -30,11 +35,13 @@ module Moonbase
         #   @return [Symbol, Moonbase::Models::Collections::ItemUpdateParams::UpdateOneStrategy, nil]
         optional :update_one_strategy, enum: -> { Moonbase::Collections::ItemUpdateParams::UpdateOneStrategy }
 
-        # @!method initialize(collection_id:, values:, update_many_strategy: nil, update_one_strategy: nil, request_options: {})
+        # @!method initialize(collection_id:, id:, values:, update_many_strategy: nil, update_one_strategy: nil, request_options: {})
         #   Some parameter documentations has been truncated, see
         #   {Moonbase::Models::Collections::ItemUpdateParams} for more details.
         #
         #   @param collection_id [String]
+        #
+        #   @param id [String]
         #
         #   @param values [Hash{Symbol=>Moonbase::Models::SingleLineTextValue, Moonbase::Models::MultiLineTextValue, Moonbase::Models::IntegerValue, Moonbase::Models::FloatValue, Moonbase::Models::MonetaryValue, Moonbase::Models::PercentageValue, Moonbase::Models::BooleanValue, Moonbase::Models::EmailValue, Moonbase::Models::URLValue, Moonbase::Models::DomainValue, Moonbase::Models::FieldValueParam::SocialXValueParam, Moonbase::Models::FieldValueParam::SocialLinkedInValueParam, Moonbase::Models::TelephoneNumber, Moonbase::Models::GeoValue, Moonbase::Models::DateValue, Moonbase::Models::DatetimeValue, Moonbase::Models::ChoiceValueParam, Moonbase::Models::FunnelStepValueParam, Moonbase::Models::RelationValueParam, Array<Moonbase::Models::SingleLineTextValue, Moonbase::Models::MultiLineTextValue, Moonbase::Models::IntegerValue, Moonbase::Models::FloatValue, Moonbase::Models::MonetaryValue, Moonbase::Models::PercentageValue, Moonbase::Models::BooleanValue, Moonbase::Models::EmailValue, Moonbase::Models::URLValue, Moonbase::Models::DomainValue, Moonbase::Models::ValueParam::ValueUriSocialX, Moonbase::Models::ValueParam::ValueUriSocialLinkedIn, Moonbase::Models::TelephoneNumber, Moonbase::Models::GeoValue, Moonbase::Models::DateValue, Moonbase::Models::DatetimeValue, Moonbase::Models::ChoiceValueParam, Moonbase::Models::FunnelStepValueParam, Moonbase::Models::RelationValueParam>, nil}] A hash where keys are the `ref` of a `Field` and values are the new data to be s
         #
