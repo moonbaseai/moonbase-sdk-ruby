@@ -8,6 +8,11 @@ module Moonbase
         extend Moonbase::Internal::Type::RequestParameters::Converter
         include Moonbase::Internal::Type::RequestParameters
 
+        # @!attribute collection_id
+        #
+        #   @return [String]
+        required :collection_id, String
+
         # @!attribute after
         #   When specified, returns results starting immediately after the item identified
         #   by this cursor. Use the cursor value from the previous response's metadata to
@@ -44,9 +49,11 @@ module Moonbase
         #   @return [Array<String>, nil]
         optional :sort, Moonbase::Internal::Type::ArrayOf[String]
 
-        # @!method initialize(after: nil, before: nil, include: nil, limit: nil, sort: nil, request_options: {})
+        # @!method initialize(collection_id:, after: nil, before: nil, include: nil, limit: nil, sort: nil, request_options: {})
         #   Some parameter documentations has been truncated, see
         #   {Moonbase::Models::Collections::ItemListParams} for more details.
+        #
+        #   @param collection_id [String]
         #
         #   @param after [String] When specified, returns results starting immediately after the item identified b
         #

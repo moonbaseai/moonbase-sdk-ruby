@@ -11,6 +11,9 @@ module Moonbase
           T.any(Moonbase::InboxMessageUpdateParams, Moonbase::Internal::AnyHash)
         end
 
+      sig { returns(String) }
+      attr_accessor :id
+
       # The current lock version of the draft for optimistic concurrency control.
       sig { returns(Integer) }
       attr_accessor :lock_version
@@ -70,6 +73,7 @@ module Moonbase
 
       sig do
         params(
+          id: String,
           lock_version: Integer,
           bcc: T::Array[Moonbase::InboxMessageUpdateParams::Bcc::OrHash],
           body: Moonbase::FormattedText::OrHash,
@@ -80,6 +84,7 @@ module Moonbase
         ).returns(T.attached_class)
       end
       def self.new(
+        id:,
         # The current lock version of the draft for optimistic concurrency control.
         lock_version:,
         # A list of the BCC recipients.
@@ -99,6 +104,7 @@ module Moonbase
       sig do
         override.returns(
           {
+            id: String,
             lock_version: Integer,
             bcc: T::Array[Moonbase::InboxMessageUpdateParams::Bcc],
             body: Moonbase::FormattedText,

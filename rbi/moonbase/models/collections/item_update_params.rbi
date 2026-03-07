@@ -18,6 +18,9 @@ module Moonbase
         sig { returns(String) }
         attr_accessor :collection_id
 
+        sig { returns(String) }
+        attr_accessor :id
+
         # A hash where keys are the `ref` of a `Field` and values are the new data to be
         # set.
         sig do
@@ -112,6 +115,7 @@ module Moonbase
         sig do
           params(
             collection_id: String,
+            id: String,
             values:
               T::Hash[
                 Symbol,
@@ -171,6 +175,7 @@ module Moonbase
         end
         def self.new(
           collection_id:,
+          id:,
           # A hash where keys are the `ref` of a `Field` and values are the new data to be
           # set.
           values:,
@@ -184,6 +189,7 @@ module Moonbase
           override.returns(
             {
               collection_id: String,
+              id: String,
               values:
                 T::Hash[
                   Symbol,

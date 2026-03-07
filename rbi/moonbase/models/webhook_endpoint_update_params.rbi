@@ -14,6 +14,9 @@ module Moonbase
           )
         end
 
+      sig { returns(String) }
+      attr_accessor :id
+
       # Indicates whether the endpoint is enabled.
       sig do
         returns(
@@ -58,6 +61,7 @@ module Moonbase
 
       sig do
         params(
+          id: String,
           status: Moonbase::WebhookEndpointUpdateParams::Status::OrSymbol,
           subscriptions:
             T::Array[
@@ -68,6 +72,7 @@ module Moonbase
         ).returns(T.attached_class)
       end
       def self.new(
+        id:,
         # Indicates whether the endpoint is enabled.
         status: nil,
         # An array of event types that this endpoint should receive notifications for.
@@ -81,6 +86,7 @@ module Moonbase
       sig do
         override.returns(
           {
+            id: String,
             status: Moonbase::WebhookEndpointUpdateParams::Status::OrSymbol,
             subscriptions:
               T::Array[Moonbase::WebhookEndpointUpdateParams::Subscription],

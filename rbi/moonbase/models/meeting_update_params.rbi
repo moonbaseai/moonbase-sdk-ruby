@@ -11,6 +11,9 @@ module Moonbase
           T.any(Moonbase::MeetingUpdateParams, Moonbase::Internal::AnyHash)
         end
 
+      sig { returns(String) }
+      attr_accessor :id
+
       # A video recording of the meeting.
       sig { returns(T.nilable(Moonbase::MeetingUpdateParams::Recording)) }
       attr_reader :recording
@@ -33,12 +36,14 @@ module Moonbase
 
       sig do
         params(
+          id: String,
           recording: Moonbase::MeetingUpdateParams::Recording::OrHash,
           transcript: Moonbase::MeetingUpdateParams::Transcript::OrHash,
           request_options: Moonbase::RequestOptions::OrHash
         ).returns(T.attached_class)
       end
       def self.new(
+        id:,
         # A video recording of the meeting.
         recording: nil,
         # The meeting transcript.
@@ -50,6 +55,7 @@ module Moonbase
       sig do
         override.returns(
           {
+            id: String,
             recording: Moonbase::MeetingUpdateParams::Recording,
             transcript: Moonbase::MeetingUpdateParams::Transcript,
             request_options: Moonbase::RequestOptions

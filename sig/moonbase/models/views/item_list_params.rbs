@@ -2,12 +2,14 @@ module Moonbase
   module Models
     module Views
       type item_list_params =
-        { after: String, before: String, limit: Integer }
+        { id: String, after: String, before: String, limit: Integer }
         & Moonbase::Internal::Type::request_parameters
 
       class ItemListParams < Moonbase::Internal::Type::BaseModel
         extend Moonbase::Internal::Type::RequestParameters::Converter
         include Moonbase::Internal::Type::RequestParameters
+
+        attr_accessor id: String
 
         attr_reader after: String?
 
@@ -22,6 +24,7 @@ module Moonbase
         def limit=: (Integer) -> Integer
 
         def initialize: (
+          id: String,
           ?after: String,
           ?before: String,
           ?limit: Integer,
@@ -29,6 +32,7 @@ module Moonbase
         ) -> void
 
         def to_hash: -> {
+          id: String,
           after: String,
           before: String,
           limit: Integer,
