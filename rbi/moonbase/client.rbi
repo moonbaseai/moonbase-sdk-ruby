@@ -87,13 +87,18 @@ module Moonbase
     sig { returns(Moonbase::Resources::AgentSettings) }
     attr_reader :agent_settings
 
+    # Returns items that match the search query.
     sig do
       params(
         query: String,
         request_options: Moonbase::RequestOptions::OrHash
       ).returns(Moonbase::Models::SearchResponse)
     end
-    def search(query:, request_options: {})
+    def search(
+      # The search text to match against items.
+      query:,
+      request_options: {}
+    )
     end
 
     # @api private
