@@ -62,6 +62,10 @@ module Moonbase
     # @return [Moonbase::Resources::Forms]
     attr_reader :forms
 
+    # Manage your marketing campaigns and forms
+    # @return [Moonbase::Resources::Unsubscribes]
+    attr_reader :unsubscribes
+
     # View activities and capture calls
     # @return [Moonbase::Resources::Activities]
     attr_reader :activities
@@ -166,6 +170,7 @@ module Moonbase
       @program_templates = Moonbase::Resources::ProgramTemplates.new(client: self)
       @program_messages = Moonbase::Resources::ProgramMessages.new(client: self)
       @forms = Moonbase::Resources::Forms.new(client: self)
+      @unsubscribes = Moonbase::Resources::Unsubscribes.new(client: self)
       @activities = Moonbase::Resources::Activities.new(client: self)
       @calls = Moonbase::Resources::Calls.new(client: self)
       @files = Moonbase::Resources::Files.new(client: self)

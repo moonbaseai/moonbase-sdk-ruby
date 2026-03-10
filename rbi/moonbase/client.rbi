@@ -57,6 +57,10 @@ module Moonbase
     sig { returns(Moonbase::Resources::Forms) }
     attr_reader :forms
 
+    # Manage your marketing campaigns and forms
+    sig { returns(Moonbase::Resources::Unsubscribes) }
+    attr_reader :unsubscribes
+
     # View activities and capture calls
     sig { returns(Moonbase::Resources::Activities) }
     attr_reader :activities
