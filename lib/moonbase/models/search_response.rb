@@ -15,7 +15,7 @@ module Moonbase
       required :type, const: :list
 
       # @!method initialize(data:, type: :list)
-      #   A field in a search result
+      #   A list of search results.
       #
       #   @param data [Array<Moonbase::Models::SearchResponse::Data>]
       #   @param type [Symbol, :list]

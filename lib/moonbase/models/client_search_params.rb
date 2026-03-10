@@ -8,12 +8,14 @@ module Moonbase
       include Moonbase::Internal::Type::RequestParameters
 
       # @!attribute query
+      #   The search text to match against items.
       #
       #   @return [String]
       required :query, String
 
       # @!method initialize(query:, request_options: {})
-      #   @param query [String]
+      #   @param query [String] The search text to match against items.
+      #
       #   @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}]
     end
   end

@@ -92,9 +92,12 @@ module Moonbase
     # @return [Moonbase::Resources::AgentSettings]
     attr_reader :agent_settings
 
+    # Returns items that match the search query.
+    #
     # @overload search(query:, request_options: {})
     #
-    # @param query [String]
+    # @param query [String] The search text to match against items.
+    #
     # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
     #
     # @return [Moonbase::Models::SearchResponse]

@@ -11,6 +11,7 @@ module Moonbase
           T.any(Moonbase::ClientSearchParams, Moonbase::Internal::AnyHash)
         end
 
+      # The search text to match against items.
       sig { returns(String) }
       attr_accessor :query
 
@@ -20,7 +21,11 @@ module Moonbase
           request_options: Moonbase::RequestOptions::OrHash
         ).returns(T.attached_class)
       end
-      def self.new(query:, request_options: {})
+      def self.new(
+        # The search text to match against items.
+        query:,
+        request_options: {}
+      )
       end
 
       sig do
