@@ -15,11 +15,11 @@ module Moonbase
         description: String,
         duration: Float,
         location: String,
-        note: Moonbase::Note,
+        note: Moonbase::Note?,
         organizer: Moonbase::Organizer,
         provider_uri: String,
         recording_url: String,
-        summary: Moonbase::Note,
+        summary: Moonbase::Note?,
         title: String,
         transcript: Moonbase::Meeting::Transcript?
       }
@@ -61,9 +61,7 @@ module Moonbase
 
       def location=: (String) -> String
 
-      attr_reader note: Moonbase::Note?
-
-      def note=: (Moonbase::Note) -> Moonbase::Note
+      attr_accessor note: Moonbase::Note?
 
       attr_reader organizer: Moonbase::Organizer?
 
@@ -77,9 +75,7 @@ module Moonbase
 
       def recording_url=: (String) -> String
 
-      attr_reader summary: Moonbase::Note?
-
-      def summary=: (Moonbase::Note) -> Moonbase::Note
+      attr_accessor summary: Moonbase::Note?
 
       attr_reader title: String?
 
@@ -100,11 +96,11 @@ module Moonbase
         ?description: String,
         ?duration: Float,
         ?location: String,
-        ?note: Moonbase::Note,
+        ?note: Moonbase::Note?,
         ?organizer: Moonbase::Organizer,
         ?provider_uri: String,
         ?recording_url: String,
-        ?summary: Moonbase::Note,
+        ?summary: Moonbase::Note?,
         ?title: String,
         ?transcript: Moonbase::Meeting::Transcript?,
         ?type: :meeting
@@ -124,11 +120,11 @@ module Moonbase
         description: String,
         duration: Float,
         location: String,
-        note: Moonbase::Note,
+        note: Moonbase::Note?,
         organizer: Moonbase::Organizer,
         provider_uri: String,
         recording_url: String,
-        summary: Moonbase::Note,
+        summary: Moonbase::Note?,
         title: String,
         transcript: Moonbase::Meeting::Transcript?
       }
