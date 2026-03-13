@@ -87,13 +87,11 @@ module Moonbase
       optional :location, String
 
       # @!attribute note
-      #   Any personal notes taken during the meeting. It also includes the AI-generated
-      #   pre-meeting briefing.
-      #
-      #   **Note:** Only present when requested using the `include` query parameter.
+      #   The Note object represents a block of text content, often used for meeting notes
+      #   or summaries.
       #
       #   @return [Moonbase::Models::Note, nil]
-      optional :note, -> { Moonbase::Note }
+      optional :note, -> { Moonbase::Note }, nil?: true
 
       # @!attribute organizer
       #   The `Organizer` of the meeting.
@@ -117,12 +115,11 @@ module Moonbase
       optional :recording_url, String
 
       # @!attribute summary
-      #   A summary of the meeting.
-      #
-      #   **Note:** Only present when requested using the `include` query parameter.
+      #   The Note object represents a block of text content, often used for meeting notes
+      #   or summaries.
       #
       #   @return [Moonbase::Models::Note, nil]
-      optional :summary, -> { Moonbase::Note }
+      optional :summary, -> { Moonbase::Note }, nil?: true
 
       # @!attribute title
       #   The title or subject of the meeting.
@@ -166,7 +163,7 @@ module Moonbase
       #
       #   @param location [String] The physical or virtual location of the meeting.
       #
-      #   @param note [Moonbase::Models::Note] Any personal notes taken during the meeting. It also includes the AI-generated p
+      #   @param note [Moonbase::Models::Note, nil] The Note object represents a block of text content, often used for meeting notes
       #
       #   @param organizer [Moonbase::Models::Organizer] The `Organizer` of the meeting.
       #
@@ -174,7 +171,7 @@ module Moonbase
       #
       #   @param recording_url [String] A temporary, signed URL to download the meeting recording. The URL expires after
       #
-      #   @param summary [Moonbase::Models::Note] A summary of the meeting.
+      #   @param summary [Moonbase::Models::Note, nil] The Note object represents a block of text content, often used for meeting notes
       #
       #   @param title [String] The title or subject of the meeting.
       #

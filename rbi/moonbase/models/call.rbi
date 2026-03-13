@@ -65,7 +65,7 @@ module Moonbase
       sig { returns(T.nilable(Moonbase::Note)) }
       attr_reader :note
 
-      sig { params(note: Moonbase::Note::OrHash).void }
+      sig { params(note: T.nilable(Moonbase::Note::OrHash)).void }
       attr_writer :note
 
       # A hash of additional metadata from the provider.
@@ -80,7 +80,7 @@ module Moonbase
       sig { returns(T.nilable(Moonbase::Note)) }
       attr_reader :summary
 
-      sig { params(summary: Moonbase::Note::OrHash).void }
+      sig { params(summary: T.nilable(Moonbase::Note::OrHash)).void }
       attr_writer :summary
 
       sig { returns(T.nilable(Moonbase::Call::Transcript)) }
@@ -106,9 +106,9 @@ module Moonbase
           updated_at: Time,
           answered_at: Time,
           end_at: Time,
-          note: Moonbase::Note::OrHash,
+          note: T.nilable(Moonbase::Note::OrHash),
           provider_metadata: T::Hash[Symbol, T.anything],
-          summary: Moonbase::Note::OrHash,
+          summary: T.nilable(Moonbase::Note::OrHash),
           transcript: T.nilable(Moonbase::Call::Transcript::OrHash),
           type: Symbol
         ).returns(T.attached_class)
@@ -165,9 +165,9 @@ module Moonbase
             updated_at: Time,
             answered_at: Time,
             end_at: Time,
-            note: Moonbase::Note,
+            note: T.nilable(Moonbase::Note),
             provider_metadata: T::Hash[Symbol, T.anything],
-            summary: Moonbase::Note,
+            summary: T.nilable(Moonbase::Note),
             transcript: T.nilable(Moonbase::Call::Transcript)
           }
         )
