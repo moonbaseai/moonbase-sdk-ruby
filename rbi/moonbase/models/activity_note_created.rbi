@@ -23,15 +23,9 @@ module Moonbase
       sig { returns(Time) }
       attr_accessor :occurred_at
 
-      # A reference to an `Item` within a specific `Collection`, providing the context
-      # needed to locate the item.
-      sig { returns(T.nilable(Moonbase::ItemPointer)) }
-      attr_reader :related_item
-
-      sig do
-        params(related_item: T.nilable(Moonbase::ItemPointer::OrHash)).void
-      end
-      attr_writer :related_item
+      # An array of `Item` this note is related to, if any.
+      sig { returns(T::Array[Moonbase::ItemPointer]) }
+      attr_accessor :related_items
 
       # A lightweight reference to another resource.
       sig { returns(T.nilable(Moonbase::Pointer)) }
@@ -50,7 +44,7 @@ module Moonbase
           id: String,
           note: T.nilable(Moonbase::Pointer::OrHash),
           occurred_at: Time,
-          related_item: T.nilable(Moonbase::ItemPointer::OrHash),
+          related_items: T::Array[Moonbase::ItemPointer::OrHash],
           related_meeting: T.nilable(Moonbase::Pointer::OrHash),
           type: Symbol
         ).returns(T.attached_class)
@@ -62,9 +56,8 @@ module Moonbase
         note:,
         # The time at which the event occurred, as an ISO 8601 timestamp in UTC.
         occurred_at:,
-        # A reference to an `Item` within a specific `Collection`, providing the context
-        # needed to locate the item.
-        related_item:,
+        # An array of `Item` this note is related to, if any.
+        related_items:,
         # A lightweight reference to another resource.
         related_meeting:,
         # The type of activity. Always `activity/note_created`.
@@ -78,7 +71,7 @@ module Moonbase
             id: String,
             note: T.nilable(Moonbase::Pointer),
             occurred_at: Time,
-            related_item: T.nilable(Moonbase::ItemPointer),
+            related_items: T::Array[Moonbase::ItemPointer],
             related_meeting: T.nilable(Moonbase::Pointer),
             type: Symbol
           }

@@ -15,6 +15,9 @@ module Moonbase
             )
           end
 
+        sig { returns(String) }
+        attr_accessor :collection_id
+
         # A hash where keys are the `ref` of a `Field` and values are used to identify the
         # item to update. When multiple identifiers are provided, the update will find
         # items that match any of the identifiers.
@@ -165,6 +168,7 @@ module Moonbase
 
         sig do
           params(
+            collection_id: String,
             identifiers:
               T::Hash[
                 Symbol,
@@ -273,6 +277,7 @@ module Moonbase
           ).returns(T.attached_class)
         end
         def self.new(
+          collection_id:,
           # A hash where keys are the `ref` of a `Field` and values are used to identify the
           # item to update. When multiple identifiers are provided, the update will find
           # items that match any of the identifiers.
@@ -288,6 +293,7 @@ module Moonbase
         sig do
           override.returns(
             {
+              collection_id: String,
               identifiers:
                 T::Hash[
                   Symbol,

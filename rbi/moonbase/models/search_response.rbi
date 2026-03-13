@@ -14,7 +14,7 @@ module Moonbase
       sig { returns(Symbol) }
       attr_accessor :type
 
-      # A field in a search result
+      # A list of search results.
       sig do
         params(
           data: T::Array[Moonbase::Models::SearchResponse::Data::OrHash],

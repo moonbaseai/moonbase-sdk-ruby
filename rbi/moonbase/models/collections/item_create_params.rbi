@@ -15,6 +15,9 @@ module Moonbase
             )
           end
 
+        sig { returns(String) }
+        attr_accessor :collection_id
+
         # A hash where keys are the `ref` of a `Field` and values are the data to be set.
         sig do
           returns(
@@ -73,6 +76,7 @@ module Moonbase
 
         sig do
           params(
+            collection_id: String,
             values:
               T::Hash[
                 Symbol,
@@ -127,6 +131,7 @@ module Moonbase
           ).returns(T.attached_class)
         end
         def self.new(
+          collection_id:,
           # A hash where keys are the `ref` of a `Field` and values are the data to be set.
           values:,
           request_options: {}
@@ -136,6 +141,7 @@ module Moonbase
         sig do
           override.returns(
             {
+              collection_id: String,
               values:
                 T::Hash[
                   Symbol,

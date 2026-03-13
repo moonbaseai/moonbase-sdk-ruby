@@ -14,9 +14,9 @@ module Moonbase
         updated_at: Time,
         answered_at: Time,
         end_at: Time,
-        note: Moonbase::Note,
+        note: Moonbase::Note?,
         provider_metadata: ::Hash[Symbol, top],
-        summary: Moonbase::Note,
+        summary: Moonbase::Note?,
         transcript: Moonbase::Call::Transcript?
       }
 
@@ -49,17 +49,13 @@ module Moonbase
 
       def end_at=: (Time) -> Time
 
-      attr_reader note: Moonbase::Note?
-
-      def note=: (Moonbase::Note) -> Moonbase::Note
+      attr_accessor note: Moonbase::Note?
 
       attr_reader provider_metadata: ::Hash[Symbol, top]?
 
       def provider_metadata=: (::Hash[Symbol, top]) -> ::Hash[Symbol, top]
 
-      attr_reader summary: Moonbase::Note?
-
-      def summary=: (Moonbase::Note) -> Moonbase::Note
+      attr_accessor summary: Moonbase::Note?
 
       attr_accessor transcript: Moonbase::Call::Transcript?
 
@@ -75,9 +71,9 @@ module Moonbase
         updated_at: Time,
         ?answered_at: Time,
         ?end_at: Time,
-        ?note: Moonbase::Note,
+        ?note: Moonbase::Note?,
         ?provider_metadata: ::Hash[Symbol, top],
-        ?summary: Moonbase::Note,
+        ?summary: Moonbase::Note?,
         ?transcript: Moonbase::Call::Transcript?,
         ?type: :call
       ) -> void
@@ -95,9 +91,9 @@ module Moonbase
         updated_at: Time,
         answered_at: Time,
         end_at: Time,
-        note: Moonbase::Note,
+        note: Moonbase::Note?,
         provider_metadata: ::Hash[Symbol, top],
-        summary: Moonbase::Note,
+        summary: Moonbase::Note?,
         transcript: Moonbase::Call::Transcript?
       }
 

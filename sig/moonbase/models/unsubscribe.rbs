@@ -1,0 +1,21 @@
+module Moonbase
+  module Models
+    type unsubscribe = { created_at: Time, email: String, type: :unsubscribe }
+
+    class Unsubscribe < Moonbase::Internal::Type::BaseModel
+      attr_accessor created_at: Time
+
+      attr_accessor email: String
+
+      attr_accessor type: :unsubscribe
+
+      def initialize: (
+        created_at: Time,
+        email: String,
+        ?type: :unsubscribe
+      ) -> void
+
+      def to_hash: -> { created_at: Time, email: String, type: :unsubscribe }
+    end
+  end
+end

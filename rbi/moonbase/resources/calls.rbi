@@ -2,6 +2,7 @@
 
 module Moonbase
   module Resources
+    # View activities and capture calls
     class Calls
       # Logs a phone call.
       sig do

@@ -22,48 +22,67 @@ module Moonbase
     # @return [Moonbase::Resources::Funnels]
     attr_reader :funnels
 
+    # Manage your collections and items
     # @return [Moonbase::Resources::Collections]
     attr_reader :collections
 
+    # Manage your collections and items
     # @return [Moonbase::Resources::Views]
     attr_reader :views
 
+    # Manage your inboxes, conversations, and messages
     # @return [Moonbase::Resources::Inboxes]
     attr_reader :inboxes
 
+    # Manage your inboxes, conversations, and messages
     # @return [Moonbase::Resources::InboxConversations]
     attr_reader :inbox_conversations
 
+    # Manage your inboxes, conversations, and messages
     # @return [Moonbase::Resources::InboxMessages]
     attr_reader :inbox_messages
 
+    # Manage your inboxes, conversations, and messages
     # @return [Moonbase::Resources::Tagsets]
     attr_reader :tagsets
 
+    # Manage your marketing campaigns and forms
     # @return [Moonbase::Resources::Programs]
     attr_reader :programs
 
+    # Manage your marketing campaigns and forms
     # @return [Moonbase::Resources::ProgramTemplates]
     attr_reader :program_templates
 
+    # Manage your marketing campaigns and forms
     # @return [Moonbase::Resources::ProgramMessages]
     attr_reader :program_messages
 
+    # Manage your marketing campaigns and forms
     # @return [Moonbase::Resources::Forms]
     attr_reader :forms
 
+    # Manage your marketing campaigns and forms
+    # @return [Moonbase::Resources::Unsubscribes]
+    attr_reader :unsubscribes
+
+    # View activities and capture calls
     # @return [Moonbase::Resources::Activities]
     attr_reader :activities
 
+    # View activities and capture calls
     # @return [Moonbase::Resources::Calls]
     attr_reader :calls
 
+    # Manage your meetings, files, and notes
     # @return [Moonbase::Resources::Files]
     attr_reader :files
 
+    # Manage your meetings, files, and notes
     # @return [Moonbase::Resources::Meetings]
     attr_reader :meetings
 
+    # Manage your meetings, files, and notes
     # @return [Moonbase::Resources::Notes]
     attr_reader :notes
 
@@ -73,9 +92,12 @@ module Moonbase
     # @return [Moonbase::Resources::AgentSettings]
     attr_reader :agent_settings
 
+    # Returns items that match the search query.
+    #
     # @overload search(query:, request_options: {})
     #
-    # @param query [String]
+    # @param query [String] The search text to match against items.
+    #
     # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
     #
     # @return [Moonbase::Models::SearchResponse]
@@ -83,10 +105,11 @@ module Moonbase
     # @see Moonbase::Models::ClientSearchParams
     def search(params)
       parsed, options = Moonbase::ClientSearchParams.dump_request(params)
+      query = Moonbase::Internal::Util.encode_query_params(parsed)
       request(
         method: :post,
         path: "search",
-        query: parsed,
+        query: query,
         model: Moonbase::Models::SearchResponse,
         options: options
       )
@@ -150,6 +173,7 @@ module Moonbase
       @program_templates = Moonbase::Resources::ProgramTemplates.new(client: self)
       @program_messages = Moonbase::Resources::ProgramMessages.new(client: self)
       @forms = Moonbase::Resources::Forms.new(client: self)
+      @unsubscribes = Moonbase::Resources::Unsubscribes.new(client: self)
       @activities = Moonbase::Resources::Activities.new(client: self)
       @calls = Moonbase::Resources::Calls.new(client: self)
       @files = Moonbase::Resources::Files.new(client: self)

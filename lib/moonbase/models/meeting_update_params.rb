@@ -7,6 +7,11 @@ module Moonbase
       extend Moonbase::Internal::Type::RequestParameters::Converter
       include Moonbase::Internal::Type::RequestParameters
 
+      # @!attribute id
+      #
+      #   @return [String]
+      required :id, String
+
       # @!attribute recording
       #   A video recording of the meeting.
       #
@@ -19,7 +24,9 @@ module Moonbase
       #   @return [Moonbase::Models::MeetingUpdateParams::Transcript, nil]
       optional :transcript, -> { Moonbase::MeetingUpdateParams::Transcript }
 
-      # @!method initialize(recording: nil, transcript: nil, request_options: {})
+      # @!method initialize(id:, recording: nil, transcript: nil, request_options: {})
+      #   @param id [String]
+      #
       #   @param recording [Moonbase::Models::MeetingUpdateParams::Recording] A video recording of the meeting.
       #
       #   @param transcript [Moonbase::Models::MeetingUpdateParams::Transcript] The meeting transcript.

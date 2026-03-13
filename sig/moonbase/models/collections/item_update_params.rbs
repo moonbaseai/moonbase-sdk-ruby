@@ -4,6 +4,7 @@ module Moonbase
       type item_update_params =
         {
           collection_id: String,
+          id: String,
           values: ::Hash[Symbol, Moonbase::Models::field_value_param?],
           update_many_strategy: Moonbase::Models::Collections::ItemUpdateParams::update_many_strategy,
           update_one_strategy: Moonbase::Models::Collections::ItemUpdateParams::update_one_strategy
@@ -15,6 +16,8 @@ module Moonbase
         include Moonbase::Internal::Type::RequestParameters
 
         attr_accessor collection_id: String
+
+        attr_accessor id: String
 
         attr_accessor values: ::Hash[Symbol, Moonbase::Models::field_value_param?]
 
@@ -32,6 +35,7 @@ module Moonbase
 
         def initialize: (
           collection_id: String,
+          id: String,
           values: ::Hash[Symbol, Moonbase::Models::field_value_param?],
           ?update_many_strategy: Moonbase::Models::Collections::ItemUpdateParams::update_many_strategy,
           ?update_one_strategy: Moonbase::Models::Collections::ItemUpdateParams::update_one_strategy,
@@ -40,6 +44,7 @@ module Moonbase
 
         def to_hash: -> {
           collection_id: String,
+          id: String,
           values: ::Hash[Symbol, Moonbase::Models::field_value_param?],
           update_many_strategy: Moonbase::Models::Collections::ItemUpdateParams::update_many_strategy,
           update_one_strategy: Moonbase::Models::Collections::ItemUpdateParams::update_one_strategy,

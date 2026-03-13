@@ -276,6 +276,14 @@ module Moonbase
 
   TelephoneNumberField = Moonbase::Models::TelephoneNumberField
 
+  Unsubscribe = Moonbase::Models::Unsubscribe
+
+  UnsubscribeCreateParams = Moonbase::Models::UnsubscribeCreateParams
+
+  UnsubscribeDeleteParams = Moonbase::Models::UnsubscribeDeleteParams
+
+  UnsubscribeListParams = Moonbase::Models::UnsubscribeListParams
+
   URLField = Moonbase::Models::URLField
 
   URLValue = Moonbase::Models::URLValue

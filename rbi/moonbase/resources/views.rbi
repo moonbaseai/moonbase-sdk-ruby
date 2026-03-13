@@ -2,7 +2,9 @@
 
 module Moonbase
   module Resources
+    # Manage your collections and items
     class Views
+      # Manage your collections and items
       sig { returns(Moonbase::Resources::Views::Items) }
       attr_reader :items
 

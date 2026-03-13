@@ -7,6 +7,11 @@ module Moonbase
       extend Moonbase::Internal::Type::RequestParameters::Converter
       include Moonbase::Internal::Type::RequestParameters
 
+      # @!attribute id
+      #
+      #   @return [String]
+      required :id, String
+
       # @!attribute lock_version
       #   The current lock version of the draft for optimistic concurrency control.
       #
@@ -43,7 +48,9 @@ module Moonbase
       #   @return [Array<Moonbase::Models::InboxMessageUpdateParams::To>, nil]
       optional :to, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::InboxMessageUpdateParams::To] }
 
-      # @!method initialize(lock_version:, bcc: nil, body: nil, cc: nil, subject: nil, to: nil, request_options: {})
+      # @!method initialize(id:, lock_version:, bcc: nil, body: nil, cc: nil, subject: nil, to: nil, request_options: {})
+      #   @param id [String]
+      #
       #   @param lock_version [Integer] The current lock version of the draft for optimistic concurrency control.
       #
       #   @param bcc [Array<Moonbase::Models::InboxMessageUpdateParams::Bcc>] A list of the BCC recipients.

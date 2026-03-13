@@ -1,5 +1,38 @@
 # Changelog
 
+## 0.1.0-alpha.10 (2026-03-13)
+
+Full Changelog: [v0.1.0-alpha.9...v0.1.0-alpha.10](https://github.com/moonbaseai/moonbase-sdk-ruby/compare/v0.1.0-alpha.9...v0.1.0-alpha.10)
+
+### Features
+
+* **api:** change related_item to related_items array in ActivityNoteCreated ([4bc2dcd](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/4bc2dcd0ba2af7f7bf177a2effbffe490437d9f4))
+
+
+### Bug Fixes
+
+* **client:** serialize query parameters properly ([a78c866](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/a78c8662fb6c197ea4960632dd4507c3c1496adb))
+* properly mock time in ruby ci tests ([a9e96c5](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/a9e96c568bcb4fc2aea61535e273f621d073c46a))
+* **types:** make note and summary nullable in call and meeting models ([792aa71](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/792aa710cf7291f17373fd9cb42d2aaf38f080f2))
+
+
+### Chores
+
+* **ci:** add build step ([e2677c3](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/e2677c3f0b12303bdaaa35439ae46c5e3ff61a6a))
+* **ci:** skip uploading artifacts on stainless-internal branches ([1a72746](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/1a7274675ce22412f26f129693ba79e35789b28c))
+* **docs:** add missing descriptions ([b87361c](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/b87361c457db015f86575990f139edb7d7a795e7))
+* **internal:** codegen related update ([9556266](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/9556266be0a73f4c6732d19f4ae4c4245c99c6ea))
+* **internal:** regenerate SDK with no functional changes ([8d7f8f0](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/8d7f8f0f20ed09663bb69fde7c819b84fa8a7fdb))
+* **internal:** regenerate SDK with no functional changes ([20ec1ea](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/20ec1ea2f6b6ce9683b1e19ab8b739ded0960d81))
+* **internal:** regenerate SDK with no functional changes ([fa57ae6](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/fa57ae6e9abb984ca786c941ddefc77a5c046df0))
+* **test:** do not count install time for mock server timeout ([d8b1471](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/d8b1471f34463cb88d68c2b2f909da50c9f20a66))
+* update placeholder string ([a15bf54](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/a15bf5404dbf815cb82736fd8c726558d9c494ec))
+
+
+### Documentation
+
+* **api:** update search method, query parameter, and response docs ([6fa94fd](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/6fa94fd87a3617aae88fc34b4f6436e34aa6e6a0))
+
 ## 0.1.0-alpha.9 (2026-02-26)
 
 Full Changelog: [v0.1.0-alpha.8...v0.1.0-alpha.9](https://github.com/moonbaseai/moonbase-sdk-ruby/compare/v0.1.0-alpha.8...v0.1.0-alpha.9)

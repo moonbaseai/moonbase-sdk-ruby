@@ -2,6 +2,7 @@
 
 module Moonbase
   module Resources
+    # Manage your meetings, files, and notes
     class Notes
       # Some parameter documentations has been truncated, see
       # {Moonbase::Models::NoteCreateParams} for more details.
@@ -90,10 +91,11 @@ module Moonbase
       # @see Moonbase::Models::NoteListParams
       def list(params = {})
         parsed, options = Moonbase::NoteListParams.dump_request(params)
+        query = Moonbase::Internal::Util.encode_query_params(parsed)
         @client.request(
           method: :get,
           path: "notes",
-          query: parsed,
+          query: query,
           page: Moonbase::Internal::CursorPage,
           model: Moonbase::Note,
           options: options
