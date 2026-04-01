@@ -237,6 +237,11 @@ module Moonbase
         end
       end
 
+      # @type [Regexp]
+      #
+      # https://www.rfc-editor.org/rfc/rfc3986.html#section-3.3
+      RFC_3986_NOT_PCHARS = /[^A-Za-z0-9\-._~!$&'()*+,;=:@]+/
+
       class << self
         # @api private
         #
@@ -245,6 +250,15 @@ module Moonbase
         # @return [String]
         def uri_origin(uri)
           "#{uri.scheme}://#{uri.host}#{":#{uri.port}" unless uri.port == uri.default_port}"
+        end
+
+        # @api private
+        #
+        # @param path [String, Integer]
+        #
+        # @return [String]
+        def encode_path(path)
+          path.to_s.gsub(Moonbase::Internal::Util::RFC_3986_NOT_PCHARS) { ERB::Util.url_encode(_1) }
         end
 
         # @api private
@@ -259,7 +273,7 @@ module Moonbase
           in []
             ""
           in [String => p, *interpolations]
-            encoded = interpolations.map { ERB::Util.url_encode(_1) }
+            encoded = interpolations.map { encode_path(_1) }
             format(p, *encoded)
           end
         end
@@ -576,10 +590,10 @@ module Moonbase
 
           case val
           in Moonbase::FilePart unless val.filename.nil?
-            filename = ERB::Util.url_encode(val.filename)
+            filename = encode_path(val.filename)
             y << "; filename=\"#{filename}\""
           in Pathname | IO
-            filename = ERB::Util.url_encode(::File.basename(val.to_path))
+            filename = encode_path(::File.basename(val.to_path))
             y << "; filename=\"#{filename}\""
           else
           end
