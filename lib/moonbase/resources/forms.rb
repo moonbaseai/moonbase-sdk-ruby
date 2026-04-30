@@ -2,6 +2,7 @@
 
 module Moonbase
   module Resources
+    # Manage your marketing campaigns and forms
     class Forms
       # Retrieves the details of an existing form.
       #
@@ -43,10 +44,11 @@ module Moonbase
       # @see Moonbase::Models::FormListParams
       def list(params = {})
         parsed, options = Moonbase::FormListParams.dump_request(params)
+        query = Moonbase::Internal::Util.encode_query_params(parsed)
         @client.request(
           method: :get,
           path: "forms",
-          query: parsed,
+          query: query,
           page: Moonbase::Internal::CursorPage,
           model: Moonbase::Form,
           options: options

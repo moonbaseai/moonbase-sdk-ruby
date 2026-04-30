@@ -1,12 +1,17 @@
 module Moonbase
   module Models
     type call_retrieve_params =
-      { include: ::Array[Moonbase::Models::CallRetrieveParams::include_] }
+      {
+        id: String,
+        include: ::Array[Moonbase::Models::CallRetrieveParams::include_]
+      }
       & Moonbase::Internal::Type::request_parameters
 
     class CallRetrieveParams < Moonbase::Internal::Type::BaseModel
       extend Moonbase::Internal::Type::RequestParameters::Converter
       include Moonbase::Internal::Type::RequestParameters
+
+      attr_accessor id: String
 
       attr_reader include: ::Array[Moonbase::Models::CallRetrieveParams::include_]?
 
@@ -15,11 +20,13 @@ module Moonbase
       ) -> ::Array[Moonbase::Models::CallRetrieveParams::include_]
 
       def initialize: (
+        id: String,
         ?include: ::Array[Moonbase::Models::CallRetrieveParams::include_],
         ?request_options: Moonbase::request_opts
       ) -> void
 
       def to_hash: -> {
+        id: String,
         include: ::Array[Moonbase::Models::CallRetrieveParams::include_],
         request_options: Moonbase::RequestOptions
       }

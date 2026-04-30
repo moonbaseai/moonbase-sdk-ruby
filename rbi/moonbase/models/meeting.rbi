@@ -74,14 +74,12 @@ module Moonbase
       sig { params(location: String).void }
       attr_writer :location
 
-      # Any personal notes taken during the meeting. It also includes the AI-generated
-      # pre-meeting briefing.
-      #
-      # **Note:** Only present when requested using the `include` query parameter.
+      # The Note object represents a block of text content, often used for meeting notes
+      # or summaries.
       sig { returns(T.nilable(Moonbase::Note)) }
       attr_reader :note
 
-      sig { params(note: Moonbase::Note::OrHash).void }
+      sig { params(note: T.nilable(Moonbase::Note::OrHash)).void }
       attr_writer :note
 
       # The `Organizer` of the meeting.
@@ -108,13 +106,12 @@ module Moonbase
       sig { params(recording_url: String).void }
       attr_writer :recording_url
 
-      # A summary of the meeting.
-      #
-      # **Note:** Only present when requested using the `include` query parameter.
+      # The Note object represents a block of text content, often used for meeting notes
+      # or summaries.
       sig { returns(T.nilable(Moonbase::Note)) }
       attr_reader :summary
 
-      sig { params(summary: Moonbase::Note::OrHash).void }
+      sig { params(summary: T.nilable(Moonbase::Note::OrHash)).void }
       attr_writer :summary
 
       # The title or subject of the meeting.
@@ -150,11 +147,11 @@ module Moonbase
           description: String,
           duration: Float,
           location: String,
-          note: Moonbase::Note::OrHash,
+          note: T.nilable(Moonbase::Note::OrHash),
           organizer: Moonbase::Organizer::OrHash,
           provider_uri: String,
           recording_url: String,
-          summary: Moonbase::Note::OrHash,
+          summary: T.nilable(Moonbase::Note::OrHash),
           title: String,
           transcript: T.nilable(Moonbase::Meeting::Transcript::OrHash),
           type: Symbol
@@ -189,10 +186,8 @@ module Moonbase
         duration: nil,
         # The physical or virtual location of the meeting.
         location: nil,
-        # Any personal notes taken during the meeting. It also includes the AI-generated
-        # pre-meeting briefing.
-        #
-        # **Note:** Only present when requested using the `include` query parameter.
+        # The Note object represents a block of text content, often used for meeting notes
+        # or summaries.
         note: nil,
         # The `Organizer` of the meeting.
         #
@@ -203,9 +198,8 @@ module Moonbase
         # A temporary, signed URL to download the meeting recording. The URL expires after
         # one hour.
         recording_url: nil,
-        # A summary of the meeting.
-        #
-        # **Note:** Only present when requested using the `include` query parameter.
+        # The Note object represents a block of text content, often used for meeting notes
+        # or summaries.
         summary: nil,
         # The title or subject of the meeting.
         title: nil,
@@ -231,11 +225,11 @@ module Moonbase
             description: String,
             duration: Float,
             location: String,
-            note: Moonbase::Note,
+            note: T.nilable(Moonbase::Note),
             organizer: Moonbase::Organizer,
             provider_uri: String,
             recording_url: String,
-            summary: Moonbase::Note,
+            summary: T.nilable(Moonbase::Note),
             title: String,
             transcript: T.nilable(Moonbase::Meeting::Transcript)
           }

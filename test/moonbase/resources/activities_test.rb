@@ -69,7 +69,7 @@ class Moonbase::Test::Resources::ActivitiesTest < Moonbase::Test::ResourceTest
         id: String,
         note: Moonbase::Pointer | nil,
         occurred_at: Time,
-        related_item: Moonbase::ItemPointer | nil,
+        related_items: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::ItemPointer]),
         related_meeting: Moonbase::Pointer | nil
       }
       in {
@@ -213,7 +213,7 @@ class Moonbase::Test::Resources::ActivitiesTest < Moonbase::Test::ResourceTest
         id: String,
         note: Moonbase::Pointer | nil,
         occurred_at: Time,
-        related_item: Moonbase::ItemPointer | nil,
+        related_items: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::ItemPointer]),
         related_meeting: Moonbase::Pointer | nil
       }
       in {

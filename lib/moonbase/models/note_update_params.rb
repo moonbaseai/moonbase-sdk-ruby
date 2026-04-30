@@ -7,6 +7,11 @@ module Moonbase
       extend Moonbase::Internal::Type::RequestParameters::Converter
       include Moonbase::Internal::Type::RequestParameters
 
+      # @!attribute id
+      #
+      #   @return [String]
+      required :id, String
+
       # @!attribute body
       #   The main content of the note.
       #
@@ -19,7 +24,9 @@ module Moonbase
       #   @return [Integer]
       required :lock_version, Integer
 
-      # @!method initialize(body:, lock_version:, request_options: {})
+      # @!method initialize(id:, body:, lock_version:, request_options: {})
+      #   @param id [String]
+      #
       #   @param body [Moonbase::Models::FormattedText] The main content of the note.
       #
       #   @param lock_version [Integer] The current lock version of the note for optimistic concurrency control.

@@ -2,6 +2,7 @@
 
 module Moonbase
   module Resources
+    # Manage your inboxes, conversations, and messages
     class InboxConversations
       # Some parameter documentations has been truncated, see
       # {Moonbase::Models::InboxConversationRetrieveParams} for more details.
@@ -21,10 +22,11 @@ module Moonbase
       # @see Moonbase::Models::InboxConversationRetrieveParams
       def retrieve(id, params = {})
         parsed, options = Moonbase::InboxConversationRetrieveParams.dump_request(params)
+        query = Moonbase::Internal::Util.encode_query_params(parsed)
         @client.request(
           method: :get,
           path: ["inbox_conversations/%1$s", id],
-          query: parsed,
+          query: query,
           model: Moonbase::InboxConversation,
           options: options
         )
@@ -54,10 +56,11 @@ module Moonbase
       # @see Moonbase::Models::InboxConversationListParams
       def list(params = {})
         parsed, options = Moonbase::InboxConversationListParams.dump_request(params)
+        query = Moonbase::Internal::Util.encode_query_params(parsed)
         @client.request(
           method: :get,
           path: "inbox_conversations",
-          query: parsed,
+          query: query,
           page: Moonbase::Internal::CursorPage,
           model: Moonbase::InboxConversation,
           options: options

@@ -2,6 +2,7 @@
 
 module Moonbase
   module Resources
+    # View activities and capture calls
     class Calls
       # Logs a phone call.
       #
@@ -57,10 +58,11 @@ module Moonbase
       # @see Moonbase::Models::CallRetrieveParams
       def retrieve(id, params = {})
         parsed, options = Moonbase::CallRetrieveParams.dump_request(params)
+        query = Moonbase::Internal::Util.encode_query_params(parsed)
         @client.request(
           method: :get,
           path: ["calls/%1$s", id],
-          query: parsed,
+          query: query,
           model: Moonbase::Call,
           options: options
         )
@@ -86,10 +88,11 @@ module Moonbase
       # @see Moonbase::Models::CallListParams
       def list(params = {})
         parsed, options = Moonbase::CallListParams.dump_request(params)
+        query = Moonbase::Internal::Util.encode_query_params(parsed)
         @client.request(
           method: :get,
           path: "calls",
-          query: parsed,
+          query: query,
           page: Moonbase::Internal::CursorPage,
           model: Moonbase::Call,
           options: options

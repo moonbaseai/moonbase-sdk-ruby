@@ -14,6 +14,9 @@ module Moonbase
           )
         end
 
+      sig { returns(String) }
+      attr_accessor :id
+
       # Specifies which related objects to include in the response. Valid options are
       # `inbox`, `messages`, and `messages.addresses`.
       sig do
@@ -39,6 +42,7 @@ module Moonbase
 
       sig do
         params(
+          id: String,
           include:
             T::Array[
               Moonbase::InboxConversationRetrieveParams::Include::OrSymbol
@@ -47,6 +51,7 @@ module Moonbase
         ).returns(T.attached_class)
       end
       def self.new(
+        id:,
         # Specifies which related objects to include in the response. Valid options are
         # `inbox`, `messages`, and `messages.addresses`.
         include: nil,
@@ -57,6 +62,7 @@ module Moonbase
       sig do
         override.returns(
           {
+            id: String,
             include:
               T::Array[
                 Moonbase::InboxConversationRetrieveParams::Include::OrSymbol

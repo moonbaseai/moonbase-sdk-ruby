@@ -11,6 +11,9 @@ module Moonbase
           T.any(Moonbase::CollectionRetrieveParams, Moonbase::Internal::AnyHash)
         end
 
+      sig { returns(String) }
+      attr_accessor :id
+
       # Specifies which related objects to include in the response.
       sig do
         returns(
@@ -31,12 +34,14 @@ module Moonbase
 
       sig do
         params(
+          id: String,
           include:
             T::Array[Moonbase::CollectionRetrieveParams::Include::OrSymbol],
           request_options: Moonbase::RequestOptions::OrHash
         ).returns(T.attached_class)
       end
       def self.new(
+        id:,
         # Specifies which related objects to include in the response.
         include: nil,
         request_options: {}
@@ -46,6 +51,7 @@ module Moonbase
       sig do
         override.returns(
           {
+            id: String,
             include:
               T::Array[Moonbase::CollectionRetrieveParams::Include::OrSymbol],
             request_options: Moonbase::RequestOptions

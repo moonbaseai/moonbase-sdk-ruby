@@ -2,6 +2,7 @@
 
 module Moonbase
   module Resources
+    # Manage your inboxes, conversations, and messages
     class InboxMessages
       # Creates a new message draft.
       #
@@ -55,10 +56,11 @@ module Moonbase
       # @see Moonbase::Models::InboxMessageRetrieveParams
       def retrieve(id, params = {})
         parsed, options = Moonbase::InboxMessageRetrieveParams.dump_request(params)
+        query = Moonbase::Internal::Util.encode_query_params(parsed)
         @client.request(
           method: :get,
           path: ["inbox_messages/%1$s", id],
-          query: parsed,
+          query: query,
           model: Moonbase::EmailMessage,
           options: options
         )
@@ -122,10 +124,11 @@ module Moonbase
       # @see Moonbase::Models::InboxMessageListParams
       def list(params = {})
         parsed, options = Moonbase::InboxMessageListParams.dump_request(params)
+        query = Moonbase::Internal::Util.encode_query_params(parsed)
         @client.request(
           method: :get,
           path: "inbox_messages",
-          query: parsed,
+          query: query,
           page: Moonbase::Internal::CursorPage,
           model: Moonbase::EmailMessage,
           options: options

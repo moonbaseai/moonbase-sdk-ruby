@@ -2,6 +2,7 @@
 
 module Moonbase
   module Resources
+    # Manage your meetings, files, and notes
     class Meetings
       # Retrieves the details of an existing meeting.
       sig do

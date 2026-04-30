@@ -81,7 +81,7 @@ module Moonbase
       #   or summaries.
       #
       #   @return [Moonbase::Models::Note, nil]
-      optional :note, -> { Moonbase::Note }
+      optional :note, -> { Moonbase::Note }, nil?: true
 
       # @!attribute provider_metadata
       #   A hash of additional metadata from the provider.
@@ -94,7 +94,7 @@ module Moonbase
       #   or summaries.
       #
       #   @return [Moonbase::Models::Note, nil]
-      optional :summary, -> { Moonbase::Note }
+      optional :summary, -> { Moonbase::Note }, nil?: true
 
       # @!attribute transcript
       #
@@ -130,11 +130,11 @@ module Moonbase
       #
       #   @param end_at [Time] The time the call ended, if available, as an ISO 8601 timestamp in UTC.
       #
-      #   @param note [Moonbase::Models::Note] The Note object represents a block of text content, often used for meeting notes
+      #   @param note [Moonbase::Models::Note, nil] The Note object represents a block of text content, often used for meeting notes
       #
       #   @param provider_metadata [Hash{Symbol=>Object}] A hash of additional metadata from the provider.
       #
-      #   @param summary [Moonbase::Models::Note] The Note object represents a block of text content, often used for meeting notes
+      #   @param summary [Moonbase::Models::Note, nil] The Note object represents a block of text content, often used for meeting notes
       #
       #   @param transcript [Moonbase::Models::Call::Transcript, nil]
       #

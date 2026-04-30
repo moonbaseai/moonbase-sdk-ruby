@@ -63,7 +63,7 @@ class Moonbase::Test::Resources::FilesTest < Moonbase::Test::ResourceTest
   end
 
   def test_upload_required_params
-    response = @moonbase.files.upload(file: Pathname(__FILE__))
+    response = @moonbase.files.upload(file: StringIO.new("Example data"))
 
     assert_pattern do
       response => Moonbase::MoonbaseFile

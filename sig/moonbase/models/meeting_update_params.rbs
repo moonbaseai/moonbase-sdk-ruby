@@ -2,6 +2,7 @@ module Moonbase
   module Models
     type meeting_update_params =
       {
+        id: String,
         recording: Moonbase::MeetingUpdateParams::Recording,
         transcript: Moonbase::MeetingUpdateParams::Transcript
       }
@@ -10,6 +11,8 @@ module Moonbase
     class MeetingUpdateParams < Moonbase::Internal::Type::BaseModel
       extend Moonbase::Internal::Type::RequestParameters::Converter
       include Moonbase::Internal::Type::RequestParameters
+
+      attr_accessor id: String
 
       attr_reader recording: Moonbase::MeetingUpdateParams::Recording?
 
@@ -24,12 +27,14 @@ module Moonbase
       ) -> Moonbase::MeetingUpdateParams::Transcript
 
       def initialize: (
+        id: String,
         ?recording: Moonbase::MeetingUpdateParams::Recording,
         ?transcript: Moonbase::MeetingUpdateParams::Transcript,
         ?request_options: Moonbase::request_opts
       ) -> void
 
       def to_hash: -> {
+        id: String,
         recording: Moonbase::MeetingUpdateParams::Recording,
         transcript: Moonbase::MeetingUpdateParams::Transcript,
         request_options: Moonbase::RequestOptions
