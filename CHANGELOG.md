@@ -1,5 +1,60 @@
 # Changelog
 
+## 0.1.0-alpha.10 (2026-04-30)
+
+Full Changelog: [v0.1.0-alpha.9...v0.1.0-alpha.10](https://github.com/moonbaseai/moonbase-sdk-ruby/compare/v0.1.0-alpha.9...v0.1.0-alpha.10)
+
+### Features
+
+* **api:** change related_item to related_items array in ActivityNoteCreated ([4bc2dcd](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/4bc2dcd0ba2af7f7bf177a2effbffe490437d9f4))
+* support setting headers via env ([77d1acb](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/77d1acb2003593ba082166f3a705e50036d683d1))
+
+
+### Bug Fixes
+
+* align path encoding with RFC 3986 section 3.3 ([25d7028](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/25d7028571d7d2bfa33724a73e3262f3a1ccb8ae))
+* **client:** serialize query parameters properly ([a78c866](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/a78c8662fb6c197ea4960632dd4507c3c1496adb))
+* **internal:** correct multipart form field name encoding ([c95d1e6](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/c95d1e61cf338fc72fd6d65cd62da4df20d608c8))
+* multipart encoding for file arrays ([3f0ce7b](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/3f0ce7bf6d6e44289c1dbbfbb36d94e6cdbdc96f))
+* properly mock time in ruby ci tests ([a9e96c5](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/a9e96c568bcb4fc2aea61535e273f621d073c46a))
+* **types:** make note and summary nullable in call and meeting models ([792aa71](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/792aa710cf7291f17373fd9cb42d2aaf38f080f2))
+* variable name typo ([2fe8b2c](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/2fe8b2ccf490f2dc44212a1b9713e54d2fe2aa82))
+
+
+### Chores
+
+* **ci:** add build step ([e2677c3](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/e2677c3f0b12303bdaaa35439ae46c5e3ff61a6a))
+* **ci:** skip lint on metadata-only changes ([7c31bab](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/7c31bab5d441f71fab5bca6f27ca68993379c658))
+* **ci:** skip uploading artifacts on stainless-internal branches ([1a72746](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/1a7274675ce22412f26f129693ba79e35789b28c))
+* **ci:** support opting out of skipping builds on metadata-only commits ([efcc459](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/efcc4598e686dce6e9fb9569cb7f2000a8d5b5a0))
+* **docs:** add missing descriptions ([b87361c](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/b87361c457db015f86575990f139edb7d7a795e7))
+* **internal:** codegen related update ([9556266](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/9556266be0a73f4c6732d19f4ae4c4245c99c6ea))
+* **internal:** more robust bootstrap script ([4f3233a](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/4f3233a2e7f785737f6379001cd893a92d066ee6))
+* **internal:** regenerate SDK with no functional changes ([8d7f8f0](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/8d7f8f0f20ed09663bb69fde7c819b84fa8a7fdb))
+* **internal:** regenerate SDK with no functional changes ([20ec1ea](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/20ec1ea2f6b6ce9683b1e19ab8b739ded0960d81))
+* **internal:** regenerate SDK with no functional changes ([fa57ae6](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/fa57ae6e9abb984ca786c941ddefc77a5c046df0))
+* **internal:** tweak CI branches ([bc6f7d1](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/bc6f7d1278768271faf96ef38c1644e67dad9826))
+* **internal:** update gitignore ([dd44b39](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/dd44b39f0d1f367c87a37ba2dc2fa5e017068dc5))
+* **test:** do not count install time for mock server timeout ([d8b1471](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/d8b1471f34463cb88d68c2b2f909da50c9f20a66))
+* **tests:** bump steady to v0.19.4 ([fc09407](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/fc09407ed761e2815c122503c813f1e673bab14d))
+* **tests:** bump steady to v0.19.5 ([ee27a0f](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/ee27a0f9b2a602aba1ce47bb9e865c6838201aba))
+* **tests:** bump steady to v0.19.6 ([8098cba](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/8098cba0ecbd1dfad604e4b6016d71fd245c128f))
+* **tests:** bump steady to v0.19.7 ([573c42a](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/573c42aa73975237fa58d6923a4b73c009f84e8f))
+* **tests:** bump steady to v0.20.1 ([1048925](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/10489253b22ee9eb358e5e3f7483512002544eb7))
+* **tests:** bump steady to v0.20.2 ([b2633c0](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/b2633c09c9ebb7ecdea340fc58855f8281630055))
+* **tests:** bump steady to v0.22.1 ([c546320](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/c5463201f3f2764fbf2517356bc5199b0e97b3a6))
+* update placeholder string ([a15bf54](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/a15bf5404dbf815cb82736fd8c726558d9c494ec))
+
+
+### Documentation
+
+* **api:** update search method, query parameter, and response docs ([6fa94fd](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/6fa94fd87a3617aae88fc34b4f6436e34aa6e6a0))
+
+
+### Refactors
+
+* **tests:** switch from prism to steady ([9a14958](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/9a14958a5c18b1103ef0e5da7f27bdeae4528133))
+
 ## 0.1.0-alpha.9 (2026-02-26)
 
 Full Changelog: [v0.1.0-alpha.8...v0.1.0-alpha.9](https://github.com/moonbaseai/moonbase-sdk-ruby/compare/v0.1.0-alpha.8...v0.1.0-alpha.9)
