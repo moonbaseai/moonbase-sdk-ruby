@@ -1,0 +1,15 @@
+module Moonbase
+  module Models
+    type note_pointer = { id: String, type: :note }
+
+    class NotePointer < Moonbase::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor type: :note
+
+      def initialize: (id: String, ?type: :note) -> void
+
+      def to_hash: -> { id: String, type: :note }
+    end
+  end
+end

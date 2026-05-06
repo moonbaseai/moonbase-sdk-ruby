@@ -19,11 +19,15 @@ module Moonbase
       sig { returns(Time) }
       attr_accessor :occurred_at
 
-      # A lightweight reference to another resource.
-      sig { returns(T.nilable(Moonbase::Pointer)) }
+      # The `ProgramMessage` associated with the event.
+      sig { returns(T.nilable(Moonbase::ProgramMessagePointer)) }
       attr_reader :program_message
 
-      sig { params(program_message: T.nilable(Moonbase::Pointer::OrHash)).void }
+      sig do
+        params(
+          program_message: T.nilable(Moonbase::ProgramMessagePointer::OrHash)
+        ).void
+      end
       attr_writer :program_message
 
       # A reference to an `Item` within a specific `Collection`, providing the context
@@ -42,7 +46,7 @@ module Moonbase
       sig do
         returns(
           T.nilable(
-            Moonbase::ActivityProgramMessageFailed::ReasonCode::TaggedSymbol
+            Moonbase::ActivityProgramMessageFailed::ReasonCode::OrSymbol
           )
         )
       end
@@ -62,7 +66,7 @@ module Moonbase
         params(
           id: String,
           occurred_at: Time,
-          program_message: T.nilable(Moonbase::Pointer::OrHash),
+          program_message: T.nilable(Moonbase::ProgramMessagePointer::OrHash),
           recipient: T.nilable(Moonbase::ItemPointer::OrHash),
           reason_code:
             Moonbase::ActivityProgramMessageFailed::ReasonCode::OrSymbol,
@@ -74,7 +78,7 @@ module Moonbase
         id:,
         # The time at which the event occurred, as an ISO 8601 timestamp in UTC.
         occurred_at:,
-        # A lightweight reference to another resource.
+        # The `ProgramMessage` associated with the event.
         program_message:,
         # A reference to an `Item` within a specific `Collection`, providing the context
         # needed to locate the item.
@@ -91,11 +95,11 @@ module Moonbase
           {
             id: String,
             occurred_at: Time,
-            program_message: T.nilable(Moonbase::Pointer),
+            program_message: T.nilable(Moonbase::ProgramMessagePointer),
             recipient: T.nilable(Moonbase::ItemPointer),
             type: Symbol,
             reason_code:
-              Moonbase::ActivityProgramMessageFailed::ReasonCode::TaggedSymbol
+              Moonbase::ActivityProgramMessageFailed::ReasonCode::OrSymbol
           }
         )
       end

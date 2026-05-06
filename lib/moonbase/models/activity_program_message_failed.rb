@@ -16,10 +16,10 @@ module Moonbase
       required :occurred_at, Time
 
       # @!attribute program_message
-      #   A lightweight reference to another resource.
+      #   The `ProgramMessage` associated with the event.
       #
-      #   @return [Moonbase::Models::Pointer, nil]
-      required :program_message, -> { Moonbase::Pointer }, nil?: true
+      #   @return [Moonbase::Models::ProgramMessagePointer, nil]
+      required :program_message, -> { Moonbase::ProgramMessagePointer }, nil?: true
 
       # @!attribute recipient
       #   A reference to an `Item` within a specific `Collection`, providing the context
@@ -51,7 +51,7 @@ module Moonbase
       #
       #   @param occurred_at [Time] The time at which the event occurred, as an ISO 8601 timestamp in UTC.
       #
-      #   @param program_message [Moonbase::Models::Pointer, nil] A lightweight reference to another resource.
+      #   @param program_message [Moonbase::Models::ProgramMessagePointer, nil] The `ProgramMessage` associated with the event.
       #
       #   @param recipient [Moonbase::Models::ItemPointer, nil] A reference to an `Item` within a specific `Collection`, providing the context n
       #

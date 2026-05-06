@@ -1,0 +1,22 @@
+module Moonbase
+  module Resources
+    class InboxMessages
+      class Attachments
+        def create: (
+          String inbox_message_id,
+          ?file: Moonbase::Internal::file_input,
+          ?file_id: String,
+          ?request_options: Moonbase::request_opts
+        ) -> Moonbase::MessageAttachment
+
+        def delete: (
+          String id,
+          inbox_message_id: String,
+          ?request_options: Moonbase::request_opts
+        ) -> nil
+
+        def initialize: (client: Moonbase::Client) -> void
+      end
+    end
+  end
+end

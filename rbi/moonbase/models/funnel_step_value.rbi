@@ -8,7 +8,7 @@ module Moonbase
           T.any(Moonbase::FunnelStepValue, Moonbase::Internal::AnyHash)
         end
 
-      # A specific funnel step, as configured on the Funnel
+      # A specific funnel step, as configured on the Funnel.
       sig { returns(Moonbase::FunnelStep) }
       attr_reader :data
 
@@ -25,7 +25,7 @@ module Moonbase
         )
       end
       def self.new(
-        # A specific funnel step, as configured on the Funnel
+        # A specific funnel step, as configured on the Funnel.
         data:,
         type: :"value/funnel_step"
       )

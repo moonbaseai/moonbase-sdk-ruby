@@ -1,0 +1,80 @@
+module Moonbase
+  module Models
+    type tag =
+      {
+        id: String,
+        color: Moonbase::Models::Tag::color,
+        name: String,
+        type: :tag
+      }
+
+    class Tag < Moonbase::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor color: Moonbase::Models::Tag::color
+
+      attr_accessor name: String
+
+      attr_accessor type: :tag
+
+      def initialize: (
+        id: String,
+        color: Moonbase::Models::Tag::color,
+        name: String,
+        ?type: :tag
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        color: Moonbase::Models::Tag::color,
+        name: String,
+        type: :tag
+      }
+
+      type color =
+        :amber
+        | :blue
+        | :cyan
+        | :emerald
+        | :fuchsia
+        | :green
+        | :indigo
+        | :lime
+        | :lunar
+        | :orange
+        | :pink
+        | :purple
+        | :red
+        | :rose
+        | :sky
+        | :teal
+        | :violet
+        | :yellow
+
+      module Color
+        extend Moonbase::Internal::Type::Enum
+
+        AMBER: :amber
+        BLUE: :blue
+        CYAN: :cyan
+        EMERALD: :emerald
+        FUCHSIA: :fuchsia
+        GREEN: :green
+        INDIGO: :indigo
+        LIME: :lime
+        LUNAR: :lunar
+        ORANGE: :orange
+        PINK: :pink
+        PURPLE: :purple
+        RED: :red
+        ROSE: :rose
+        SKY: :sky
+        TEAL: :teal
+        VIOLET: :violet
+        YELLOW: :yellow
+
+        def self?.values: -> ::Array[Moonbase::Models::Tag::color]
+      end
+    end
+  end
+end

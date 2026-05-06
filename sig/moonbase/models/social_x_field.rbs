@@ -4,8 +4,9 @@ module Moonbase
       {
         id: String,
         cardinality: Moonbase::Models::SocialXField::cardinality,
-        core: bool,
         created_at: Time,
+        default_values: ::Array[Moonbase::Models::field_default_value],
+        kind: Moonbase::Models::SocialXField::kind,
         name: String,
         readonly: bool,
         ref: String,
@@ -21,9 +22,11 @@ module Moonbase
 
       attr_accessor cardinality: Moonbase::Models::SocialXField::cardinality
 
-      attr_accessor core: bool
-
       attr_accessor created_at: Time
+
+      attr_accessor default_values: ::Array[Moonbase::Models::field_default_value]
+
+      attr_accessor kind: Moonbase::Models::SocialXField::kind
 
       attr_accessor name: String
 
@@ -46,8 +49,9 @@ module Moonbase
       def initialize: (
         id: String,
         cardinality: Moonbase::Models::SocialXField::cardinality,
-        core: bool,
         created_at: Time,
+        default_values: ::Array[Moonbase::Models::field_default_value],
+        kind: Moonbase::Models::SocialXField::kind,
         name: String,
         readonly: bool,
         ref: String,
@@ -61,8 +65,9 @@ module Moonbase
       def to_hash: -> {
         id: String,
         cardinality: Moonbase::Models::SocialXField::cardinality,
-        core: bool,
         created_at: Time,
+        default_values: ::Array[Moonbase::Models::field_default_value],
+        kind: Moonbase::Models::SocialXField::kind,
         name: String,
         readonly: bool,
         ref: String,
@@ -82,6 +87,18 @@ module Moonbase
         MANY: :many
 
         def self?.values: -> ::Array[Moonbase::Models::SocialXField::cardinality]
+      end
+
+      type kind = :system | :inverse | :custom
+
+      module Kind
+        extend Moonbase::Internal::Type::Enum
+
+        SYSTEM: :system
+        INVERSE: :inverse
+        CUSTOM: :custom
+
+        def self?.values: -> ::Array[Moonbase::Models::SocialXField::kind]
       end
     end
   end

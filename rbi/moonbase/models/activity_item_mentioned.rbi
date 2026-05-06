@@ -28,11 +28,11 @@ module Moonbase
       sig { params(item: T.nilable(Moonbase::ItemPointer::OrHash)).void }
       attr_writer :item
 
-      # A lightweight reference to another resource.
-      sig { returns(T.nilable(Moonbase::Pointer)) }
+      # The `Note` in which the item was mentioned.
+      sig { returns(T.nilable(Moonbase::NotePointer)) }
       attr_reader :note
 
-      sig { params(note: T.nilable(Moonbase::Pointer::OrHash)).void }
+      sig { params(note: T.nilable(Moonbase::NotePointer::OrHash)).void }
       attr_writer :note
 
       # The time at which the event occurred, as an ISO 8601 timestamp in UTC.
@@ -49,7 +49,7 @@ module Moonbase
           id: String,
           author: T.nilable(Moonbase::ItemPointer::OrHash),
           item: T.nilable(Moonbase::ItemPointer::OrHash),
-          note: T.nilable(Moonbase::Pointer::OrHash),
+          note: T.nilable(Moonbase::NotePointer::OrHash),
           occurred_at: Time,
           type: Symbol
         ).returns(T.attached_class)
@@ -63,7 +63,7 @@ module Moonbase
         # A reference to an `Item` within a specific `Collection`, providing the context
         # needed to locate the item.
         item:,
-        # A lightweight reference to another resource.
+        # The `Note` in which the item was mentioned.
         note:,
         # The time at which the event occurred, as an ISO 8601 timestamp in UTC.
         occurred_at:,
@@ -78,7 +78,7 @@ module Moonbase
             id: String,
             author: T.nilable(Moonbase::ItemPointer),
             item: T.nilable(Moonbase::ItemPointer),
-            note: T.nilable(Moonbase::Pointer),
+            note: T.nilable(Moonbase::NotePointer),
             occurred_at: Time,
             type: Symbol
           }

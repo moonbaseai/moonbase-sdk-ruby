@@ -30,12 +30,14 @@ module Moonbase
         params(
           after: String,
           before: String,
-          filter: Moonbase::InboxConversationListParams::Filter::OrHash,
-          include:
-            T::Array[Moonbase::InboxConversationListParams::Include::OrSymbol],
+          inbox_id: Moonbase::InboxConversationListParams::InboxID::OrHash,
           limit: Integer,
           request_options: Moonbase::RequestOptions::OrHash
-        ).returns(Moonbase::Internal::CursorPage[Moonbase::InboxConversation])
+        ).returns(
+          Moonbase::Internal::CursorPage[
+            Moonbase::Models::InboxConversationListResponse
+          ]
+        )
       end
       def list(
         # When specified, returns results starting immediately after the item identified
@@ -46,10 +48,7 @@ module Moonbase
         # by this cursor. Use the cursor value from the response's metadata to fetch the
         # previous page of results.
         before: nil,
-        filter: nil,
-        # Specifies which related objects to include in the response. Valid options are
-        # `inbox`, `messages`, and `messages.addresses`.
-        include: nil,
+        inbox_id: nil,
         # Maximum number of items to return per page. Must be between 1 and 100. Defaults
         # to 20 if not specified.
         limit: nil,

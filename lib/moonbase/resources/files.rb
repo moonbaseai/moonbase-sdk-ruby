@@ -84,7 +84,7 @@ module Moonbase
       #
       # @param file [Pathname, StringIO, IO, String, Moonbase::FilePart] The File object to be uploaded.
       #
-      # @param associations [Array<Moonbase::Models::Pointer>] Link the File to Moonbase items like a person, organization, deal, task, or an i
+      # @param associations [Array<Moonbase::Models::ItemPointerParam>] Link the File to Moonbase items like a person, organization, deal, task, or an i
       #
       # @param name [String] The display name of the file.
       #

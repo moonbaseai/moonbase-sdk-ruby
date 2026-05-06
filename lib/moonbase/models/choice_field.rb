@@ -16,17 +16,23 @@ module Moonbase
       #   @return [Symbol, Moonbase::Models::ChoiceField::Cardinality]
       required :cardinality, enum: -> { Moonbase::ChoiceField::Cardinality }
 
-      # @!attribute core
-      #   If `true`, this is a built-in field included by default.
-      #
-      #   @return [Boolean]
-      required :core, Moonbase::Internal::Type::Boolean
-
       # @!attribute created_at
       #   Time at which the object was created, as an ISO 8601 timestamp in UTC.
       #
       #   @return [Time]
       required :created_at, Time
+
+      # @!attribute default_values
+      #
+      #   @return [Array<Moonbase::Models::SingleLineTextValue, Moonbase::Models::MultiLineTextValue, Moonbase::Models::IntegerValue, Moonbase::Models::FloatValue, Moonbase::Models::MonetaryValue, Moonbase::Models::PercentageValue, Moonbase::Models::BooleanValue, Moonbase::Models::EmailValue, Moonbase::Models::URLValue, Moonbase::Models::DomainValue, Moonbase::Models::SocialXValue, Moonbase::Models::SocialLinkedInValue, Moonbase::Models::TelephoneNumber, Moonbase::Models::GeoValue, Moonbase::Models::DateValue, Moonbase::Models::CurrentDate, Moonbase::Models::DatetimeValue, Moonbase::Models::CurrentDatetime, Moonbase::Models::ChoiceValue, Moonbase::Models::FunnelStepValue, Moonbase::Models::RelationValue, Moonbase::Models::CurrentMember>]
+      required :default_values, -> { Moonbase::Internal::Type::ArrayOf[union: Moonbase::FieldDefaultValue] }
+
+      # @!attribute kind
+      #   `system` fields are managed by Moonbase, `inverse` fields are the reverse side
+      #   of a two-way relation, and `custom` fields are user-created.
+      #
+      #   @return [Symbol, Moonbase::Models::ChoiceField::Kind]
+      required :kind, enum: -> { Moonbase::ChoiceField::Kind }
 
       # @!attribute name
       #   The human-readable name of the field (e.g., "Priority").
@@ -86,7 +92,7 @@ module Moonbase
       #   @return [String, nil]
       optional :description, String
 
-      # @!method initialize(id:, cardinality:, core:, created_at:, name:, options:, readonly:, ref:, required:, unique:, updated_at:, description: nil, type: :"field/choice")
+      # @!method initialize(id:, cardinality:, created_at:, default_values:, kind:, name:, options:, readonly:, ref:, required:, unique:, updated_at:, description: nil, type: :"field/choice")
       #   Some parameter documentations has been truncated, see
       #   {Moonbase::Models::ChoiceField} for more details.
       #
@@ -96,9 +102,11 @@ module Moonbase
       #
       #   @param cardinality [Symbol, Moonbase::Models::ChoiceField::Cardinality] Specifies whether the field can hold a single value (`one`) or multiple values (
       #
-      #   @param core [Boolean] If `true`, this is a built-in field included by default.
-      #
       #   @param created_at [Time] Time at which the object was created, as an ISO 8601 timestamp in UTC.
+      #
+      #   @param default_values [Array<Moonbase::Models::SingleLineTextValue, Moonbase::Models::MultiLineTextValue, Moonbase::Models::IntegerValue, Moonbase::Models::FloatValue, Moonbase::Models::MonetaryValue, Moonbase::Models::PercentageValue, Moonbase::Models::BooleanValue, Moonbase::Models::EmailValue, Moonbase::Models::URLValue, Moonbase::Models::DomainValue, Moonbase::Models::SocialXValue, Moonbase::Models::SocialLinkedInValue, Moonbase::Models::TelephoneNumber, Moonbase::Models::GeoValue, Moonbase::Models::DateValue, Moonbase::Models::CurrentDate, Moonbase::Models::DatetimeValue, Moonbase::Models::CurrentDatetime, Moonbase::Models::ChoiceValue, Moonbase::Models::FunnelStepValue, Moonbase::Models::RelationValue, Moonbase::Models::CurrentMember>]
+      #
+      #   @param kind [Symbol, Moonbase::Models::ChoiceField::Kind] `system` fields are managed by Moonbase, `inverse` fields are the reverse side o
       #
       #   @param name [String] The human-readable name of the field (e.g., "Priority").
       #
@@ -127,6 +135,21 @@ module Moonbase
 
         ONE = :one
         MANY = :many
+
+        # @!method self.values
+        #   @return [Array<Symbol>]
+      end
+
+      # `system` fields are managed by Moonbase, `inverse` fields are the reverse side
+      # of a two-way relation, and `custom` fields are user-created.
+      #
+      # @see Moonbase::Models::ChoiceField#kind
+      module Kind
+        extend Moonbase::Internal::Type::Enum
+
+        SYSTEM = :system
+        INVERSE = :inverse
+        CUSTOM = :custom
 
         # @!method self.values
         #   @return [Array<Symbol>]

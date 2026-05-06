@@ -12,20 +12,55 @@ module Moonbase
       sig { returns(Moonbase::Resources::Collections::Items) }
       attr_reader :items
 
+      # Creates a new collection with default fields (name, created_at, updated_at) and
+      # a default view.
+      sig do
+        params(
+          name: String,
+          description: String,
+          request_options: Moonbase::RequestOptions::OrHash
+        ).returns(Moonbase::Collection)
+      end
+      def create(
+        # The user-facing name of the collection (e.g., "Leads"). A `ref` is automatically
+        # derived from the name.
+        name:,
+        # An optional, longer-form description of the collection's purpose.
+        description: nil,
+        request_options: {}
+      )
+      end
+
       # Retrieves the details of an existing collection.
       sig do
         params(
           id: String,
-          include:
-            T::Array[Moonbase::CollectionRetrieveParams::Include::OrSymbol],
           request_options: Moonbase::RequestOptions::OrHash
         ).returns(Moonbase::Collection)
       end
       def retrieve(
         # The ID or `ref` of the Collection to retrieve.
         id,
-        # Specifies which related objects to include in the response.
-        include: nil,
+        request_options: {}
+      )
+      end
+
+      # Updates an existing collection.
+      sig do
+        params(
+          id: String,
+          description: String,
+          name: String,
+          request_options: Moonbase::RequestOptions::OrHash
+        ).returns(Moonbase::Collection)
+      end
+      def update(
+        # The ID or `ref` of the Collection to update.
+        id,
+        # An optional, longer-form description of the collection's purpose.
+        description: nil,
+        # The user-facing name of the collection.
+        name: nil,
         request_options: {}
       )
       end
@@ -37,7 +72,11 @@ module Moonbase
           before: String,
           limit: Integer,
           request_options: Moonbase::RequestOptions::OrHash
-        ).returns(Moonbase::Internal::CursorPage[Moonbase::Collection])
+        ).returns(
+          Moonbase::Internal::CursorPage[
+            Moonbase::Models::CollectionListResponse
+          ]
+        )
       end
       def list(
         # When specified, returns results starting immediately after the item identified

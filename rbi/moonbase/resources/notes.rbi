@@ -8,7 +8,14 @@ module Moonbase
       sig do
         params(
           body: Moonbase::FormattedText::OrHash,
-          associations: T::Array[Moonbase::Pointer::OrHash],
+          associations:
+            T::Array[
+              T.any(
+                Moonbase::CallPointer::OrHash,
+                Moonbase::ItemPointerParam::OrHash,
+                Moonbase::MeetingPointer::OrHash
+              )
+            ],
           request_options: Moonbase::RequestOptions::OrHash
         ).returns(Moonbase::Note)
       end

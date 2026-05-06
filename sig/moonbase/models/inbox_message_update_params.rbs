@@ -4,11 +4,11 @@ module Moonbase
       {
         id: String,
         lock_version: Integer,
-        bcc: ::Array[Moonbase::InboxMessageUpdateParams::Bcc],
+        bcc: ::Array[Moonbase::EmailMessageAddressParams],
         body: Moonbase::FormattedText,
-        cc: ::Array[Moonbase::InboxMessageUpdateParams::Cc],
+        cc: ::Array[Moonbase::EmailMessageAddressParams],
         subject: String,
-        to: ::Array[Moonbase::InboxMessageUpdateParams::To]
+        to: ::Array[Moonbase::EmailMessageAddressParams]
       }
       & Moonbase::Internal::Type::request_parameters
 
@@ -20,95 +20,53 @@ module Moonbase
 
       attr_accessor lock_version: Integer
 
-      attr_reader bcc: ::Array[Moonbase::InboxMessageUpdateParams::Bcc]?
+      attr_reader bcc: ::Array[Moonbase::EmailMessageAddressParams]?
 
       def bcc=: (
-        ::Array[Moonbase::InboxMessageUpdateParams::Bcc]
-      ) -> ::Array[Moonbase::InboxMessageUpdateParams::Bcc]
+        ::Array[Moonbase::EmailMessageAddressParams]
+      ) -> ::Array[Moonbase::EmailMessageAddressParams]
 
       attr_reader body: Moonbase::FormattedText?
 
       def body=: (Moonbase::FormattedText) -> Moonbase::FormattedText
 
-      attr_reader cc: ::Array[Moonbase::InboxMessageUpdateParams::Cc]?
+      attr_reader cc: ::Array[Moonbase::EmailMessageAddressParams]?
 
       def cc=: (
-        ::Array[Moonbase::InboxMessageUpdateParams::Cc]
-      ) -> ::Array[Moonbase::InboxMessageUpdateParams::Cc]
+        ::Array[Moonbase::EmailMessageAddressParams]
+      ) -> ::Array[Moonbase::EmailMessageAddressParams]
 
       attr_reader subject: String?
 
       def subject=: (String) -> String
 
-      attr_reader to: ::Array[Moonbase::InboxMessageUpdateParams::To]?
+      attr_reader to: ::Array[Moonbase::EmailMessageAddressParams]?
 
       def to=: (
-        ::Array[Moonbase::InboxMessageUpdateParams::To]
-      ) -> ::Array[Moonbase::InboxMessageUpdateParams::To]
+        ::Array[Moonbase::EmailMessageAddressParams]
+      ) -> ::Array[Moonbase::EmailMessageAddressParams]
 
       def initialize: (
         id: String,
         lock_version: Integer,
-        ?bcc: ::Array[Moonbase::InboxMessageUpdateParams::Bcc],
+        ?bcc: ::Array[Moonbase::EmailMessageAddressParams],
         ?body: Moonbase::FormattedText,
-        ?cc: ::Array[Moonbase::InboxMessageUpdateParams::Cc],
+        ?cc: ::Array[Moonbase::EmailMessageAddressParams],
         ?subject: String,
-        ?to: ::Array[Moonbase::InboxMessageUpdateParams::To],
+        ?to: ::Array[Moonbase::EmailMessageAddressParams],
         ?request_options: Moonbase::request_opts
       ) -> void
 
       def to_hash: -> {
         id: String,
         lock_version: Integer,
-        bcc: ::Array[Moonbase::InboxMessageUpdateParams::Bcc],
+        bcc: ::Array[Moonbase::EmailMessageAddressParams],
         body: Moonbase::FormattedText,
-        cc: ::Array[Moonbase::InboxMessageUpdateParams::Cc],
+        cc: ::Array[Moonbase::EmailMessageAddressParams],
         subject: String,
-        to: ::Array[Moonbase::InboxMessageUpdateParams::To],
+        to: ::Array[Moonbase::EmailMessageAddressParams],
         request_options: Moonbase::RequestOptions
       }
-
-      type bcc = { email: String, name: String }
-
-      class Bcc < Moonbase::Internal::Type::BaseModel
-        attr_accessor email: String
-
-        attr_reader name: String?
-
-        def name=: (String) -> String
-
-        def initialize: (email: String, ?name: String) -> void
-
-        def to_hash: -> { email: String, name: String }
-      end
-
-      type cc = { email: String, name: String }
-
-      class Cc < Moonbase::Internal::Type::BaseModel
-        attr_accessor email: String
-
-        attr_reader name: String?
-
-        def name=: (String) -> String
-
-        def initialize: (email: String, ?name: String) -> void
-
-        def to_hash: -> { email: String, name: String }
-      end
-
-      type to = { email: String, name: String }
-
-      class To < Moonbase::Internal::Type::BaseModel
-        attr_accessor email: String
-
-        attr_reader name: String?
-
-        def name=: (String) -> String
-
-        def initialize: (email: String, ?name: String) -> void
-
-        def to_hash: -> { email: String, name: String }
-      end
     end
   end
 end

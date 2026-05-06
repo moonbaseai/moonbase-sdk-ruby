@@ -21,22 +21,10 @@ module Moonbase
       attr_accessor :updated_at
 
       sig { returns(T.nilable(String)) }
-      attr_reader :deal_summary_model
-
-      sig { params(deal_summary_model: String).void }
-      attr_writer :deal_summary_model
-
-      sig { returns(T.nilable(String)) }
       attr_reader :deal_summary_prompt
 
       sig { params(deal_summary_prompt: String).void }
       attr_writer :deal_summary_prompt
-
-      sig { returns(T.nilable(String)) }
-      attr_reader :meeting_agent_model
-
-      sig { params(meeting_agent_model: String).void }
-      attr_writer :meeting_agent_model
 
       sig { returns(T.nilable(String)) }
       attr_reader :meeting_prebrief_prompt
@@ -66,9 +54,7 @@ module Moonbase
         params(
           created_at: Time,
           updated_at: Time,
-          deal_summary_model: String,
           deal_summary_prompt: String,
-          meeting_agent_model: String,
           meeting_prebrief_prompt: String,
           meeting_summary_prompt: String,
           meeting_web_search: T::Boolean,
@@ -79,9 +65,7 @@ module Moonbase
       def self.new(
         created_at:,
         updated_at:,
-        deal_summary_model: nil,
         deal_summary_prompt: nil,
-        meeting_agent_model: nil,
         meeting_prebrief_prompt: nil,
         meeting_summary_prompt: nil,
         meeting_web_search: nil,
@@ -96,9 +80,7 @@ module Moonbase
             created_at: Time,
             type: Symbol,
             updated_at: Time,
-            deal_summary_model: String,
             deal_summary_prompt: String,
-            meeting_agent_model: String,
             meeting_prebrief_prompt: String,
             meeting_summary_prompt: String,
             meeting_web_search: T::Boolean,

@@ -13,7 +13,7 @@ class Moonbase::Test::Resources::NotesTest < Moonbase::Test::ResourceTest
     assert_pattern do
       response => {
         id: String,
-        associations: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Pointer]),
+        associations: ^(Moonbase::Internal::Type::ArrayOf[union: Moonbase::NoteAssociationPointer]),
         body: Moonbase::FormattedText,
         created_at: Time,
         lock_version: Integer,
@@ -36,7 +36,7 @@ class Moonbase::Test::Resources::NotesTest < Moonbase::Test::ResourceTest
     assert_pattern do
       response => {
         id: String,
-        associations: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Pointer]),
+        associations: ^(Moonbase::Internal::Type::ArrayOf[union: Moonbase::NoteAssociationPointer]),
         body: Moonbase::FormattedText,
         created_at: Time,
         lock_version: Integer,
@@ -59,7 +59,7 @@ class Moonbase::Test::Resources::NotesTest < Moonbase::Test::ResourceTest
     assert_pattern do
       response => {
         id: String,
-        associations: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Pointer]),
+        associations: ^(Moonbase::Internal::Type::ArrayOf[union: Moonbase::NoteAssociationPointer]),
         body: Moonbase::FormattedText,
         created_at: Time,
         lock_version: Integer,
@@ -89,7 +89,7 @@ class Moonbase::Test::Resources::NotesTest < Moonbase::Test::ResourceTest
     assert_pattern do
       row => {
         id: String,
-        associations: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Pointer]),
+        associations: ^(Moonbase::Internal::Type::ArrayOf[union: Moonbase::NoteAssociationPointer]),
         body: Moonbase::FormattedText,
         created_at: Time,
         lock_version: Integer,

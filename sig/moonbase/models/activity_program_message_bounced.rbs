@@ -4,7 +4,7 @@ module Moonbase
       {
         id: String,
         occurred_at: Time,
-        program_message: Moonbase::Pointer?,
+        program_message: Moonbase::ProgramMessagePointer?,
         recipient: Moonbase::ItemPointer?,
         type: :"activity/program_message_bounced",
         bounce_type: String,
@@ -16,7 +16,7 @@ module Moonbase
 
       attr_accessor occurred_at: Time
 
-      attr_accessor program_message: Moonbase::Pointer?
+      attr_accessor program_message: Moonbase::ProgramMessagePointer?
 
       attr_accessor recipient: Moonbase::ItemPointer?
 
@@ -33,7 +33,7 @@ module Moonbase
       def initialize: (
         id: String,
         occurred_at: Time,
-        program_message: Moonbase::Pointer?,
+        program_message: Moonbase::ProgramMessagePointer?,
         recipient: Moonbase::ItemPointer?,
         ?bounce_type: String,
         ?bounced_recipient_emails: ::Array[String],
@@ -43,7 +43,7 @@ module Moonbase
       def to_hash: -> {
         id: String,
         occurred_at: Time,
-        program_message: Moonbase::Pointer?,
+        program_message: Moonbase::ProgramMessagePointer?,
         recipient: Moonbase::ItemPointer?,
         type: :"activity/program_message_bounced",
         bounce_type: String,

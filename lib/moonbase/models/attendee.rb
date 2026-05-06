@@ -23,16 +23,18 @@ module Moonbase
       required :type, const: :meeting_attendee
 
       # @!attribute organization
-      #   A lightweight reference to another resource.
+      #   A reference to an `Item` within a specific `Collection`, providing the context
+      #   needed to locate the item.
       #
-      #   @return [Moonbase::Models::Pointer, nil]
-      optional :organization, -> { Moonbase::Pointer }
+      #   @return [Moonbase::Models::ItemPointer, nil]
+      optional :organization, -> { Moonbase::ItemPointer }
 
       # @!attribute person
-      #   A lightweight reference to another resource.
+      #   A reference to an `Item` within a specific `Collection`, providing the context
+      #   needed to locate the item.
       #
-      #   @return [Moonbase::Models::Pointer, nil]
-      optional :person, -> { Moonbase::Pointer }
+      #   @return [Moonbase::Models::ItemPointer, nil]
+      optional :person, -> { Moonbase::ItemPointer }
 
       # @!method initialize(id:, email:, organization: nil, person: nil, type: :meeting_attendee)
       #   Some parameter documentations has been truncated, see
@@ -46,9 +48,9 @@ module Moonbase
       #
       #   @param email [String] The email address of the attendee.
       #
-      #   @param organization [Moonbase::Models::Pointer] A lightweight reference to another resource.
+      #   @param organization [Moonbase::Models::ItemPointer] A reference to an `Item` within a specific `Collection`, providing the context n
       #
-      #   @param person [Moonbase::Models::Pointer] A lightweight reference to another resource.
+      #   @param person [Moonbase::Models::ItemPointer] A reference to an `Item` within a specific `Collection`, providing the context n
       #
       #   @param type [Symbol, :meeting_attendee] String representing the object’s type. Always `meeting_attendee` for this object
     end

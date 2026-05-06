@@ -4,8 +4,10 @@ module Moonbase
       {
         id: String,
         cardinality: Moonbase::Models::MonetaryField::cardinality,
-        core: bool,
         created_at: Time,
+        default_unit: String,
+        default_values: ::Array[Moonbase::Models::field_default_value],
+        kind: Moonbase::Models::MonetaryField::kind,
         name: String,
         readonly: bool,
         ref: String,
@@ -21,9 +23,13 @@ module Moonbase
 
       attr_accessor cardinality: Moonbase::Models::MonetaryField::cardinality
 
-      attr_accessor core: bool
-
       attr_accessor created_at: Time
+
+      attr_accessor default_unit: String
+
+      attr_accessor default_values: ::Array[Moonbase::Models::field_default_value]
+
+      attr_accessor kind: Moonbase::Models::MonetaryField::kind
 
       attr_accessor name: String
 
@@ -46,8 +52,10 @@ module Moonbase
       def initialize: (
         id: String,
         cardinality: Moonbase::Models::MonetaryField::cardinality,
-        core: bool,
         created_at: Time,
+        default_unit: String,
+        default_values: ::Array[Moonbase::Models::field_default_value],
+        kind: Moonbase::Models::MonetaryField::kind,
         name: String,
         readonly: bool,
         ref: String,
@@ -61,8 +69,10 @@ module Moonbase
       def to_hash: -> {
         id: String,
         cardinality: Moonbase::Models::MonetaryField::cardinality,
-        core: bool,
         created_at: Time,
+        default_unit: String,
+        default_values: ::Array[Moonbase::Models::field_default_value],
+        kind: Moonbase::Models::MonetaryField::kind,
         name: String,
         readonly: bool,
         ref: String,
@@ -82,6 +92,18 @@ module Moonbase
         MANY: :many
 
         def self?.values: -> ::Array[Moonbase::Models::MonetaryField::cardinality]
+      end
+
+      type kind = :system | :inverse | :custom
+
+      module Kind
+        extend Moonbase::Internal::Type::Enum
+
+        SYSTEM: :system
+        INVERSE: :inverse
+        CUSTOM: :custom
+
+        def self?.values: -> ::Array[Moonbase::Models::MonetaryField::kind]
       end
     end
   end

@@ -22,14 +22,14 @@ module Moonbase
       # @!attribute bcc
       #   A list of the BCC recipients.
       #
-      #   @return [Array<Moonbase::Models::InboxMessageCreateParams::Bcc>, nil]
-      optional :bcc, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::InboxMessageCreateParams::Bcc] }
+      #   @return [Array<Moonbase::Models::EmailMessageAddressParams>, nil]
+      optional :bcc, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::EmailMessageAddressParams] }
 
       # @!attribute cc
       #   A list of the CC recipients.
       #
-      #   @return [Array<Moonbase::Models::InboxMessageCreateParams::Cc>, nil]
-      optional :cc, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::InboxMessageCreateParams::Cc] }
+      #   @return [Array<Moonbase::Models::EmailMessageAddressParams>, nil]
+      optional :cc, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::EmailMessageAddressParams] }
 
       # @!attribute conversation_id
       #   The ID of the conversation, if responding to an existing conversation.
@@ -46,82 +46,25 @@ module Moonbase
       # @!attribute to
       #   A list of recipients.
       #
-      #   @return [Array<Moonbase::Models::InboxMessageCreateParams::To>, nil]
-      optional :to, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::InboxMessageCreateParams::To] }
+      #   @return [Array<Moonbase::Models::EmailMessageAddressParams>, nil]
+      optional :to, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::EmailMessageAddressParams] }
 
       # @!method initialize(body:, inbox_id:, bcc: nil, cc: nil, conversation_id: nil, subject: nil, to: nil, request_options: {})
       #   @param body [Moonbase::Models::FormattedText] The email body.
       #
       #   @param inbox_id [String] The inbox to use for sending the email.
       #
-      #   @param bcc [Array<Moonbase::Models::InboxMessageCreateParams::Bcc>] A list of the BCC recipients.
+      #   @param bcc [Array<Moonbase::Models::EmailMessageAddressParams>] A list of the BCC recipients.
       #
-      #   @param cc [Array<Moonbase::Models::InboxMessageCreateParams::Cc>] A list of the CC recipients.
+      #   @param cc [Array<Moonbase::Models::EmailMessageAddressParams>] A list of the CC recipients.
       #
       #   @param conversation_id [String] The ID of the conversation, if responding to an existing conversation.
       #
       #   @param subject [String] The subject line of the email.
       #
-      #   @param to [Array<Moonbase::Models::InboxMessageCreateParams::To>] A list of recipients.
+      #   @param to [Array<Moonbase::Models::EmailMessageAddressParams>] A list of recipients.
       #
       #   @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}]
-
-      class Bcc < Moonbase::Internal::Type::BaseModel
-        # @!attribute email
-        #   The email address.
-        #
-        #   @return [String]
-        required :email, String
-
-        # @!attribute name
-        #   The recipient's name.
-        #
-        #   @return [String, nil]
-        optional :name, String
-
-        # @!method initialize(email:, name: nil)
-        #   @param email [String] The email address.
-        #
-        #   @param name [String] The recipient's name.
-      end
-
-      class Cc < Moonbase::Internal::Type::BaseModel
-        # @!attribute email
-        #   The email address.
-        #
-        #   @return [String]
-        required :email, String
-
-        # @!attribute name
-        #   The recipient's name.
-        #
-        #   @return [String, nil]
-        optional :name, String
-
-        # @!method initialize(email:, name: nil)
-        #   @param email [String] The email address.
-        #
-        #   @param name [String] The recipient's name.
-      end
-
-      class To < Moonbase::Internal::Type::BaseModel
-        # @!attribute email
-        #   The email address.
-        #
-        #   @return [String]
-        required :email, String
-
-        # @!attribute name
-        #   The recipient's name.
-        #
-        #   @return [String, nil]
-        optional :name, String
-
-        # @!method initialize(email:, name: nil)
-        #   @param email [String] The email address.
-        #
-        #   @param name [String] The recipient's name.
-      end
     end
   end
 end

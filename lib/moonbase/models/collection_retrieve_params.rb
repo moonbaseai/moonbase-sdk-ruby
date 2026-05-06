@@ -12,28 +12,9 @@ module Moonbase
       #   @return [String]
       required :id, String
 
-      # @!attribute include
-      #   Specifies which related objects to include in the response.
-      #
-      #   @return [Array<Symbol, Moonbase::Models::CollectionRetrieveParams::Include>, nil]
-      optional :include,
-               -> { Moonbase::Internal::Type::ArrayOf[enum: Moonbase::CollectionRetrieveParams::Include] }
-
-      # @!method initialize(id:, include: nil, request_options: {})
+      # @!method initialize(id:, request_options: {})
       #   @param id [String]
-      #
-      #   @param include [Array<Symbol, Moonbase::Models::CollectionRetrieveParams::Include>] Specifies which related objects to include in the response.
-      #
       #   @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}]
-
-      module Include
-        extend Moonbase::Internal::Type::Enum
-
-        VIEWS = :views
-
-        # @!method self.values
-        #   @return [Array<Symbol>]
-      end
     end
   end
 end

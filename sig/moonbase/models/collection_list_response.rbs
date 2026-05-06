@@ -1,0 +1,69 @@
+module Moonbase
+  module Models
+    type collection_list_response =
+      {
+        id: String,
+        created_at: Time,
+        kind: Moonbase::Models::CollectionListResponse::kind,
+        name: String,
+        ref: String,
+        type: :collection,
+        updated_at: Time,
+        description: String
+      }
+
+    class CollectionListResponse < Moonbase::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor created_at: Time
+
+      attr_accessor kind: Moonbase::Models::CollectionListResponse::kind
+
+      attr_accessor name: String
+
+      attr_accessor ref: String
+
+      attr_accessor type: :collection
+
+      attr_accessor updated_at: Time
+
+      attr_reader description: String?
+
+      def description=: (String) -> String
+
+      def initialize: (
+        id: String,
+        created_at: Time,
+        kind: Moonbase::Models::CollectionListResponse::kind,
+        name: String,
+        ref: String,
+        updated_at: Time,
+        ?description: String,
+        ?type: :collection
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        created_at: Time,
+        kind: Moonbase::Models::CollectionListResponse::kind,
+        name: String,
+        ref: String,
+        type: :collection,
+        updated_at: Time,
+        description: String
+      }
+
+      type kind = :system | :form | :custom
+
+      module Kind
+        extend Moonbase::Internal::Type::Enum
+
+        SYSTEM: :system
+        FORM: :form
+        CUSTOM: :custom
+
+        def self?.values: -> ::Array[Moonbase::Models::CollectionListResponse::kind]
+      end
+    end
+  end
+end

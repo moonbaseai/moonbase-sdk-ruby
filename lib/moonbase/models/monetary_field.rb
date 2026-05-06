@@ -16,17 +16,30 @@ module Moonbase
       #   @return [Symbol, Moonbase::Models::MonetaryField::Cardinality]
       required :cardinality, enum: -> { Moonbase::MonetaryField::Cardinality }
 
-      # @!attribute core
-      #   If `true`, this is a built-in field included by default.
-      #
-      #   @return [Boolean]
-      required :core, Moonbase::Internal::Type::Boolean
-
       # @!attribute created_at
       #   Time at which the object was created, as an ISO 8601 timestamp in UTC.
       #
       #   @return [Time]
       required :created_at, Time
+
+      # @!attribute default_unit
+      #   The default currency for the field, as a 3-letter ISO 4217 code (e.g., `USD`,
+      #   `EUR`, `GBP`).
+      #
+      #   @return [String]
+      required :default_unit, String
+
+      # @!attribute default_values
+      #
+      #   @return [Array<Moonbase::Models::SingleLineTextValue, Moonbase::Models::MultiLineTextValue, Moonbase::Models::IntegerValue, Moonbase::Models::FloatValue, Moonbase::Models::MonetaryValue, Moonbase::Models::PercentageValue, Moonbase::Models::BooleanValue, Moonbase::Models::EmailValue, Moonbase::Models::URLValue, Moonbase::Models::DomainValue, Moonbase::Models::SocialXValue, Moonbase::Models::SocialLinkedInValue, Moonbase::Models::TelephoneNumber, Moonbase::Models::GeoValue, Moonbase::Models::DateValue, Moonbase::Models::CurrentDate, Moonbase::Models::DatetimeValue, Moonbase::Models::CurrentDatetime, Moonbase::Models::ChoiceValue, Moonbase::Models::FunnelStepValue, Moonbase::Models::RelationValue, Moonbase::Models::CurrentMember>]
+      required :default_values, -> { Moonbase::Internal::Type::ArrayOf[union: Moonbase::FieldDefaultValue] }
+
+      # @!attribute kind
+      #   `system` fields are managed by Moonbase, `inverse` fields are the reverse side
+      #   of a two-way relation, and `custom` fields are user-created.
+      #
+      #   @return [Symbol, Moonbase::Models::MonetaryField::Kind]
+      required :kind, enum: -> { Moonbase::MonetaryField::Kind }
 
       # @!attribute name
       #   The human-readable name of the field (e.g., "Deal Value").
@@ -79,7 +92,7 @@ module Moonbase
       #   @return [String, nil]
       optional :description, String
 
-      # @!method initialize(id:, cardinality:, core:, created_at:, name:, readonly:, ref:, required:, unique:, updated_at:, description: nil, type: :"field/number/monetary")
+      # @!method initialize(id:, cardinality:, created_at:, default_unit:, default_values:, kind:, name:, readonly:, ref:, required:, unique:, updated_at:, description: nil, type: :"field/number/monetary")
       #   Some parameter documentations has been truncated, see
       #   {Moonbase::Models::MonetaryField} for more details.
       #
@@ -89,9 +102,13 @@ module Moonbase
       #
       #   @param cardinality [Symbol, Moonbase::Models::MonetaryField::Cardinality] Specifies whether the field can hold a single value (`one`) or multiple values (
       #
-      #   @param core [Boolean] If `true`, this is a built-in field included by default.
-      #
       #   @param created_at [Time] Time at which the object was created, as an ISO 8601 timestamp in UTC.
+      #
+      #   @param default_unit [String] The default currency for the field, as a 3-letter ISO 4217 code (e.g., `USD`, `E
+      #
+      #   @param default_values [Array<Moonbase::Models::SingleLineTextValue, Moonbase::Models::MultiLineTextValue, Moonbase::Models::IntegerValue, Moonbase::Models::FloatValue, Moonbase::Models::MonetaryValue, Moonbase::Models::PercentageValue, Moonbase::Models::BooleanValue, Moonbase::Models::EmailValue, Moonbase::Models::URLValue, Moonbase::Models::DomainValue, Moonbase::Models::SocialXValue, Moonbase::Models::SocialLinkedInValue, Moonbase::Models::TelephoneNumber, Moonbase::Models::GeoValue, Moonbase::Models::DateValue, Moonbase::Models::CurrentDate, Moonbase::Models::DatetimeValue, Moonbase::Models::CurrentDatetime, Moonbase::Models::ChoiceValue, Moonbase::Models::FunnelStepValue, Moonbase::Models::RelationValue, Moonbase::Models::CurrentMember>]
+      #
+      #   @param kind [Symbol, Moonbase::Models::MonetaryField::Kind] `system` fields are managed by Moonbase, `inverse` fields are the reverse side o
       #
       #   @param name [String] The human-readable name of the field (e.g., "Deal Value").
       #
@@ -118,6 +135,21 @@ module Moonbase
 
         ONE = :one
         MANY = :many
+
+        # @!method self.values
+        #   @return [Array<Symbol>]
+      end
+
+      # `system` fields are managed by Moonbase, `inverse` fields are the reverse side
+      # of a two-way relation, and `custom` fields are user-created.
+      #
+      # @see Moonbase::Models::MonetaryField#kind
+      module Kind
+        extend Moonbase::Internal::Type::Enum
+
+        SYSTEM = :system
+        INVERSE = :inverse
+        CUSTOM = :custom
 
         # @!method self.values
         #   @return [Array<Symbol>]

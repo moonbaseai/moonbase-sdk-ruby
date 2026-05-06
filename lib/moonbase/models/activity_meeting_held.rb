@@ -10,10 +10,10 @@ module Moonbase
       required :id, String
 
       # @!attribute meeting
-      #   A lightweight reference to another resource.
+      #   The `Meeting` object associated with this event.
       #
-      #   @return [Moonbase::Models::Pointer, nil]
-      required :meeting, -> { Moonbase::Pointer }, nil?: true
+      #   @return [Moonbase::Models::MeetingPointer, nil]
+      required :meeting, -> { Moonbase::MeetingPointer }, nil?: true
 
       # @!attribute occurred_at
       #   The time at which the event occurred, as an ISO 8601 timestamp in UTC.
@@ -32,7 +32,7 @@ module Moonbase
       #
       #   @param id [String] Unique identifier for the object.
       #
-      #   @param meeting [Moonbase::Models::Pointer, nil] A lightweight reference to another resource.
+      #   @param meeting [Moonbase::Models::MeetingPointer, nil] The `Meeting` object associated with this event.
       #
       #   @param occurred_at [Time] The time at which the event occurred, as an ISO 8601 timestamp in UTC.
       #

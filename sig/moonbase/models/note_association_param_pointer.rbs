@@ -1,0 +1,14 @@
+module Moonbase
+  module Models
+    type note_association_param_pointer =
+      Moonbase::CallPointer
+      | Moonbase::ItemPointerParam
+      | Moonbase::MeetingPointer
+
+    module NoteAssociationParamPointer
+      extend Moonbase::Internal::Type::Union
+
+      def self?.variants: -> ::Array[Moonbase::Models::note_association_param_pointer]
+    end
+  end
+end

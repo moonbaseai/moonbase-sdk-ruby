@@ -46,23 +46,53 @@ module Moonbase
 
         # An Item represents a single record or row within a Collection. It holds a set of
         # `values` corresponding to the Collection's `fields`.
-        sig { returns(Moonbase::Item) }
-        attr_reader :data
+        sig { returns(Moonbase::Models::SearchResponse::Data::Data::Variants) }
+        attr_accessor :data
 
-        sig { params(data: Moonbase::Item::OrHash).void }
-        attr_writer :data
+        sig { returns(Symbol) }
+        attr_accessor :type
 
-        # A search result entry
-        sig { params(data: Moonbase::Item::OrHash).returns(T.attached_class) }
+        # A search result entry.
+        sig do
+          params(
+            data: T.any(Moonbase::Item::OrHash, Moonbase::MoonbaseFile::OrHash),
+            type: Symbol
+          ).returns(T.attached_class)
+        end
         def self.new(
           # An Item represents a single record or row within a Collection. It holds a set of
           # `values` corresponding to the Collection's `fields`.
-          data:
+          data:,
+          type: :search_result
         )
         end
 
-        sig { override.returns({ data: Moonbase::Item }) }
+        sig do
+          override.returns(
+            {
+              data: Moonbase::Models::SearchResponse::Data::Data::Variants,
+              type: Symbol
+            }
+          )
+        end
         def to_hash
+        end
+
+        # An Item represents a single record or row within a Collection. It holds a set of
+        # `values` corresponding to the Collection's `fields`.
+        module Data
+          extend Moonbase::Internal::Type::Union
+
+          Variants =
+            T.type_alias { T.any(Moonbase::Item, Moonbase::MoonbaseFile) }
+
+          sig do
+            override.returns(
+              T::Array[Moonbase::Models::SearchResponse::Data::Data::Variants]
+            )
+          end
+          def self.variants
+          end
         end
       end
     end

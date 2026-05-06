@@ -1,0 +1,30 @@
+module Moonbase
+  module Models
+    type collection_create_params =
+      { name: String, description: String }
+      & Moonbase::Internal::Type::request_parameters
+
+    class CollectionCreateParams < Moonbase::Internal::Type::BaseModel
+      extend Moonbase::Internal::Type::RequestParameters::Converter
+      include Moonbase::Internal::Type::RequestParameters
+
+      attr_accessor name: String
+
+      attr_reader description: String?
+
+      def description=: (String) -> String
+
+      def initialize: (
+        name: String,
+        ?description: String,
+        ?request_options: Moonbase::request_opts
+      ) -> void
+
+      def to_hash: -> {
+        name: String,
+        description: String,
+        request_options: Moonbase::RequestOptions
+      }
+    end
+  end
+end

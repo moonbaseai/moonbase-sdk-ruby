@@ -6,7 +6,7 @@ module Moonbase
     class Calls
       # Logs a phone call.
       #
-      # @overload create(direction:, participants:, provider:, provider_id:, provider_status:, start_at:, answered_at: nil, end_at: nil, provider_metadata: nil, recordings: nil, transcript: nil, request_options: {})
+      # @overload create(direction:, participants:, provider:, provider_id:, provider_status:, start_at:, answered_at: nil, end_at: nil, provider_metadata: nil, recordings: nil, tags: nil, transcript: nil, request_options: {})
       #
       # @param direction [Symbol, Moonbase::Models::CallCreateParams::Direction] The direction of the call, either `incoming` or `outgoing`.
       #
@@ -27,6 +27,8 @@ module Moonbase
       # @param provider_metadata [Hash{Symbol=>Object}] A hash of additional metadata from the provider.
       #
       # @param recordings [Array<Moonbase::Models::CallCreateParams::Recording>] Any recordings associated with the call.
+      #
+      # @param tags [Array<Moonbase::Models::TagPointerParam>] Optional list of tag pointers to assign to the call.
       #
       # @param transcript [Moonbase::Models::CallCreateParams::Transcript] A transcript of the call.
       #
@@ -99,9 +101,12 @@ module Moonbase
         )
       end
 
+      # Some parameter documentations has been truncated, see
+      # {Moonbase::Models::CallUpsertParams} for more details.
+      #
       # Find and update an existing phone call, or create a new one.
       #
-      # @overload upsert(direction:, participants:, provider:, provider_id:, provider_status:, start_at:, answered_at: nil, end_at: nil, provider_metadata: nil, recordings: nil, transcript: nil, request_options: {})
+      # @overload upsert(direction:, participants:, provider:, provider_id:, provider_status:, start_at:, answered_at: nil, end_at: nil, provider_metadata: nil, recordings: nil, tags: nil, transcript: nil, request_options: {})
       #
       # @param direction [Symbol, Moonbase::Models::CallUpsertParams::Direction] The direction of the call, either `incoming` or `outgoing`.
       #
@@ -122,6 +127,8 @@ module Moonbase
       # @param provider_metadata [Hash{Symbol=>Object}] A hash of additional metadata from the provider.
       #
       # @param recordings [Array<Moonbase::Models::CallUpsertParams::Recording>] Any recordings associated with the call.
+      #
+      # @param tags [Array<Moonbase::Models::TagPointerParam>] Optional list of tag pointers to assign to the call. If omitted, existing tags a
       #
       # @param transcript [Moonbase::Models::CallUpsertParams::Transcript] A transcript of the call.
       #

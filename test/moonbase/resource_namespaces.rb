@@ -6,6 +6,9 @@ module Moonbase
       module Collections
       end
 
+      module InboxMessages
+      end
+
       module Views
       end
     end

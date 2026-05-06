@@ -17,7 +17,7 @@ module Moonbase
 
       def upload: (
         file: Moonbase::Internal::file_input,
-        ?associations: ::Array[Moonbase::Pointer],
+        ?associations: ::Array[Moonbase::ItemPointerParam],
         ?name: String,
         ?request_options: Moonbase::request_opts
       ) -> Moonbase::MoonbaseFile

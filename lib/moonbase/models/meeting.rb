@@ -41,6 +41,12 @@ module Moonbase
       #   @return [Time]
       required :start_at, Time
 
+      # @!attribute tags
+      #   The tags currently applied to this meeting.
+      #
+      #   @return [Array<Moonbase::Models::Tag>]
+      required :tags, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::Tag] }
+
       # @!attribute time_zone
       #   The IANA time zone in which the meeting is scheduled (e.g.,
       #   `America/Los_Angeles`).
@@ -129,10 +135,10 @@ module Moonbase
 
       # @!attribute transcript
       #
-      #   @return [Moonbase::Models::Meeting::Transcript, nil]
-      optional :transcript, -> { Moonbase::Meeting::Transcript }, nil?: true
+      #   @return [Moonbase::Models::MeetingTranscript, nil]
+      optional :transcript, -> { Moonbase::MeetingTranscript }, nil?: true
 
-      # @!method initialize(id:, created_at:, end_at:, i_cal_uid:, provider_id:, start_at:, time_zone:, updated_at:, attendees: nil, description: nil, duration: nil, location: nil, note: nil, organizer: nil, provider_uri: nil, recording_url: nil, summary: nil, title: nil, transcript: nil, type: :meeting)
+      # @!method initialize(id:, created_at:, end_at:, i_cal_uid:, provider_id:, start_at:, tags:, time_zone:, updated_at:, attendees: nil, description: nil, duration: nil, location: nil, note: nil, organizer: nil, provider_uri: nil, recording_url: nil, summary: nil, title: nil, transcript: nil, type: :meeting)
       #   Some parameter documentations has been truncated, see
       #   {Moonbase::Models::Meeting} for more details.
       #
@@ -150,6 +156,8 @@ module Moonbase
       #   @param provider_id [String] The unique identifier for the meeting from the external calendar provider (e.g.,
       #
       #   @param start_at [Time] The start time of the meeting, as an ISO 8601 timestamp in UTC.
+      #
+      #   @param tags [Array<Moonbase::Models::Tag>] The tags currently applied to this meeting.
       #
       #   @param time_zone [String] The IANA time zone in which the meeting is scheduled (e.g., `America/Los_Angeles
       #
@@ -175,65 +183,9 @@ module Moonbase
       #
       #   @param title [String] The title or subject of the meeting.
       #
-      #   @param transcript [Moonbase::Models::Meeting::Transcript, nil]
+      #   @param transcript [Moonbase::Models::MeetingTranscript, nil]
       #
       #   @param type [Symbol, :meeting] String representing the object’s type. Always `meeting` for this object.
-
-      # @see Moonbase::Models::Meeting#transcript
-      class Transcript < Moonbase::Internal::Type::BaseModel
-        # @!attribute cues
-        #
-        #   @return [Array<Moonbase::Models::Meeting::Transcript::Cue>]
-        required :cues, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::Meeting::Transcript::Cue] }
-
-        # @!method initialize(cues:)
-        #   @param cues [Array<Moonbase::Models::Meeting::Transcript::Cue>]
-
-        class Cue < Moonbase::Internal::Type::BaseModel
-          # @!attribute from
-          #
-          #   @return [Float]
-          required :from, Float
-
-          # @!attribute speaker
-          #
-          #   @return [Moonbase::Models::Meeting::Transcript::Cue::Speaker]
-          required :speaker, -> { Moonbase::Meeting::Transcript::Cue::Speaker }
-
-          # @!attribute text
-          #
-          #   @return [String]
-          required :text, String
-
-          # @!attribute to
-          #
-          #   @return [Float]
-          required :to, Float
-
-          # @!method initialize(from:, speaker:, text:, to:)
-          #   @param from [Float]
-          #   @param speaker [Moonbase::Models::Meeting::Transcript::Cue::Speaker]
-          #   @param text [String]
-          #   @param to [Float]
-
-          # @see Moonbase::Models::Meeting::Transcript::Cue#speaker
-          class Speaker < Moonbase::Internal::Type::BaseModel
-            # @!attribute attendee_id
-            #
-            #   @return [String, nil]
-            optional :attendee_id, String
-
-            # @!attribute label
-            #
-            #   @return [String, nil]
-            optional :label, String
-
-            # @!method initialize(attendee_id: nil, label: nil)
-            #   @param attendee_id [String]
-            #   @param label [String]
-          end
-        end
-      end
     end
   end
 end

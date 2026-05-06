@@ -19,6 +19,7 @@ module Moonbase
     # @return [String]
     attr_reader :api_key
 
+    # Manage your collections and items
     # @return [Moonbase::Resources::Funnels]
     attr_reader :funnels
 
@@ -42,7 +43,7 @@ module Moonbase
     # @return [Moonbase::Resources::InboxMessages]
     attr_reader :inbox_messages
 
-    # Manage your inboxes, conversations, and messages
+    # Manage your meetings, files, and notes
     # @return [Moonbase::Resources::Tagsets]
     attr_reader :tagsets
 
@@ -92,11 +93,11 @@ module Moonbase
     # @return [Moonbase::Resources::AgentSettings]
     attr_reader :agent_settings
 
-    # Returns items that match the search query.
+    # Returns items and files that match the search query.
     #
     # @overload search(query:, request_options: {})
     #
-    # @param query [String] The search text to match against items.
+    # @param query [String] The search text to match against items and files.
     #
     # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
     #

@@ -36,13 +36,6 @@ module Moonbase
         sig { params(before: String).void }
         attr_writer :before
 
-        # Include only specific fields in the returned items. Specify fields by id or key.
-        sig { returns(T.nilable(T::Array[String])) }
-        attr_reader :include
-
-        sig { params(include: T::Array[String]).void }
-        attr_writer :include
-
         # Maximum number of items to return per page. Must be between 1 and 100. Defaults
         # to 20 if not specified.
         sig { returns(T.nilable(Integer)) }
@@ -64,7 +57,6 @@ module Moonbase
             collection_id: String,
             after: String,
             before: String,
-            include: T::Array[String],
             limit: Integer,
             sort: T::Array[String],
             request_options: Moonbase::RequestOptions::OrHash
@@ -80,8 +72,6 @@ module Moonbase
           # by this cursor. Use the cursor value from the response's metadata to fetch the
           # previous page of results.
           before: nil,
-          # Include only specific fields in the returned items. Specify fields by id or key.
-          include: nil,
           # Maximum number of items to return per page. Must be between 1 and 100. Defaults
           # to 20 if not specified.
           limit: nil,
@@ -98,7 +88,6 @@ module Moonbase
               collection_id: String,
               after: String,
               before: String,
-              include: T::Array[String],
               limit: Integer,
               sort: T::Array[String],
               request_options: Moonbase::RequestOptions

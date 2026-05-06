@@ -69,6 +69,13 @@ module Moonbase
       end
       attr_writer :recordings
 
+      # Optional list of tag pointers to assign to the call.
+      sig { returns(T.nilable(T::Array[Moonbase::TagPointerParam])) }
+      attr_reader :tags
+
+      sig { params(tags: T::Array[Moonbase::TagPointerParam::OrHash]).void }
+      attr_writer :tags
+
       # A transcript of the call.
       sig { returns(T.nilable(Moonbase::CallCreateParams::Transcript)) }
       attr_reader :transcript
@@ -91,6 +98,7 @@ module Moonbase
           end_at: Time,
           provider_metadata: T::Hash[Symbol, T.anything],
           recordings: T::Array[Moonbase::CallCreateParams::Recording::OrHash],
+          tags: T::Array[Moonbase::TagPointerParam::OrHash],
           transcript: Moonbase::CallCreateParams::Transcript::OrHash,
           request_options: Moonbase::RequestOptions::OrHash
         ).returns(T.attached_class)
@@ -116,6 +124,8 @@ module Moonbase
         provider_metadata: nil,
         # Any recordings associated with the call.
         recordings: nil,
+        # Optional list of tag pointers to assign to the call.
+        tags: nil,
         # A transcript of the call.
         transcript: nil,
         request_options: {}
@@ -135,6 +145,7 @@ module Moonbase
             end_at: Time,
             provider_metadata: T::Hash[Symbol, T.anything],
             recordings: T::Array[Moonbase::CallCreateParams::Recording],
+            tags: T::Array[Moonbase::TagPointerParam],
             transcript: Moonbase::CallCreateParams::Transcript,
             request_options: Moonbase::RequestOptions
           }

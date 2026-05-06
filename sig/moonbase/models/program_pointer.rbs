@@ -1,0 +1,15 @@
+module Moonbase
+  module Models
+    type program_pointer = { id: String, type: :program }
+
+    class ProgramPointer < Moonbase::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor type: :program
+
+      def initialize: (id: String, ?type: :program) -> void
+
+      def to_hash: -> { id: String, type: :program }
+    end
+  end
+end

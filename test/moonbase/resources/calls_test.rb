@@ -9,7 +9,7 @@ class Moonbase::Test::Resources::CallsTest < Moonbase::Test::ResourceTest
         direction: :incoming,
         participants: [{phone: "+14155551212", role: :caller}, {phone: "+16505551212", role: :callee}],
         provider: :openphone,
-        provider_id: "openphone_id_000000000001",
+        provider_id: "openphone_id_000000000006",
         provider_status: "completed",
         start_at: "2025-02-17T15:00:00.000Z"
       )
@@ -23,11 +23,12 @@ class Moonbase::Test::Resources::CallsTest < Moonbase::Test::ResourceTest
         id: String,
         created_at: Time,
         direction: Moonbase::Call::Direction,
-        participants: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Call::Participant]),
+        participants: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::CallParticipant]),
         provider: Moonbase::Call::Provider,
         provider_id: String,
         provider_status: String,
         start_at: Time,
+        tags: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Tag]),
         type: Symbol,
         updated_at: Time,
         answered_at: Time | nil,
@@ -35,7 +36,7 @@ class Moonbase::Test::Resources::CallsTest < Moonbase::Test::ResourceTest
         note: Moonbase::Note | nil,
         provider_metadata: ^(Moonbase::Internal::Type::HashOf[Moonbase::Internal::Type::Unknown]) | nil,
         summary: Moonbase::Note | nil,
-        transcript: Moonbase::Call::Transcript | nil
+        transcript: Moonbase::CallTranscript | nil
       }
     end
   end
@@ -52,11 +53,12 @@ class Moonbase::Test::Resources::CallsTest < Moonbase::Test::ResourceTest
         id: String,
         created_at: Time,
         direction: Moonbase::Call::Direction,
-        participants: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Call::Participant]),
+        participants: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::CallParticipant]),
         provider: Moonbase::Call::Provider,
         provider_id: String,
         provider_status: String,
         start_at: Time,
+        tags: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Tag]),
         type: Symbol,
         updated_at: Time,
         answered_at: Time | nil,
@@ -64,7 +66,7 @@ class Moonbase::Test::Resources::CallsTest < Moonbase::Test::ResourceTest
         note: Moonbase::Note | nil,
         provider_metadata: ^(Moonbase::Internal::Type::HashOf[Moonbase::Internal::Type::Unknown]) | nil,
         summary: Moonbase::Note | nil,
-        transcript: Moonbase::Call::Transcript | nil
+        transcript: Moonbase::CallTranscript | nil
       }
     end
   end
@@ -88,11 +90,12 @@ class Moonbase::Test::Resources::CallsTest < Moonbase::Test::ResourceTest
         id: String,
         created_at: Time,
         direction: Moonbase::Call::Direction,
-        participants: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Call::Participant]),
+        participants: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::CallParticipant]),
         provider: Moonbase::Call::Provider,
         provider_id: String,
         provider_status: String,
         start_at: Time,
+        tags: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Tag]),
         type: Symbol,
         updated_at: Time,
         answered_at: Time | nil,
@@ -100,7 +103,7 @@ class Moonbase::Test::Resources::CallsTest < Moonbase::Test::ResourceTest
         note: Moonbase::Note | nil,
         provider_metadata: ^(Moonbase::Internal::Type::HashOf[Moonbase::Internal::Type::Unknown]) | nil,
         summary: Moonbase::Note | nil,
-        transcript: Moonbase::Call::Transcript | nil
+        transcript: Moonbase::CallTranscript | nil
       }
     end
   end
@@ -111,7 +114,7 @@ class Moonbase::Test::Resources::CallsTest < Moonbase::Test::ResourceTest
         direction: :incoming,
         participants: [{phone: "+14155551212", role: :caller}, {phone: "+16505551212", role: :callee}],
         provider: :openphone,
-        provider_id: "openphone_id_000000000006",
+        provider_id: "openphone_id_000000000005",
         provider_status: "completed",
         start_at: "2025-02-17T15:00:00.000Z"
       )
@@ -125,11 +128,12 @@ class Moonbase::Test::Resources::CallsTest < Moonbase::Test::ResourceTest
         id: String,
         created_at: Time,
         direction: Moonbase::Call::Direction,
-        participants: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Call::Participant]),
+        participants: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::CallParticipant]),
         provider: Moonbase::Call::Provider,
         provider_id: String,
         provider_status: String,
         start_at: Time,
+        tags: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Tag]),
         type: Symbol,
         updated_at: Time,
         answered_at: Time | nil,
@@ -137,7 +141,7 @@ class Moonbase::Test::Resources::CallsTest < Moonbase::Test::ResourceTest
         note: Moonbase::Note | nil,
         provider_metadata: ^(Moonbase::Internal::Type::HashOf[Moonbase::Internal::Type::Unknown]) | nil,
         summary: Moonbase::Note | nil,
-        transcript: Moonbase::Call::Transcript | nil
+        transcript: Moonbase::CallTranscript | nil
       }
     end
   end

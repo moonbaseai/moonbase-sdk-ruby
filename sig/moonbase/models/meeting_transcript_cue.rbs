@@ -1,0 +1,35 @@
+module Moonbase
+  module Models
+    type meeting_transcript_cue =
+      {
+        from: Float,
+        speaker: Moonbase::MeetingTranscriptSpeaker,
+        text: String,
+        to: Float
+      }
+
+    class MeetingTranscriptCue < Moonbase::Internal::Type::BaseModel
+      attr_accessor from: Float
+
+      attr_accessor speaker: Moonbase::MeetingTranscriptSpeaker
+
+      attr_accessor text: String
+
+      attr_accessor to: Float
+
+      def initialize: (
+        from: Float,
+        speaker: Moonbase::MeetingTranscriptSpeaker,
+        text: String,
+        to: Float
+      ) -> void
+
+      def to_hash: -> {
+        from: Float,
+        speaker: Moonbase::MeetingTranscriptSpeaker,
+        text: String,
+        to: Float
+      }
+    end
+  end
+end

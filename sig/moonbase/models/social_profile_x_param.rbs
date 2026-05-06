@@ -1,0 +1,19 @@
+module Moonbase
+  module Models
+    type social_profile_x_param = { url: String, username: String }
+
+    class SocialProfileXParam < Moonbase::Internal::Type::BaseModel
+      attr_reader url: String?
+
+      def url=: (String) -> String
+
+      attr_reader username: String?
+
+      def username=: (String) -> String
+
+      def initialize: (?url: String, ?username: String) -> void
+
+      def to_hash: -> { url: String, username: String }
+    end
+  end
+end

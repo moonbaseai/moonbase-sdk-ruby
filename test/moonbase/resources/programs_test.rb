@@ -20,7 +20,7 @@ class Moonbase::Test::Resources::ProgramsTest < Moonbase::Test::ResourceTest
         trigger: Moonbase::Program::Trigger,
         type: Symbol,
         updated_at: Time,
-        activity_metrics: Moonbase::Program::ActivityMetrics | nil,
+        activity_metrics: Moonbase::ProgramActivityMetrics | nil,
         display_name: String | nil,
         program_template: Moonbase::ProgramTemplate | nil,
         scheduled_at: Time | nil
@@ -52,7 +52,7 @@ class Moonbase::Test::Resources::ProgramsTest < Moonbase::Test::ResourceTest
         trigger: Moonbase::Program::Trigger,
         type: Symbol,
         updated_at: Time,
-        activity_metrics: Moonbase::Program::ActivityMetrics | nil,
+        activity_metrics: Moonbase::ProgramActivityMetrics | nil,
         display_name: String | nil,
         program_template: Moonbase::ProgramTemplate | nil,
         scheduled_at: Time | nil

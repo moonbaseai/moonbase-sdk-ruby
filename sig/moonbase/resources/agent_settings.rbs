@@ -5,6 +5,15 @@ module Moonbase
         ?request_options: Moonbase::request_opts
       ) -> Moonbase::Models::AgentSettingRetrieveResponse
 
+      def update: (
+        ?deal_summary_prompt: String,
+        ?meeting_prebrief_prompt: String,
+        ?meeting_summary_prompt: String,
+        ?meeting_web_search: bool,
+        ?organization_info: String,
+        ?request_options: Moonbase::request_opts
+      ) -> Moonbase::Models::AgentSettingUpdateResponse
+
       def initialize: (client: Moonbase::Client) -> void
     end
   end

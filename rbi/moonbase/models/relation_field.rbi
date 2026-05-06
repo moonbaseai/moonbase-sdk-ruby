@@ -21,13 +21,17 @@ module Moonbase
       sig { returns(Moonbase::RelationField::Cardinality::TaggedSymbol) }
       attr_accessor :cardinality
 
-      # If `true`, this is a built-in field included by default.
-      sig { returns(T::Boolean) }
-      attr_accessor :core
-
       # Time at which the object was created, as an ISO 8601 timestamp in UTC.
       sig { returns(Time) }
       attr_accessor :created_at
+
+      sig { returns(T::Array[Moonbase::FieldDefaultValue::Variants]) }
+      attr_accessor :default_values
+
+      # `system` fields are managed by Moonbase, `inverse` fields are the reverse side
+      # of a two-way relation, and `custom` fields are user-created.
+      sig { returns(Moonbase::RelationField::Kind::TaggedSymbol) }
+      attr_accessor :kind
 
       # The human-readable name of the field (e.g., "Account").
       sig { returns(String) }
@@ -72,6 +76,32 @@ module Moonbase
       sig { params(description: String).void }
       attr_writer :description
 
+      # The name given to auto-created reverse fields on target collections. Only
+      # present on `two_way` source fields.
+      sig { returns(T.nilable(String)) }
+      attr_reader :reverse_field_name
+
+      sig { params(reverse_field_name: String).void }
+      attr_writer :reverse_field_name
+
+      # A list of reverse fields created on each target collection. Only present on
+      # `two_way` source fields.
+      sig { returns(T.nilable(T::Array[Moonbase::FieldPointer])) }
+      attr_reader :reverse_fields
+
+      sig do
+        params(reverse_fields: T::Array[Moonbase::FieldPointer::OrHash]).void
+      end
+      attr_writer :reverse_fields
+
+      # A reference to the source field that manages this reverse field. Only present on
+      # reverse (contingent) fields.
+      sig { returns(T.nilable(Moonbase::FieldPointer)) }
+      attr_reader :source_field
+
+      sig { params(source_field: Moonbase::FieldPointer::OrHash).void }
+      attr_writer :source_field
+
       # A field that creates a link between items in different collections, enabling
       # cross-collection relationships.
       sig do
@@ -79,8 +109,35 @@ module Moonbase
           id: String,
           allowed_collections: T::Array[Moonbase::CollectionPointer::OrHash],
           cardinality: Moonbase::RelationField::Cardinality::OrSymbol,
-          core: T::Boolean,
           created_at: Time,
+          default_values:
+            T::Array[
+              T.any(
+                Moonbase::SingleLineTextValue::OrHash,
+                Moonbase::MultiLineTextValue::OrHash,
+                Moonbase::IntegerValue::OrHash,
+                Moonbase::FloatValue::OrHash,
+                Moonbase::MonetaryValue::OrHash,
+                Moonbase::PercentageValue::OrHash,
+                Moonbase::BooleanValue::OrHash,
+                Moonbase::EmailValue::OrHash,
+                Moonbase::URLValue::OrHash,
+                Moonbase::DomainValue::OrHash,
+                Moonbase::SocialXValue::OrHash,
+                Moonbase::SocialLinkedInValue::OrHash,
+                Moonbase::TelephoneNumber::OrHash,
+                Moonbase::GeoValue::OrHash,
+                Moonbase::DateValue::OrHash,
+                Moonbase::CurrentDate::OrHash,
+                Moonbase::DatetimeValue::OrHash,
+                Moonbase::CurrentDatetime::OrHash,
+                Moonbase::ChoiceValue::OrHash,
+                Moonbase::FunnelStepValue::OrHash,
+                Moonbase::RelationValue::OrHash,
+                Moonbase::CurrentMember::OrHash
+              )
+            ],
+          kind: Moonbase::RelationField::Kind::OrSymbol,
           name: String,
           readonly: T::Boolean,
           ref: String,
@@ -89,6 +146,9 @@ module Moonbase
           unique: T::Boolean,
           updated_at: Time,
           description: String,
+          reverse_field_name: String,
+          reverse_fields: T::Array[Moonbase::FieldPointer::OrHash],
+          source_field: Moonbase::FieldPointer::OrHash,
           type: Symbol
         ).returns(T.attached_class)
       end
@@ -100,10 +160,12 @@ module Moonbase
         # Specifies whether the field can hold a single value (`one`) or multiple values
         # (`many`).
         cardinality:,
-        # If `true`, this is a built-in field included by default.
-        core:,
         # Time at which the object was created, as an ISO 8601 timestamp in UTC.
         created_at:,
+        default_values:,
+        # `system` fields are managed by Moonbase, `inverse` fields are the reverse side
+        # of a two-way relation, and `custom` fields are user-created.
+        kind:,
         # The human-readable name of the field (e.g., "Account").
         name:,
         # If `true`, the value of this field is system-managed and cannot be updated via
@@ -124,6 +186,15 @@ module Moonbase
         updated_at:,
         # An optional, longer-form description of the field's purpose.
         description: nil,
+        # The name given to auto-created reverse fields on target collections. Only
+        # present on `two_way` source fields.
+        reverse_field_name: nil,
+        # A list of reverse fields created on each target collection. Only present on
+        # `two_way` source fields.
+        reverse_fields: nil,
+        # A reference to the source field that manages this reverse field. Only present on
+        # reverse (contingent) fields.
+        source_field: nil,
         # The data type of the field. Always `field/relation` for this field.
         type: :"field/relation"
       )
@@ -135,8 +206,9 @@ module Moonbase
             id: String,
             allowed_collections: T::Array[Moonbase::CollectionPointer],
             cardinality: Moonbase::RelationField::Cardinality::TaggedSymbol,
-            core: T::Boolean,
             created_at: Time,
+            default_values: T::Array[Moonbase::FieldDefaultValue::Variants],
+            kind: Moonbase::RelationField::Kind::TaggedSymbol,
             name: String,
             readonly: T::Boolean,
             ref: String,
@@ -145,7 +217,10 @@ module Moonbase
             type: Symbol,
             unique: T::Boolean,
             updated_at: Time,
-            description: String
+            description: String,
+            reverse_field_name: String,
+            reverse_fields: T::Array[Moonbase::FieldPointer],
+            source_field: Moonbase::FieldPointer
           }
         )
       end
@@ -167,6 +242,28 @@ module Moonbase
         sig do
           override.returns(
             T::Array[Moonbase::RelationField::Cardinality::TaggedSymbol]
+          )
+        end
+        def self.values
+        end
+      end
+
+      # `system` fields are managed by Moonbase, `inverse` fields are the reverse side
+      # of a two-way relation, and `custom` fields are user-created.
+      module Kind
+        extend Moonbase::Internal::Type::Enum
+
+        TaggedSymbol =
+          T.type_alias { T.all(Symbol, Moonbase::RelationField::Kind) }
+        OrSymbol = T.type_alias { T.any(Symbol, String) }
+
+        SYSTEM = T.let(:system, Moonbase::RelationField::Kind::TaggedSymbol)
+        INVERSE = T.let(:inverse, Moonbase::RelationField::Kind::TaggedSymbol)
+        CUSTOM = T.let(:custom, Moonbase::RelationField::Kind::TaggedSymbol)
+
+        sig do
+          override.returns(
+            T::Array[Moonbase::RelationField::Kind::TaggedSymbol]
           )
         end
         def self.values

@@ -6,8 +6,8 @@ module Moonbase
         email: String,
         role: Moonbase::Models::Address::role,
         type: :message_address,
-        organization: Moonbase::Pointer,
-        person: Moonbase::Pointer
+        organization: Moonbase::ItemPointer,
+        person: Moonbase::ItemPointer
       }
 
     class Address < Moonbase::Internal::Type::BaseModel
@@ -19,20 +19,20 @@ module Moonbase
 
       attr_accessor type: :message_address
 
-      attr_reader organization: Moonbase::Pointer?
+      attr_reader organization: Moonbase::ItemPointer?
 
-      def organization=: (Moonbase::Pointer) -> Moonbase::Pointer
+      def organization=: (Moonbase::ItemPointer) -> Moonbase::ItemPointer
 
-      attr_reader person: Moonbase::Pointer?
+      attr_reader person: Moonbase::ItemPointer?
 
-      def person=: (Moonbase::Pointer) -> Moonbase::Pointer
+      def person=: (Moonbase::ItemPointer) -> Moonbase::ItemPointer
 
       def initialize: (
         id: String,
         email: String,
         role: Moonbase::Models::Address::role,
-        ?organization: Moonbase::Pointer,
-        ?person: Moonbase::Pointer,
+        ?organization: Moonbase::ItemPointer,
+        ?person: Moonbase::ItemPointer,
         ?type: :message_address
       ) -> void
 
@@ -41,8 +41,8 @@ module Moonbase
         email: String,
         role: Moonbase::Models::Address::role,
         type: :message_address,
-        organization: Moonbase::Pointer,
-        person: Moonbase::Pointer
+        organization: Moonbase::ItemPointer,
+        person: Moonbase::ItemPointer
       }
 
       type role = :from | :reply_to | :to | :cc | :bcc

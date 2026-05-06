@@ -22,6 +22,13 @@ module Moonbase
       #   @return [String]
       required :name, String
 
+      # @!attribute tagsets
+      #   A list of `TagsetPointer` objects referring to the Tagsets associated with this
+      #   inbox, which defines the tags available for its conversations.
+      #
+      #   @return [Array<Moonbase::Models::TagsetPointer>]
+      required :tagsets, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::TagsetPointer] }
+
       # @!attribute type
       #   String representing the object’s type. Always `inbox` for this object.
       #
@@ -39,16 +46,7 @@ module Moonbase
       #   @return [Boolean, nil]
       optional :can_read, Moonbase::Internal::Type::Boolean
 
-      # @!attribute tagsets
-      #   The list of `Tagset` objects associated with this inbox, which defines the tags
-      #   available for its conversations.
-      #
-      #   **Note:** Only present when requested using the `include` query parameter.
-      #
-      #   @return [Array<Moonbase::Models::Tagset>, nil]
-      optional :tagsets, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::Tagset] }
-
-      # @!method initialize(id:, created_at:, name:, updated_at:, can_read: nil, tagsets: nil, type: :inbox)
+      # @!method initialize(id:, created_at:, name:, tagsets:, updated_at:, can_read: nil, type: :inbox)
       #   Some parameter documentations has been truncated, see {Moonbase::Models::Inbox}
       #   for more details.
       #
@@ -60,11 +58,11 @@ module Moonbase
       #
       #   @param name [String] The display name of the inbox.
       #
+      #   @param tagsets [Array<Moonbase::Models::TagsetPointer>] A list of `TagsetPointer` objects referring to the Tagsets associated with this
+      #
       #   @param updated_at [Time] Time at which the object was last updated, as an ISO 8601 timestamp in UTC.
       #
       #   @param can_read [Boolean]
-      #
-      #   @param tagsets [Array<Moonbase::Models::Tagset>] The list of `Tagset` objects associated with this inbox, which defines the tags
       #
       #   @param type [Symbol, :inbox] String representing the object’s type. Always `inbox` for this object.
     end

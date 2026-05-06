@@ -1,0 +1,25 @@
+module Moonbase
+  module Models
+    type social_linked_in_value_param =
+      {
+        data: Moonbase::SocialProfileLinkedInParam,
+        type: :"value/uri/social_linked_in"
+      }
+
+    class SocialLinkedInValueParam < Moonbase::Internal::Type::BaseModel
+      attr_accessor data: Moonbase::SocialProfileLinkedInParam
+
+      attr_accessor type: :"value/uri/social_linked_in"
+
+      def initialize: (
+        data: Moonbase::SocialProfileLinkedInParam,
+        ?type: :"value/uri/social_linked_in"
+      ) -> void
+
+      def to_hash: -> {
+        data: Moonbase::SocialProfileLinkedInParam,
+        type: :"value/uri/social_linked_in"
+      }
+    end
+  end
+end

@@ -3,7 +3,7 @@ module Moonbase
     type activity_meeting_held =
       {
         id: String,
-        meeting: Moonbase::Pointer?,
+        meeting: Moonbase::MeetingPointer?,
         occurred_at: Time,
         type: :"activity/meeting_held"
       }
@@ -11,7 +11,7 @@ module Moonbase
     class ActivityMeetingHeld < Moonbase::Internal::Type::BaseModel
       attr_accessor id: String
 
-      attr_accessor meeting: Moonbase::Pointer?
+      attr_accessor meeting: Moonbase::MeetingPointer?
 
       attr_accessor occurred_at: Time
 
@@ -19,14 +19,14 @@ module Moonbase
 
       def initialize: (
         id: String,
-        meeting: Moonbase::Pointer?,
+        meeting: Moonbase::MeetingPointer?,
         occurred_at: Time,
         ?type: :"activity/meeting_held"
       ) -> void
 
       def to_hash: -> {
         id: String,
-        meeting: Moonbase::Pointer?,
+        meeting: Moonbase::MeetingPointer?,
         occurred_at: Time,
         type: :"activity/meeting_held"
       }

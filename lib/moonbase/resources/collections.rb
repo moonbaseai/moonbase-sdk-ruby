@@ -12,13 +12,39 @@ module Moonbase
       # @return [Moonbase::Resources::Collections::Items]
       attr_reader :items
 
+      # Some parameter documentations has been truncated, see
+      # {Moonbase::Models::CollectionCreateParams} for more details.
+      #
+      # Creates a new collection with default fields (name, created_at, updated_at) and
+      # a default view.
+      #
+      # @overload create(name:, description: nil, request_options: {})
+      #
+      # @param name [String] The user-facing name of the collection (e.g., "Leads"). A `ref` is automatically
+      #
+      # @param description [String] An optional, longer-form description of the collection's purpose.
+      #
+      # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
+      #
+      # @return [Moonbase::Models::Collection]
+      #
+      # @see Moonbase::Models::CollectionCreateParams
+      def create(params)
+        parsed, options = Moonbase::CollectionCreateParams.dump_request(params)
+        @client.request(
+          method: :post,
+          path: "collections",
+          body: parsed,
+          model: Moonbase::Collection,
+          options: options
+        )
+      end
+
       # Retrieves the details of an existing collection.
       #
-      # @overload retrieve(id, include: nil, request_options: {})
+      # @overload retrieve(id, request_options: {})
       #
       # @param id [String] The ID or `ref` of the Collection to retrieve.
-      #
-      # @param include [Array<Symbol, Moonbase::Models::CollectionRetrieveParams::Include>] Specifies which related objects to include in the response.
       #
       # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
       #
@@ -26,12 +52,35 @@ module Moonbase
       #
       # @see Moonbase::Models::CollectionRetrieveParams
       def retrieve(id, params = {})
-        parsed, options = Moonbase::CollectionRetrieveParams.dump_request(params)
-        query = Moonbase::Internal::Util.encode_query_params(parsed)
         @client.request(
           method: :get,
           path: ["collections/%1$s", id],
-          query: query,
+          model: Moonbase::Collection,
+          options: params[:request_options]
+        )
+      end
+
+      # Updates an existing collection.
+      #
+      # @overload update(id, description: nil, name: nil, request_options: {})
+      #
+      # @param id [String] The ID or `ref` of the Collection to update.
+      #
+      # @param description [String] An optional, longer-form description of the collection's purpose.
+      #
+      # @param name [String] The user-facing name of the collection.
+      #
+      # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
+      #
+      # @return [Moonbase::Models::Collection]
+      #
+      # @see Moonbase::Models::CollectionUpdateParams
+      def update(id, params = {})
+        parsed, options = Moonbase::CollectionUpdateParams.dump_request(params)
+        @client.request(
+          method: :patch,
+          path: ["collections/%1$s", id],
+          body: parsed,
           model: Moonbase::Collection,
           options: options
         )
@@ -52,7 +101,7 @@ module Moonbase
       #
       # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
       #
-      # @return [Moonbase::Internal::CursorPage<Moonbase::Models::Collection>]
+      # @return [Moonbase::Internal::CursorPage<Moonbase::Models::CollectionListResponse>]
       #
       # @see Moonbase::Models::CollectionListParams
       def list(params = {})
@@ -63,7 +112,7 @@ module Moonbase
           path: "collections",
           query: query,
           page: Moonbase::Internal::CursorPage,
-          model: Moonbase::Collection,
+          model: Moonbase::Models::CollectionListResponse,
           options: options
         )
       end

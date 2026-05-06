@@ -14,7 +14,7 @@ module Moonbase
         type: :email_message,
         unread: bool,
         addresses: ::Array[Moonbase::Address],
-        attachments: ::Array[Moonbase::EmailMessage::Attachment],
+        attachments: ::Array[Moonbase::MessageAttachment],
         conversation: Moonbase::InboxConversation,
         summary: String
       }
@@ -46,11 +46,11 @@ module Moonbase
 
       def addresses=: (::Array[Moonbase::Address]) -> ::Array[Moonbase::Address]
 
-      attr_reader attachments: ::Array[Moonbase::EmailMessage::Attachment]?
+      attr_reader attachments: ::Array[Moonbase::MessageAttachment]?
 
       def attachments=: (
-        ::Array[Moonbase::EmailMessage::Attachment]
-      ) -> ::Array[Moonbase::EmailMessage::Attachment]
+        ::Array[Moonbase::MessageAttachment]
+      ) -> ::Array[Moonbase::MessageAttachment]
 
       attr_reader conversation: Moonbase::InboxConversation?
 
@@ -74,7 +74,7 @@ module Moonbase
         trash: bool,
         unread: bool,
         ?addresses: ::Array[Moonbase::Address],
-        ?attachments: ::Array[Moonbase::EmailMessage::Attachment],
+        ?attachments: ::Array[Moonbase::MessageAttachment],
         ?conversation: Moonbase::InboxConversation,
         ?summary: String,
         ?type: :email_message
@@ -93,52 +93,10 @@ module Moonbase
         type: :email_message,
         unread: bool,
         addresses: ::Array[Moonbase::Address],
-        attachments: ::Array[Moonbase::EmailMessage::Attachment],
+        attachments: ::Array[Moonbase::MessageAttachment],
         conversation: Moonbase::InboxConversation,
         summary: String
       }
-
-      type attachment =
-        {
-          id: String,
-          created_at: Time,
-          download_url: String,
-          filename: String,
-          size: Integer,
-          type: :message_attachment
-        }
-
-      class Attachment < Moonbase::Internal::Type::BaseModel
-        attr_accessor id: String
-
-        attr_accessor created_at: Time
-
-        attr_accessor download_url: String
-
-        attr_accessor filename: String
-
-        attr_accessor size: Integer
-
-        attr_accessor type: :message_attachment
-
-        def initialize: (
-          id: String,
-          created_at: Time,
-          download_url: String,
-          filename: String,
-          size: Integer,
-          ?type: :message_attachment
-        ) -> void
-
-        def to_hash: -> {
-          id: String,
-          created_at: Time,
-          download_url: String,
-          filename: String,
-          size: Integer,
-          type: :message_attachment
-        }
-      end
     end
   end
 end

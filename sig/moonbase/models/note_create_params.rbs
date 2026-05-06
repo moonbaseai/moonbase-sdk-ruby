@@ -3,7 +3,7 @@ module Moonbase
     type note_create_params =
       {
         body: Moonbase::FormattedText,
-        associations: ::Array[Moonbase::Pointer]
+        associations: ::Array[Moonbase::Models::note_association_param_pointer]
       }
       & Moonbase::Internal::Type::request_parameters
 
@@ -13,21 +13,21 @@ module Moonbase
 
       attr_accessor body: Moonbase::FormattedText
 
-      attr_reader associations: ::Array[Moonbase::Pointer]?
+      attr_reader associations: ::Array[Moonbase::Models::note_association_param_pointer]?
 
       def associations=: (
-        ::Array[Moonbase::Pointer]
-      ) -> ::Array[Moonbase::Pointer]
+        ::Array[Moonbase::Models::note_association_param_pointer]
+      ) -> ::Array[Moonbase::Models::note_association_param_pointer]
 
       def initialize: (
         body: Moonbase::FormattedText,
-        ?associations: ::Array[Moonbase::Pointer],
+        ?associations: ::Array[Moonbase::Models::note_association_param_pointer],
         ?request_options: Moonbase::request_opts
       ) -> void
 
       def to_hash: -> {
         body: Moonbase::FormattedText,
-        associations: ::Array[Moonbase::Pointer],
+        associations: ::Array[Moonbase::Models::note_association_param_pointer],
         request_options: Moonbase::RequestOptions
       }
     end

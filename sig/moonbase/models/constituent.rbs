@@ -1,0 +1,42 @@
+module Moonbase
+  module Models
+    type constituent =
+      {
+        entity: Moonbase::Models::constituent_entity_pointer,
+        relation: Moonbase::Models::Constituent::relation,
+        type: :constituent
+      }
+
+    class Constituent < Moonbase::Internal::Type::BaseModel
+      attr_accessor entity: Moonbase::Models::constituent_entity_pointer
+
+      attr_accessor relation: Moonbase::Models::Constituent::relation
+
+      attr_accessor type: :constituent
+
+      def initialize: (
+        entity: Moonbase::Models::constituent_entity_pointer,
+        relation: Moonbase::Models::Constituent::relation,
+        ?type: :constituent
+      ) -> void
+
+      def to_hash: -> {
+        entity: Moonbase::Models::constituent_entity_pointer,
+        relation: Moonbase::Models::Constituent::relation,
+        type: :constituent
+      }
+
+      type relation = :actor | :object | :target
+
+      module Relation
+        extend Moonbase::Internal::Type::Enum
+
+        ACTOR: :actor
+        OBJECT: :object
+        TARGET: :target
+
+        def self?.values: -> ::Array[Moonbase::Models::Constituent::relation]
+      end
+    end
+  end
+end

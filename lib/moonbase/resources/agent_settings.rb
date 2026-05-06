@@ -19,6 +19,29 @@ module Moonbase
         )
       end
 
+      # @overload update(deal_summary_prompt: nil, meeting_prebrief_prompt: nil, meeting_summary_prompt: nil, meeting_web_search: nil, organization_info: nil, request_options: {})
+      #
+      # @param deal_summary_prompt [String]
+      # @param meeting_prebrief_prompt [String]
+      # @param meeting_summary_prompt [String]
+      # @param meeting_web_search [Boolean]
+      # @param organization_info [String]
+      # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
+      #
+      # @return [Moonbase::Models::AgentSettingUpdateResponse]
+      #
+      # @see Moonbase::Models::AgentSettingUpdateParams
+      def update(params = {})
+        parsed, options = Moonbase::AgentSettingUpdateParams.dump_request(params)
+        @client.request(
+          method: :patch,
+          path: "agent_settings",
+          body: parsed,
+          model: Moonbase::Models::AgentSettingUpdateResponse,
+          options: options
+        )
+      end
+
       # @api private
       #
       # @param client [Moonbase::Client]

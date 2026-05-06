@@ -1,0 +1,116 @@
+module Moonbase
+  module Models
+    type tagset_create_params =
+      {
+        name: String,
+        description: String,
+        tags: ::Array[Moonbase::TagsetCreateParams::Tag]
+      }
+      & Moonbase::Internal::Type::request_parameters
+
+    class TagsetCreateParams < Moonbase::Internal::Type::BaseModel
+      extend Moonbase::Internal::Type::RequestParameters::Converter
+      include Moonbase::Internal::Type::RequestParameters
+
+      attr_accessor name: String
+
+      attr_reader description: String?
+
+      def description=: (String) -> String
+
+      attr_reader tags: ::Array[Moonbase::TagsetCreateParams::Tag]?
+
+      def tags=: (
+        ::Array[Moonbase::TagsetCreateParams::Tag]
+      ) -> ::Array[Moonbase::TagsetCreateParams::Tag]
+
+      def initialize: (
+        name: String,
+        ?description: String,
+        ?tags: ::Array[Moonbase::TagsetCreateParams::Tag],
+        ?request_options: Moonbase::request_opts
+      ) -> void
+
+      def to_hash: -> {
+        name: String,
+        description: String,
+        tags: ::Array[Moonbase::TagsetCreateParams::Tag],
+        request_options: Moonbase::RequestOptions
+      }
+
+      type tag =
+        {
+          color: Moonbase::Models::TagsetCreateParams::Tag::color,
+          name: String,
+          id: String
+        }
+
+      class Tag < Moonbase::Internal::Type::BaseModel
+        attr_accessor color: Moonbase::Models::TagsetCreateParams::Tag::color
+
+        attr_accessor name: String
+
+        attr_reader id: String?
+
+        def id=: (String) -> String
+
+        def initialize: (
+          color: Moonbase::Models::TagsetCreateParams::Tag::color,
+          name: String,
+          ?id: String
+        ) -> void
+
+        def to_hash: -> {
+          color: Moonbase::Models::TagsetCreateParams::Tag::color,
+          name: String,
+          id: String
+        }
+
+        type color =
+          :amber
+          | :blue
+          | :cyan
+          | :emerald
+          | :fuchsia
+          | :green
+          | :indigo
+          | :lime
+          | :lunar
+          | :orange
+          | :pink
+          | :purple
+          | :red
+          | :rose
+          | :sky
+          | :teal
+          | :violet
+          | :yellow
+
+        module Color
+          extend Moonbase::Internal::Type::Enum
+
+          AMBER: :amber
+          BLUE: :blue
+          CYAN: :cyan
+          EMERALD: :emerald
+          FUCHSIA: :fuchsia
+          GREEN: :green
+          INDIGO: :indigo
+          LIME: :lime
+          LUNAR: :lunar
+          ORANGE: :orange
+          PINK: :pink
+          PURPLE: :purple
+          RED: :red
+          ROSE: :rose
+          SKY: :sky
+          TEAL: :teal
+          VIOLET: :violet
+          YELLOW: :yellow
+
+          def self?.values: -> ::Array[Moonbase::Models::TagsetCreateParams::Tag::color]
+        end
+      end
+    end
+  end
+end

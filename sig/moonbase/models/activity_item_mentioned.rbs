@@ -5,7 +5,7 @@ module Moonbase
         id: String,
         author: Moonbase::ItemPointer?,
         item: Moonbase::ItemPointer?,
-        note: Moonbase::Pointer?,
+        note: Moonbase::NotePointer?,
         occurred_at: Time,
         type: :"activity/item_mentioned"
       }
@@ -17,7 +17,7 @@ module Moonbase
 
       attr_accessor item: Moonbase::ItemPointer?
 
-      attr_accessor note: Moonbase::Pointer?
+      attr_accessor note: Moonbase::NotePointer?
 
       attr_accessor occurred_at: Time
 
@@ -27,7 +27,7 @@ module Moonbase
         id: String,
         author: Moonbase::ItemPointer?,
         item: Moonbase::ItemPointer?,
-        note: Moonbase::Pointer?,
+        note: Moonbase::NotePointer?,
         occurred_at: Time,
         ?type: :"activity/item_mentioned"
       ) -> void
@@ -36,7 +36,7 @@ module Moonbase
         id: String,
         author: Moonbase::ItemPointer?,
         item: Moonbase::ItemPointer?,
-        note: Moonbase::Pointer?,
+        note: Moonbase::NotePointer?,
         occurred_at: Time,
         type: :"activity/item_mentioned"
       }

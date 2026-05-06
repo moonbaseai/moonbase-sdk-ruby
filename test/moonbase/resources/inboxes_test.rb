@@ -15,10 +15,10 @@ class Moonbase::Test::Resources::InboxesTest < Moonbase::Test::ResourceTest
         id: String,
         created_at: Time,
         name: String,
+        tagsets: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::TagsetPointer]),
         type: Symbol,
         updated_at: Time,
-        can_read: Moonbase::Internal::Type::Boolean | nil,
-        tagsets: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Tagset]) | nil
+        can_read: Moonbase::Internal::Type::Boolean | nil
       }
     end
   end
@@ -42,10 +42,10 @@ class Moonbase::Test::Resources::InboxesTest < Moonbase::Test::ResourceTest
         id: String,
         created_at: Time,
         name: String,
+        tagsets: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::TagsetPointer]),
         type: Symbol,
         updated_at: Time,
-        can_read: Moonbase::Internal::Type::Boolean | nil,
-        tagsets: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Tagset]) | nil
+        can_read: Moonbase::Internal::Type::Boolean | nil
       }
     end
   end

@@ -1,14 +1,16 @@
 module Moonbase
   module Models
     module Collections
-      type item_search_response = { data: Moonbase::Item }
+      type item_search_response = { data: Moonbase::Item, type: :search_result }
 
       class ItemSearchResponse < Moonbase::Internal::Type::BaseModel
         attr_accessor data: Moonbase::Item
 
-        def initialize: (data: Moonbase::Item) -> void
+        attr_accessor type: :search_result
 
-        def to_hash: -> { data: Moonbase::Item }
+        def initialize: (data: Moonbase::Item, ?type: :search_result) -> void
+
+        def to_hash: -> { data: Moonbase::Item, type: :search_result }
       end
     end
   end
