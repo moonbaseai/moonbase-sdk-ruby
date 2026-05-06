@@ -10,6 +10,11 @@ module Moonbase
       sig { returns(String) }
       attr_accessor :id
 
+      # `true` if submissions require a business email address, blocking free and
+      # disposable providers.
+      sig { returns(T::Boolean) }
+      attr_accessor :business_email_required
+
       # The `Collection` that submissions to this form are saved to.
       sig { returns(Moonbase::Collection) }
       attr_reader :collection
@@ -25,7 +30,8 @@ module Moonbase
       sig { returns(String) }
       attr_accessor :name
 
-      # `true` if the form is available at a public URL.
+      # If `true`, a Moonbase Pages hosted page is enabled for this form, providing a
+      # standalone public URL for sharing.
       sig { returns(T::Boolean) }
       attr_accessor :pages_enabled
 
@@ -44,7 +50,14 @@ module Moonbase
       sig { params(pages_url: String).void }
       attr_writer :pages_url
 
-      # An optional URL to redirect users to after a successful submission.
+      # Optional URL the user is redirected to after a successful submission. When
+      # unset, no redirect occurs. Stored as a Liquid template; rendered at submission
+      # time with form field values under `submission.<key>` (keyed by the field's
+      # `key`) plus UTM params (`utm_source`, `utm_medium`, `utm_campaign`, `utm_term`,
+      # `utm_content`) automatically appended. Use the `uri_encode` filter for URL-safe
+      # values, e.g.
+      # `https://example.com/thanks?email={{ submission.email | uri_encode }}`. The
+      # rendered URL must parse as a valid URL or the submission errors.
       sig { returns(T.nilable(String)) }
       attr_reader :redirect_url
 
@@ -56,6 +69,7 @@ module Moonbase
       sig do
         params(
           id: String,
+          business_email_required: T::Boolean,
           collection: Moonbase::Collection::OrHash,
           created_at: Time,
           name: String,
@@ -69,19 +83,30 @@ module Moonbase
       def self.new(
         # Unique identifier for the object.
         id:,
+        # `true` if submissions require a business email address, blocking free and
+        # disposable providers.
+        business_email_required:,
         # The `Collection` that submissions to this form are saved to.
         collection:,
         # Time at which the object was created, as an ISO 8601 timestamp in UTC.
         created_at:,
         # The name of the form, used as the title on its public page.
         name:,
-        # `true` if the form is available at a public URL.
+        # If `true`, a Moonbase Pages hosted page is enabled for this form, providing a
+        # standalone public URL for sharing.
         pages_enabled:,
         # Time at which the object was last updated, as an ISO 8601 timestamp in UTC.
         updated_at:,
         # The public URL for the form, if `pages_enabled` is `true`.
         pages_url: nil,
-        # An optional URL to redirect users to after a successful submission.
+        # Optional URL the user is redirected to after a successful submission. When
+        # unset, no redirect occurs. Stored as a Liquid template; rendered at submission
+        # time with form field values under `submission.<key>` (keyed by the field's
+        # `key`) plus UTM params (`utm_source`, `utm_medium`, `utm_campaign`, `utm_term`,
+        # `utm_content`) automatically appended. Use the `uri_encode` filter for URL-safe
+        # values, e.g.
+        # `https://example.com/thanks?email={{ submission.email | uri_encode }}`. The
+        # rendered URL must parse as a valid URL or the submission errors.
         redirect_url: nil,
         # String representing the object’s type. Always `form` for this object.
         type: :form
@@ -92,6 +117,7 @@ module Moonbase
         override.returns(
           {
             id: String,
+            business_email_required: T::Boolean,
             collection: Moonbase::Collection,
             created_at: Time,
             name: String,

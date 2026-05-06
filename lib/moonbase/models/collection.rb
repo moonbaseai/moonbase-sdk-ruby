@@ -2,20 +2,13 @@
 
 module Moonbase
   module Models
-    # @see Moonbase::Resources::Collections#retrieve
+    # @see Moonbase::Resources::Collections#create
     class Collection < Moonbase::Internal::Type::BaseModel
       # @!attribute id
       #   Unique identifier for the object.
       #
       #   @return [String]
       required :id, String
-
-      # @!attribute core
-      #   If `true`, this is one of the foundational collections (People, Organizations,
-      #   Deals, or Tasks).
-      #
-      #   @return [Boolean]
-      required :core, Moonbase::Internal::Type::Boolean
 
       # @!attribute created_at
       #   Time at which the object was created, as an ISO 8601 timestamp in UTC.
@@ -28,6 +21,13 @@ module Moonbase
       #
       #   @return [Array<Moonbase::Models::SingleLineTextField, Moonbase::Models::MultiLineTextField, Moonbase::Models::IntegerField, Moonbase::Models::FloatField, Moonbase::Models::MonetaryField, Moonbase::Models::PercentageField, Moonbase::Models::BooleanField, Moonbase::Models::EmailField, Moonbase::Models::URLField, Moonbase::Models::DomainField, Moonbase::Models::SocialXField, Moonbase::Models::SocialLinkedInField, Moonbase::Models::TelephoneNumberField, Moonbase::Models::GeoField, Moonbase::Models::DateField, Moonbase::Models::DatetimeField, Moonbase::Models::ChoiceField, Moonbase::Models::StageField, Moonbase::Models::RelationField>]
       required :fields, -> { Moonbase::Internal::Type::ArrayOf[union: Moonbase::Field] }
+
+      # @!attribute kind
+      #   `system` collections are managed by Moonbase (e.g., People, Organizations),
+      #   `form` collections back a Form, and `custom` collections are user-created.
+      #
+      #   @return [Symbol, Moonbase::Models::Collection::Kind]
+      required :kind, enum: -> { Moonbase::Collection::Kind }
 
       # @!attribute name
       #   The user-facing name of the collection (e.g., “Organizations”).
@@ -68,7 +68,7 @@ module Moonbase
       #   @return [Array<Moonbase::Models::View>, nil]
       optional :views, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::View] }
 
-      # @!method initialize(id:, core:, created_at:, fields:, name:, ref:, updated_at:, description: nil, views: nil, type: :collection)
+      # @!method initialize(id:, created_at:, fields:, kind:, name:, ref:, updated_at:, description: nil, views: nil, type: :collection)
       #   Some parameter documentations has been truncated, see
       #   {Moonbase::Models::Collection} for more details.
       #
@@ -78,11 +78,11 @@ module Moonbase
       #
       #   @param id [String] Unique identifier for the object.
       #
-      #   @param core [Boolean] If `true`, this is one of the foundational collections (People, Organizations, D
-      #
       #   @param created_at [Time] Time at which the object was created, as an ISO 8601 timestamp in UTC.
       #
       #   @param fields [Array<Moonbase::Models::SingleLineTextField, Moonbase::Models::MultiLineTextField, Moonbase::Models::IntegerField, Moonbase::Models::FloatField, Moonbase::Models::MonetaryField, Moonbase::Models::PercentageField, Moonbase::Models::BooleanField, Moonbase::Models::EmailField, Moonbase::Models::URLField, Moonbase::Models::DomainField, Moonbase::Models::SocialXField, Moonbase::Models::SocialLinkedInField, Moonbase::Models::TelephoneNumberField, Moonbase::Models::GeoField, Moonbase::Models::DateField, Moonbase::Models::DatetimeField, Moonbase::Models::ChoiceField, Moonbase::Models::StageField, Moonbase::Models::RelationField>] A list of `Field` objects that define the schema for items in this collection.
+      #
+      #   @param kind [Symbol, Moonbase::Models::Collection::Kind] `system` collections are managed by Moonbase (e.g., People, Organizations), `for
       #
       #   @param name [String] The user-facing name of the collection (e.g., “Organizations”).
       #
@@ -95,6 +95,21 @@ module Moonbase
       #   @param views [Array<Moonbase::Models::View>] A list of saved `View` objects for presenting the collection's data.
       #
       #   @param type [Symbol, :collection] String representing the object’s type. Always `collection` for this object.
+
+      # `system` collections are managed by Moonbase (e.g., People, Organizations),
+      # `form` collections back a Form, and `custom` collections are user-created.
+      #
+      # @see Moonbase::Models::Collection#kind
+      module Kind
+        extend Moonbase::Internal::Type::Enum
+
+        SYSTEM = :system
+        FORM = :form
+        CUSTOM = :custom
+
+        # @!method self.values
+        #   @return [Array<Symbol>]
+      end
     end
   end
 end

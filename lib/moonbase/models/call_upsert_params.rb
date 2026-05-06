@@ -67,13 +67,23 @@ module Moonbase
       #   @return [Array<Moonbase::Models::CallUpsertParams::Recording>, nil]
       optional :recordings, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::CallUpsertParams::Recording] }
 
+      # @!attribute tags
+      #   Optional list of tag pointers to assign to the call. If omitted, existing tags
+      #   are unchanged. Pass an empty array to clear tags.
+      #
+      #   @return [Array<Moonbase::Models::TagPointerParam>, nil]
+      optional :tags, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::TagPointerParam] }
+
       # @!attribute transcript
       #   A transcript of the call.
       #
       #   @return [Moonbase::Models::CallUpsertParams::Transcript, nil]
       optional :transcript, -> { Moonbase::CallUpsertParams::Transcript }
 
-      # @!method initialize(direction:, participants:, provider:, provider_id:, provider_status:, start_at:, answered_at: nil, end_at: nil, provider_metadata: nil, recordings: nil, transcript: nil, request_options: {})
+      # @!method initialize(direction:, participants:, provider:, provider_id:, provider_status:, start_at:, answered_at: nil, end_at: nil, provider_metadata: nil, recordings: nil, tags: nil, transcript: nil, request_options: {})
+      #   Some parameter documentations has been truncated, see
+      #   {Moonbase::Models::CallUpsertParams} for more details.
+      #
       #   @param direction [Symbol, Moonbase::Models::CallUpsertParams::Direction] The direction of the call, either `incoming` or `outgoing`.
       #
       #   @param participants [Array<Moonbase::Models::CallUpsertParams::Participant>] An array of participants involved in the call.
@@ -93,6 +103,8 @@ module Moonbase
       #   @param provider_metadata [Hash{Symbol=>Object}] A hash of additional metadata from the provider.
       #
       #   @param recordings [Array<Moonbase::Models::CallUpsertParams::Recording>] Any recordings associated with the call.
+      #
+      #   @param tags [Array<Moonbase::Models::TagPointerParam>] Optional list of tag pointers to assign to the call. If omitted, existing tags a
       #
       #   @param transcript [Moonbase::Models::CallUpsertParams::Transcript] A transcript of the call.
       #

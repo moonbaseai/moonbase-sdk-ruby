@@ -1,0 +1,80 @@
+module Moonbase
+  module Models
+    type stage_field_create_params =
+      {
+        funnel: Moonbase::FunnelPointerParam,
+        name: String,
+        type: :"field/stage",
+        cardinality: Moonbase::Models::StageFieldCreateParams::cardinality,
+        default_values: ::Array[Moonbase::FunnelStepValueParam],
+        description: String,
+        required: bool,
+        unique: bool
+      }
+
+    class StageFieldCreateParams < Moonbase::Internal::Type::BaseModel
+      attr_accessor funnel: Moonbase::FunnelPointerParam
+
+      attr_accessor name: String
+
+      attr_accessor type: :"field/stage"
+
+      attr_reader cardinality: Moonbase::Models::StageFieldCreateParams::cardinality?
+
+      def cardinality=: (
+        Moonbase::Models::StageFieldCreateParams::cardinality
+      ) -> Moonbase::Models::StageFieldCreateParams::cardinality
+
+      attr_reader default_values: ::Array[Moonbase::FunnelStepValueParam]?
+
+      def default_values=: (
+        ::Array[Moonbase::FunnelStepValueParam]
+      ) -> ::Array[Moonbase::FunnelStepValueParam]
+
+      attr_reader description: String?
+
+      def description=: (String) -> String
+
+      attr_reader required: bool?
+
+      def required=: (bool) -> bool
+
+      attr_reader unique: bool?
+
+      def unique=: (bool) -> bool
+
+      def initialize: (
+        funnel: Moonbase::FunnelPointerParam,
+        name: String,
+        ?cardinality: Moonbase::Models::StageFieldCreateParams::cardinality,
+        ?default_values: ::Array[Moonbase::FunnelStepValueParam],
+        ?description: String,
+        ?required: bool,
+        ?unique: bool,
+        ?type: :"field/stage"
+      ) -> void
+
+      def to_hash: -> {
+        funnel: Moonbase::FunnelPointerParam,
+        name: String,
+        type: :"field/stage",
+        cardinality: Moonbase::Models::StageFieldCreateParams::cardinality,
+        default_values: ::Array[Moonbase::FunnelStepValueParam],
+        description: String,
+        required: bool,
+        unique: bool
+      }
+
+      type cardinality = :one | :many
+
+      module Cardinality
+        extend Moonbase::Internal::Type::Enum
+
+        ONE: :one
+        MANY: :many
+
+        def self?.values: -> ::Array[Moonbase::Models::StageFieldCreateParams::cardinality]
+      end
+    end
+  end
+end

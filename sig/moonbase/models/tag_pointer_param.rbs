@@ -1,0 +1,15 @@
+module Moonbase
+  module Models
+    type tag_pointer_param = { id: String, type: :tag }
+
+    class TagPointerParam < Moonbase::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor type: :tag
+
+      def initialize: (id: String, ?type: :tag) -> void
+
+      def to_hash: -> { id: String, type: :tag }
+    end
+  end
+end

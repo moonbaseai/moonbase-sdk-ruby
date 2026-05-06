@@ -20,6 +20,8 @@ module Moonbase
       required :type, const: :unsubscribe
 
       # @!method initialize(created_at:, email:, type: :unsubscribe)
+      #   A record of an unsubscribed email address.
+      #
       #   @param created_at [Time]
       #   @param email [String]
       #   @param type [Symbol, :unsubscribe]

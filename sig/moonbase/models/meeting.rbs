@@ -8,6 +8,7 @@ module Moonbase
         i_cal_uid: String,
         provider_id: String,
         start_at: Time,
+        tags: ::Array[Moonbase::Tag],
         time_zone: String,
         type: :meeting,
         updated_at: Time,
@@ -21,7 +22,7 @@ module Moonbase
         recording_url: String,
         summary: Moonbase::Note?,
         title: String,
-        transcript: Moonbase::Meeting::Transcript?
+        transcript: Moonbase::MeetingTranscript?
       }
 
     class Meeting < Moonbase::Internal::Type::BaseModel
@@ -36,6 +37,8 @@ module Moonbase
       attr_accessor provider_id: String
 
       attr_accessor start_at: Time
+
+      attr_accessor tags: ::Array[Moonbase::Tag]
 
       attr_accessor time_zone: String
 
@@ -81,7 +84,7 @@ module Moonbase
 
       def title=: (String) -> String
 
-      attr_accessor transcript: Moonbase::Meeting::Transcript?
+      attr_accessor transcript: Moonbase::MeetingTranscript?
 
       def initialize: (
         id: String,
@@ -90,6 +93,7 @@ module Moonbase
         i_cal_uid: String,
         provider_id: String,
         start_at: Time,
+        tags: ::Array[Moonbase::Tag],
         time_zone: String,
         updated_at: Time,
         ?attendees: ::Array[Moonbase::Attendee],
@@ -102,7 +106,7 @@ module Moonbase
         ?recording_url: String,
         ?summary: Moonbase::Note?,
         ?title: String,
-        ?transcript: Moonbase::Meeting::Transcript?,
+        ?transcript: Moonbase::MeetingTranscript?,
         ?type: :meeting
       ) -> void
 
@@ -113,6 +117,7 @@ module Moonbase
         i_cal_uid: String,
         provider_id: String,
         start_at: Time,
+        tags: ::Array[Moonbase::Tag],
         time_zone: String,
         type: :meeting,
         updated_at: Time,
@@ -126,68 +131,8 @@ module Moonbase
         recording_url: String,
         summary: Moonbase::Note?,
         title: String,
-        transcript: Moonbase::Meeting::Transcript?
+        transcript: Moonbase::MeetingTranscript?
       }
-
-      type transcript = { cues: ::Array[Moonbase::Meeting::Transcript::Cue] }
-
-      class Transcript < Moonbase::Internal::Type::BaseModel
-        attr_accessor cues: ::Array[Moonbase::Meeting::Transcript::Cue]
-
-        def initialize: (
-          cues: ::Array[Moonbase::Meeting::Transcript::Cue]
-        ) -> void
-
-        def to_hash: -> { cues: ::Array[Moonbase::Meeting::Transcript::Cue] }
-
-        type cue =
-          {
-            from: Float,
-            speaker: Moonbase::Meeting::Transcript::Cue::Speaker,
-            text: String,
-            to: Float
-          }
-
-        class Cue < Moonbase::Internal::Type::BaseModel
-          attr_accessor from: Float
-
-          attr_accessor speaker: Moonbase::Meeting::Transcript::Cue::Speaker
-
-          attr_accessor text: String
-
-          attr_accessor to: Float
-
-          def initialize: (
-            from: Float,
-            speaker: Moonbase::Meeting::Transcript::Cue::Speaker,
-            text: String,
-            to: Float
-          ) -> void
-
-          def to_hash: -> {
-            from: Float,
-            speaker: Moonbase::Meeting::Transcript::Cue::Speaker,
-            text: String,
-            to: Float
-          }
-
-          type speaker = { attendee_id: String, label: String }
-
-          class Speaker < Moonbase::Internal::Type::BaseModel
-            attr_reader attendee_id: String?
-
-            def attendee_id=: (String) -> String
-
-            attr_reader label: String?
-
-            def label=: (String) -> String
-
-            def initialize: (?attendee_id: String, ?label: String) -> void
-
-            def to_hash: -> { attendee_id: String, label: String }
-          end
-        end
-      end
     end
   end
 end

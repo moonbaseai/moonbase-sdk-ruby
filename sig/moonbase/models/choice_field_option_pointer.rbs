@@ -1,0 +1,16 @@
+module Moonbase
+  module Models
+    type choice_field_option_pointer =
+      { id: String, type: :choice_field_option }
+
+    class ChoiceFieldOptionPointer < Moonbase::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor type: :choice_field_option
+
+      def initialize: (id: String, ?type: :choice_field_option) -> void
+
+      def to_hash: -> { id: String, type: :choice_field_option }
+    end
+  end
+end

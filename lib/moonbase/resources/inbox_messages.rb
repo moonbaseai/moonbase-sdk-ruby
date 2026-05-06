@@ -4,6 +4,10 @@ module Moonbase
   module Resources
     # Manage your inboxes, conversations, and messages
     class InboxMessages
+      # Manage your inboxes, conversations, and messages
+      # @return [Moonbase::Resources::InboxMessages::Attachments]
+      attr_reader :attachments
+
       # Creates a new message draft.
       #
       # @overload create(body:, inbox_id:, bcc: nil, cc: nil, conversation_id: nil, subject: nil, to: nil, request_options: {})
@@ -12,15 +16,15 @@ module Moonbase
       #
       # @param inbox_id [String] The inbox to use for sending the email.
       #
-      # @param bcc [Array<Moonbase::Models::InboxMessageCreateParams::Bcc>] A list of the BCC recipients.
+      # @param bcc [Array<Moonbase::Models::EmailMessageAddressParams>] A list of the BCC recipients.
       #
-      # @param cc [Array<Moonbase::Models::InboxMessageCreateParams::Cc>] A list of the CC recipients.
+      # @param cc [Array<Moonbase::Models::EmailMessageAddressParams>] A list of the CC recipients.
       #
       # @param conversation_id [String] The ID of the conversation, if responding to an existing conversation.
       #
       # @param subject [String] The subject line of the email.
       #
-      # @param to [Array<Moonbase::Models::InboxMessageCreateParams::To>] A list of recipients.
+      # @param to [Array<Moonbase::Models::EmailMessageAddressParams>] A list of recipients.
       #
       # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
       #
@@ -74,15 +78,15 @@ module Moonbase
       #
       # @param lock_version [Integer] The current lock version of the draft for optimistic concurrency control.
       #
-      # @param bcc [Array<Moonbase::Models::InboxMessageUpdateParams::Bcc>] A list of the BCC recipients.
+      # @param bcc [Array<Moonbase::Models::EmailMessageAddressParams>] A list of the BCC recipients.
       #
       # @param body [Moonbase::Models::FormattedText] The email body.
       #
-      # @param cc [Array<Moonbase::Models::InboxMessageUpdateParams::Cc>] A list of the CC recipients.
+      # @param cc [Array<Moonbase::Models::EmailMessageAddressParams>] A list of the CC recipients.
       #
       # @param subject [String] The subject line of the email.
       #
-      # @param to [Array<Moonbase::Models::InboxMessageUpdateParams::To>] A list of the recipients.
+      # @param to [Array<Moonbase::Models::EmailMessageAddressParams>] A list of the recipients.
       #
       # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
       #
@@ -105,21 +109,21 @@ module Moonbase
       #
       # Returns a list of messages.
       #
-      # @overload list(after: nil, before: nil, filter: nil, include: nil, limit: nil, request_options: {})
+      # @overload list(after: nil, before: nil, conversation_id: nil, inbox_id: nil, limit: nil, request_options: {})
       #
       # @param after [String] When specified, returns results starting immediately after the item identified b
       #
       # @param before [String] When specified, returns results starting immediately before the item identified
       #
-      # @param filter [Moonbase::Models::InboxMessageListParams::Filter]
+      # @param conversation_id [Moonbase::Models::InboxMessageListParams::ConversationID]
       #
-      # @param include [Array<Symbol, Moonbase::Models::InboxMessageListParams::Include>] Specifies which related objects to include in the response. Valid options are `a
+      # @param inbox_id [Moonbase::Models::InboxMessageListParams::InboxID]
       #
       # @param limit [Integer] Maximum number of items to return per page. Must be between 1 and 100. Defaults
       #
       # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
       #
-      # @return [Moonbase::Internal::CursorPage<Moonbase::Models::EmailMessage>]
+      # @return [Moonbase::Internal::CursorPage<Moonbase::Models::EmailMessagePointer>]
       #
       # @see Moonbase::Models::InboxMessageListParams
       def list(params = {})
@@ -130,7 +134,7 @@ module Moonbase
           path: "inbox_messages",
           query: query,
           page: Moonbase::Internal::CursorPage,
-          model: Moonbase::EmailMessage,
+          model: Moonbase::EmailMessagePointer,
           options: options
         )
       end
@@ -160,6 +164,7 @@ module Moonbase
       # @param client [Moonbase::Client]
       def initialize(client:)
         @client = client
+        @attachments = Moonbase::Resources::InboxMessages::Attachments.new(client: client)
       end
     end
   end

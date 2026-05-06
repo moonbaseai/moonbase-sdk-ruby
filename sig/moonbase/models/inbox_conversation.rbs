@@ -11,7 +11,7 @@ module Moonbase
         spam: bool,
         state: Moonbase::Models::InboxConversation::state,
         subject: String,
-        tags: ::Array[Moonbase::InboxConversation::Tag],
+        tags: ::Array[Moonbase::Tag],
         trash: bool,
         type: :inbox_conversation,
         unread: bool,
@@ -40,7 +40,7 @@ module Moonbase
 
       attr_accessor subject: String
 
-      attr_accessor tags: ::Array[Moonbase::InboxConversation::Tag]
+      attr_accessor tags: ::Array[Moonbase::Tag]
 
       attr_accessor trash: bool
 
@@ -74,7 +74,7 @@ module Moonbase
         spam: bool,
         state: Moonbase::Models::InboxConversation::state,
         subject: String,
-        tags: ::Array[Moonbase::InboxConversation::Tag],
+        tags: ::Array[Moonbase::Tag],
         trash: bool,
         unread: bool,
         updated_at: Time,
@@ -94,7 +94,7 @@ module Moonbase
         spam: bool,
         state: Moonbase::Models::InboxConversation::state,
         subject: String,
-        tags: ::Array[Moonbase::InboxConversation::Tag],
+        tags: ::Array[Moonbase::Tag],
         trash: bool,
         type: :inbox_conversation,
         unread: bool,
@@ -115,20 +115,6 @@ module Moonbase
         WAITING: :waiting
 
         def self?.values: -> ::Array[Moonbase::Models::InboxConversation::state]
-      end
-
-      type tag = { id: String, name: String, type: :tag }
-
-      class Tag < Moonbase::Internal::Type::BaseModel
-        attr_accessor id: String
-
-        attr_accessor name: String
-
-        attr_accessor type: :tag
-
-        def initialize: (id: String, name: String, ?type: :tag) -> void
-
-        def to_hash: -> { id: String, name: String, type: :tag }
       end
     end
   end

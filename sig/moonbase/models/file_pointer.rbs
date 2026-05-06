@@ -1,0 +1,15 @@
+module Moonbase
+  module Models
+    type file_pointer = { id: String, type: :file }
+
+    class FilePointer < Moonbase::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor type: :file
+
+      def initialize: (id: String, ?type: :file) -> void
+
+      def to_hash: -> { id: String, type: :file }
+    end
+  end
+end

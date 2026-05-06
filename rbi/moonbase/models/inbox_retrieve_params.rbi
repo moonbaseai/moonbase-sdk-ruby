@@ -14,67 +14,21 @@ module Moonbase
       sig { returns(String) }
       attr_accessor :id
 
-      # Specifies which related objects to include in the response. Valid option is
-      # `tagsets`.
-      sig do
-        returns(
-          T.nilable(T::Array[Moonbase::InboxRetrieveParams::Include::OrSymbol])
-        )
-      end
-      attr_reader :include
-
-      sig do
-        params(
-          include: T::Array[Moonbase::InboxRetrieveParams::Include::OrSymbol]
-        ).void
-      end
-      attr_writer :include
-
       sig do
         params(
           id: String,
-          include: T::Array[Moonbase::InboxRetrieveParams::Include::OrSymbol],
           request_options: Moonbase::RequestOptions::OrHash
         ).returns(T.attached_class)
       end
-      def self.new(
-        id:,
-        # Specifies which related objects to include in the response. Valid option is
-        # `tagsets`.
-        include: nil,
-        request_options: {}
-      )
+      def self.new(id:, request_options: {})
       end
 
       sig do
         override.returns(
-          {
-            id: String,
-            include: T::Array[Moonbase::InboxRetrieveParams::Include::OrSymbol],
-            request_options: Moonbase::RequestOptions
-          }
+          { id: String, request_options: Moonbase::RequestOptions }
         )
       end
       def to_hash
-      end
-
-      module Include
-        extend Moonbase::Internal::Type::Enum
-
-        TaggedSymbol =
-          T.type_alias { T.all(Symbol, Moonbase::InboxRetrieveParams::Include) }
-        OrSymbol = T.type_alias { T.any(Symbol, String) }
-
-        TAGSETS =
-          T.let(:tagsets, Moonbase::InboxRetrieveParams::Include::TaggedSymbol)
-
-        sig do
-          override.returns(
-            T::Array[Moonbase::InboxRetrieveParams::Include::TaggedSymbol]
-          )
-        end
-        def self.values
-        end
       end
     end
   end

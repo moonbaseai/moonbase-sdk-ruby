@@ -1,14 +1,16 @@
 module Moonbase
   module Resources
     class InboxMessages
+      attr_reader attachments: Moonbase::Resources::InboxMessages::Attachments
+
       def create: (
         body: Moonbase::FormattedText,
         inbox_id: String,
-        ?bcc: ::Array[Moonbase::InboxMessageCreateParams::Bcc],
-        ?cc: ::Array[Moonbase::InboxMessageCreateParams::Cc],
+        ?bcc: ::Array[Moonbase::EmailMessageAddressParams],
+        ?cc: ::Array[Moonbase::EmailMessageAddressParams],
         ?conversation_id: String,
         ?subject: String,
-        ?to: ::Array[Moonbase::InboxMessageCreateParams::To],
+        ?to: ::Array[Moonbase::EmailMessageAddressParams],
         ?request_options: Moonbase::request_opts
       ) -> Moonbase::EmailMessage
 
@@ -21,22 +23,22 @@ module Moonbase
       def update: (
         String id,
         lock_version: Integer,
-        ?bcc: ::Array[Moonbase::InboxMessageUpdateParams::Bcc],
+        ?bcc: ::Array[Moonbase::EmailMessageAddressParams],
         ?body: Moonbase::FormattedText,
-        ?cc: ::Array[Moonbase::InboxMessageUpdateParams::Cc],
+        ?cc: ::Array[Moonbase::EmailMessageAddressParams],
         ?subject: String,
-        ?to: ::Array[Moonbase::InboxMessageUpdateParams::To],
+        ?to: ::Array[Moonbase::EmailMessageAddressParams],
         ?request_options: Moonbase::request_opts
       ) -> Moonbase::EmailMessage
 
       def list: (
         ?after: String,
         ?before: String,
-        ?filter: Moonbase::InboxMessageListParams::Filter,
-        ?include: ::Array[Moonbase::Models::InboxMessageListParams::include_],
+        ?conversation_id: Moonbase::InboxMessageListParams::ConversationID,
+        ?inbox_id: Moonbase::InboxMessageListParams::InboxID,
         ?limit: Integer,
         ?request_options: Moonbase::request_opts
-      ) -> Moonbase::Internal::CursorPage[Moonbase::EmailMessage]
+      ) -> Moonbase::Internal::CursorPage[Moonbase::EmailMessagePointer]
 
       def delete: (String id, ?request_options: Moonbase::request_opts) -> nil
 

@@ -6,8 +6,8 @@ module Moonbase
       # @!attribute data
       #   An option that must match one of the predefined options for the field.
       #
-      #   @return [Moonbase::Models::ChoiceFieldOption, Moonbase::Models::Pointer]
-      required :data, union: -> { Moonbase::ChoiceValueParam::Data }
+      #   @return [Moonbase::Models::ChoiceFieldOptionPointer]
+      required :data, -> { Moonbase::ChoiceFieldOptionPointer }
 
       # @!attribute type
       #
@@ -17,25 +17,9 @@ module Moonbase
       # @!method initialize(data:, type: :"value/choice")
       #   Selected choice option
       #
-      #   @param data [Moonbase::Models::ChoiceFieldOption, Moonbase::Models::Pointer] An option that must match one of the predefined options for the field.
+      #   @param data [Moonbase::Models::ChoiceFieldOptionPointer] An option that must match one of the predefined options for the field.
       #
       #   @param type [Symbol, :"value/choice"]
-
-      # An option that must match one of the predefined options for the field.
-      #
-      # @see Moonbase::Models::ChoiceValueParam#data
-      module Data
-        extend Moonbase::Internal::Type::Union
-
-        # Represents a single selectable option within a choice field.
-        variant -> { Moonbase::ChoiceFieldOption }
-
-        # A lightweight reference to another resource.
-        variant -> { Moonbase::Pointer }
-
-        # @!method self.variants
-        #   @return [Array(Moonbase::Models::ChoiceFieldOption, Moonbase::Models::Pointer)]
-      end
     end
   end
 end

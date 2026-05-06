@@ -12,6 +12,7 @@ module Moonbase
         end_at: Time,
         provider_metadata: ::Hash[Symbol, top],
         recordings: ::Array[Moonbase::CallUpsertParams::Recording],
+        tags: ::Array[Moonbase::TagPointerParam],
         transcript: Moonbase::CallUpsertParams::Transcript
       }
       & Moonbase::Internal::Type::request_parameters
@@ -50,6 +51,12 @@ module Moonbase
         ::Array[Moonbase::CallUpsertParams::Recording]
       ) -> ::Array[Moonbase::CallUpsertParams::Recording]
 
+      attr_reader tags: ::Array[Moonbase::TagPointerParam]?
+
+      def tags=: (
+        ::Array[Moonbase::TagPointerParam]
+      ) -> ::Array[Moonbase::TagPointerParam]
+
       attr_reader transcript: Moonbase::CallUpsertParams::Transcript?
 
       def transcript=: (
@@ -67,6 +74,7 @@ module Moonbase
         ?end_at: Time,
         ?provider_metadata: ::Hash[Symbol, top],
         ?recordings: ::Array[Moonbase::CallUpsertParams::Recording],
+        ?tags: ::Array[Moonbase::TagPointerParam],
         ?transcript: Moonbase::CallUpsertParams::Transcript,
         ?request_options: Moonbase::request_opts
       ) -> void
@@ -82,6 +90,7 @@ module Moonbase
         end_at: Time,
         provider_metadata: ::Hash[Symbol, top],
         recordings: ::Array[Moonbase::CallUpsertParams::Recording],
+        tags: ::Array[Moonbase::TagPointerParam],
         transcript: Moonbase::CallUpsertParams::Transcript,
         request_options: Moonbase::RequestOptions
       }

@@ -24,7 +24,7 @@ class Moonbase::Test::Resources::InboxMessagesTest < Moonbase::Test::ResourceTes
         type: Symbol,
         unread: Moonbase::Internal::Type::Boolean,
         addresses: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Address]) | nil,
-        attachments: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::EmailMessage::Attachment]) | nil,
+        attachments: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::MessageAttachment]) | nil,
         conversation: Moonbase::InboxConversation | nil,
         summary: String | nil
       }
@@ -52,7 +52,7 @@ class Moonbase::Test::Resources::InboxMessagesTest < Moonbase::Test::ResourceTes
         type: Symbol,
         unread: Moonbase::Internal::Type::Boolean,
         addresses: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Address]) | nil,
-        attachments: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::EmailMessage::Attachment]) | nil,
+        attachments: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::MessageAttachment]) | nil,
         conversation: Moonbase::InboxConversation | nil,
         summary: String | nil
       }
@@ -80,7 +80,7 @@ class Moonbase::Test::Resources::InboxMessagesTest < Moonbase::Test::ResourceTes
         type: Symbol,
         unread: Moonbase::Internal::Type::Boolean,
         addresses: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Address]) | nil,
-        attachments: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::EmailMessage::Attachment]) | nil,
+        attachments: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::MessageAttachment]) | nil,
         conversation: Moonbase::InboxConversation | nil,
         summary: String | nil
       }
@@ -98,26 +98,13 @@ class Moonbase::Test::Resources::InboxMessagesTest < Moonbase::Test::ResourceTes
     return if row.nil?
 
     assert_pattern do
-      row => Moonbase::EmailMessage
+      row => Moonbase::EmailMessagePointer
     end
 
     assert_pattern do
       row => {
         id: String,
-        body: Moonbase::FormattedText,
-        bulk: Moonbase::Internal::Type::Boolean,
-        created_at: Time,
-        draft: Moonbase::Internal::Type::Boolean,
-        lock_version: Integer,
-        spam: Moonbase::Internal::Type::Boolean,
-        subject: String,
-        trash: Moonbase::Internal::Type::Boolean,
-        type: Symbol,
-        unread: Moonbase::Internal::Type::Boolean,
-        addresses: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Address]) | nil,
-        attachments: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::EmailMessage::Attachment]) | nil,
-        conversation: Moonbase::InboxConversation | nil,
-        summary: String | nil
+        type: Symbol
       }
     end
   end

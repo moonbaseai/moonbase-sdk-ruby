@@ -8,49 +8,33 @@ module Moonbase
           T.any(Moonbase::FunnelStepValueParam, Moonbase::Internal::AnyHash)
         end
 
-      # A specific funnel step, as configured on the Funnel
-      sig { returns(T.any(Moonbase::FunnelStep, Moonbase::Pointer)) }
-      attr_accessor :data
+      # A specific funnel step, as configured on the Funnel.
+      sig { returns(Moonbase::FunnelStepPointer) }
+      attr_reader :data
+
+      sig { params(data: Moonbase::FunnelStepPointer::OrHash).void }
+      attr_writer :data
 
       sig { returns(Symbol) }
       attr_accessor :type
 
       # Funnel step value
       sig do
-        params(
-          data: T.any(Moonbase::FunnelStep::OrHash, Moonbase::Pointer::OrHash),
-          type: Symbol
-        ).returns(T.attached_class)
+        params(data: Moonbase::FunnelStepPointer::OrHash, type: Symbol).returns(
+          T.attached_class
+        )
       end
       def self.new(
-        # A specific funnel step, as configured on the Funnel
+        # A specific funnel step, as configured on the Funnel.
         data:,
         type: :"value/funnel_step"
       )
       end
 
       sig do
-        override.returns(
-          { data: T.any(Moonbase::FunnelStep, Moonbase::Pointer), type: Symbol }
-        )
+        override.returns({ data: Moonbase::FunnelStepPointer, type: Symbol })
       end
       def to_hash
-      end
-
-      # A specific funnel step, as configured on the Funnel
-      module Data
-        extend Moonbase::Internal::Type::Union
-
-        Variants =
-          T.type_alias { T.any(Moonbase::FunnelStep, Moonbase::Pointer) }
-
-        sig do
-          override.returns(
-            T::Array[Moonbase::FunnelStepValueParam::Data::Variants]
-          )
-        end
-        def self.variants
-        end
       end
     end
   end

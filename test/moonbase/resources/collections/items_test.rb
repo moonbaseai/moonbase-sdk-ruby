@@ -9,7 +9,7 @@ class Moonbase::Test::Resources::Collections::ItemsTest < Moonbase::Test::Resour
         "collection_id",
         values: {
           name: {data: "Aperture Science", type: :"value/text/single_line"},
-          ceo: {data: {id: "1CLJt2v84CdKMEKqwBNXfE", type: "item"}, type: :"value/relation"}
+          ceo: {data: {id: "1CLJt2v84CdKMEKqwBNXfE", type: :item}, type: :"value/relation"}
         }
       )
 
@@ -77,15 +77,14 @@ class Moonbase::Test::Resources::Collections::ItemsTest < Moonbase::Test::Resour
     return if row.nil?
 
     assert_pattern do
-      row => Moonbase::Item
+      row => Moonbase::ItemPointer
     end
 
     assert_pattern do
       row => {
         id: String,
         collection: Moonbase::CollectionPointer,
-        type: Symbol,
-        values: ^(Moonbase::Internal::Type::HashOf[union: Moonbase::FieldValue])
+        type: Symbol
       }
     end
   end
@@ -95,6 +94,28 @@ class Moonbase::Test::Resources::Collections::ItemsTest < Moonbase::Test::Resour
 
     assert_pattern do
       response => nil
+    end
+  end
+
+  def test_merge_required_params
+    response =
+      @moonbase.collections.items.merge(
+        "collection_id",
+        destination: {id: "1CLJt2v7opRhSWqVEtHwYT", type: :item},
+        source: {id: "1CLJt2v5aNd8G5SGzEaeVU", type: :item}
+      )
+
+    assert_pattern do
+      response => Moonbase::Item
+    end
+
+    assert_pattern do
+      response => {
+        id: String,
+        collection: Moonbase::CollectionPointer,
+        type: Symbol,
+        values: ^(Moonbase::Internal::Type::HashOf[union: Moonbase::FieldValue])
+      }
     end
   end
 
@@ -114,7 +135,8 @@ class Moonbase::Test::Resources::Collections::ItemsTest < Moonbase::Test::Resour
 
     assert_pattern do
       row => {
-        data: Moonbase::Item
+        data: Moonbase::Item,
+        type: Symbol
       }
     end
   end

@@ -1,0 +1,15 @@
+module Moonbase
+  module Models
+    type item_pointer_param = { id: String, type: :item }
+
+    class ItemPointerParam < Moonbase::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor type: :item
+
+      def initialize: (id: String, ?type: :item) -> void
+
+      def to_hash: -> { id: String, type: :item }
+    end
+  end
+end

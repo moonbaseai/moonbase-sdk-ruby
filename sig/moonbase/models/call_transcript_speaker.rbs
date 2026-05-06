@@ -1,0 +1,19 @@
+module Moonbase
+  module Models
+    type call_transcript_speaker = { attendee_id: String, label: String }
+
+    class CallTranscriptSpeaker < Moonbase::Internal::Type::BaseModel
+      attr_reader attendee_id: String?
+
+      def attendee_id=: (String) -> String
+
+      attr_reader label: String?
+
+      def label=: (String) -> String
+
+      def initialize: (?attendee_id: String, ?label: String) -> void
+
+      def to_hash: -> { attendee_id: String, label: String }
+    end
+  end
+end

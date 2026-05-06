@@ -3,9 +3,9 @@ module Moonbase
     type collection =
       {
         id: String,
-        core: bool,
         created_at: Time,
         fields: ::Array[Moonbase::Models::field],
+        kind: Moonbase::Models::Collection::kind,
         name: String,
         ref: String,
         type: :collection,
@@ -17,11 +17,11 @@ module Moonbase
     class Collection < Moonbase::Internal::Type::BaseModel
       attr_accessor id: String
 
-      attr_accessor core: bool
-
       attr_accessor created_at: Time
 
       attr_accessor fields: ::Array[Moonbase::Models::field]
+
+      attr_accessor kind: Moonbase::Models::Collection::kind
 
       attr_accessor name: String
 
@@ -41,9 +41,9 @@ module Moonbase
 
       def initialize: (
         id: String,
-        core: bool,
         created_at: Time,
         fields: ::Array[Moonbase::Models::field],
+        kind: Moonbase::Models::Collection::kind,
         name: String,
         ref: String,
         updated_at: Time,
@@ -54,9 +54,9 @@ module Moonbase
 
       def to_hash: -> {
         id: String,
-        core: bool,
         created_at: Time,
         fields: ::Array[Moonbase::Models::field],
+        kind: Moonbase::Models::Collection::kind,
         name: String,
         ref: String,
         type: :collection,
@@ -64,6 +64,18 @@ module Moonbase
         description: String,
         views: ::Array[Moonbase::View]
       }
+
+      type kind = :system | :form | :custom
+
+      module Kind
+        extend Moonbase::Internal::Type::Enum
+
+        SYSTEM: :system
+        FORM: :form
+        CUSTOM: :custom
+
+        def self?.values: -> ::Array[Moonbase::Models::Collection::kind]
+      end
     end
   end
 end

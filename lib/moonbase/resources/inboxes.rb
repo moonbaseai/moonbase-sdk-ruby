@@ -4,16 +4,11 @@ module Moonbase
   module Resources
     # Manage your inboxes, conversations, and messages
     class Inboxes
-      # Some parameter documentations has been truncated, see
-      # {Moonbase::Models::InboxRetrieveParams} for more details.
-      #
       # Retrieves the details of an existing inbox.
       #
-      # @overload retrieve(id, include: nil, request_options: {})
+      # @overload retrieve(id, request_options: {})
       #
       # @param id [String] The ID of the Inbox to retrieve.
-      #
-      # @param include [Array<Symbol, Moonbase::Models::InboxRetrieveParams::Include>] Specifies which related objects to include in the response. Valid option is `tag
       #
       # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
       #
@@ -21,14 +16,11 @@ module Moonbase
       #
       # @see Moonbase::Models::InboxRetrieveParams
       def retrieve(id, params = {})
-        parsed, options = Moonbase::InboxRetrieveParams.dump_request(params)
-        query = Moonbase::Internal::Util.encode_query_params(parsed)
         @client.request(
           method: :get,
           path: ["inboxes/%1$s", id],
-          query: query,
           model: Moonbase::Inbox,
-          options: options
+          options: params[:request_options]
         )
       end
 
@@ -37,13 +29,11 @@ module Moonbase
       #
       # Returns a list of shared inboxes.
       #
-      # @overload list(after: nil, before: nil, include: nil, limit: nil, request_options: {})
+      # @overload list(after: nil, before: nil, limit: nil, request_options: {})
       #
       # @param after [String] When specified, returns results starting immediately after the item identified b
       #
       # @param before [String] When specified, returns results starting immediately before the item identified
-      #
-      # @param include [Array<Symbol, Moonbase::Models::InboxListParams::Include>]
       #
       # @param limit [Integer] Maximum number of items to return per page. Must be between 1 and 100. Defaults
       #

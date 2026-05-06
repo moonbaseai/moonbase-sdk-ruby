@@ -10,10 +10,10 @@ module Moonbase
       required :id, String
 
       # @!attribute note
-      #   A lightweight reference to another resource.
+      #   The `Note` object that was created.
       #
-      #   @return [Moonbase::Models::Pointer, nil]
-      required :note, -> { Moonbase::Pointer }, nil?: true
+      #   @return [Moonbase::Models::NotePointer, nil]
+      required :note, -> { Moonbase::NotePointer }, nil?: true
 
       # @!attribute occurred_at
       #   The time at which the event occurred, as an ISO 8601 timestamp in UTC.
@@ -28,10 +28,10 @@ module Moonbase
       required :related_items, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::ItemPointer] }
 
       # @!attribute related_meeting
-      #   A lightweight reference to another resource.
+      #   The `Meeting` this note is related to, if any.
       #
-      #   @return [Moonbase::Models::Pointer, nil]
-      required :related_meeting, -> { Moonbase::Pointer }, nil?: true
+      #   @return [Moonbase::Models::MeetingPointer, nil]
+      required :related_meeting, -> { Moonbase::MeetingPointer }, nil?: true
 
       # @!attribute type
       #   The type of activity. Always `activity/note_created`.
@@ -44,13 +44,13 @@ module Moonbase
       #
       #   @param id [String] Unique identifier for the object.
       #
-      #   @param note [Moonbase::Models::Pointer, nil] A lightweight reference to another resource.
+      #   @param note [Moonbase::Models::NotePointer, nil] The `Note` object that was created.
       #
       #   @param occurred_at [Time] The time at which the event occurred, as an ISO 8601 timestamp in UTC.
       #
       #   @param related_items [Array<Moonbase::Models::ItemPointer>] An array of `Item` this note is related to, if any.
       #
-      #   @param related_meeting [Moonbase::Models::Pointer, nil] A lightweight reference to another resource.
+      #   @param related_meeting [Moonbase::Models::MeetingPointer, nil] The `Meeting` this note is related to, if any.
       #
       #   @param type [Symbol, :"activity/note_created"] The type of activity. Always `activity/note_created`.
     end

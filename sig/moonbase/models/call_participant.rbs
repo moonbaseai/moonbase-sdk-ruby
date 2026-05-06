@@ -1,0 +1,61 @@
+module Moonbase
+  module Models
+    type call_participant =
+      {
+        id: String,
+        phone: String,
+        role: Moonbase::Models::CallParticipant::role,
+        type: :call_participant,
+        organization: Moonbase::ItemPointer,
+        person: Moonbase::ItemPointer
+      }
+
+    class CallParticipant < Moonbase::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor phone: String
+
+      attr_accessor role: Moonbase::Models::CallParticipant::role
+
+      attr_accessor type: :call_participant
+
+      attr_reader organization: Moonbase::ItemPointer?
+
+      def organization=: (Moonbase::ItemPointer) -> Moonbase::ItemPointer
+
+      attr_reader person: Moonbase::ItemPointer?
+
+      def person=: (Moonbase::ItemPointer) -> Moonbase::ItemPointer
+
+      def initialize: (
+        id: String,
+        phone: String,
+        role: Moonbase::Models::CallParticipant::role,
+        ?organization: Moonbase::ItemPointer,
+        ?person: Moonbase::ItemPointer,
+        ?type: :call_participant
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        phone: String,
+        role: Moonbase::Models::CallParticipant::role,
+        type: :call_participant,
+        organization: Moonbase::ItemPointer,
+        person: Moonbase::ItemPointer
+      }
+
+      type role = :caller | :callee | :other
+
+      module Role
+        extend Moonbase::Internal::Type::Enum
+
+        CALLER: :caller
+        CALLEE: :callee
+        OTHER: :other
+
+        def self?.values: -> ::Array[Moonbase::Models::CallParticipant::role]
+      end
+    end
+  end
+end

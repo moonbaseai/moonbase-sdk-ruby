@@ -20,16 +20,24 @@ module Moonbase
         sig { params(data: Moonbase::Item::OrHash).void }
         attr_writer :data
 
-        # A search result entry
-        sig { params(data: Moonbase::Item::OrHash).returns(T.attached_class) }
+        sig { returns(Symbol) }
+        attr_accessor :type
+
+        # A collection search result entry containing an item.
+        sig do
+          params(data: Moonbase::Item::OrHash, type: Symbol).returns(
+            T.attached_class
+          )
+        end
         def self.new(
           # An Item represents a single record or row within a Collection. It holds a set of
           # `values` corresponding to the Collection's `fields`.
-          data:
+          data:,
+          type: :search_result
         )
         end
 
-        sig { override.returns({ data: Moonbase::Item }) }
+        sig { override.returns({ data: Moonbase::Item, type: Symbol }) }
         def to_hash
         end
       end

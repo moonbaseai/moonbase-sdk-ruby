@@ -12,7 +12,7 @@ module Moonbase
       #
       # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
       #
-      # @return [Moonbase::Models::ActivityCallOccurred, Moonbase::Models::ActivityFormSubmitted, Moonbase::Models::ActivityInboxMessageSent, Moonbase::Models::ActivityItemCreated, Moonbase::Models::ActivityItemMentioned, Moonbase::Models::ActivityItemMerged, Moonbase::Models::Activity::ActivityFileCreated, Moonbase::Models::ActivityMeetingHeld, Moonbase::Models::ActivityMeetingScheduled, Moonbase::Models::ActivityNoteCreated, Moonbase::Models::ActivityProgramMessageBounced, Moonbase::Models::ActivityProgramMessageClicked, Moonbase::Models::ActivityProgramMessageComplained, Moonbase::Models::ActivityProgramMessageFailed, Moonbase::Models::ActivityProgramMessageOpened, Moonbase::Models::ActivityProgramMessageSent, Moonbase::Models::ActivityProgramMessageShielded, Moonbase::Models::ActivityProgramMessageUnsubscribed]
+      # @return [Moonbase::Models::Activity]
       #
       # @see Moonbase::Models::ActivityRetrieveParams
       def retrieve(id, params = {})
@@ -29,19 +29,27 @@ module Moonbase
       #
       # Returns a list of activities.
       #
-      # @overload list(after: nil, before: nil, filter: nil, limit: nil, request_options: {})
+      # @overload list(after: nil, before: nil, constituent_entity_id: nil, constituent_entity_type: nil, constituent_relation: nil, limit: nil, occurred_at: nil, type: nil, request_options: {})
       #
       # @param after [String] When specified, returns results starting immediately after the item identified b
       #
       # @param before [String] When specified, returns results starting immediately before the item identified
       #
-      # @param filter [Moonbase::Models::ActivityListParams::Filter] Filter activities by type, date, or item.
+      # @param constituent_entity_id [Moonbase::Models::ActivityListParams::ConstituentEntityID] Filter activities by which entities were involved. Must be paired with constitue
+      #
+      # @param constituent_entity_type [Moonbase::Models::ActivityListParams::ConstituentEntityType] Filter activities by which entities were involved. Must be paired with constitue
+      #
+      # @param constituent_relation [Moonbase::Models::ActivityListParams::ConstituentRelation] Filter activities by which entities were involved via specific relations. Must b
       #
       # @param limit [Integer] Maximum number of items to return per page. Must be between 1 and 100. Defaults
       #
+      # @param occurred_at [Moonbase::Models::ActivityListParams::OccurredAt] Filter activities by when they occurred.
+      #
+      # @param type [Moonbase::Models::ActivityListParams::Type] Filter activities by type.
+      #
       # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
       #
-      # @return [Moonbase::Internal::CursorPage<Moonbase::Models::ActivityCallOccurred, Moonbase::Models::ActivityFormSubmitted, Moonbase::Models::ActivityInboxMessageSent, Moonbase::Models::ActivityItemCreated, Moonbase::Models::ActivityItemMentioned, Moonbase::Models::ActivityItemMerged, Moonbase::Models::Activity::ActivityFileCreated, Moonbase::Models::ActivityMeetingHeld, Moonbase::Models::ActivityMeetingScheduled, Moonbase::Models::ActivityNoteCreated, Moonbase::Models::ActivityProgramMessageBounced, Moonbase::Models::ActivityProgramMessageClicked, Moonbase::Models::ActivityProgramMessageComplained, Moonbase::Models::ActivityProgramMessageFailed, Moonbase::Models::ActivityProgramMessageOpened, Moonbase::Models::ActivityProgramMessageSent, Moonbase::Models::ActivityProgramMessageShielded, Moonbase::Models::ActivityProgramMessageUnsubscribed>]
+      # @return [Moonbase::Internal::CursorPage<Moonbase::Models::Activity>]
       #
       # @see Moonbase::Models::ActivityListParams
       def list(params = {})

@@ -1,0 +1,15 @@
+module Moonbase
+  module Models
+    type funnel_pointer_param = { id: String, type: :funnel }
+
+    class FunnelPointerParam < Moonbase::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor type: :funnel
+
+      def initialize: (id: String, ?type: :funnel) -> void
+
+      def to_hash: -> { id: String, type: :funnel }
+    end
+  end
+end

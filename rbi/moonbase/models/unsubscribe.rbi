@@ -17,6 +17,7 @@ module Moonbase
       sig { returns(Symbol) }
       attr_accessor :type
 
+      # A record of an unsubscribed email address.
       sig do
         params(created_at: Time, email: String, type: Symbol).returns(
           T.attached_class

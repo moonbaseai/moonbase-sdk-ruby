@@ -1,11 +1,7 @@
 module Moonbase
   module Models
     type inbox_retrieve_params =
-      {
-        id: String,
-        include: ::Array[Moonbase::Models::InboxRetrieveParams::include_]
-      }
-      & Moonbase::Internal::Type::request_parameters
+      { id: String } & Moonbase::Internal::Type::request_parameters
 
     class InboxRetrieveParams < Moonbase::Internal::Type::BaseModel
       extend Moonbase::Internal::Type::RequestParameters::Converter
@@ -13,33 +9,12 @@ module Moonbase
 
       attr_accessor id: String
 
-      attr_reader include: ::Array[Moonbase::Models::InboxRetrieveParams::include_]?
-
-      def include=: (
-        ::Array[Moonbase::Models::InboxRetrieveParams::include_]
-      ) -> ::Array[Moonbase::Models::InboxRetrieveParams::include_]
-
       def initialize: (
         id: String,
-        ?include: ::Array[Moonbase::Models::InboxRetrieveParams::include_],
         ?request_options: Moonbase::request_opts
       ) -> void
 
-      def to_hash: -> {
-        id: String,
-        include: ::Array[Moonbase::Models::InboxRetrieveParams::include_],
-        request_options: Moonbase::RequestOptions
-      }
-
-      type include_ = :tagsets
-
-      module Include
-        extend Moonbase::Internal::Type::Enum
-
-        TAGSETS: :tagsets
-
-        def self?.values: -> ::Array[Moonbase::Models::InboxRetrieveParams::include_]
-      end
+      def to_hash: -> { id: String, request_options: Moonbase::RequestOptions }
     end
   end
 end

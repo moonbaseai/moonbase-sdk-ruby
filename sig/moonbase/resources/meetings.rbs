@@ -10,6 +10,7 @@ module Moonbase
       def update: (
         String id,
         ?recording: Moonbase::MeetingUpdateParams::Recording,
+        ?tags: ::Array[Moonbase::TagPointerParam],
         ?transcript: Moonbase::MeetingUpdateParams::Transcript,
         ?request_options: Moonbase::request_opts
       ) -> Moonbase::Meeting
@@ -17,10 +18,10 @@ module Moonbase
       def list: (
         ?after: String,
         ?before: String,
-        ?filter: Moonbase::MeetingListParams::Filter,
+        ?i_cal_uid: Moonbase::MeetingListParams::ICalUid,
         ?limit: Integer,
         ?request_options: Moonbase::request_opts
-      ) -> Moonbase::Internal::CursorPage[Moonbase::Meeting]
+      ) -> Moonbase::Internal::CursorPage[Moonbase::MeetingPointer]
 
       def initialize: (client: Moonbase::Client) -> void
     end

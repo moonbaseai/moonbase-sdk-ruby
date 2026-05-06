@@ -19,7 +19,7 @@ module Moonbase
       attr_accessor :direction
 
       # The participants involved in the call.
-      sig { returns(T::Array[Moonbase::Call::Participant]) }
+      sig { returns(T::Array[Moonbase::CallParticipant]) }
       attr_accessor :participants
 
       # The name of the phone provider that handled the call.
@@ -37,6 +37,10 @@ module Moonbase
       # The time the call started, as an ISO 8601 timestamp in UTC.
       sig { returns(Time) }
       attr_accessor :start_at
+
+      # The tags currently applied to this call.
+      sig { returns(T::Array[Moonbase::Tag]) }
+      attr_accessor :tags
 
       # String representing the object’s type. Always `call` for this object.
       sig { returns(Symbol) }
@@ -83,11 +87,11 @@ module Moonbase
       sig { params(summary: T.nilable(Moonbase::Note::OrHash)).void }
       attr_writer :summary
 
-      sig { returns(T.nilable(Moonbase::Call::Transcript)) }
+      sig { returns(T.nilable(Moonbase::CallTranscript)) }
       attr_reader :transcript
 
       sig do
-        params(transcript: T.nilable(Moonbase::Call::Transcript::OrHash)).void
+        params(transcript: T.nilable(Moonbase::CallTranscript::OrHash)).void
       end
       attr_writer :transcript
 
@@ -98,18 +102,19 @@ module Moonbase
           id: String,
           created_at: Time,
           direction: Moonbase::Call::Direction::OrSymbol,
-          participants: T::Array[Moonbase::Call::Participant::OrHash],
+          participants: T::Array[Moonbase::CallParticipant::OrHash],
           provider: Moonbase::Call::Provider::OrSymbol,
           provider_id: String,
           provider_status: String,
           start_at: Time,
+          tags: T::Array[Moonbase::Tag::OrHash],
           updated_at: Time,
           answered_at: Time,
           end_at: Time,
           note: T.nilable(Moonbase::Note::OrHash),
           provider_metadata: T::Hash[Symbol, T.anything],
           summary: T.nilable(Moonbase::Note::OrHash),
-          transcript: T.nilable(Moonbase::Call::Transcript::OrHash),
+          transcript: T.nilable(Moonbase::CallTranscript::OrHash),
           type: Symbol
         ).returns(T.attached_class)
       end
@@ -130,6 +135,8 @@ module Moonbase
         provider_status:,
         # The time the call started, as an ISO 8601 timestamp in UTC.
         start_at:,
+        # The tags currently applied to this call.
+        tags:,
         # Time at which the object was last updated, as an ISO 8601 timestamp in UTC.
         updated_at:,
         # The time the call was answered, if available, as an ISO 8601 timestamp in UTC.
@@ -156,11 +163,12 @@ module Moonbase
             id: String,
             created_at: Time,
             direction: Moonbase::Call::Direction::TaggedSymbol,
-            participants: T::Array[Moonbase::Call::Participant],
+            participants: T::Array[Moonbase::CallParticipant],
             provider: Moonbase::Call::Provider::TaggedSymbol,
             provider_id: String,
             provider_status: String,
             start_at: Time,
+            tags: T::Array[Moonbase::Tag],
             type: Symbol,
             updated_at: Time,
             answered_at: Time,
@@ -168,7 +176,7 @@ module Moonbase
             note: T.nilable(Moonbase::Note),
             provider_metadata: T::Hash[Symbol, T.anything],
             summary: T.nilable(Moonbase::Note),
-            transcript: T.nilable(Moonbase::Call::Transcript)
+            transcript: T.nilable(Moonbase::CallTranscript)
           }
         )
       end
@@ -192,110 +200,6 @@ module Moonbase
         end
       end
 
-      class Participant < Moonbase::Internal::Type::BaseModel
-        OrHash =
-          T.type_alias do
-            T.any(Moonbase::Call::Participant, Moonbase::Internal::AnyHash)
-          end
-
-        # Unique identifier for the object.
-        sig { returns(String) }
-        attr_accessor :id
-
-        # The E.164 formatted phone number of the participant.
-        sig { returns(String) }
-        attr_accessor :phone
-
-        # The role of the participant in the call. Can be `caller`, `callee`, or `other`.
-        sig { returns(Moonbase::Call::Participant::Role::TaggedSymbol) }
-        attr_accessor :role
-
-        # String representing the object’s type. Always `call_participant` for this
-        # object.
-        sig { returns(Symbol) }
-        attr_accessor :type
-
-        # A lightweight reference to another resource.
-        sig { returns(T.nilable(Moonbase::Pointer)) }
-        attr_reader :organization
-
-        sig { params(organization: Moonbase::Pointer::OrHash).void }
-        attr_writer :organization
-
-        # A lightweight reference to another resource.
-        sig { returns(T.nilable(Moonbase::Pointer)) }
-        attr_reader :person
-
-        sig { params(person: Moonbase::Pointer::OrHash).void }
-        attr_writer :person
-
-        # Represents a participant in a call.
-        sig do
-          params(
-            id: String,
-            phone: String,
-            role: Moonbase::Call::Participant::Role::OrSymbol,
-            organization: Moonbase::Pointer::OrHash,
-            person: Moonbase::Pointer::OrHash,
-            type: Symbol
-          ).returns(T.attached_class)
-        end
-        def self.new(
-          # Unique identifier for the object.
-          id:,
-          # The E.164 formatted phone number of the participant.
-          phone:,
-          # The role of the participant in the call. Can be `caller`, `callee`, or `other`.
-          role:,
-          # A lightweight reference to another resource.
-          organization: nil,
-          # A lightweight reference to another resource.
-          person: nil,
-          # String representing the object’s type. Always `call_participant` for this
-          # object.
-          type: :call_participant
-        )
-        end
-
-        sig do
-          override.returns(
-            {
-              id: String,
-              phone: String,
-              role: Moonbase::Call::Participant::Role::TaggedSymbol,
-              type: Symbol,
-              organization: Moonbase::Pointer,
-              person: Moonbase::Pointer
-            }
-          )
-        end
-        def to_hash
-        end
-
-        # The role of the participant in the call. Can be `caller`, `callee`, or `other`.
-        module Role
-          extend Moonbase::Internal::Type::Enum
-
-          TaggedSymbol =
-            T.type_alias { T.all(Symbol, Moonbase::Call::Participant::Role) }
-          OrSymbol = T.type_alias { T.any(Symbol, String) }
-
-          CALLER =
-            T.let(:caller, Moonbase::Call::Participant::Role::TaggedSymbol)
-          CALLEE =
-            T.let(:callee, Moonbase::Call::Participant::Role::TaggedSymbol)
-          OTHER = T.let(:other, Moonbase::Call::Participant::Role::TaggedSymbol)
-
-          sig do
-            override.returns(
-              T::Array[Moonbase::Call::Participant::Role::TaggedSymbol]
-            )
-          end
-          def self.values
-          end
-        end
-      end
-
       # The name of the phone provider that handled the call.
       module Provider
         extend Moonbase::Internal::Type::Enum
@@ -311,117 +215,6 @@ module Moonbase
           override.returns(T::Array[Moonbase::Call::Provider::TaggedSymbol])
         end
         def self.values
-        end
-      end
-
-      class Transcript < Moonbase::Internal::Type::BaseModel
-        OrHash =
-          T.type_alias do
-            T.any(Moonbase::Call::Transcript, Moonbase::Internal::AnyHash)
-          end
-
-        sig { returns(T::Array[Moonbase::Call::Transcript::Cue]) }
-        attr_accessor :cues
-
-        sig do
-          params(
-            cues: T::Array[Moonbase::Call::Transcript::Cue::OrHash]
-          ).returns(T.attached_class)
-        end
-        def self.new(cues:)
-        end
-
-        sig do
-          override.returns({ cues: T::Array[Moonbase::Call::Transcript::Cue] })
-        end
-        def to_hash
-        end
-
-        class Cue < Moonbase::Internal::Type::BaseModel
-          OrHash =
-            T.type_alias do
-              T.any(
-                Moonbase::Call::Transcript::Cue,
-                Moonbase::Internal::AnyHash
-              )
-            end
-
-          sig { returns(Float) }
-          attr_accessor :from
-
-          sig { returns(Moonbase::Call::Transcript::Cue::Speaker) }
-          attr_reader :speaker
-
-          sig do
-            params(
-              speaker: Moonbase::Call::Transcript::Cue::Speaker::OrHash
-            ).void
-          end
-          attr_writer :speaker
-
-          sig { returns(String) }
-          attr_accessor :text
-
-          sig { returns(Float) }
-          attr_accessor :to
-
-          sig do
-            params(
-              from: Float,
-              speaker: Moonbase::Call::Transcript::Cue::Speaker::OrHash,
-              text: String,
-              to: Float
-            ).returns(T.attached_class)
-          end
-          def self.new(from:, speaker:, text:, to:)
-          end
-
-          sig do
-            override.returns(
-              {
-                from: Float,
-                speaker: Moonbase::Call::Transcript::Cue::Speaker,
-                text: String,
-                to: Float
-              }
-            )
-          end
-          def to_hash
-          end
-
-          class Speaker < Moonbase::Internal::Type::BaseModel
-            OrHash =
-              T.type_alias do
-                T.any(
-                  Moonbase::Call::Transcript::Cue::Speaker,
-                  Moonbase::Internal::AnyHash
-                )
-              end
-
-            sig { returns(T.nilable(String)) }
-            attr_reader :attendee_id
-
-            sig { params(attendee_id: String).void }
-            attr_writer :attendee_id
-
-            sig { returns(T.nilable(String)) }
-            attr_reader :label
-
-            sig { params(label: String).void }
-            attr_writer :label
-
-            sig do
-              params(attendee_id: String, label: String).returns(
-                T.attached_class
-              )
-            end
-            def self.new(attendee_id: nil, label: nil)
-            end
-
-            sig { override.returns({ attendee_id: String, label: String }) }
-            def to_hash
-            end
-          end
         end
       end
     end

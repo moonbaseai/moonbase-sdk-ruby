@@ -23,11 +23,6 @@ module Moonbase
       #   @return [String, nil]
       optional :before, String
 
-      # @!attribute include
-      #
-      #   @return [Array<Symbol, Moonbase::Models::InboxListParams::Include>, nil]
-      optional :include, -> { Moonbase::Internal::Type::ArrayOf[enum: Moonbase::InboxListParams::Include] }
-
       # @!attribute limit
       #   Maximum number of items to return per page. Must be between 1 and 100. Defaults
       #   to 20 if not specified.
@@ -35,7 +30,7 @@ module Moonbase
       #   @return [Integer, nil]
       optional :limit, Integer
 
-      # @!method initialize(after: nil, before: nil, include: nil, limit: nil, request_options: {})
+      # @!method initialize(after: nil, before: nil, limit: nil, request_options: {})
       #   Some parameter documentations has been truncated, see
       #   {Moonbase::Models::InboxListParams} for more details.
       #
@@ -43,20 +38,9 @@ module Moonbase
       #
       #   @param before [String] When specified, returns results starting immediately before the item identified
       #
-      #   @param include [Array<Symbol, Moonbase::Models::InboxListParams::Include>]
-      #
       #   @param limit [Integer] Maximum number of items to return per page. Must be between 1 and 100. Defaults
       #
       #   @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}]
-
-      module Include
-        extend Moonbase::Internal::Type::Enum
-
-        TAGSETS = :tagsets
-
-        # @!method self.values
-        #   @return [Array<Symbol>]
-      end
     end
   end
 end

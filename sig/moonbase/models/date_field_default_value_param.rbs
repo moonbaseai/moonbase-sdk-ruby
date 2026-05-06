@@ -1,0 +1,12 @@
+module Moonbase
+  module Models
+    type date_field_default_value_param =
+      Moonbase::DateValue | Moonbase::CurrentDate
+
+    module DateFieldDefaultValueParam
+      extend Moonbase::Internal::Type::Union
+
+      def self?.variants: -> ::Array[Moonbase::Models::date_field_default_value_param]
+    end
+  end
+end

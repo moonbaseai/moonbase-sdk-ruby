@@ -5,7 +5,7 @@ module Moonbase
         id: String,
         created_at: Time,
         name: String,
-        tags: ::Array[Moonbase::Tagset::Tag],
+        tags: ::Array[Moonbase::Tag],
         type: :tagset,
         updated_at: Time,
         description: String
@@ -18,7 +18,7 @@ module Moonbase
 
       attr_accessor name: String
 
-      attr_accessor tags: ::Array[Moonbase::Tagset::Tag]
+      attr_accessor tags: ::Array[Moonbase::Tag]
 
       attr_accessor type: :tagset
 
@@ -32,7 +32,7 @@ module Moonbase
         id: String,
         created_at: Time,
         name: String,
-        tags: ::Array[Moonbase::Tagset::Tag],
+        tags: ::Array[Moonbase::Tag],
         updated_at: Time,
         ?description: String,
         ?type: :tagset
@@ -42,25 +42,11 @@ module Moonbase
         id: String,
         created_at: Time,
         name: String,
-        tags: ::Array[Moonbase::Tagset::Tag],
+        tags: ::Array[Moonbase::Tag],
         type: :tagset,
         updated_at: Time,
         description: String
       }
-
-      type tag = { id: String, name: String, type: :tag }
-
-      class Tag < Moonbase::Internal::Type::BaseModel
-        attr_accessor id: String
-
-        attr_accessor name: String
-
-        attr_accessor type: :tag
-
-        def initialize: (id: String, name: String, ?type: :tag) -> void
-
-        def to_hash: -> { id: String, name: String, type: :tag }
-      end
     end
   end
 end

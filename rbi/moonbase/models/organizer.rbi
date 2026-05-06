@@ -19,18 +19,20 @@ module Moonbase
       sig { returns(Symbol) }
       attr_accessor :type
 
-      # A lightweight reference to another resource.
-      sig { returns(T.nilable(Moonbase::Pointer)) }
+      # A reference to an `Item` within a specific `Collection`, providing the context
+      # needed to locate the item.
+      sig { returns(T.nilable(Moonbase::ItemPointer)) }
       attr_reader :organization
 
-      sig { params(organization: Moonbase::Pointer::OrHash).void }
+      sig { params(organization: Moonbase::ItemPointer::OrHash).void }
       attr_writer :organization
 
-      # A lightweight reference to another resource.
-      sig { returns(T.nilable(Moonbase::Pointer)) }
+      # A reference to an `Item` within a specific `Collection`, providing the context
+      # needed to locate the item.
+      sig { returns(T.nilable(Moonbase::ItemPointer)) }
       attr_reader :person
 
-      sig { params(person: Moonbase::Pointer::OrHash).void }
+      sig { params(person: Moonbase::ItemPointer::OrHash).void }
       attr_writer :person
 
       # Represents the organizer of a meeting.
@@ -38,8 +40,8 @@ module Moonbase
         params(
           id: String,
           email: String,
-          organization: Moonbase::Pointer::OrHash,
-          person: Moonbase::Pointer::OrHash,
+          organization: Moonbase::ItemPointer::OrHash,
+          person: Moonbase::ItemPointer::OrHash,
           type: Symbol
         ).returns(T.attached_class)
       end
@@ -48,9 +50,11 @@ module Moonbase
         id:,
         # The email address of the organizer.
         email:,
-        # A lightweight reference to another resource.
+        # A reference to an `Item` within a specific `Collection`, providing the context
+        # needed to locate the item.
         organization: nil,
-        # A lightweight reference to another resource.
+        # A reference to an `Item` within a specific `Collection`, providing the context
+        # needed to locate the item.
         person: nil,
         # String representing the object’s type. Always `meeting_organizer` for this
         # object.
@@ -64,8 +68,8 @@ module Moonbase
             id: String,
             email: String,
             type: Symbol,
-            organization: Moonbase::Pointer,
-            person: Moonbase::Pointer
+            organization: Moonbase::ItemPointer,
+            person: Moonbase::ItemPointer
           }
         )
       end

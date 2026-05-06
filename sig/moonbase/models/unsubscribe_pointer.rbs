@@ -1,0 +1,15 @@
+module Moonbase
+  module Models
+    type unsubscribe_pointer = { id: String, type: :unsubscribe }
+
+    class UnsubscribePointer < Moonbase::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor type: :unsubscribe
+
+      def initialize: (id: String, ?type: :unsubscribe) -> void
+
+      def to_hash: -> { id: String, type: :unsubscribe }
+    end
+  end
+end

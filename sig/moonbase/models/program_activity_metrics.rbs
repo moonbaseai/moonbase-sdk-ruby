@@ -1,0 +1,55 @@
+module Moonbase
+  module Models
+    type program_activity_metrics =
+      {
+        bounced: Integer,
+        clicked: Integer,
+        complained: Integer,
+        failed: Integer,
+        opened: Integer,
+        sent: Integer,
+        shielded: Integer,
+        unsubscribed: Integer
+      }
+
+    class ProgramActivityMetrics < Moonbase::Internal::Type::BaseModel
+      attr_accessor bounced: Integer
+
+      attr_accessor clicked: Integer
+
+      attr_accessor complained: Integer
+
+      attr_accessor failed: Integer
+
+      attr_accessor opened: Integer
+
+      attr_accessor sent: Integer
+
+      attr_accessor shielded: Integer
+
+      attr_accessor unsubscribed: Integer
+
+      def initialize: (
+        bounced: Integer,
+        clicked: Integer,
+        complained: Integer,
+        failed: Integer,
+        opened: Integer,
+        sent: Integer,
+        shielded: Integer,
+        unsubscribed: Integer
+      ) -> void
+
+      def to_hash: -> {
+        bounced: Integer,
+        clicked: Integer,
+        complained: Integer,
+        failed: Integer,
+        opened: Integer,
+        sent: Integer,
+        shielded: Integer,
+        unsubscribed: Integer
+      }
+    end
+  end
+end

@@ -1,0 +1,22 @@
+module Moonbase
+  module Models
+    type constituent_entity_pointer =
+      Moonbase::CallPointer
+      | Moonbase::CollectionPointer
+      | Moonbase::ItemPointer
+      | Moonbase::FilePointer
+      | Moonbase::MeetingPointer
+      | Moonbase::EmailMessagePointer
+      | Moonbase::NotePointer
+      | Moonbase::ProgramPointer
+      | Moonbase::ProgramMessagePointer
+      | Moonbase::ProgramTemplatePointer
+      | Moonbase::UnsubscribePointer
+
+    module ConstituentEntityPointer
+      extend Moonbase::Internal::Type::Union
+
+      def self?.variants: -> ::Array[Moonbase::Models::constituent_entity_pointer]
+    end
+  end
+end

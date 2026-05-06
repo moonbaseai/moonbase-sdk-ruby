@@ -17,13 +17,12 @@ module Moonbase
       sig { returns(Moonbase::StageField::Cardinality::TaggedSymbol) }
       attr_accessor :cardinality
 
-      # If `true`, this is a built-in field included by default.
-      sig { returns(T::Boolean) }
-      attr_accessor :core
-
       # Time at which the object was created, as an ISO 8601 timestamp in UTC.
       sig { returns(Time) }
       attr_accessor :created_at
+
+      sig { returns(T::Array[Moonbase::FieldDefaultValue::Variants]) }
+      attr_accessor :default_values
 
       # The `Funnel` object that defines the available stages for this field.
       sig { returns(Moonbase::Funnel) }
@@ -31,6 +30,11 @@ module Moonbase
 
       sig { params(funnel: Moonbase::Funnel::OrHash).void }
       attr_writer :funnel
+
+      # `system` fields are managed by Moonbase, `inverse` fields are the reverse side
+      # of a two-way relation, and `custom` fields are user-created.
+      sig { returns(Moonbase::StageField::Kind::TaggedSymbol) }
+      attr_accessor :kind
 
       # The human-readable name of the field (e.g., "Sales Stage").
       sig { returns(String) }
@@ -75,9 +79,36 @@ module Moonbase
         params(
           id: String,
           cardinality: Moonbase::StageField::Cardinality::OrSymbol,
-          core: T::Boolean,
           created_at: Time,
+          default_values:
+            T::Array[
+              T.any(
+                Moonbase::SingleLineTextValue::OrHash,
+                Moonbase::MultiLineTextValue::OrHash,
+                Moonbase::IntegerValue::OrHash,
+                Moonbase::FloatValue::OrHash,
+                Moonbase::MonetaryValue::OrHash,
+                Moonbase::PercentageValue::OrHash,
+                Moonbase::BooleanValue::OrHash,
+                Moonbase::EmailValue::OrHash,
+                Moonbase::URLValue::OrHash,
+                Moonbase::DomainValue::OrHash,
+                Moonbase::SocialXValue::OrHash,
+                Moonbase::SocialLinkedInValue::OrHash,
+                Moonbase::TelephoneNumber::OrHash,
+                Moonbase::GeoValue::OrHash,
+                Moonbase::DateValue::OrHash,
+                Moonbase::CurrentDate::OrHash,
+                Moonbase::DatetimeValue::OrHash,
+                Moonbase::CurrentDatetime::OrHash,
+                Moonbase::ChoiceValue::OrHash,
+                Moonbase::FunnelStepValue::OrHash,
+                Moonbase::RelationValue::OrHash,
+                Moonbase::CurrentMember::OrHash
+              )
+            ],
           funnel: Moonbase::Funnel::OrHash,
+          kind: Moonbase::StageField::Kind::OrSymbol,
           name: String,
           readonly: T::Boolean,
           ref: String,
@@ -94,12 +125,14 @@ module Moonbase
         # Specifies whether the field can hold a single value (`one`) or multiple values
         # (`many`).
         cardinality:,
-        # If `true`, this is a built-in field included by default.
-        core:,
         # Time at which the object was created, as an ISO 8601 timestamp in UTC.
         created_at:,
+        default_values:,
         # The `Funnel` object that defines the available stages for this field.
         funnel:,
+        # `system` fields are managed by Moonbase, `inverse` fields are the reverse side
+        # of a two-way relation, and `custom` fields are user-created.
+        kind:,
         # The human-readable name of the field (e.g., "Sales Stage").
         name:,
         # If `true`, the value of this field is system-managed and cannot be updated via
@@ -127,9 +160,10 @@ module Moonbase
           {
             id: String,
             cardinality: Moonbase::StageField::Cardinality::TaggedSymbol,
-            core: T::Boolean,
             created_at: Time,
+            default_values: T::Array[Moonbase::FieldDefaultValue::Variants],
             funnel: Moonbase::Funnel,
+            kind: Moonbase::StageField::Kind::TaggedSymbol,
             name: String,
             readonly: T::Boolean,
             ref: String,
@@ -160,6 +194,26 @@ module Moonbase
           override.returns(
             T::Array[Moonbase::StageField::Cardinality::TaggedSymbol]
           )
+        end
+        def self.values
+        end
+      end
+
+      # `system` fields are managed by Moonbase, `inverse` fields are the reverse side
+      # of a two-way relation, and `custom` fields are user-created.
+      module Kind
+        extend Moonbase::Internal::Type::Enum
+
+        TaggedSymbol =
+          T.type_alias { T.all(Symbol, Moonbase::StageField::Kind) }
+        OrSymbol = T.type_alias { T.any(Symbol, String) }
+
+        SYSTEM = T.let(:system, Moonbase::StageField::Kind::TaggedSymbol)
+        INVERSE = T.let(:inverse, Moonbase::StageField::Kind::TaggedSymbol)
+        CUSTOM = T.let(:custom, Moonbase::StageField::Kind::TaggedSymbol)
+
+        sig do
+          override.returns(T::Array[Moonbase::StageField::Kind::TaggedSymbol])
         end
         def self.values
         end

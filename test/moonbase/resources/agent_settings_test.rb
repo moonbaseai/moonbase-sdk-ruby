@@ -15,9 +15,28 @@ class Moonbase::Test::Resources::AgentSettingsTest < Moonbase::Test::ResourceTes
         created_at: Time,
         type: Symbol,
         updated_at: Time,
-        deal_summary_model: String | nil,
         deal_summary_prompt: String | nil,
-        meeting_agent_model: String | nil,
+        meeting_prebrief_prompt: String | nil,
+        meeting_summary_prompt: String | nil,
+        meeting_web_search: Moonbase::Internal::Type::Boolean | nil,
+        organization_info: String | nil
+      }
+    end
+  end
+
+  def test_update
+    response = @moonbase.agent_settings.update
+
+    assert_pattern do
+      response => Moonbase::Models::AgentSettingUpdateResponse
+    end
+
+    assert_pattern do
+      response => {
+        created_at: Time,
+        type: Symbol,
+        updated_at: Time,
+        deal_summary_prompt: String | nil,
         meeting_prebrief_prompt: String | nil,
         meeting_summary_prompt: String | nil,
         meeting_web_search: Moonbase::Internal::Type::Boolean | nil,

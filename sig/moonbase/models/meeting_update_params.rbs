@@ -4,6 +4,7 @@ module Moonbase
       {
         id: String,
         recording: Moonbase::MeetingUpdateParams::Recording,
+        tags: ::Array[Moonbase::TagPointerParam],
         transcript: Moonbase::MeetingUpdateParams::Transcript
       }
       & Moonbase::Internal::Type::request_parameters
@@ -20,6 +21,12 @@ module Moonbase
         Moonbase::MeetingUpdateParams::Recording
       ) -> Moonbase::MeetingUpdateParams::Recording
 
+      attr_reader tags: ::Array[Moonbase::TagPointerParam]?
+
+      def tags=: (
+        ::Array[Moonbase::TagPointerParam]
+      ) -> ::Array[Moonbase::TagPointerParam]
+
       attr_reader transcript: Moonbase::MeetingUpdateParams::Transcript?
 
       def transcript=: (
@@ -29,6 +36,7 @@ module Moonbase
       def initialize: (
         id: String,
         ?recording: Moonbase::MeetingUpdateParams::Recording,
+        ?tags: ::Array[Moonbase::TagPointerParam],
         ?transcript: Moonbase::MeetingUpdateParams::Transcript,
         ?request_options: Moonbase::request_opts
       ) -> void
@@ -36,6 +44,7 @@ module Moonbase
       def to_hash: -> {
         id: String,
         recording: Moonbase::MeetingUpdateParams::Recording,
+        tags: ::Array[Moonbase::TagPointerParam],
         transcript: Moonbase::MeetingUpdateParams::Transcript,
         request_options: Moonbase::RequestOptions
       }

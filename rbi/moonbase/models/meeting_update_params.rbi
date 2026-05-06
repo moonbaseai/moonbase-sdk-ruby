@@ -23,6 +23,14 @@ module Moonbase
       end
       attr_writer :recording
 
+      # Optional list of tag pointers to assign to the meeting. If omitted, existing
+      # tags are unchanged. Pass an empty array to clear tags.
+      sig { returns(T.nilable(T::Array[Moonbase::TagPointerParam])) }
+      attr_reader :tags
+
+      sig { params(tags: T::Array[Moonbase::TagPointerParam::OrHash]).void }
+      attr_writer :tags
+
       # The meeting transcript.
       sig { returns(T.nilable(Moonbase::MeetingUpdateParams::Transcript)) }
       attr_reader :transcript
@@ -38,6 +46,7 @@ module Moonbase
         params(
           id: String,
           recording: Moonbase::MeetingUpdateParams::Recording::OrHash,
+          tags: T::Array[Moonbase::TagPointerParam::OrHash],
           transcript: Moonbase::MeetingUpdateParams::Transcript::OrHash,
           request_options: Moonbase::RequestOptions::OrHash
         ).returns(T.attached_class)
@@ -46,6 +55,9 @@ module Moonbase
         id:,
         # A video recording of the meeting.
         recording: nil,
+        # Optional list of tag pointers to assign to the meeting. If omitted, existing
+        # tags are unchanged. Pass an empty array to clear tags.
+        tags: nil,
         # The meeting transcript.
         transcript: nil,
         request_options: {}
@@ -57,6 +69,7 @@ module Moonbase
           {
             id: String,
             recording: Moonbase::MeetingUpdateParams::Recording,
+            tags: T::Array[Moonbase::TagPointerParam],
             transcript: Moonbase::MeetingUpdateParams::Transcript,
             request_options: Moonbase::RequestOptions
           }
