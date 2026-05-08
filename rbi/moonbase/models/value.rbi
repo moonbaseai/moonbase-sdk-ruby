@@ -11,6 +11,7 @@ module Moonbase
           T.any(
             Moonbase::SingleLineTextValue,
             Moonbase::MultiLineTextValue,
+            Moonbase::IdentifierValue,
             Moonbase::IntegerValue,
             Moonbase::FloatValue,
             Moonbase::MonetaryValue,

@@ -70,6 +70,7 @@ module Moonbase
               T.any(
                 Moonbase::SingleLineTextField::OrHash,
                 Moonbase::MultiLineTextField::OrHash,
+                Moonbase::IdentifierField::OrHash,
                 Moonbase::IntegerField::OrHash,
                 Moonbase::FloatField::OrHash,
                 Moonbase::MonetaryField::OrHash,

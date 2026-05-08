@@ -1,0 +1,15 @@
+module Moonbase
+  module Models
+    type identifier_value = { data: String, type: :"value/identifier" }
+
+    class IdentifierValue < Moonbase::Internal::Type::BaseModel
+      attr_accessor data: String
+
+      attr_accessor type: :"value/identifier"
+
+      def initialize: (data: String, ?type: :"value/identifier") -> void
+
+      def to_hash: -> { data: String, type: :"value/identifier" }
+    end
+  end
+end

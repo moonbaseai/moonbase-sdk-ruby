@@ -13,6 +13,7 @@ module Moonbase
               T.any(
                 Moonbase::Collections::FieldCreateParams::Field::FieldTextSingleLine::OrHash,
                 Moonbase::Collections::FieldCreateParams::Field::FieldTextMultiLine::OrHash,
+                Moonbase::Collections::FieldCreateParams::Field::FieldIdentifier::OrHash,
                 Moonbase::Collections::FieldCreateParams::Field::FieldNumberUnitlessInteger::OrHash,
                 Moonbase::Collections::FieldCreateParams::Field::FieldNumberUnitlessFloat::OrHash,
                 Moonbase::Collections::FieldCreateParams::Field::FieldNumberMonetary::OrHash,
@@ -69,6 +70,7 @@ module Moonbase
               T.any(
                 Moonbase::Collections::FieldUpdateParams::Field::FieldTextSingleLine::OrHash,
                 Moonbase::Collections::FieldUpdateParams::Field::FieldTextMultiLine::OrHash,
+                Moonbase::Collections::FieldUpdateParams::Field::FieldIdentifier::OrHash,
                 Moonbase::Collections::FieldUpdateParams::Field::FieldNumberUnitlessInteger::OrHash,
                 Moonbase::Collections::FieldUpdateParams::Field::FieldNumberUnitlessFloat::OrHash,
                 Moonbase::Collections::FieldUpdateParams::Field::FieldNumberMonetary::OrHash,

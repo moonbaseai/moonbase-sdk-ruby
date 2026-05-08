@@ -16,13 +16,13 @@ module Moonbase
         # @!attribute field
         #   Parameters for creating a field, discriminated by `type`.
         #
-        #   @return [Moonbase::Models::Collections::FieldCreateParams::Field::FieldTextSingleLine, Moonbase::Models::Collections::FieldCreateParams::Field::FieldTextMultiLine, Moonbase::Models::Collections::FieldCreateParams::Field::FieldNumberUnitlessInteger, Moonbase::Models::Collections::FieldCreateParams::Field::FieldNumberUnitlessFloat, Moonbase::Models::Collections::FieldCreateParams::Field::FieldNumberMonetary, Moonbase::Models::Collections::FieldCreateParams::Field::FieldNumberPercentage, Moonbase::Models::Collections::FieldCreateParams::Field::FieldBoolean, Moonbase::Models::Collections::FieldCreateParams::Field::FieldEmail, Moonbase::Models::Collections::FieldCreateParams::Field::FieldUriURL, Moonbase::Models::Collections::FieldCreateParams::Field::FieldUriDomain, Moonbase::Models::Collections::FieldCreateParams::Field::FieldUriSocialX, Moonbase::Models::Collections::FieldCreateParams::Field::FieldUriSocialLinkedIn, Moonbase::Models::Collections::FieldCreateParams::Field::FieldTelephoneNumber, Moonbase::Models::Collections::FieldCreateParams::Field::FieldGeo, Moonbase::Models::Collections::FieldCreateParams::Field::FieldDate, Moonbase::Models::Collections::FieldCreateParams::Field::FieldDatetime, Moonbase::Models::Collections::FieldCreateParams::Field::FieldChoice, Moonbase::Models::StageFieldCreateParams, Moonbase::Models::Collections::FieldCreateParams::Field::FieldRelation]
+        #   @return [Moonbase::Models::Collections::FieldCreateParams::Field::FieldTextSingleLine, Moonbase::Models::Collections::FieldCreateParams::Field::FieldTextMultiLine, Moonbase::Models::Collections::FieldCreateParams::Field::FieldIdentifier, Moonbase::Models::Collections::FieldCreateParams::Field::FieldNumberUnitlessInteger, Moonbase::Models::Collections::FieldCreateParams::Field::FieldNumberUnitlessFloat, Moonbase::Models::Collections::FieldCreateParams::Field::FieldNumberMonetary, Moonbase::Models::Collections::FieldCreateParams::Field::FieldNumberPercentage, Moonbase::Models::Collections::FieldCreateParams::Field::FieldBoolean, Moonbase::Models::Collections::FieldCreateParams::Field::FieldEmail, Moonbase::Models::Collections::FieldCreateParams::Field::FieldUriURL, Moonbase::Models::Collections::FieldCreateParams::Field::FieldUriDomain, Moonbase::Models::Collections::FieldCreateParams::Field::FieldUriSocialX, Moonbase::Models::Collections::FieldCreateParams::Field::FieldUriSocialLinkedIn, Moonbase::Models::Collections::FieldCreateParams::Field::FieldTelephoneNumber, Moonbase::Models::Collections::FieldCreateParams::Field::FieldGeo, Moonbase::Models::Collections::FieldCreateParams::Field::FieldDate, Moonbase::Models::Collections::FieldCreateParams::Field::FieldDatetime, Moonbase::Models::Collections::FieldCreateParams::Field::FieldChoice, Moonbase::Models::StageFieldCreateParams, Moonbase::Models::Collections::FieldCreateParams::Field::FieldRelation]
         required :field, union: -> { Moonbase::Collections::FieldCreateParams::Field }
 
         # @!method initialize(collection_id:, field:, request_options: {})
         #   @param collection_id [String]
         #
-        #   @param field [Moonbase::Models::Collections::FieldCreateParams::Field::FieldTextSingleLine, Moonbase::Models::Collections::FieldCreateParams::Field::FieldTextMultiLine, Moonbase::Models::Collections::FieldCreateParams::Field::FieldNumberUnitlessInteger, Moonbase::Models::Collections::FieldCreateParams::Field::FieldNumberUnitlessFloat, Moonbase::Models::Collections::FieldCreateParams::Field::FieldNumberMonetary, Moonbase::Models::Collections::FieldCreateParams::Field::FieldNumberPercentage, Moonbase::Models::Collections::FieldCreateParams::Field::FieldBoolean, Moonbase::Models::Collections::FieldCreateParams::Field::FieldEmail, Moonbase::Models::Collections::FieldCreateParams::Field::FieldUriURL, Moonbase::Models::Collections::FieldCreateParams::Field::FieldUriDomain, Moonbase::Models::Collections::FieldCreateParams::Field::FieldUriSocialX, Moonbase::Models::Collections::FieldCreateParams::Field::FieldUriSocialLinkedIn, Moonbase::Models::Collections::FieldCreateParams::Field::FieldTelephoneNumber, Moonbase::Models::Collections::FieldCreateParams::Field::FieldGeo, Moonbase::Models::Collections::FieldCreateParams::Field::FieldDate, Moonbase::Models::Collections::FieldCreateParams::Field::FieldDatetime, Moonbase::Models::Collections::FieldCreateParams::Field::FieldChoice, Moonbase::Models::StageFieldCreateParams, Moonbase::Models::Collections::FieldCreateParams::Field::FieldRelation] Parameters for creating a field, discriminated by `type`.
+        #   @param field [Moonbase::Models::Collections::FieldCreateParams::Field::FieldTextSingleLine, Moonbase::Models::Collections::FieldCreateParams::Field::FieldTextMultiLine, Moonbase::Models::Collections::FieldCreateParams::Field::FieldIdentifier, Moonbase::Models::Collections::FieldCreateParams::Field::FieldNumberUnitlessInteger, Moonbase::Models::Collections::FieldCreateParams::Field::FieldNumberUnitlessFloat, Moonbase::Models::Collections::FieldCreateParams::Field::FieldNumberMonetary, Moonbase::Models::Collections::FieldCreateParams::Field::FieldNumberPercentage, Moonbase::Models::Collections::FieldCreateParams::Field::FieldBoolean, Moonbase::Models::Collections::FieldCreateParams::Field::FieldEmail, Moonbase::Models::Collections::FieldCreateParams::Field::FieldUriURL, Moonbase::Models::Collections::FieldCreateParams::Field::FieldUriDomain, Moonbase::Models::Collections::FieldCreateParams::Field::FieldUriSocialX, Moonbase::Models::Collections::FieldCreateParams::Field::FieldUriSocialLinkedIn, Moonbase::Models::Collections::FieldCreateParams::Field::FieldTelephoneNumber, Moonbase::Models::Collections::FieldCreateParams::Field::FieldGeo, Moonbase::Models::Collections::FieldCreateParams::Field::FieldDate, Moonbase::Models::Collections::FieldCreateParams::Field::FieldDatetime, Moonbase::Models::Collections::FieldCreateParams::Field::FieldChoice, Moonbase::Models::StageFieldCreateParams, Moonbase::Models::Collections::FieldCreateParams::Field::FieldRelation] Parameters for creating a field, discriminated by `type`.
         #
         #   @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}]
 
@@ -39,6 +39,8 @@ module Moonbase
           # Parameters for creating a multi-line text field.
           variant :"field/text/multi_line",
                   -> { Moonbase::Collections::FieldCreateParams::Field::FieldTextMultiLine }
+
+          variant :"field/identifier", -> { Moonbase::Collections::FieldCreateParams::Field::FieldIdentifier }
 
           # Parameters for creating an integer field.
           variant :"field/number/unitless_integer",
@@ -246,6 +248,64 @@ module Moonbase
             # Defaults to `one`.
             #
             # @see Moonbase::Models::Collections::FieldCreateParams::Field::FieldTextMultiLine#cardinality
+            module Cardinality
+              extend Moonbase::Internal::Type::Enum
+
+              ONE = :one
+              MANY = :many
+
+              # @!method self.values
+              #   @return [Array<Symbol>]
+            end
+          end
+
+          class FieldIdentifier < Moonbase::Internal::Type::BaseModel
+            # @!attribute name
+            #
+            #   @return [String]
+            required :name, String
+
+            # @!attribute type
+            #
+            #   @return [Symbol, :"field/identifier"]
+            required :type, const: :"field/identifier"
+
+            # @!attribute cardinality
+            #
+            #   @return [Symbol, Moonbase::Models::Collections::FieldCreateParams::Field::FieldIdentifier::Cardinality, nil]
+            optional :cardinality,
+                     enum: -> { Moonbase::Collections::FieldCreateParams::Field::FieldIdentifier::Cardinality }
+
+            # @!attribute default_values
+            #
+            #   @return [Array<Moonbase::Models::IdentifierValue>, nil]
+            optional :default_values, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::IdentifierValue] }
+
+            # @!attribute description
+            #
+            #   @return [String, nil]
+            optional :description, String
+
+            # @!attribute required
+            #
+            #   @return [Boolean, nil]
+            optional :required, Moonbase::Internal::Type::Boolean
+
+            # @!attribute unique
+            #
+            #   @return [Boolean, nil]
+            optional :unique, Moonbase::Internal::Type::Boolean
+
+            # @!method initialize(name:, cardinality: nil, default_values: nil, description: nil, required: nil, unique: nil, type: :"field/identifier")
+            #   @param name [String]
+            #   @param cardinality [Symbol, Moonbase::Models::Collections::FieldCreateParams::Field::FieldIdentifier::Cardinality]
+            #   @param default_values [Array<Moonbase::Models::IdentifierValue>]
+            #   @param description [String]
+            #   @param required [Boolean]
+            #   @param unique [Boolean]
+            #   @param type [Symbol, :"field/identifier"]
+
+            # @see Moonbase::Models::Collections::FieldCreateParams::Field::FieldIdentifier#cardinality
             module Cardinality
               extend Moonbase::Internal::Type::Enum
 
@@ -1681,7 +1741,7 @@ module Moonbase
           end
 
           # @!method self.variants
-          #   @return [Array(Moonbase::Models::Collections::FieldCreateParams::Field::FieldTextSingleLine, Moonbase::Models::Collections::FieldCreateParams::Field::FieldTextMultiLine, Moonbase::Models::Collections::FieldCreateParams::Field::FieldNumberUnitlessInteger, Moonbase::Models::Collections::FieldCreateParams::Field::FieldNumberUnitlessFloat, Moonbase::Models::Collections::FieldCreateParams::Field::FieldNumberMonetary, Moonbase::Models::Collections::FieldCreateParams::Field::FieldNumberPercentage, Moonbase::Models::Collections::FieldCreateParams::Field::FieldBoolean, Moonbase::Models::Collections::FieldCreateParams::Field::FieldEmail, Moonbase::Models::Collections::FieldCreateParams::Field::FieldUriURL, Moonbase::Models::Collections::FieldCreateParams::Field::FieldUriDomain, Moonbase::Models::Collections::FieldCreateParams::Field::FieldUriSocialX, Moonbase::Models::Collections::FieldCreateParams::Field::FieldUriSocialLinkedIn, Moonbase::Models::Collections::FieldCreateParams::Field::FieldTelephoneNumber, Moonbase::Models::Collections::FieldCreateParams::Field::FieldGeo, Moonbase::Models::Collections::FieldCreateParams::Field::FieldDate, Moonbase::Models::Collections::FieldCreateParams::Field::FieldDatetime, Moonbase::Models::Collections::FieldCreateParams::Field::FieldChoice, Moonbase::Models::StageFieldCreateParams, Moonbase::Models::Collections::FieldCreateParams::Field::FieldRelation)]
+          #   @return [Array(Moonbase::Models::Collections::FieldCreateParams::Field::FieldTextSingleLine, Moonbase::Models::Collections::FieldCreateParams::Field::FieldTextMultiLine, Moonbase::Models::Collections::FieldCreateParams::Field::FieldIdentifier, Moonbase::Models::Collections::FieldCreateParams::Field::FieldNumberUnitlessInteger, Moonbase::Models::Collections::FieldCreateParams::Field::FieldNumberUnitlessFloat, Moonbase::Models::Collections::FieldCreateParams::Field::FieldNumberMonetary, Moonbase::Models::Collections::FieldCreateParams::Field::FieldNumberPercentage, Moonbase::Models::Collections::FieldCreateParams::Field::FieldBoolean, Moonbase::Models::Collections::FieldCreateParams::Field::FieldEmail, Moonbase::Models::Collections::FieldCreateParams::Field::FieldUriURL, Moonbase::Models::Collections::FieldCreateParams::Field::FieldUriDomain, Moonbase::Models::Collections::FieldCreateParams::Field::FieldUriSocialX, Moonbase::Models::Collections::FieldCreateParams::Field::FieldUriSocialLinkedIn, Moonbase::Models::Collections::FieldCreateParams::Field::FieldTelephoneNumber, Moonbase::Models::Collections::FieldCreateParams::Field::FieldGeo, Moonbase::Models::Collections::FieldCreateParams::Field::FieldDate, Moonbase::Models::Collections::FieldCreateParams::Field::FieldDatetime, Moonbase::Models::Collections::FieldCreateParams::Field::FieldChoice, Moonbase::Models::StageFieldCreateParams, Moonbase::Models::Collections::FieldCreateParams::Field::FieldRelation)]
         end
       end
     end

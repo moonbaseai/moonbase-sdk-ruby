@@ -18,6 +18,7 @@ class Moonbase::Test::Resources::Collections::FieldsTest < Moonbase::Test::Resou
       case response
       in Moonbase::SingleLineTextField
       in Moonbase::MultiLineTextField
+      in Moonbase::IdentifierField
       in Moonbase::IntegerField
       in Moonbase::FloatField
       in Moonbase::MonetaryField
@@ -62,6 +63,21 @@ class Moonbase::Test::Resources::Collections::FieldsTest < Moonbase::Test::Resou
         created_at: Time,
         default_values: ^(Moonbase::Internal::Type::ArrayOf[union: Moonbase::FieldDefaultValue]),
         kind: Moonbase::MultiLineTextField::Kind,
+        name: String,
+        readonly: Moonbase::Internal::Type::Boolean,
+        ref: String,
+        required: Moonbase::Internal::Type::Boolean,
+        unique: Moonbase::Internal::Type::Boolean,
+        updated_at: Time,
+        description: String | nil
+      }
+      in {
+        type: :"field/identifier",
+        id: String,
+        cardinality: Moonbase::IdentifierField::Cardinality,
+        created_at: Time,
+        default_values: ^(Moonbase::Internal::Type::ArrayOf[union: Moonbase::FieldDefaultValue]),
+        kind: Moonbase::IdentifierField::Kind,
         name: String,
         readonly: Moonbase::Internal::Type::Boolean,
         ref: String,
@@ -348,6 +364,7 @@ class Moonbase::Test::Resources::Collections::FieldsTest < Moonbase::Test::Resou
       case response
       in Moonbase::SingleLineTextField
       in Moonbase::MultiLineTextField
+      in Moonbase::IdentifierField
       in Moonbase::IntegerField
       in Moonbase::FloatField
       in Moonbase::MonetaryField
@@ -392,6 +409,21 @@ class Moonbase::Test::Resources::Collections::FieldsTest < Moonbase::Test::Resou
         created_at: Time,
         default_values: ^(Moonbase::Internal::Type::ArrayOf[union: Moonbase::FieldDefaultValue]),
         kind: Moonbase::MultiLineTextField::Kind,
+        name: String,
+        readonly: Moonbase::Internal::Type::Boolean,
+        ref: String,
+        required: Moonbase::Internal::Type::Boolean,
+        unique: Moonbase::Internal::Type::Boolean,
+        updated_at: Time,
+        description: String | nil
+      }
+      in {
+        type: :"field/identifier",
+        id: String,
+        cardinality: Moonbase::IdentifierField::Cardinality,
+        created_at: Time,
+        default_values: ^(Moonbase::Internal::Type::ArrayOf[union: Moonbase::FieldDefaultValue]),
+        kind: Moonbase::IdentifierField::Kind,
         name: String,
         readonly: Moonbase::Internal::Type::Boolean,
         ref: String,
@@ -683,6 +715,7 @@ class Moonbase::Test::Resources::Collections::FieldsTest < Moonbase::Test::Resou
       case response
       in Moonbase::SingleLineTextField
       in Moonbase::MultiLineTextField
+      in Moonbase::IdentifierField
       in Moonbase::IntegerField
       in Moonbase::FloatField
       in Moonbase::MonetaryField
@@ -727,6 +760,21 @@ class Moonbase::Test::Resources::Collections::FieldsTest < Moonbase::Test::Resou
         created_at: Time,
         default_values: ^(Moonbase::Internal::Type::ArrayOf[union: Moonbase::FieldDefaultValue]),
         kind: Moonbase::MultiLineTextField::Kind,
+        name: String,
+        readonly: Moonbase::Internal::Type::Boolean,
+        ref: String,
+        required: Moonbase::Internal::Type::Boolean,
+        unique: Moonbase::Internal::Type::Boolean,
+        updated_at: Time,
+        description: String | nil
+      }
+      in {
+        type: :"field/identifier",
+        id: String,
+        cardinality: Moonbase::IdentifierField::Cardinality,
+        created_at: Time,
+        default_values: ^(Moonbase::Internal::Type::ArrayOf[union: Moonbase::FieldDefaultValue]),
+        kind: Moonbase::IdentifierField::Kind,
         name: String,
         readonly: Moonbase::Internal::Type::Boolean,
         ref: String,

@@ -16,6 +16,9 @@ module Moonbase
       # Multiple lines of text
       variant :"value/text/multi_line", -> { Moonbase::MultiLineTextValue }
 
+      # Identifier string
+      variant :"value/identifier", -> { Moonbase::IdentifierValue }
+
       # Integer value without units
       variant :"value/number/unitless_integer", -> { Moonbase::IntegerValue }
 
@@ -77,7 +80,7 @@ module Moonbase
       variant :current_member, -> { Moonbase::CurrentMember }
 
       # @!method self.variants
-      #   @return [Array(Moonbase::Models::SingleLineTextValue, Moonbase::Models::MultiLineTextValue, Moonbase::Models::IntegerValue, Moonbase::Models::FloatValue, Moonbase::Models::MonetaryValue, Moonbase::Models::PercentageValue, Moonbase::Models::BooleanValue, Moonbase::Models::EmailValue, Moonbase::Models::URLValue, Moonbase::Models::DomainValue, Moonbase::Models::SocialXValue, Moonbase::Models::SocialLinkedInValue, Moonbase::Models::TelephoneNumber, Moonbase::Models::GeoValue, Moonbase::Models::DateValue, Moonbase::Models::CurrentDate, Moonbase::Models::DatetimeValue, Moonbase::Models::CurrentDatetime, Moonbase::Models::ChoiceValue, Moonbase::Models::FunnelStepValue, Moonbase::Models::RelationValue, Moonbase::Models::CurrentMember)]
+      #   @return [Array(Moonbase::Models::SingleLineTextValue, Moonbase::Models::MultiLineTextValue, Moonbase::Models::IdentifierValue, Moonbase::Models::IntegerValue, Moonbase::Models::FloatValue, Moonbase::Models::MonetaryValue, Moonbase::Models::PercentageValue, Moonbase::Models::BooleanValue, Moonbase::Models::EmailValue, Moonbase::Models::URLValue, Moonbase::Models::DomainValue, Moonbase::Models::SocialXValue, Moonbase::Models::SocialLinkedInValue, Moonbase::Models::TelephoneNumber, Moonbase::Models::GeoValue, Moonbase::Models::DateValue, Moonbase::Models::CurrentDate, Moonbase::Models::DatetimeValue, Moonbase::Models::CurrentDatetime, Moonbase::Models::ChoiceValue, Moonbase::Models::FunnelStepValue, Moonbase::Models::RelationValue, Moonbase::Models::CurrentMember)]
     end
   end
 end

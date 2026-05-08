@@ -201,6 +201,10 @@ module Moonbase
 
   class GeoValue = Moonbase::Models::GeoValue
 
+  class IdentifierField = Moonbase::Models::IdentifierField
+
+  class IdentifierValue = Moonbase::Models::IdentifierValue
+
   class Inbox = Moonbase::Models::Inbox
 
   class InboxConversation = Moonbase::Models::InboxConversation

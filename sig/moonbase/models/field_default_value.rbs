@@ -3,6 +3,7 @@ module Moonbase
     type field_default_value =
       Moonbase::SingleLineTextValue
       | Moonbase::MultiLineTextValue
+      | Moonbase::IdentifierValue
       | Moonbase::IntegerValue
       | Moonbase::FloatValue
       | Moonbase::MonetaryValue
