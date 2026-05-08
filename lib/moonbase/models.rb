@@ -309,8 +309,6 @@ module Moonbase
 
   MessageAttachment = Moonbase::Models::MessageAttachment
 
-  MessageAttachmentCreateParams = Moonbase::Models::MessageAttachmentCreateParams
-
   MonetaryField = Moonbase::Models::MonetaryField
 
   MonetaryValue = Moonbase::Models::MonetaryValue
