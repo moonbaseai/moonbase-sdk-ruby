@@ -22,17 +22,23 @@ module Moonbase
       #   @return [Symbol, Moonbase::Models::RelationField::Cardinality]
       required :cardinality, enum: -> { Moonbase::RelationField::Cardinality }
 
-      # @!attribute core
-      #   If `true`, this is a built-in field included by default.
-      #
-      #   @return [Boolean]
-      required :core, Moonbase::Internal::Type::Boolean
-
       # @!attribute created_at
       #   Time at which the object was created, as an ISO 8601 timestamp in UTC.
       #
       #   @return [Time]
       required :created_at, Time
+
+      # @!attribute default_values
+      #
+      #   @return [Array<Moonbase::Models::SingleLineTextValue, Moonbase::Models::MultiLineTextValue, Moonbase::Models::IdentifierValue, Moonbase::Models::IntegerValue, Moonbase::Models::FloatValue, Moonbase::Models::MonetaryValue, Moonbase::Models::PercentageValue, Moonbase::Models::BooleanValue, Moonbase::Models::EmailValue, Moonbase::Models::URLValue, Moonbase::Models::DomainValue, Moonbase::Models::SocialXValue, Moonbase::Models::SocialLinkedInValue, Moonbase::Models::TelephoneNumber, Moonbase::Models::GeoValue, Moonbase::Models::DateValue, Moonbase::Models::CurrentDate, Moonbase::Models::DatetimeValue, Moonbase::Models::CurrentDatetime, Moonbase::Models::ChoiceValue, Moonbase::Models::FunnelStepValue, Moonbase::Models::RelationValue, Moonbase::Models::CurrentMember>]
+      required :default_values, -> { Moonbase::Internal::Type::ArrayOf[union: Moonbase::FieldDefaultValue] }
+
+      # @!attribute kind
+      #   `system` fields are managed by Moonbase, `inverse` fields are the reverse side
+      #   of a two-way relation, and `custom` fields are user-created.
+      #
+      #   @return [Symbol, Moonbase::Models::RelationField::Kind]
+      required :kind, enum: -> { Moonbase::RelationField::Kind }
 
       # @!attribute name
       #   The human-readable name of the field (e.g., "Account").
@@ -92,7 +98,28 @@ module Moonbase
       #   @return [String, nil]
       optional :description, String
 
-      # @!method initialize(id:, allowed_collections:, cardinality:, core:, created_at:, name:, readonly:, ref:, relation_type:, required:, unique:, updated_at:, description: nil, type: :"field/relation")
+      # @!attribute reverse_field_name
+      #   The name given to auto-created reverse fields on target collections. Only
+      #   present on `two_way` source fields.
+      #
+      #   @return [String, nil]
+      optional :reverse_field_name, String
+
+      # @!attribute reverse_fields
+      #   A list of reverse fields created on each target collection. Only present on
+      #   `two_way` source fields.
+      #
+      #   @return [Array<Moonbase::Models::FieldPointer>, nil]
+      optional :reverse_fields, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::FieldPointer] }
+
+      # @!attribute source_field
+      #   A reference to the source field that manages this reverse field. Only present on
+      #   reverse (contingent) fields.
+      #
+      #   @return [Moonbase::Models::FieldPointer, nil]
+      optional :source_field, -> { Moonbase::FieldPointer }
+
+      # @!method initialize(id:, allowed_collections:, cardinality:, created_at:, default_values:, kind:, name:, readonly:, ref:, relation_type:, required:, unique:, updated_at:, description: nil, reverse_field_name: nil, reverse_fields: nil, source_field: nil, type: :"field/relation")
       #   Some parameter documentations has been truncated, see
       #   {Moonbase::Models::RelationField} for more details.
       #
@@ -105,9 +132,11 @@ module Moonbase
       #
       #   @param cardinality [Symbol, Moonbase::Models::RelationField::Cardinality] Specifies whether the field can hold a single value (`one`) or multiple values (
       #
-      #   @param core [Boolean] If `true`, this is a built-in field included by default.
-      #
       #   @param created_at [Time] Time at which the object was created, as an ISO 8601 timestamp in UTC.
+      #
+      #   @param default_values [Array<Moonbase::Models::SingleLineTextValue, Moonbase::Models::MultiLineTextValue, Moonbase::Models::IdentifierValue, Moonbase::Models::IntegerValue, Moonbase::Models::FloatValue, Moonbase::Models::MonetaryValue, Moonbase::Models::PercentageValue, Moonbase::Models::BooleanValue, Moonbase::Models::EmailValue, Moonbase::Models::URLValue, Moonbase::Models::DomainValue, Moonbase::Models::SocialXValue, Moonbase::Models::SocialLinkedInValue, Moonbase::Models::TelephoneNumber, Moonbase::Models::GeoValue, Moonbase::Models::DateValue, Moonbase::Models::CurrentDate, Moonbase::Models::DatetimeValue, Moonbase::Models::CurrentDatetime, Moonbase::Models::ChoiceValue, Moonbase::Models::FunnelStepValue, Moonbase::Models::RelationValue, Moonbase::Models::CurrentMember>]
+      #
+      #   @param kind [Symbol, Moonbase::Models::RelationField::Kind] `system` fields are managed by Moonbase, `inverse` fields are the reverse side o
       #
       #   @param name [String] The human-readable name of the field (e.g., "Account").
       #
@@ -125,6 +154,12 @@ module Moonbase
       #
       #   @param description [String] An optional, longer-form description of the field's purpose.
       #
+      #   @param reverse_field_name [String] The name given to auto-created reverse fields on target collections. Only presen
+      #
+      #   @param reverse_fields [Array<Moonbase::Models::FieldPointer>] A list of reverse fields created on each target collection. Only present on `two
+      #
+      #   @param source_field [Moonbase::Models::FieldPointer] A reference to the source field that manages this reverse field. Only present on
+      #
       #   @param type [Symbol, :"field/relation"] The data type of the field. Always `field/relation` for this field.
 
       # Specifies whether the field can hold a single value (`one`) or multiple values
@@ -136,6 +171,21 @@ module Moonbase
 
         ONE = :one
         MANY = :many
+
+        # @!method self.values
+        #   @return [Array<Symbol>]
+      end
+
+      # `system` fields are managed by Moonbase, `inverse` fields are the reverse side
+      # of a two-way relation, and `custom` fields are user-created.
+      #
+      # @see Moonbase::Models::RelationField#kind
+      module Kind
+        extend Moonbase::Internal::Type::Enum
+
+        SYSTEM = :system
+        INVERSE = :inverse
+        CUSTOM = :custom
 
         # @!method self.values
         #   @return [Array<Symbol>]

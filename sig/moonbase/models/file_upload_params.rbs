@@ -3,7 +3,7 @@ module Moonbase
     type file_upload_params =
       {
         file: Moonbase::Internal::file_input,
-        associations: ::Array[Moonbase::Pointer],
+        associations: ::Array[Moonbase::ItemPointerParam],
         name: String
       }
       & Moonbase::Internal::Type::request_parameters
@@ -14,11 +14,11 @@ module Moonbase
 
       attr_accessor file: Moonbase::Internal::file_input
 
-      attr_reader associations: ::Array[Moonbase::Pointer]?
+      attr_reader associations: ::Array[Moonbase::ItemPointerParam]?
 
       def associations=: (
-        ::Array[Moonbase::Pointer]
-      ) -> ::Array[Moonbase::Pointer]
+        ::Array[Moonbase::ItemPointerParam]
+      ) -> ::Array[Moonbase::ItemPointerParam]
 
       attr_reader name: String?
 
@@ -26,14 +26,14 @@ module Moonbase
 
       def initialize: (
         file: Moonbase::Internal::file_input,
-        ?associations: ::Array[Moonbase::Pointer],
+        ?associations: ::Array[Moonbase::ItemPointerParam],
         ?name: String,
         ?request_options: Moonbase::request_opts
       ) -> void
 
       def to_hash: -> {
         file: Moonbase::Internal::file_input,
-        associations: ::Array[Moonbase::Pointer],
+        associations: ::Array[Moonbase::ItemPointerParam],
         name: String,
         request_options: Moonbase::RequestOptions
       }

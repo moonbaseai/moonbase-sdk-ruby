@@ -1,6 +1,33 @@
 module Moonbase
   module Resources
     class Funnels
+      def create: (
+        name: String,
+        ?steps: ::Array[Moonbase::FunnelCreateParams::Step],
+        ?request_options: Moonbase::request_opts
+      ) -> Moonbase::Funnel
+
+      def retrieve: (
+        String id,
+        ?request_options: Moonbase::request_opts
+      ) -> Moonbase::Funnel
+
+      def update: (
+        String id,
+        ?name: String,
+        ?steps: ::Array[Moonbase::FunnelUpdateParams::Step],
+        ?request_options: Moonbase::request_opts
+      ) -> Moonbase::Funnel
+
+      def list: (
+        ?after: String,
+        ?before: String,
+        ?limit: Integer,
+        ?request_options: Moonbase::request_opts
+      ) -> Moonbase::Internal::CursorPage[Moonbase::Funnel]
+
+      def delete: (String id, ?request_options: Moonbase::request_opts) -> nil
+
       def initialize: (client: Moonbase::Client) -> void
     end
   end

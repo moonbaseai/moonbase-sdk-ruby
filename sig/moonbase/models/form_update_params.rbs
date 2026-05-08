@@ -1,0 +1,52 @@
+module Moonbase
+  module Models
+    type form_update_params =
+      {
+        id: String,
+        business_email_required: bool,
+        name: String,
+        pages_enabled: bool,
+        redirect_url: String?
+      }
+      & Moonbase::Internal::Type::request_parameters
+
+    class FormUpdateParams < Moonbase::Internal::Type::BaseModel
+      extend Moonbase::Internal::Type::RequestParameters::Converter
+      include Moonbase::Internal::Type::RequestParameters
+
+      attr_accessor id: String
+
+      attr_reader business_email_required: bool?
+
+      def business_email_required=: (bool) -> bool
+
+      attr_reader name: String?
+
+      def name=: (String) -> String
+
+      attr_reader pages_enabled: bool?
+
+      def pages_enabled=: (bool) -> bool
+
+      attr_accessor redirect_url: String?
+
+      def initialize: (
+        id: String,
+        ?business_email_required: bool,
+        ?name: String,
+        ?pages_enabled: bool,
+        ?redirect_url: String?,
+        ?request_options: Moonbase::request_opts
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        business_email_required: bool,
+        name: String,
+        pages_enabled: bool,
+        redirect_url: String?,
+        request_options: Moonbase::RequestOptions
+      }
+    end
+  end
+end

@@ -12,6 +12,10 @@ module Moonbase
       sig { returns(String) }
       attr_accessor :id
 
+      # The display color of the step.
+      sig { returns(Moonbase::FunnelStep::Color::TaggedSymbol) }
+      attr_accessor :color
+
       # The name of the step.
       sig { returns(String) }
       attr_accessor :name
@@ -21,7 +25,7 @@ module Moonbase
       # - `active`: represents an in progress state within the funnel
       # - `success`: completed successfully and exited the funnel
       # - `failure`: exited the funnel without conversion
-      sig { returns(Moonbase::FunnelStep::StepType::OrSymbol) }
+      sig { returns(Moonbase::FunnelStep::StepType::TaggedSymbol) }
       attr_accessor :step_type
 
       # String representing the object’s type. Always `funnel_step` for this object.
@@ -32,6 +36,7 @@ module Moonbase
       sig do
         params(
           id: String,
+          color: Moonbase::FunnelStep::Color::OrSymbol,
           name: String,
           step_type: Moonbase::FunnelStep::StepType::OrSymbol,
           type: Symbol
@@ -40,6 +45,8 @@ module Moonbase
       def self.new(
         # Unique identifier for the object.
         id:,
+        # The display color of the step.
+        color:,
         # The name of the step.
         name:,
         # The status of the step in the funnel flow.
@@ -57,13 +64,48 @@ module Moonbase
         override.returns(
           {
             id: String,
+            color: Moonbase::FunnelStep::Color::TaggedSymbol,
             name: String,
-            step_type: Moonbase::FunnelStep::StepType::OrSymbol,
+            step_type: Moonbase::FunnelStep::StepType::TaggedSymbol,
             type: Symbol
           }
         )
       end
       def to_hash
+      end
+
+      # The display color of the step.
+      module Color
+        extend Moonbase::Internal::Type::Enum
+
+        TaggedSymbol =
+          T.type_alias { T.all(Symbol, Moonbase::FunnelStep::Color) }
+        OrSymbol = T.type_alias { T.any(Symbol, String) }
+
+        AMBER = T.let(:amber, Moonbase::FunnelStep::Color::TaggedSymbol)
+        BLUE = T.let(:blue, Moonbase::FunnelStep::Color::TaggedSymbol)
+        CYAN = T.let(:cyan, Moonbase::FunnelStep::Color::TaggedSymbol)
+        EMERALD = T.let(:emerald, Moonbase::FunnelStep::Color::TaggedSymbol)
+        FUCHSIA = T.let(:fuchsia, Moonbase::FunnelStep::Color::TaggedSymbol)
+        GREEN = T.let(:green, Moonbase::FunnelStep::Color::TaggedSymbol)
+        INDIGO = T.let(:indigo, Moonbase::FunnelStep::Color::TaggedSymbol)
+        LIME = T.let(:lime, Moonbase::FunnelStep::Color::TaggedSymbol)
+        LUNAR = T.let(:lunar, Moonbase::FunnelStep::Color::TaggedSymbol)
+        ORANGE = T.let(:orange, Moonbase::FunnelStep::Color::TaggedSymbol)
+        PINK = T.let(:pink, Moonbase::FunnelStep::Color::TaggedSymbol)
+        PURPLE = T.let(:purple, Moonbase::FunnelStep::Color::TaggedSymbol)
+        RED = T.let(:red, Moonbase::FunnelStep::Color::TaggedSymbol)
+        ROSE = T.let(:rose, Moonbase::FunnelStep::Color::TaggedSymbol)
+        SKY = T.let(:sky, Moonbase::FunnelStep::Color::TaggedSymbol)
+        TEAL = T.let(:teal, Moonbase::FunnelStep::Color::TaggedSymbol)
+        VIOLET = T.let(:violet, Moonbase::FunnelStep::Color::TaggedSymbol)
+        YELLOW = T.let(:yellow, Moonbase::FunnelStep::Color::TaggedSymbol)
+
+        sig do
+          override.returns(T::Array[Moonbase::FunnelStep::Color::TaggedSymbol])
+        end
+        def self.values
+        end
       end
 
       # The status of the step in the funnel flow.

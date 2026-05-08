@@ -5,10 +5,10 @@ module Moonbase
         id: String,
         created_at: Time,
         name: String,
+        tagsets: ::Array[Moonbase::TagsetPointer],
         type: :inbox,
         updated_at: Time,
-        can_read: bool,
-        tagsets: ::Array[Moonbase::Tagset]
+        can_read: bool
       }
 
     class Inbox < Moonbase::Internal::Type::BaseModel
@@ -18,6 +18,8 @@ module Moonbase
 
       attr_accessor name: String
 
+      attr_accessor tagsets: ::Array[Moonbase::TagsetPointer]
+
       attr_accessor type: :inbox
 
       attr_accessor updated_at: Time
@@ -26,17 +28,13 @@ module Moonbase
 
       def can_read=: (bool) -> bool
 
-      attr_reader tagsets: ::Array[Moonbase::Tagset]?
-
-      def tagsets=: (::Array[Moonbase::Tagset]) -> ::Array[Moonbase::Tagset]
-
       def initialize: (
         id: String,
         created_at: Time,
         name: String,
+        tagsets: ::Array[Moonbase::TagsetPointer],
         updated_at: Time,
         ?can_read: bool,
-        ?tagsets: ::Array[Moonbase::Tagset],
         ?type: :inbox
       ) -> void
 
@@ -44,10 +42,10 @@ module Moonbase
         id: String,
         created_at: Time,
         name: String,
+        tagsets: ::Array[Moonbase::TagsetPointer],
         type: :inbox,
         updated_at: Time,
-        can_read: bool,
-        tagsets: ::Array[Moonbase::Tagset]
+        can_read: bool
       }
     end
   end

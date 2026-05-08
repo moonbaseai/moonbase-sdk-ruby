@@ -59,8 +59,8 @@ module Moonbase
       #
       #   **Note:** Only present when requested using the `include` query parameter.
       #
-      #   @return [Moonbase::Models::Program::ActivityMetrics, nil]
-      optional :activity_metrics, -> { Moonbase::Program::ActivityMetrics }
+      #   @return [Moonbase::Models::ProgramActivityMetrics, nil]
+      optional :activity_metrics, -> { Moonbase::ProgramActivityMetrics }
 
       # @!attribute display_name
       #   The user-facing name of the program.
@@ -104,7 +104,7 @@ module Moonbase
       #
       #   @param updated_at [Time] Time at which the object was last updated, as an ISO 8601 timestamp in UTC.
       #
-      #   @param activity_metrics [Moonbase::Models::Program::ActivityMetrics] A `ProgramActivityMetrics` object summarizing engagement for this program.
+      #   @param activity_metrics [Moonbase::Models::ProgramActivityMetrics] A `ProgramActivityMetrics` object summarizing engagement for this program.
       #
       #   @param display_name [String] The user-facing name of the program.
       #
@@ -142,78 +142,6 @@ module Moonbase
 
         # @!method self.values
         #   @return [Array<Symbol>]
-      end
-
-      # @see Moonbase::Models::Program#activity_metrics
-      class ActivityMetrics < Moonbase::Internal::Type::BaseModel
-        # @!attribute bounced
-        #   The number of emails that could not be delivered.
-        #
-        #   @return [Integer]
-        required :bounced, Integer
-
-        # @!attribute clicked
-        #   The number of recipients who clicked at least one link.
-        #
-        #   @return [Integer]
-        required :clicked, Integer
-
-        # @!attribute complained
-        #   The number of recipients who marked the email as spam.
-        #
-        #   @return [Integer]
-        required :complained, Integer
-
-        # @!attribute failed
-        #   The number of emails that failed to send due to a technical issue.
-        #
-        #   @return [Integer]
-        required :failed, Integer
-
-        # @!attribute opened
-        #   The number of recipients who opened the email.
-        #
-        #   @return [Integer]
-        required :opened, Integer
-
-        # @!attribute sent
-        #   The total number of emails successfully sent.
-        #
-        #   @return [Integer]
-        required :sent, Integer
-
-        # @!attribute shielded
-        #   The number of emails blocked by delivery protection rules.
-        #
-        #   @return [Integer]
-        required :shielded, Integer
-
-        # @!attribute unsubscribed
-        #   The number of recipients who unsubscribed.
-        #
-        #   @return [Integer]
-        required :unsubscribed, Integer
-
-        # @!method initialize(bounced:, clicked:, complained:, failed:, opened:, sent:, shielded:, unsubscribed:)
-        #   A `ProgramActivityMetrics` object summarizing engagement for this program.
-        #
-        #   **Note:** Only present when requested using the `include` query parameter.
-        #
-        #   @param bounced [Integer] The number of emails that could not be delivered.
-        #
-        #   @param clicked [Integer] The number of recipients who clicked at least one link.
-        #
-        #   @param complained [Integer] The number of recipients who marked the email as spam.
-        #
-        #   @param failed [Integer] The number of emails that failed to send due to a technical issue.
-        #
-        #   @param opened [Integer] The number of recipients who opened the email.
-        #
-        #   @param sent [Integer] The total number of emails successfully sent.
-        #
-        #   @param shielded [Integer] The number of emails blocked by delivery protection rules.
-        #
-        #   @param unsubscribed [Integer] The number of recipients who unsubscribed.
       end
     end
   end

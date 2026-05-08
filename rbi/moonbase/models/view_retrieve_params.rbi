@@ -11,6 +11,9 @@ module Moonbase
           T.any(Moonbase::ViewRetrieveParams, Moonbase::Internal::AnyHash)
         end
 
+      sig { returns(String) }
+      attr_accessor :id
+
       # Specifies which related objects to include in the response. Valid option is
       # `collection`.
       sig do
@@ -29,11 +32,13 @@ module Moonbase
 
       sig do
         params(
+          id: String,
           include: T::Array[Moonbase::ViewRetrieveParams::Include::OrSymbol],
           request_options: Moonbase::RequestOptions::OrHash
         ).returns(T.attached_class)
       end
       def self.new(
+        id:,
         # Specifies which related objects to include in the response. Valid option is
         # `collection`.
         include: nil,
@@ -44,6 +49,7 @@ module Moonbase
       sig do
         override.returns(
           {
+            id: String,
             include: T::Array[Moonbase::ViewRetrieveParams::Include::OrSymbol],
             request_options: Moonbase::RequestOptions
           }

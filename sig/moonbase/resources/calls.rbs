@@ -12,6 +12,7 @@ module Moonbase
         ?end_at: Time,
         ?provider_metadata: ::Hash[Symbol, top],
         ?recordings: ::Array[Moonbase::CallCreateParams::Recording],
+        ?tags: ::Array[Moonbase::TagPointerParam],
         ?transcript: Moonbase::CallCreateParams::Transcript,
         ?request_options: Moonbase::request_opts
       ) -> Moonbase::Call
@@ -40,6 +41,7 @@ module Moonbase
         ?end_at: Time,
         ?provider_metadata: ::Hash[Symbol, top],
         ?recordings: ::Array[Moonbase::CallUpsertParams::Recording],
+        ?tags: ::Array[Moonbase::TagPointerParam],
         ?transcript: Moonbase::CallUpsertParams::Transcript,
         ?request_options: Moonbase::request_opts
       ) -> Moonbase::Call

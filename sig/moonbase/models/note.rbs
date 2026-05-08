@@ -3,7 +3,7 @@ module Moonbase
     type note =
       {
         id: String,
-        associations: ::Array[Moonbase::Pointer],
+        associations: ::Array[Moonbase::Models::note_association_pointer],
         body: Moonbase::FormattedText,
         created_at: Time,
         lock_version: Integer,
@@ -17,7 +17,7 @@ module Moonbase
     class Note < Moonbase::Internal::Type::BaseModel
       attr_accessor id: String
 
-      attr_accessor associations: ::Array[Moonbase::Pointer]
+      attr_accessor associations: ::Array[Moonbase::Models::note_association_pointer]
 
       attr_accessor body: Moonbase::FormattedText
 
@@ -41,7 +41,7 @@ module Moonbase
 
       def initialize: (
         id: String,
-        associations: ::Array[Moonbase::Pointer],
+        associations: ::Array[Moonbase::Models::note_association_pointer],
         body: Moonbase::FormattedText,
         created_at: Time,
         lock_version: Integer,
@@ -54,7 +54,7 @@ module Moonbase
 
       def to_hash: -> {
         id: String,
-        associations: ::Array[Moonbase::Pointer],
+        associations: ::Array[Moonbase::Models::note_association_pointer],
         body: Moonbase::FormattedText,
         created_at: Time,
         lock_version: Integer,

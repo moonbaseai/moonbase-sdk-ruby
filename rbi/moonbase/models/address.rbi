@@ -23,18 +23,20 @@ module Moonbase
       sig { returns(Symbol) }
       attr_accessor :type
 
-      # A lightweight reference to another resource.
-      sig { returns(T.nilable(Moonbase::Pointer)) }
+      # A reference to an `Item` within a specific `Collection`, providing the context
+      # needed to locate the item.
+      sig { returns(T.nilable(Moonbase::ItemPointer)) }
       attr_reader :organization
 
-      sig { params(organization: Moonbase::Pointer::OrHash).void }
+      sig { params(organization: Moonbase::ItemPointer::OrHash).void }
       attr_writer :organization
 
-      # A lightweight reference to another resource.
-      sig { returns(T.nilable(Moonbase::Pointer)) }
+      # A reference to an `Item` within a specific `Collection`, providing the context
+      # needed to locate the item.
+      sig { returns(T.nilable(Moonbase::ItemPointer)) }
       attr_reader :person
 
-      sig { params(person: Moonbase::Pointer::OrHash).void }
+      sig { params(person: Moonbase::ItemPointer::OrHash).void }
       attr_writer :person
 
       # The Address object represents a recipient or sender of a message. It contains an
@@ -45,8 +47,8 @@ module Moonbase
           id: String,
           email: String,
           role: Moonbase::Address::Role::OrSymbol,
-          organization: Moonbase::Pointer::OrHash,
-          person: Moonbase::Pointer::OrHash,
+          organization: Moonbase::ItemPointer::OrHash,
+          person: Moonbase::ItemPointer::OrHash,
           type: Symbol
         ).returns(T.attached_class)
       end
@@ -58,9 +60,11 @@ module Moonbase
         # The role of the address in the message. Can be `from`, `reply_to`, `to`, `cc`,
         # or `bcc`.
         role:,
-        # A lightweight reference to another resource.
+        # A reference to an `Item` within a specific `Collection`, providing the context
+        # needed to locate the item.
         organization: nil,
-        # A lightweight reference to another resource.
+        # A reference to an `Item` within a specific `Collection`, providing the context
+        # needed to locate the item.
         person: nil,
         # String representing the object’s type. Always `message_address` for this object.
         type: :message_address
@@ -74,8 +78,8 @@ module Moonbase
             email: String,
             role: Moonbase::Address::Role::TaggedSymbol,
             type: Symbol,
-            organization: Moonbase::Pointer,
-            person: Moonbase::Pointer
+            organization: Moonbase::ItemPointer,
+            person: Moonbase::ItemPointer
           }
         )
       end

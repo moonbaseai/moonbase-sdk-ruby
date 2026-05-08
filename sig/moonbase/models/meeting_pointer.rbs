@@ -1,0 +1,15 @@
+module Moonbase
+  module Models
+    type meeting_pointer = { id: String, type: :meeting }
+
+    class MeetingPointer < Moonbase::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor type: :meeting
+
+      def initialize: (id: String, ?type: :meeting) -> void
+
+      def to_hash: -> { id: String, type: :meeting }
+    end
+  end
+end

@@ -11,6 +11,9 @@ module Moonbase
           T.any(Moonbase::ProgramRetrieveParams, Moonbase::Internal::AnyHash)
         end
 
+      sig { returns(String) }
+      attr_accessor :id
+
       # Specifies which related objects to include in the response. Valid options are
       # `activity_metrics` and `program_template`.
       sig do
@@ -31,11 +34,13 @@ module Moonbase
 
       sig do
         params(
+          id: String,
           include: T::Array[Moonbase::ProgramRetrieveParams::Include::OrSymbol],
           request_options: Moonbase::RequestOptions::OrHash
         ).returns(T.attached_class)
       end
       def self.new(
+        id:,
         # Specifies which related objects to include in the response. Valid options are
         # `activity_metrics` and `program_template`.
         include: nil,
@@ -46,6 +51,7 @@ module Moonbase
       sig do
         override.returns(
           {
+            id: String,
             include:
               T::Array[Moonbase::ProgramRetrieveParams::Include::OrSymbol],
             request_options: Moonbase::RequestOptions

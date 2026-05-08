@@ -10,10 +10,10 @@ module Moonbase
       required :id, String
 
       # @!attribute call
-      #   A lightweight reference to another resource.
+      #   The `Call` object associated with this event.
       #
-      #   @return [Moonbase::Models::Pointer, nil]
-      required :call, -> { Moonbase::Pointer }, nil?: true
+      #   @return [Moonbase::Models::CallPointer, nil]
+      required :call, -> { Moonbase::CallPointer }, nil?: true
 
       # @!attribute occurred_at
       #   The time at which the event occurred, as an ISO 8601 timestamp in UTC.
@@ -32,7 +32,7 @@ module Moonbase
       #
       #   @param id [String] Unique identifier for the object.
       #
-      #   @param call [Moonbase::Models::Pointer, nil] A lightweight reference to another resource.
+      #   @param call [Moonbase::Models::CallPointer, nil] The `Call` object associated with this event.
       #
       #   @param occurred_at [Time] The time at which the event occurred, as an ISO 8601 timestamp in UTC.
       #

@@ -12,11 +12,11 @@ module Moonbase
       sig { returns(String) }
       attr_accessor :id
 
-      # A lightweight reference to another resource.
-      sig { returns(T.nilable(Moonbase::Pointer)) }
+      # The `Call` object associated with this event.
+      sig { returns(T.nilable(Moonbase::CallPointer)) }
       attr_reader :call
 
-      sig { params(call: T.nilable(Moonbase::Pointer::OrHash)).void }
+      sig { params(call: T.nilable(Moonbase::CallPointer::OrHash)).void }
       attr_writer :call
 
       # The time at which the event occurred, as an ISO 8601 timestamp in UTC.
@@ -31,7 +31,7 @@ module Moonbase
       sig do
         params(
           id: String,
-          call: T.nilable(Moonbase::Pointer::OrHash),
+          call: T.nilable(Moonbase::CallPointer::OrHash),
           occurred_at: Time,
           type: Symbol
         ).returns(T.attached_class)
@@ -39,7 +39,7 @@ module Moonbase
       def self.new(
         # Unique identifier for the object.
         id:,
-        # A lightweight reference to another resource.
+        # The `Call` object associated with this event.
         call:,
         # The time at which the event occurred, as an ISO 8601 timestamp in UTC.
         occurred_at:,
@@ -52,7 +52,7 @@ module Moonbase
         override.returns(
           {
             id: String,
-            call: T.nilable(Moonbase::Pointer),
+            call: T.nilable(Moonbase::CallPointer),
             occurred_at: Time,
             type: Symbol
           }

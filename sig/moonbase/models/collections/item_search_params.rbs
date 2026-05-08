@@ -3,6 +3,7 @@ module Moonbase
     module Collections
       type item_search_params =
         {
+          collection_id: String,
           after: String,
           before: String,
           limit: Integer,
@@ -15,6 +16,8 @@ module Moonbase
       class ItemSearchParams < Moonbase::Internal::Type::BaseModel
         extend Moonbase::Internal::Type::RequestParameters::Converter
         include Moonbase::Internal::Type::RequestParameters
+
+        attr_accessor collection_id: String
 
         attr_reader after: String?
 
@@ -43,6 +46,7 @@ module Moonbase
         def sort=: (::Array[String]) -> ::Array[String]
 
         def initialize: (
+          collection_id: String,
           ?after: String,
           ?before: String,
           ?limit: Integer,
@@ -53,6 +57,7 @@ module Moonbase
         ) -> void
 
         def to_hash: -> {
+          collection_id: String,
           after: String,
           before: String,
           limit: Integer,

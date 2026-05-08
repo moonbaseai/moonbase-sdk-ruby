@@ -15,6 +15,9 @@ module Moonbase
             )
           end
 
+        sig { returns(String) }
+        attr_accessor :collection_id
+
         # When specified, returns results starting immediately after the item identified
         # by this cursor. Use the cursor value from the previous response's metadata to
         # fetch the next page of results.
@@ -32,13 +35,6 @@ module Moonbase
 
         sig { params(before: String).void }
         attr_writer :before
-
-        # Include only specific fields in the returned items. Specify fields by id or key.
-        sig { returns(T.nilable(T::Array[String])) }
-        attr_reader :include
-
-        sig { params(include: T::Array[String]).void }
-        attr_writer :include
 
         # Maximum number of items to return per page. Must be between 1 and 100. Defaults
         # to 20 if not specified.
@@ -58,15 +54,16 @@ module Moonbase
 
         sig do
           params(
+            collection_id: String,
             after: String,
             before: String,
-            include: T::Array[String],
             limit: Integer,
             sort: T::Array[String],
             request_options: Moonbase::RequestOptions::OrHash
           ).returns(T.attached_class)
         end
         def self.new(
+          collection_id:,
           # When specified, returns results starting immediately after the item identified
           # by this cursor. Use the cursor value from the previous response's metadata to
           # fetch the next page of results.
@@ -75,8 +72,6 @@ module Moonbase
           # by this cursor. Use the cursor value from the response's metadata to fetch the
           # previous page of results.
           before: nil,
-          # Include only specific fields in the returned items. Specify fields by id or key.
-          include: nil,
           # Maximum number of items to return per page. Must be between 1 and 100. Defaults
           # to 20 if not specified.
           limit: nil,
@@ -90,9 +85,9 @@ module Moonbase
         sig do
           override.returns(
             {
+              collection_id: String,
               after: String,
               before: String,
-              include: T::Array[String],
               limit: Integer,
               sort: T::Array[String],
               request_options: Moonbase::RequestOptions

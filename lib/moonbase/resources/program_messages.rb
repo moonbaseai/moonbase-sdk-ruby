@@ -2,6 +2,7 @@
 
 module Moonbase
   module Resources
+    # Manage your marketing campaigns and forms
     class ProgramMessages
       # Sends a message using a program template.
       #

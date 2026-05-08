@@ -12,13 +12,20 @@ module Moonbase
         #   @return [Moonbase::Models::Item]
         required :data, -> { Moonbase::Item }
 
-        # @!method initialize(data:)
+        # @!attribute type
+        #
+        #   @return [Symbol, :search_result]
+        required :type, const: :search_result
+
+        # @!method initialize(data:, type: :search_result)
         #   Some parameter documentations has been truncated, see
         #   {Moonbase::Models::Collections::ItemSearchResponse} for more details.
         #
-        #   A search result entry
+        #   A collection search result entry containing an item.
         #
         #   @param data [Moonbase::Models::Item] An Item represents a single record or row within a Collection. It holds a set of
+        #
+        #   @param type [Symbol, :search_result]
       end
     end
   end

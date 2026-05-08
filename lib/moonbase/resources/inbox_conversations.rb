@@ -2,6 +2,7 @@
 
 module Moonbase
   module Resources
+    # Manage your inboxes, conversations, and messages
     class InboxConversations
       # Some parameter documentations has been truncated, see
       # {Moonbase::Models::InboxConversationRetrieveParams} for more details.
@@ -21,10 +22,11 @@ module Moonbase
       # @see Moonbase::Models::InboxConversationRetrieveParams
       def retrieve(id, params = {})
         parsed, options = Moonbase::InboxConversationRetrieveParams.dump_request(params)
+        query = Moonbase::Internal::Util.encode_query_params(parsed)
         @client.request(
           method: :get,
           path: ["inbox_conversations/%1$s", id],
-          query: parsed,
+          query: query,
           model: Moonbase::InboxConversation,
           options: options
         )
@@ -35,31 +37,30 @@ module Moonbase
       #
       # Returns a list of your conversations.
       #
-      # @overload list(after: nil, before: nil, filter: nil, include: nil, limit: nil, request_options: {})
+      # @overload list(after: nil, before: nil, inbox_id: nil, limit: nil, request_options: {})
       #
       # @param after [String] When specified, returns results starting immediately after the item identified b
       #
       # @param before [String] When specified, returns results starting immediately before the item identified
       #
-      # @param filter [Moonbase::Models::InboxConversationListParams::Filter]
-      #
-      # @param include [Array<Symbol, Moonbase::Models::InboxConversationListParams::Include>] Specifies which related objects to include in the response. Valid options are `i
+      # @param inbox_id [Moonbase::Models::InboxConversationListParams::InboxID]
       #
       # @param limit [Integer] Maximum number of items to return per page. Must be between 1 and 100. Defaults
       #
       # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
       #
-      # @return [Moonbase::Internal::CursorPage<Moonbase::Models::InboxConversation>]
+      # @return [Moonbase::Internal::CursorPage<Moonbase::Models::InboxConversationListResponse>]
       #
       # @see Moonbase::Models::InboxConversationListParams
       def list(params = {})
         parsed, options = Moonbase::InboxConversationListParams.dump_request(params)
+        query = Moonbase::Internal::Util.encode_query_params(parsed)
         @client.request(
           method: :get,
           path: "inbox_conversations",
-          query: parsed,
+          query: query,
           page: Moonbase::Internal::CursorPage,
-          model: Moonbase::InboxConversation,
+          model: Moonbase::Models::InboxConversationListResponse,
           options: options
         )
       end

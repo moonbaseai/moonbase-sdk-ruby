@@ -20,16 +20,46 @@ module Moonbase
 
       # Link the Note to Moonbase items (person, organization, deal, task, or an item in
       # a custom collection), meetings, or calls.
-      sig { returns(T.nilable(T::Array[Moonbase::Pointer])) }
+      sig do
+        returns(
+          T.nilable(
+            T::Array[
+              T.any(
+                Moonbase::CallPointer,
+                Moonbase::ItemPointerParam,
+                Moonbase::MeetingPointer
+              )
+            ]
+          )
+        )
+      end
       attr_reader :associations
 
-      sig { params(associations: T::Array[Moonbase::Pointer::OrHash]).void }
+      sig do
+        params(
+          associations:
+            T::Array[
+              T.any(
+                Moonbase::CallPointer::OrHash,
+                Moonbase::ItemPointerParam::OrHash,
+                Moonbase::MeetingPointer::OrHash
+              )
+            ]
+        ).void
+      end
       attr_writer :associations
 
       sig do
         params(
           body: Moonbase::FormattedText::OrHash,
-          associations: T::Array[Moonbase::Pointer::OrHash],
+          associations:
+            T::Array[
+              T.any(
+                Moonbase::CallPointer::OrHash,
+                Moonbase::ItemPointerParam::OrHash,
+                Moonbase::MeetingPointer::OrHash
+              )
+            ],
           request_options: Moonbase::RequestOptions::OrHash
         ).returns(T.attached_class)
       end
@@ -47,7 +77,14 @@ module Moonbase
         override.returns(
           {
             body: Moonbase::FormattedText,
-            associations: T::Array[Moonbase::Pointer],
+            associations:
+              T::Array[
+                T.any(
+                  Moonbase::CallPointer,
+                  Moonbase::ItemPointerParam,
+                  Moonbase::MeetingPointer
+                )
+              ],
             request_options: Moonbase::RequestOptions
           }
         )

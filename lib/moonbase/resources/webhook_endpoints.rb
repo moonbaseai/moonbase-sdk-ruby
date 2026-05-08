@@ -97,10 +97,11 @@ module Moonbase
       # @see Moonbase::Models::WebhookEndpointListParams
       def list(params = {})
         parsed, options = Moonbase::WebhookEndpointListParams.dump_request(params)
+        query = Moonbase::Internal::Util.encode_query_params(parsed)
         @client.request(
           method: :get,
           path: "webhook_endpoints",
-          query: parsed,
+          query: query,
           page: Moonbase::Internal::CursorPage,
           model: Moonbase::Endpoint,
           options: options

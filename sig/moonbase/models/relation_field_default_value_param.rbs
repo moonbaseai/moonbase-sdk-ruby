@@ -1,0 +1,12 @@
+module Moonbase
+  module Models
+    type relation_field_default_value_param =
+      Moonbase::RelationValueParam | Moonbase::CurrentMember
+
+    module RelationFieldDefaultValueParam
+      extend Moonbase::Internal::Type::Union
+
+      def self?.variants: -> ::Array[Moonbase::Models::relation_field_default_value_param]
+    end
+  end
+end

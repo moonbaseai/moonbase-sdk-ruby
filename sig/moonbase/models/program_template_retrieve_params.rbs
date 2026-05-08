@@ -2,6 +2,7 @@ module Moonbase
   module Models
     type program_template_retrieve_params =
       {
+        id: String,
         include: ::Array[Moonbase::Models::ProgramTemplateRetrieveParams::include_]
       }
       & Moonbase::Internal::Type::request_parameters
@@ -10,6 +11,8 @@ module Moonbase
       extend Moonbase::Internal::Type::RequestParameters::Converter
       include Moonbase::Internal::Type::RequestParameters
 
+      attr_accessor id: String
+
       attr_reader include: ::Array[Moonbase::Models::ProgramTemplateRetrieveParams::include_]?
 
       def include=: (
@@ -17,11 +20,13 @@ module Moonbase
       ) -> ::Array[Moonbase::Models::ProgramTemplateRetrieveParams::include_]
 
       def initialize: (
+        id: String,
         ?include: ::Array[Moonbase::Models::ProgramTemplateRetrieveParams::include_],
         ?request_options: Moonbase::request_opts
       ) -> void
 
       def to_hash: -> {
+        id: String,
         include: ::Array[Moonbase::Models::ProgramTemplateRetrieveParams::include_],
         request_options: Moonbase::RequestOptions
       }

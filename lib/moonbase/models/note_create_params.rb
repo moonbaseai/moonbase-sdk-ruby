@@ -17,8 +17,9 @@ module Moonbase
       #   Link the Note to Moonbase items (person, organization, deal, task, or an item in
       #   a custom collection), meetings, or calls.
       #
-      #   @return [Array<Moonbase::Models::Pointer>, nil]
-      optional :associations, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::Pointer] }
+      #   @return [Array<Moonbase::Models::CallPointer, Moonbase::Models::ItemPointerParam, Moonbase::Models::MeetingPointer>, nil]
+      optional :associations,
+               -> { Moonbase::Internal::Type::ArrayOf[union: Moonbase::NoteAssociationParamPointer] }
 
       # @!method initialize(body:, associations: nil, request_options: {})
       #   Some parameter documentations has been truncated, see
@@ -26,7 +27,7 @@ module Moonbase
       #
       #   @param body [Moonbase::Models::FormattedText] The main content of the note.
       #
-      #   @param associations [Array<Moonbase::Models::Pointer>] Link the Note to Moonbase items (person, organization, deal, task, or an item in
+      #   @param associations [Array<Moonbase::Models::CallPointer, Moonbase::Models::ItemPointerParam, Moonbase::Models::MeetingPointer>] Link the Note to Moonbase items (person, organization, deal, task, or an item in
       #
       #   @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}]
     end

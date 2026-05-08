@@ -1,0 +1,13 @@
+module Moonbase
+  module Models
+    type call_transcript = { cues: ::Array[Moonbase::CallTranscriptCue] }
+
+    class CallTranscript < Moonbase::Internal::Type::BaseModel
+      attr_accessor cues: ::Array[Moonbase::CallTranscriptCue]
+
+      def initialize: (cues: ::Array[Moonbase::CallTranscriptCue]) -> void
+
+      def to_hash: -> { cues: ::Array[Moonbase::CallTranscriptCue] }
+    end
+  end
+end

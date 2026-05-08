@@ -11,6 +11,9 @@ module Moonbase
           T.any(Moonbase::MeetingUpdateParams, Moonbase::Internal::AnyHash)
         end
 
+      sig { returns(String) }
+      attr_accessor :id
+
       # A video recording of the meeting.
       sig { returns(T.nilable(Moonbase::MeetingUpdateParams::Recording)) }
       attr_reader :recording
@@ -19,6 +22,14 @@ module Moonbase
         params(recording: Moonbase::MeetingUpdateParams::Recording::OrHash).void
       end
       attr_writer :recording
+
+      # Optional list of tag pointers to assign to the meeting. If omitted, existing
+      # tags are unchanged. Pass an empty array to clear tags.
+      sig { returns(T.nilable(T::Array[Moonbase::TagPointerParam])) }
+      attr_reader :tags
+
+      sig { params(tags: T::Array[Moonbase::TagPointerParam::OrHash]).void }
+      attr_writer :tags
 
       # The meeting transcript.
       sig { returns(T.nilable(Moonbase::MeetingUpdateParams::Transcript)) }
@@ -33,14 +44,20 @@ module Moonbase
 
       sig do
         params(
+          id: String,
           recording: Moonbase::MeetingUpdateParams::Recording::OrHash,
+          tags: T::Array[Moonbase::TagPointerParam::OrHash],
           transcript: Moonbase::MeetingUpdateParams::Transcript::OrHash,
           request_options: Moonbase::RequestOptions::OrHash
         ).returns(T.attached_class)
       end
       def self.new(
+        id:,
         # A video recording of the meeting.
         recording: nil,
+        # Optional list of tag pointers to assign to the meeting. If omitted, existing
+        # tags are unchanged. Pass an empty array to clear tags.
+        tags: nil,
         # The meeting transcript.
         transcript: nil,
         request_options: {}
@@ -50,7 +67,9 @@ module Moonbase
       sig do
         override.returns(
           {
+            id: String,
             recording: Moonbase::MeetingUpdateParams::Recording,
+            tags: T::Array[Moonbase::TagPointerParam],
             transcript: Moonbase::MeetingUpdateParams::Transcript,
             request_options: Moonbase::RequestOptions
           }

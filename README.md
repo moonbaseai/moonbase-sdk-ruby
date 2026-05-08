@@ -24,7 +24,7 @@ To use this gem, install via Bundler by adding the following to your application
 <!-- x-release-please-start-version -->
 
 ```ruby
-gem "moonbase-sdk", "~> 0.1.0.pre.alpha.9"
+gem "moonbase-sdk", "~> 0.1.0.pre.alpha.10"
 ```
 
 <!-- x-release-please-end -->
@@ -80,16 +80,16 @@ Request parameters that correspond to file uploads can be passed as raw contents
 require "pathname"
 
 # Use `Pathname` to send the filename and/or avoid paging a large file into memory:
-moonbase_file = moonbase.files.upload(file: Pathname("/path/to/file"))
+message_attachment = moonbase.inbox_messages.attachments.create(file: Pathname("/path/to/file"))
 
 # Alternatively, pass file contents or a `StringIO` directly:
-moonbase_file = moonbase.files.upload(file: File.read("/path/to/file"))
+message_attachment = moonbase.inbox_messages.attachments.create(file: File.read("/path/to/file"))
 
 # Or, to control the filename and/or content type:
 file = Moonbase::FilePart.new(File.read("/path/to/file"), filename: "/path/to/file", content_type: "…")
-moonbase_file = moonbase.files.upload(file: file)
+message_attachment = moonbase.inbox_messages.attachments.create(file: file)
 
-puts(moonbase_file.id)
+puts(message_attachment.id)
 ```
 
 Note that you can also pass a raw `IO` descriptor, but this disables retries, as the library can't be sure if the descriptor is a file or pipe (which cannot be rewound).

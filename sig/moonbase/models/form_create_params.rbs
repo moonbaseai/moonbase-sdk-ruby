@@ -1,0 +1,47 @@
+module Moonbase
+  module Models
+    type form_create_params =
+      {
+        name: String,
+        business_email_required: bool,
+        pages_enabled: bool,
+        redirect_url: String
+      }
+      & Moonbase::Internal::Type::request_parameters
+
+    class FormCreateParams < Moonbase::Internal::Type::BaseModel
+      extend Moonbase::Internal::Type::RequestParameters::Converter
+      include Moonbase::Internal::Type::RequestParameters
+
+      attr_accessor name: String
+
+      attr_reader business_email_required: bool?
+
+      def business_email_required=: (bool) -> bool
+
+      attr_reader pages_enabled: bool?
+
+      def pages_enabled=: (bool) -> bool
+
+      attr_reader redirect_url: String?
+
+      def redirect_url=: (String) -> String
+
+      def initialize: (
+        name: String,
+        ?business_email_required: bool,
+        ?pages_enabled: bool,
+        ?redirect_url: String,
+        ?request_options: Moonbase::request_opts
+      ) -> void
+
+      def to_hash: -> {
+        name: String,
+        business_email_required: bool,
+        pages_enabled: bool,
+        redirect_url: String,
+        request_options: Moonbase::RequestOptions
+      }
+    end
+  end
+end

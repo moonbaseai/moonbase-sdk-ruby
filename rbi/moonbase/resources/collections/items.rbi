@@ -3,6 +3,7 @@
 module Moonbase
   module Resources
     class Collections
+      # Manage your collections and items
       class Items
         # Creates a new item in a collection.
         sig do
@@ -15,6 +16,7 @@ module Moonbase
                   T.any(
                     Moonbase::SingleLineTextValue::OrHash,
                     Moonbase::MultiLineTextValue::OrHash,
+                    Moonbase::IdentifierValue::OrHash,
                     Moonbase::IntegerValue::OrHash,
                     Moonbase::FloatValue::OrHash,
                     Moonbase::MonetaryValue::OrHash,
@@ -23,8 +25,8 @@ module Moonbase
                     Moonbase::EmailValue::OrHash,
                     Moonbase::URLValue::OrHash,
                     Moonbase::DomainValue::OrHash,
-                    Moonbase::FieldValueParam::SocialXValueParam::OrHash,
-                    Moonbase::FieldValueParam::SocialLinkedInValueParam::OrHash,
+                    Moonbase::SocialXValueParam::OrHash,
+                    Moonbase::SocialLinkedInValueParam::OrHash,
                     Moonbase::TelephoneNumber::OrHash,
                     Moonbase::GeoValue::OrHash,
                     Moonbase::DateValue::OrHash,
@@ -36,6 +38,7 @@ module Moonbase
                       T.any(
                         Moonbase::SingleLineTextValue::OrHash,
                         Moonbase::MultiLineTextValue::OrHash,
+                        Moonbase::IdentifierValue::OrHash,
                         Moonbase::IntegerValue::OrHash,
                         Moonbase::FloatValue::OrHash,
                         Moonbase::MonetaryValue::OrHash,
@@ -44,8 +47,8 @@ module Moonbase
                         Moonbase::EmailValue::OrHash,
                         Moonbase::URLValue::OrHash,
                         Moonbase::DomainValue::OrHash,
-                        Moonbase::ValueParam::ValueUriSocialX::OrHash,
-                        Moonbase::ValueParam::ValueUriSocialLinkedIn::OrHash,
+                        Moonbase::SocialXValueParam::OrHash,
+                        Moonbase::SocialLinkedInValueParam::OrHash,
                         Moonbase::TelephoneNumber::OrHash,
                         Moonbase::GeoValue::OrHash,
                         Moonbase::DateValue::OrHash,
@@ -97,6 +100,7 @@ module Moonbase
                   T.any(
                     Moonbase::SingleLineTextValue::OrHash,
                     Moonbase::MultiLineTextValue::OrHash,
+                    Moonbase::IdentifierValue::OrHash,
                     Moonbase::IntegerValue::OrHash,
                     Moonbase::FloatValue::OrHash,
                     Moonbase::MonetaryValue::OrHash,
@@ -105,8 +109,8 @@ module Moonbase
                     Moonbase::EmailValue::OrHash,
                     Moonbase::URLValue::OrHash,
                     Moonbase::DomainValue::OrHash,
-                    Moonbase::FieldValueParam::SocialXValueParam::OrHash,
-                    Moonbase::FieldValueParam::SocialLinkedInValueParam::OrHash,
+                    Moonbase::SocialXValueParam::OrHash,
+                    Moonbase::SocialLinkedInValueParam::OrHash,
                     Moonbase::TelephoneNumber::OrHash,
                     Moonbase::GeoValue::OrHash,
                     Moonbase::DateValue::OrHash,
@@ -118,6 +122,7 @@ module Moonbase
                       T.any(
                         Moonbase::SingleLineTextValue::OrHash,
                         Moonbase::MultiLineTextValue::OrHash,
+                        Moonbase::IdentifierValue::OrHash,
                         Moonbase::IntegerValue::OrHash,
                         Moonbase::FloatValue::OrHash,
                         Moonbase::MonetaryValue::OrHash,
@@ -126,8 +131,8 @@ module Moonbase
                         Moonbase::EmailValue::OrHash,
                         Moonbase::URLValue::OrHash,
                         Moonbase::DomainValue::OrHash,
-                        Moonbase::ValueParam::ValueUriSocialX::OrHash,
-                        Moonbase::ValueParam::ValueUriSocialLinkedIn::OrHash,
+                        Moonbase::SocialXValueParam::OrHash,
+                        Moonbase::SocialLinkedInValueParam::OrHash,
                         Moonbase::TelephoneNumber::OrHash,
                         Moonbase::GeoValue::OrHash,
                         Moonbase::DateValue::OrHash,
@@ -170,17 +175,17 @@ module Moonbase
         )
         end
 
-        # Returns a list of items that are part of the collection.
+        # Returns a paginated list of item pointers in a collection. Use the retrieve
+        # endpoint to get full item details including field values.
         sig do
           params(
             collection_id: String,
             after: String,
             before: String,
-            include: T::Array[String],
             limit: Integer,
             sort: T::Array[String],
             request_options: Moonbase::RequestOptions::OrHash
-          ).returns(Moonbase::Internal::CursorPage[Moonbase::Item])
+          ).returns(Moonbase::Internal::CursorPage[Moonbase::ItemPointer])
         end
         def list(
           # The ID of the collection.
@@ -193,8 +198,6 @@ module Moonbase
           # by this cursor. Use the cursor value from the response's metadata to fetch the
           # previous page of results.
           before: nil,
-          # Include only specific fields in the returned items. Specify fields by id or key.
-          include: nil,
           # Maximum number of items to return per page. Must be between 1 and 100. Defaults
           # to 20 if not specified.
           limit: nil,
@@ -217,6 +220,26 @@ module Moonbase
           # The ID of the Item to delete.
           id,
           collection_id:,
+          request_options: {}
+        )
+        end
+
+        # Merges two items into a single item.
+        sig do
+          params(
+            collection_id: String,
+            destination: Moonbase::ItemPointerParam::OrHash,
+            source: Moonbase::ItemPointerParam::OrHash,
+            request_options: Moonbase::RequestOptions::OrHash
+          ).returns(Moonbase::Item)
+        end
+        def merge(
+          # The ID of the collection containing the items to merge.
+          collection_id,
+          # The destination item pointer. This will be the remaining merged item.
+          destination:,
+          # The source item pointer. This item will be deleted.
+          source:,
           request_options: {}
         )
         end
@@ -283,6 +306,7 @@ module Moonbase
                   T.any(
                     Moonbase::SingleLineTextValue::OrHash,
                     Moonbase::MultiLineTextValue::OrHash,
+                    Moonbase::IdentifierValue::OrHash,
                     Moonbase::IntegerValue::OrHash,
                     Moonbase::FloatValue::OrHash,
                     Moonbase::MonetaryValue::OrHash,
@@ -291,8 +315,8 @@ module Moonbase
                     Moonbase::EmailValue::OrHash,
                     Moonbase::URLValue::OrHash,
                     Moonbase::DomainValue::OrHash,
-                    Moonbase::FieldValueParam::SocialXValueParam::OrHash,
-                    Moonbase::FieldValueParam::SocialLinkedInValueParam::OrHash,
+                    Moonbase::SocialXValueParam::OrHash,
+                    Moonbase::SocialLinkedInValueParam::OrHash,
                     Moonbase::TelephoneNumber::OrHash,
                     Moonbase::GeoValue::OrHash,
                     Moonbase::DateValue::OrHash,
@@ -304,6 +328,7 @@ module Moonbase
                       T.any(
                         Moonbase::SingleLineTextValue::OrHash,
                         Moonbase::MultiLineTextValue::OrHash,
+                        Moonbase::IdentifierValue::OrHash,
                         Moonbase::IntegerValue::OrHash,
                         Moonbase::FloatValue::OrHash,
                         Moonbase::MonetaryValue::OrHash,
@@ -312,8 +337,8 @@ module Moonbase
                         Moonbase::EmailValue::OrHash,
                         Moonbase::URLValue::OrHash,
                         Moonbase::DomainValue::OrHash,
-                        Moonbase::ValueParam::ValueUriSocialX::OrHash,
-                        Moonbase::ValueParam::ValueUriSocialLinkedIn::OrHash,
+                        Moonbase::SocialXValueParam::OrHash,
+                        Moonbase::SocialLinkedInValueParam::OrHash,
                         Moonbase::TelephoneNumber::OrHash,
                         Moonbase::GeoValue::OrHash,
                         Moonbase::DateValue::OrHash,
@@ -333,6 +358,7 @@ module Moonbase
                   T.any(
                     Moonbase::SingleLineTextValue::OrHash,
                     Moonbase::MultiLineTextValue::OrHash,
+                    Moonbase::IdentifierValue::OrHash,
                     Moonbase::IntegerValue::OrHash,
                     Moonbase::FloatValue::OrHash,
                     Moonbase::MonetaryValue::OrHash,
@@ -341,8 +367,8 @@ module Moonbase
                     Moonbase::EmailValue::OrHash,
                     Moonbase::URLValue::OrHash,
                     Moonbase::DomainValue::OrHash,
-                    Moonbase::FieldValueParam::SocialXValueParam::OrHash,
-                    Moonbase::FieldValueParam::SocialLinkedInValueParam::OrHash,
+                    Moonbase::SocialXValueParam::OrHash,
+                    Moonbase::SocialLinkedInValueParam::OrHash,
                     Moonbase::TelephoneNumber::OrHash,
                     Moonbase::GeoValue::OrHash,
                     Moonbase::DateValue::OrHash,
@@ -354,6 +380,7 @@ module Moonbase
                       T.any(
                         Moonbase::SingleLineTextValue::OrHash,
                         Moonbase::MultiLineTextValue::OrHash,
+                        Moonbase::IdentifierValue::OrHash,
                         Moonbase::IntegerValue::OrHash,
                         Moonbase::FloatValue::OrHash,
                         Moonbase::MonetaryValue::OrHash,
@@ -362,8 +389,8 @@ module Moonbase
                         Moonbase::EmailValue::OrHash,
                         Moonbase::URLValue::OrHash,
                         Moonbase::DomainValue::OrHash,
-                        Moonbase::ValueParam::ValueUriSocialX::OrHash,
-                        Moonbase::ValueParam::ValueUriSocialLinkedIn::OrHash,
+                        Moonbase::SocialXValueParam::OrHash,
+                        Moonbase::SocialLinkedInValueParam::OrHash,
                         Moonbase::TelephoneNumber::OrHash,
                         Moonbase::GeoValue::OrHash,
                         Moonbase::DateValue::OrHash,

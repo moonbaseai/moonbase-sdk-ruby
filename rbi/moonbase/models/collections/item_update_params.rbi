@@ -18,6 +18,9 @@ module Moonbase
         sig { returns(String) }
         attr_accessor :collection_id
 
+        sig { returns(String) }
+        attr_accessor :id
+
         # A hash where keys are the `ref` of a `Field` and values are the new data to be
         # set.
         sig do
@@ -28,6 +31,7 @@ module Moonbase
                 T.any(
                   Moonbase::SingleLineTextValue,
                   Moonbase::MultiLineTextValue,
+                  Moonbase::IdentifierValue,
                   Moonbase::IntegerValue,
                   Moonbase::FloatValue,
                   Moonbase::MonetaryValue,
@@ -36,8 +40,8 @@ module Moonbase
                   Moonbase::EmailValue,
                   Moonbase::URLValue,
                   Moonbase::DomainValue,
-                  Moonbase::FieldValueParam::SocialXValueParam,
-                  Moonbase::FieldValueParam::SocialLinkedInValueParam,
+                  Moonbase::SocialXValueParam,
+                  Moonbase::SocialLinkedInValueParam,
                   Moonbase::TelephoneNumber,
                   Moonbase::GeoValue,
                   Moonbase::DateValue,
@@ -49,6 +53,7 @@ module Moonbase
                     T.any(
                       Moonbase::SingleLineTextValue,
                       Moonbase::MultiLineTextValue,
+                      Moonbase::IdentifierValue,
                       Moonbase::IntegerValue,
                       Moonbase::FloatValue,
                       Moonbase::MonetaryValue,
@@ -57,8 +62,8 @@ module Moonbase
                       Moonbase::EmailValue,
                       Moonbase::URLValue,
                       Moonbase::DomainValue,
-                      Moonbase::ValueParam::ValueUriSocialX,
-                      Moonbase::ValueParam::ValueUriSocialLinkedIn,
+                      Moonbase::SocialXValueParam,
+                      Moonbase::SocialLinkedInValueParam,
                       Moonbase::TelephoneNumber,
                       Moonbase::GeoValue,
                       Moonbase::DateValue,
@@ -112,6 +117,7 @@ module Moonbase
         sig do
           params(
             collection_id: String,
+            id: String,
             values:
               T::Hash[
                 Symbol,
@@ -119,6 +125,7 @@ module Moonbase
                   T.any(
                     Moonbase::SingleLineTextValue::OrHash,
                     Moonbase::MultiLineTextValue::OrHash,
+                    Moonbase::IdentifierValue::OrHash,
                     Moonbase::IntegerValue::OrHash,
                     Moonbase::FloatValue::OrHash,
                     Moonbase::MonetaryValue::OrHash,
@@ -127,8 +134,8 @@ module Moonbase
                     Moonbase::EmailValue::OrHash,
                     Moonbase::URLValue::OrHash,
                     Moonbase::DomainValue::OrHash,
-                    Moonbase::FieldValueParam::SocialXValueParam::OrHash,
-                    Moonbase::FieldValueParam::SocialLinkedInValueParam::OrHash,
+                    Moonbase::SocialXValueParam::OrHash,
+                    Moonbase::SocialLinkedInValueParam::OrHash,
                     Moonbase::TelephoneNumber::OrHash,
                     Moonbase::GeoValue::OrHash,
                     Moonbase::DateValue::OrHash,
@@ -140,6 +147,7 @@ module Moonbase
                       T.any(
                         Moonbase::SingleLineTextValue::OrHash,
                         Moonbase::MultiLineTextValue::OrHash,
+                        Moonbase::IdentifierValue::OrHash,
                         Moonbase::IntegerValue::OrHash,
                         Moonbase::FloatValue::OrHash,
                         Moonbase::MonetaryValue::OrHash,
@@ -148,8 +156,8 @@ module Moonbase
                         Moonbase::EmailValue::OrHash,
                         Moonbase::URLValue::OrHash,
                         Moonbase::DomainValue::OrHash,
-                        Moonbase::ValueParam::ValueUriSocialX::OrHash,
-                        Moonbase::ValueParam::ValueUriSocialLinkedIn::OrHash,
+                        Moonbase::SocialXValueParam::OrHash,
+                        Moonbase::SocialLinkedInValueParam::OrHash,
                         Moonbase::TelephoneNumber::OrHash,
                         Moonbase::GeoValue::OrHash,
                         Moonbase::DateValue::OrHash,
@@ -171,6 +179,7 @@ module Moonbase
         end
         def self.new(
           collection_id:,
+          id:,
           # A hash where keys are the `ref` of a `Field` and values are the new data to be
           # set.
           values:,
@@ -184,6 +193,7 @@ module Moonbase
           override.returns(
             {
               collection_id: String,
+              id: String,
               values:
                 T::Hash[
                   Symbol,
@@ -191,6 +201,7 @@ module Moonbase
                     T.any(
                       Moonbase::SingleLineTextValue,
                       Moonbase::MultiLineTextValue,
+                      Moonbase::IdentifierValue,
                       Moonbase::IntegerValue,
                       Moonbase::FloatValue,
                       Moonbase::MonetaryValue,
@@ -199,8 +210,8 @@ module Moonbase
                       Moonbase::EmailValue,
                       Moonbase::URLValue,
                       Moonbase::DomainValue,
-                      Moonbase::FieldValueParam::SocialXValueParam,
-                      Moonbase::FieldValueParam::SocialLinkedInValueParam,
+                      Moonbase::SocialXValueParam,
+                      Moonbase::SocialLinkedInValueParam,
                       Moonbase::TelephoneNumber,
                       Moonbase::GeoValue,
                       Moonbase::DateValue,
@@ -212,6 +223,7 @@ module Moonbase
                         T.any(
                           Moonbase::SingleLineTextValue,
                           Moonbase::MultiLineTextValue,
+                          Moonbase::IdentifierValue,
                           Moonbase::IntegerValue,
                           Moonbase::FloatValue,
                           Moonbase::MonetaryValue,
@@ -220,8 +232,8 @@ module Moonbase
                           Moonbase::EmailValue,
                           Moonbase::URLValue,
                           Moonbase::DomainValue,
-                          Moonbase::ValueParam::ValueUriSocialX,
-                          Moonbase::ValueParam::ValueUriSocialLinkedIn,
+                          Moonbase::SocialXValueParam,
+                          Moonbase::SocialLinkedInValueParam,
                           Moonbase::TelephoneNumber,
                           Moonbase::GeoValue,
                           Moonbase::DateValue,

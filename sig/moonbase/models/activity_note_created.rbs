@@ -3,41 +3,41 @@ module Moonbase
     type activity_note_created =
       {
         id: String,
-        note: Moonbase::Pointer?,
+        note: Moonbase::NotePointer?,
         occurred_at: Time,
-        related_item: Moonbase::ItemPointer?,
-        related_meeting: Moonbase::Pointer?,
+        related_items: ::Array[Moonbase::ItemPointer],
+        related_meeting: Moonbase::MeetingPointer?,
         type: :"activity/note_created"
       }
 
     class ActivityNoteCreated < Moonbase::Internal::Type::BaseModel
       attr_accessor id: String
 
-      attr_accessor note: Moonbase::Pointer?
+      attr_accessor note: Moonbase::NotePointer?
 
       attr_accessor occurred_at: Time
 
-      attr_accessor related_item: Moonbase::ItemPointer?
+      attr_accessor related_items: ::Array[Moonbase::ItemPointer]
 
-      attr_accessor related_meeting: Moonbase::Pointer?
+      attr_accessor related_meeting: Moonbase::MeetingPointer?
 
       attr_accessor type: :"activity/note_created"
 
       def initialize: (
         id: String,
-        note: Moonbase::Pointer?,
+        note: Moonbase::NotePointer?,
         occurred_at: Time,
-        related_item: Moonbase::ItemPointer?,
-        related_meeting: Moonbase::Pointer?,
+        related_items: ::Array[Moonbase::ItemPointer],
+        related_meeting: Moonbase::MeetingPointer?,
         ?type: :"activity/note_created"
       ) -> void
 
       def to_hash: -> {
         id: String,
-        note: Moonbase::Pointer?,
+        note: Moonbase::NotePointer?,
         occurred_at: Time,
-        related_item: Moonbase::ItemPointer?,
-        related_meeting: Moonbase::Pointer?,
+        related_items: ::Array[Moonbase::ItemPointer],
+        related_meeting: Moonbase::MeetingPointer?,
         type: :"activity/note_created"
       }
     end

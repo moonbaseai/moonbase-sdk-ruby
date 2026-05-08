@@ -2,13 +2,14 @@
 
 module Moonbase
   module Resources
+    # View activities and capture calls
     class Activities
       # Retrieves the details of an existing activity.
       sig do
         params(
           id: String,
           request_options: Moonbase::RequestOptions::OrHash
-        ).returns(Moonbase::Activity::Variants)
+        ).returns(Moonbase::Activity)
       end
       def retrieve(
         # The ID of the Activity to retrieve.
@@ -22,10 +23,17 @@ module Moonbase
         params(
           after: String,
           before: String,
-          filter: Moonbase::ActivityListParams::Filter::OrHash,
+          constituent_entity_id:
+            Moonbase::ActivityListParams::ConstituentEntityID::OrHash,
+          constituent_entity_type:
+            Moonbase::ActivityListParams::ConstituentEntityType::OrHash,
+          constituent_relation:
+            Moonbase::ActivityListParams::ConstituentRelation::OrHash,
           limit: Integer,
+          occurred_at: Moonbase::ActivityListParams::OccurredAt::OrHash,
+          type: Moonbase::ActivityListParams::Type::OrHash,
           request_options: Moonbase::RequestOptions::OrHash
-        ).returns(Moonbase::Internal::CursorPage[Moonbase::Activity::Variants])
+        ).returns(Moonbase::Internal::CursorPage[Moonbase::Activity])
       end
       def list(
         # When specified, returns results starting immediately after the item identified
@@ -36,11 +44,22 @@ module Moonbase
         # by this cursor. Use the cursor value from the response's metadata to fetch the
         # previous page of results.
         before: nil,
-        # Filter activities by type, date, or item.
-        filter: nil,
+        # Filter activities by which entities were involved. Must be paired with
+        # constituent_entity_type.
+        constituent_entity_id: nil,
+        # Filter activities by which entities were involved. Must be paired with
+        # constituent_entity_id.
+        constituent_entity_type: nil,
+        # Filter activities by which entities were involved via specific relations. Must
+        # be paired with constituent_entity_type and constituent_entity_id.
+        constituent_relation: nil,
         # Maximum number of items to return per page. Must be between 1 and 100. Defaults
         # to 20 if not specified.
         limit: nil,
+        # Filter activities by when they occurred.
+        occurred_at: nil,
+        # Filter activities by type.
+        type: nil,
         request_options: {}
       )
       end

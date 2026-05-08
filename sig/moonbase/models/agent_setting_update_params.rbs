@@ -1,0 +1,56 @@
+module Moonbase
+  module Models
+    type agent_setting_update_params =
+      {
+        deal_summary_prompt: String,
+        meeting_prebrief_prompt: String,
+        meeting_summary_prompt: String,
+        meeting_web_search: bool,
+        organization_info: String
+      }
+      & Moonbase::Internal::Type::request_parameters
+
+    class AgentSettingUpdateParams < Moonbase::Internal::Type::BaseModel
+      extend Moonbase::Internal::Type::RequestParameters::Converter
+      include Moonbase::Internal::Type::RequestParameters
+
+      attr_reader deal_summary_prompt: String?
+
+      def deal_summary_prompt=: (String) -> String
+
+      attr_reader meeting_prebrief_prompt: String?
+
+      def meeting_prebrief_prompt=: (String) -> String
+
+      attr_reader meeting_summary_prompt: String?
+
+      def meeting_summary_prompt=: (String) -> String
+
+      attr_reader meeting_web_search: bool?
+
+      def meeting_web_search=: (bool) -> bool
+
+      attr_reader organization_info: String?
+
+      def organization_info=: (String) -> String
+
+      def initialize: (
+        ?deal_summary_prompt: String,
+        ?meeting_prebrief_prompt: String,
+        ?meeting_summary_prompt: String,
+        ?meeting_web_search: bool,
+        ?organization_info: String,
+        ?request_options: Moonbase::request_opts
+      ) -> void
+
+      def to_hash: -> {
+        deal_summary_prompt: String,
+        meeting_prebrief_prompt: String,
+        meeting_summary_prompt: String,
+        meeting_web_search: bool,
+        organization_info: String,
+        request_options: Moonbase::RequestOptions
+      }
+    end
+  end
+end

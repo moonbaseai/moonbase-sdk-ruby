@@ -5,8 +5,9 @@ module Moonbase
         id: String,
         allowed_collections: ::Array[Moonbase::CollectionPointer],
         cardinality: Moonbase::Models::RelationField::cardinality,
-        core: bool,
         created_at: Time,
+        default_values: ::Array[Moonbase::Models::field_default_value],
+        kind: Moonbase::Models::RelationField::kind,
         name: String,
         readonly: bool,
         ref: String,
@@ -15,7 +16,10 @@ module Moonbase
         type: :"field/relation",
         unique: bool,
         updated_at: Time,
-        description: String
+        description: String,
+        reverse_field_name: String,
+        reverse_fields: ::Array[Moonbase::FieldPointer],
+        source_field: Moonbase::FieldPointer
       }
 
     class RelationField < Moonbase::Internal::Type::BaseModel
@@ -25,9 +29,11 @@ module Moonbase
 
       attr_accessor cardinality: Moonbase::Models::RelationField::cardinality
 
-      attr_accessor core: bool
-
       attr_accessor created_at: Time
+
+      attr_accessor default_values: ::Array[Moonbase::Models::field_default_value]
+
+      attr_accessor kind: Moonbase::Models::RelationField::kind
 
       attr_accessor name: String
 
@@ -49,12 +55,27 @@ module Moonbase
 
       def description=: (String) -> String
 
+      attr_reader reverse_field_name: String?
+
+      def reverse_field_name=: (String) -> String
+
+      attr_reader reverse_fields: ::Array[Moonbase::FieldPointer]?
+
+      def reverse_fields=: (
+        ::Array[Moonbase::FieldPointer]
+      ) -> ::Array[Moonbase::FieldPointer]
+
+      attr_reader source_field: Moonbase::FieldPointer?
+
+      def source_field=: (Moonbase::FieldPointer) -> Moonbase::FieldPointer
+
       def initialize: (
         id: String,
         allowed_collections: ::Array[Moonbase::CollectionPointer],
         cardinality: Moonbase::Models::RelationField::cardinality,
-        core: bool,
         created_at: Time,
+        default_values: ::Array[Moonbase::Models::field_default_value],
+        kind: Moonbase::Models::RelationField::kind,
         name: String,
         readonly: bool,
         ref: String,
@@ -63,6 +84,9 @@ module Moonbase
         unique: bool,
         updated_at: Time,
         ?description: String,
+        ?reverse_field_name: String,
+        ?reverse_fields: ::Array[Moonbase::FieldPointer],
+        ?source_field: Moonbase::FieldPointer,
         ?type: :"field/relation"
       ) -> void
 
@@ -70,8 +94,9 @@ module Moonbase
         id: String,
         allowed_collections: ::Array[Moonbase::CollectionPointer],
         cardinality: Moonbase::Models::RelationField::cardinality,
-        core: bool,
         created_at: Time,
+        default_values: ::Array[Moonbase::Models::field_default_value],
+        kind: Moonbase::Models::RelationField::kind,
         name: String,
         readonly: bool,
         ref: String,
@@ -80,7 +105,10 @@ module Moonbase
         type: :"field/relation",
         unique: bool,
         updated_at: Time,
-        description: String
+        description: String,
+        reverse_field_name: String,
+        reverse_fields: ::Array[Moonbase::FieldPointer],
+        source_field: Moonbase::FieldPointer
       }
 
       type cardinality = :one | :many
@@ -92,6 +120,18 @@ module Moonbase
         MANY: :many
 
         def self?.values: -> ::Array[Moonbase::Models::RelationField::cardinality]
+      end
+
+      type kind = :system | :inverse | :custom
+
+      module Kind
+        extend Moonbase::Internal::Type::Enum
+
+        SYSTEM: :system
+        INVERSE: :inverse
+        CUSTOM: :custom
+
+        def self?.values: -> ::Array[Moonbase::Models::RelationField::kind]
       end
 
       type relation_type = :one_way | :two_way

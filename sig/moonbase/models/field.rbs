@@ -3,6 +3,7 @@ module Moonbase
     type field =
       Moonbase::SingleLineTextField
       | Moonbase::MultiLineTextField
+      | Moonbase::IdentifierField
       | Moonbase::IntegerField
       | Moonbase::FloatField
       | Moonbase::MonetaryField

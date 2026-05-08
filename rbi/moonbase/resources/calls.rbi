@@ -2,6 +2,7 @@
 
 module Moonbase
   module Resources
+    # View activities and capture calls
     class Calls
       # Logs a phone call.
       sig do
@@ -17,6 +18,7 @@ module Moonbase
           end_at: Time,
           provider_metadata: T::Hash[Symbol, T.anything],
           recordings: T::Array[Moonbase::CallCreateParams::Recording::OrHash],
+          tags: T::Array[Moonbase::TagPointerParam::OrHash],
           transcript: Moonbase::CallCreateParams::Transcript::OrHash,
           request_options: Moonbase::RequestOptions::OrHash
         ).returns(Moonbase::Call)
@@ -42,6 +44,8 @@ module Moonbase
         provider_metadata: nil,
         # Any recordings associated with the call.
         recordings: nil,
+        # Optional list of tag pointers to assign to the call.
+        tags: nil,
         # A transcript of the call.
         transcript: nil,
         request_options: {}
@@ -105,6 +109,7 @@ module Moonbase
           end_at: Time,
           provider_metadata: T::Hash[Symbol, T.anything],
           recordings: T::Array[Moonbase::CallUpsertParams::Recording::OrHash],
+          tags: T::Array[Moonbase::TagPointerParam::OrHash],
           transcript: Moonbase::CallUpsertParams::Transcript::OrHash,
           request_options: Moonbase::RequestOptions::OrHash
         ).returns(Moonbase::Call)
@@ -130,6 +135,9 @@ module Moonbase
         provider_metadata: nil,
         # Any recordings associated with the call.
         recordings: nil,
+        # Optional list of tag pointers to assign to the call. If omitted, existing tags
+        # are unchanged. Pass an empty array to clear tags.
+        tags: nil,
         # A transcript of the call.
         transcript: nil,
         request_options: {}

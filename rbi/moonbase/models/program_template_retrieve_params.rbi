@@ -14,6 +14,9 @@ module Moonbase
           )
         end
 
+      sig { returns(String) }
+      attr_accessor :id
+
       # Specifies which related objects to include in the response. Valid option is
       # `program`.
       sig do
@@ -35,6 +38,7 @@ module Moonbase
 
       sig do
         params(
+          id: String,
           include:
             T::Array[
               Moonbase::ProgramTemplateRetrieveParams::Include::OrSymbol
@@ -43,6 +47,7 @@ module Moonbase
         ).returns(T.attached_class)
       end
       def self.new(
+        id:,
         # Specifies which related objects to include in the response. Valid option is
         # `program`.
         include: nil,
@@ -53,6 +58,7 @@ module Moonbase
       sig do
         override.returns(
           {
+            id: String,
             include:
               T::Array[
                 Moonbase::ProgramTemplateRetrieveParams::Include::OrSymbol

@@ -1,0 +1,34 @@
+module Moonbase
+  module Models
+    type field_default_value =
+      Moonbase::SingleLineTextValue
+      | Moonbase::MultiLineTextValue
+      | Moonbase::IdentifierValue
+      | Moonbase::IntegerValue
+      | Moonbase::FloatValue
+      | Moonbase::MonetaryValue
+      | Moonbase::PercentageValue
+      | Moonbase::BooleanValue
+      | Moonbase::EmailValue
+      | Moonbase::URLValue
+      | Moonbase::DomainValue
+      | Moonbase::SocialXValue
+      | Moonbase::SocialLinkedInValue
+      | Moonbase::TelephoneNumber
+      | Moonbase::GeoValue
+      | Moonbase::DateValue
+      | Moonbase::CurrentDate
+      | Moonbase::DatetimeValue
+      | Moonbase::CurrentDatetime
+      | Moonbase::ChoiceValue
+      | Moonbase::FunnelStepValue
+      | Moonbase::RelationValue
+      | Moonbase::CurrentMember
+
+    module FieldDefaultValue
+      extend Moonbase::Internal::Type::Union
+
+      def self?.variants: -> ::Array[Moonbase::Models::field_default_value]
+    end
+  end
+end

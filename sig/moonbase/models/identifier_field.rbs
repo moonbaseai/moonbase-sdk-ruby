@@ -1,0 +1,105 @@
+module Moonbase
+  module Models
+    type identifier_field =
+      {
+        id: String,
+        cardinality: Moonbase::Models::IdentifierField::cardinality,
+        created_at: Time,
+        default_values: ::Array[Moonbase::Models::field_default_value],
+        kind: Moonbase::Models::IdentifierField::kind,
+        name: String,
+        readonly: bool,
+        ref: String,
+        required: bool,
+        type: :"field/identifier",
+        unique: bool,
+        updated_at: Time,
+        description: String
+      }
+
+    class IdentifierField < Moonbase::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor cardinality: Moonbase::Models::IdentifierField::cardinality
+
+      attr_accessor created_at: Time
+
+      attr_accessor default_values: ::Array[Moonbase::Models::field_default_value]
+
+      attr_accessor kind: Moonbase::Models::IdentifierField::kind
+
+      attr_accessor name: String
+
+      attr_accessor readonly: bool
+
+      attr_accessor ref: String
+
+      attr_accessor required: bool
+
+      attr_accessor type: :"field/identifier"
+
+      attr_accessor unique: bool
+
+      attr_accessor updated_at: Time
+
+      attr_reader description: String?
+
+      def description=: (String) -> String
+
+      def initialize: (
+        id: String,
+        cardinality: Moonbase::Models::IdentifierField::cardinality,
+        created_at: Time,
+        default_values: ::Array[Moonbase::Models::field_default_value],
+        kind: Moonbase::Models::IdentifierField::kind,
+        name: String,
+        readonly: bool,
+        ref: String,
+        required: bool,
+        unique: bool,
+        updated_at: Time,
+        ?description: String,
+        ?type: :"field/identifier"
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        cardinality: Moonbase::Models::IdentifierField::cardinality,
+        created_at: Time,
+        default_values: ::Array[Moonbase::Models::field_default_value],
+        kind: Moonbase::Models::IdentifierField::kind,
+        name: String,
+        readonly: bool,
+        ref: String,
+        required: bool,
+        type: :"field/identifier",
+        unique: bool,
+        updated_at: Time,
+        description: String
+      }
+
+      type cardinality = :one | :many
+
+      module Cardinality
+        extend Moonbase::Internal::Type::Enum
+
+        ONE: :one
+        MANY: :many
+
+        def self?.values: -> ::Array[Moonbase::Models::IdentifierField::cardinality]
+      end
+
+      type kind = :system | :inverse | :custom
+
+      module Kind
+        extend Moonbase::Internal::Type::Enum
+
+        SYSTEM: :system
+        INVERSE: :inverse
+        CUSTOM: :custom
+
+        def self?.values: -> ::Array[Moonbase::Models::IdentifierField::kind]
+      end
+    end
+  end
+end

@@ -13,8 +13,8 @@ module Moonbase
       # @!attribute associations
       #   A list of items, meetings or calls this note is associated with.
       #
-      #   @return [Array<Moonbase::Models::Pointer>]
-      required :associations, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::Pointer] }
+      #   @return [Array<Moonbase::Models::CallPointer, Moonbase::Models::ItemPointer, Moonbase::Models::MeetingPointer>]
+      required :associations, -> { Moonbase::Internal::Type::ArrayOf[union: Moonbase::NoteAssociationPointer] }
 
       # @!attribute body
       #   The main content of the note.
@@ -74,7 +74,7 @@ module Moonbase
       #
       #   @param id [String] Unique identifier for the object.
       #
-      #   @param associations [Array<Moonbase::Models::Pointer>] A list of items, meetings or calls this note is associated with.
+      #   @param associations [Array<Moonbase::Models::CallPointer, Moonbase::Models::ItemPointer, Moonbase::Models::MeetingPointer>] A list of items, meetings or calls this note is associated with.
       #
       #   @param body [Moonbase::Models::FormattedText] The main content of the note.
       #

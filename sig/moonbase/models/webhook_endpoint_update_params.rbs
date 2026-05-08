@@ -2,6 +2,7 @@ module Moonbase
   module Models
     type webhook_endpoint_update_params =
       {
+        id: String,
         status: Moonbase::Models::WebhookEndpointUpdateParams::status,
         subscriptions: ::Array[Moonbase::WebhookEndpointUpdateParams::Subscription],
         url: String
@@ -11,6 +12,8 @@ module Moonbase
     class WebhookEndpointUpdateParams < Moonbase::Internal::Type::BaseModel
       extend Moonbase::Internal::Type::RequestParameters::Converter
       include Moonbase::Internal::Type::RequestParameters
+
+      attr_accessor id: String
 
       attr_reader status: Moonbase::Models::WebhookEndpointUpdateParams::status?
 
@@ -29,6 +32,7 @@ module Moonbase
       def url=: (String) -> String
 
       def initialize: (
+        id: String,
         ?status: Moonbase::Models::WebhookEndpointUpdateParams::status,
         ?subscriptions: ::Array[Moonbase::WebhookEndpointUpdateParams::Subscription],
         ?url: String,
@@ -36,6 +40,7 @@ module Moonbase
       ) -> void
 
       def to_hash: -> {
+        id: String,
         status: Moonbase::Models::WebhookEndpointUpdateParams::status,
         subscriptions: ::Array[Moonbase::WebhookEndpointUpdateParams::Subscription],
         url: String,

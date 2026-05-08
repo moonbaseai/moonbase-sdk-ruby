@@ -24,10 +24,10 @@ module Moonbase
       required :item, -> { Moonbase::ItemPointer }, nil?: true
 
       # @!attribute note
-      #   A lightweight reference to another resource.
+      #   The `Note` in which the item was mentioned.
       #
-      #   @return [Moonbase::Models::Pointer, nil]
-      required :note, -> { Moonbase::Pointer }, nil?: true
+      #   @return [Moonbase::Models::NotePointer, nil]
+      required :note, -> { Moonbase::NotePointer }, nil?: true
 
       # @!attribute occurred_at
       #   The time at which the event occurred, as an ISO 8601 timestamp in UTC.
@@ -53,7 +53,7 @@ module Moonbase
       #
       #   @param item [Moonbase::Models::ItemPointer, nil] A reference to an `Item` within a specific `Collection`, providing the context n
       #
-      #   @param note [Moonbase::Models::Pointer, nil] A lightweight reference to another resource.
+      #   @param note [Moonbase::Models::NotePointer, nil] The `Note` in which the item was mentioned.
       #
       #   @param occurred_at [Time] The time at which the event occurred, as an ISO 8601 timestamp in UTC.
       #

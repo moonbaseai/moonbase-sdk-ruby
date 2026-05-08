@@ -5,8 +5,8 @@ module Moonbase
         id: String,
         email: String,
         type: :meeting_attendee,
-        organization: Moonbase::Pointer,
-        person: Moonbase::Pointer
+        organization: Moonbase::ItemPointer,
+        person: Moonbase::ItemPointer
       }
 
     class Attendee < Moonbase::Internal::Type::BaseModel
@@ -16,19 +16,19 @@ module Moonbase
 
       attr_accessor type: :meeting_attendee
 
-      attr_reader organization: Moonbase::Pointer?
+      attr_reader organization: Moonbase::ItemPointer?
 
-      def organization=: (Moonbase::Pointer) -> Moonbase::Pointer
+      def organization=: (Moonbase::ItemPointer) -> Moonbase::ItemPointer
 
-      attr_reader person: Moonbase::Pointer?
+      attr_reader person: Moonbase::ItemPointer?
 
-      def person=: (Moonbase::Pointer) -> Moonbase::Pointer
+      def person=: (Moonbase::ItemPointer) -> Moonbase::ItemPointer
 
       def initialize: (
         id: String,
         email: String,
-        ?organization: Moonbase::Pointer,
-        ?person: Moonbase::Pointer,
+        ?organization: Moonbase::ItemPointer,
+        ?person: Moonbase::ItemPointer,
         ?type: :meeting_attendee
       ) -> void
 
@@ -36,8 +36,8 @@ module Moonbase
         id: String,
         email: String,
         type: :meeting_attendee,
-        organization: Moonbase::Pointer,
-        person: Moonbase::Pointer
+        organization: Moonbase::ItemPointer,
+        person: Moonbase::ItemPointer
       }
     end
   end

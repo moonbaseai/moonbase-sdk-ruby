@@ -11,7 +11,7 @@ module Moonbase
       attr_accessor :id
 
       # A list of items, meetings or calls this note is associated with.
-      sig { returns(T::Array[Moonbase::Pointer]) }
+      sig { returns(T::Array[Moonbase::NoteAssociationPointer::Variants]) }
       attr_accessor :associations
 
       # The main content of the note.
@@ -64,7 +64,14 @@ module Moonbase
       sig do
         params(
           id: String,
-          associations: T::Array[Moonbase::Pointer::OrHash],
+          associations:
+            T::Array[
+              T.any(
+                Moonbase::CallPointer::OrHash,
+                Moonbase::ItemPointer::OrHash,
+                Moonbase::MeetingPointer::OrHash
+              )
+            ],
           body: Moonbase::FormattedText::OrHash,
           created_at: Time,
           lock_version: Integer,
@@ -104,7 +111,7 @@ module Moonbase
         override.returns(
           {
             id: String,
-            associations: T::Array[Moonbase::Pointer],
+            associations: T::Array[Moonbase::NoteAssociationPointer::Variants],
             body: Moonbase::FormattedText,
             created_at: Time,
             lock_version: Integer,

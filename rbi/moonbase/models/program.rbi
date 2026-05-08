@@ -43,13 +43,11 @@ module Moonbase
       # A `ProgramActivityMetrics` object summarizing engagement for this program.
       #
       # **Note:** Only present when requested using the `include` query parameter.
-      sig { returns(T.nilable(Moonbase::Program::ActivityMetrics)) }
+      sig { returns(T.nilable(Moonbase::ProgramActivityMetrics)) }
       attr_reader :activity_metrics
 
       sig do
-        params(
-          activity_metrics: Moonbase::Program::ActivityMetrics::OrHash
-        ).void
+        params(activity_metrics: Moonbase::ProgramActivityMetrics::OrHash).void
       end
       attr_writer :activity_metrics
 
@@ -88,7 +86,7 @@ module Moonbase
           track_opens: T::Boolean,
           trigger: Moonbase::Program::Trigger::OrSymbol,
           updated_at: Time,
-          activity_metrics: Moonbase::Program::ActivityMetrics::OrHash,
+          activity_metrics: Moonbase::ProgramActivityMetrics::OrHash,
           display_name: String,
           program_template: Moonbase::ProgramTemplate,
           scheduled_at: Time,
@@ -141,7 +139,7 @@ module Moonbase
             trigger: Moonbase::Program::Trigger::TaggedSymbol,
             type: Symbol,
             updated_at: Time,
-            activity_metrics: Moonbase::Program::ActivityMetrics,
+            activity_metrics: Moonbase::ProgramActivityMetrics,
             display_name: String,
             program_template: Moonbase::ProgramTemplate,
             scheduled_at: Time
@@ -187,100 +185,6 @@ module Moonbase
           override.returns(T::Array[Moonbase::Program::Trigger::TaggedSymbol])
         end
         def self.values
-        end
-      end
-
-      class ActivityMetrics < Moonbase::Internal::Type::BaseModel
-        OrHash =
-          T.type_alias do
-            T.any(
-              Moonbase::Program::ActivityMetrics,
-              Moonbase::Internal::AnyHash
-            )
-          end
-
-        # The number of emails that could not be delivered.
-        sig { returns(Integer) }
-        attr_accessor :bounced
-
-        # The number of recipients who clicked at least one link.
-        sig { returns(Integer) }
-        attr_accessor :clicked
-
-        # The number of recipients who marked the email as spam.
-        sig { returns(Integer) }
-        attr_accessor :complained
-
-        # The number of emails that failed to send due to a technical issue.
-        sig { returns(Integer) }
-        attr_accessor :failed
-
-        # The number of recipients who opened the email.
-        sig { returns(Integer) }
-        attr_accessor :opened
-
-        # The total number of emails successfully sent.
-        sig { returns(Integer) }
-        attr_accessor :sent
-
-        # The number of emails blocked by delivery protection rules.
-        sig { returns(Integer) }
-        attr_accessor :shielded
-
-        # The number of recipients who unsubscribed.
-        sig { returns(Integer) }
-        attr_accessor :unsubscribed
-
-        # A `ProgramActivityMetrics` object summarizing engagement for this program.
-        #
-        # **Note:** Only present when requested using the `include` query parameter.
-        sig do
-          params(
-            bounced: Integer,
-            clicked: Integer,
-            complained: Integer,
-            failed: Integer,
-            opened: Integer,
-            sent: Integer,
-            shielded: Integer,
-            unsubscribed: Integer
-          ).returns(T.attached_class)
-        end
-        def self.new(
-          # The number of emails that could not be delivered.
-          bounced:,
-          # The number of recipients who clicked at least one link.
-          clicked:,
-          # The number of recipients who marked the email as spam.
-          complained:,
-          # The number of emails that failed to send due to a technical issue.
-          failed:,
-          # The number of recipients who opened the email.
-          opened:,
-          # The total number of emails successfully sent.
-          sent:,
-          # The number of emails blocked by delivery protection rules.
-          shielded:,
-          # The number of recipients who unsubscribed.
-          unsubscribed:
-        )
-        end
-
-        sig do
-          override.returns(
-            {
-              bounced: Integer,
-              clicked: Integer,
-              complained: Integer,
-              failed: Integer,
-              opened: Integer,
-              sent: Integer,
-              shielded: Integer,
-              unsubscribed: Integer
-            }
-          )
-        end
-        def to_hash
         end
       end
     end

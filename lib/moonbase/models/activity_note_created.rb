@@ -10,10 +10,10 @@ module Moonbase
       required :id, String
 
       # @!attribute note
-      #   A lightweight reference to another resource.
+      #   The `Note` object that was created.
       #
-      #   @return [Moonbase::Models::Pointer, nil]
-      required :note, -> { Moonbase::Pointer }, nil?: true
+      #   @return [Moonbase::Models::NotePointer, nil]
+      required :note, -> { Moonbase::NotePointer }, nil?: true
 
       # @!attribute occurred_at
       #   The time at which the event occurred, as an ISO 8601 timestamp in UTC.
@@ -21,18 +21,17 @@ module Moonbase
       #   @return [Time]
       required :occurred_at, Time
 
-      # @!attribute related_item
-      #   A reference to an `Item` within a specific `Collection`, providing the context
-      #   needed to locate the item.
+      # @!attribute related_items
+      #   An array of `Item` this note is related to, if any.
       #
-      #   @return [Moonbase::Models::ItemPointer, nil]
-      required :related_item, -> { Moonbase::ItemPointer }, nil?: true
+      #   @return [Array<Moonbase::Models::ItemPointer>]
+      required :related_items, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::ItemPointer] }
 
       # @!attribute related_meeting
-      #   A lightweight reference to another resource.
+      #   The `Meeting` this note is related to, if any.
       #
-      #   @return [Moonbase::Models::Pointer, nil]
-      required :related_meeting, -> { Moonbase::Pointer }, nil?: true
+      #   @return [Moonbase::Models::MeetingPointer, nil]
+      required :related_meeting, -> { Moonbase::MeetingPointer }, nil?: true
 
       # @!attribute type
       #   The type of activity. Always `activity/note_created`.
@@ -40,21 +39,18 @@ module Moonbase
       #   @return [Symbol, :"activity/note_created"]
       required :type, const: :"activity/note_created"
 
-      # @!method initialize(id:, note:, occurred_at:, related_item:, related_meeting:, type: :"activity/note_created")
-      #   Some parameter documentations has been truncated, see
-      #   {Moonbase::Models::ActivityNoteCreated} for more details.
-      #
+      # @!method initialize(id:, note:, occurred_at:, related_items:, related_meeting:, type: :"activity/note_created")
       #   Represents an event that occurs when a `Note` is created.
       #
       #   @param id [String] Unique identifier for the object.
       #
-      #   @param note [Moonbase::Models::Pointer, nil] A lightweight reference to another resource.
+      #   @param note [Moonbase::Models::NotePointer, nil] The `Note` object that was created.
       #
       #   @param occurred_at [Time] The time at which the event occurred, as an ISO 8601 timestamp in UTC.
       #
-      #   @param related_item [Moonbase::Models::ItemPointer, nil] A reference to an `Item` within a specific `Collection`, providing the context n
+      #   @param related_items [Array<Moonbase::Models::ItemPointer>] An array of `Item` this note is related to, if any.
       #
-      #   @param related_meeting [Moonbase::Models::Pointer, nil] A lightweight reference to another resource.
+      #   @param related_meeting [Moonbase::Models::MeetingPointer, nil] The `Meeting` this note is related to, if any.
       #
       #   @param type [Symbol, :"activity/note_created"] The type of activity. Always `activity/note_created`.
     end

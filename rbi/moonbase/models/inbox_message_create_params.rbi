@@ -23,28 +23,20 @@ module Moonbase
       attr_accessor :inbox_id
 
       # A list of the BCC recipients.
-      sig do
-        returns(T.nilable(T::Array[Moonbase::InboxMessageCreateParams::Bcc]))
-      end
+      sig { returns(T.nilable(T::Array[Moonbase::EmailMessageAddressParams])) }
       attr_reader :bcc
 
       sig do
-        params(
-          bcc: T::Array[Moonbase::InboxMessageCreateParams::Bcc::OrHash]
-        ).void
+        params(bcc: T::Array[Moonbase::EmailMessageAddressParams::OrHash]).void
       end
       attr_writer :bcc
 
       # A list of the CC recipients.
-      sig do
-        returns(T.nilable(T::Array[Moonbase::InboxMessageCreateParams::Cc]))
-      end
+      sig { returns(T.nilable(T::Array[Moonbase::EmailMessageAddressParams])) }
       attr_reader :cc
 
       sig do
-        params(
-          cc: T::Array[Moonbase::InboxMessageCreateParams::Cc::OrHash]
-        ).void
+        params(cc: T::Array[Moonbase::EmailMessageAddressParams::OrHash]).void
       end
       attr_writer :cc
 
@@ -63,15 +55,11 @@ module Moonbase
       attr_writer :subject
 
       # A list of recipients.
-      sig do
-        returns(T.nilable(T::Array[Moonbase::InboxMessageCreateParams::To]))
-      end
+      sig { returns(T.nilable(T::Array[Moonbase::EmailMessageAddressParams])) }
       attr_reader :to
 
       sig do
-        params(
-          to: T::Array[Moonbase::InboxMessageCreateParams::To::OrHash]
-        ).void
+        params(to: T::Array[Moonbase::EmailMessageAddressParams::OrHash]).void
       end
       attr_writer :to
 
@@ -79,11 +67,11 @@ module Moonbase
         params(
           body: Moonbase::FormattedText::OrHash,
           inbox_id: String,
-          bcc: T::Array[Moonbase::InboxMessageCreateParams::Bcc::OrHash],
-          cc: T::Array[Moonbase::InboxMessageCreateParams::Cc::OrHash],
+          bcc: T::Array[Moonbase::EmailMessageAddressParams::OrHash],
+          cc: T::Array[Moonbase::EmailMessageAddressParams::OrHash],
           conversation_id: String,
           subject: String,
-          to: T::Array[Moonbase::InboxMessageCreateParams::To::OrHash],
+          to: T::Array[Moonbase::EmailMessageAddressParams::OrHash],
           request_options: Moonbase::RequestOptions::OrHash
         ).returns(T.attached_class)
       end
@@ -111,118 +99,16 @@ module Moonbase
           {
             body: Moonbase::FormattedText,
             inbox_id: String,
-            bcc: T::Array[Moonbase::InboxMessageCreateParams::Bcc],
-            cc: T::Array[Moonbase::InboxMessageCreateParams::Cc],
+            bcc: T::Array[Moonbase::EmailMessageAddressParams],
+            cc: T::Array[Moonbase::EmailMessageAddressParams],
             conversation_id: String,
             subject: String,
-            to: T::Array[Moonbase::InboxMessageCreateParams::To],
+            to: T::Array[Moonbase::EmailMessageAddressParams],
             request_options: Moonbase::RequestOptions
           }
         )
       end
       def to_hash
-      end
-
-      class Bcc < Moonbase::Internal::Type::BaseModel
-        OrHash =
-          T.type_alias do
-            T.any(
-              Moonbase::InboxMessageCreateParams::Bcc,
-              Moonbase::Internal::AnyHash
-            )
-          end
-
-        # The email address.
-        sig { returns(String) }
-        attr_accessor :email
-
-        # The recipient's name.
-        sig { returns(T.nilable(String)) }
-        attr_reader :name
-
-        sig { params(name: String).void }
-        attr_writer :name
-
-        sig { params(email: String, name: String).returns(T.attached_class) }
-        def self.new(
-          # The email address.
-          email:,
-          # The recipient's name.
-          name: nil
-        )
-        end
-
-        sig { override.returns({ email: String, name: String }) }
-        def to_hash
-        end
-      end
-
-      class Cc < Moonbase::Internal::Type::BaseModel
-        OrHash =
-          T.type_alias do
-            T.any(
-              Moonbase::InboxMessageCreateParams::Cc,
-              Moonbase::Internal::AnyHash
-            )
-          end
-
-        # The email address.
-        sig { returns(String) }
-        attr_accessor :email
-
-        # The recipient's name.
-        sig { returns(T.nilable(String)) }
-        attr_reader :name
-
-        sig { params(name: String).void }
-        attr_writer :name
-
-        sig { params(email: String, name: String).returns(T.attached_class) }
-        def self.new(
-          # The email address.
-          email:,
-          # The recipient's name.
-          name: nil
-        )
-        end
-
-        sig { override.returns({ email: String, name: String }) }
-        def to_hash
-        end
-      end
-
-      class To < Moonbase::Internal::Type::BaseModel
-        OrHash =
-          T.type_alias do
-            T.any(
-              Moonbase::InboxMessageCreateParams::To,
-              Moonbase::Internal::AnyHash
-            )
-          end
-
-        # The email address.
-        sig { returns(String) }
-        attr_accessor :email
-
-        # The recipient's name.
-        sig { returns(T.nilable(String)) }
-        attr_reader :name
-
-        sig { params(name: String).void }
-        attr_writer :name
-
-        sig { params(email: String, name: String).returns(T.attached_class) }
-        def self.new(
-          # The email address.
-          email:,
-          # The recipient's name.
-          name: nil
-        )
-        end
-
-        sig { override.returns({ email: String, name: String }) }
-        def to_hash
-        end
       end
     end
   end

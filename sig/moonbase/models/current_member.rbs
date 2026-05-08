@@ -1,0 +1,13 @@
+module Moonbase
+  module Models
+    type current_member = { type: :current_member }
+
+    class CurrentMember < Moonbase::Internal::Type::BaseModel
+      attr_accessor type: :current_member
+
+      def initialize: (?type: :current_member) -> void
+
+      def to_hash: -> { type: :current_member }
+    end
+  end
+end

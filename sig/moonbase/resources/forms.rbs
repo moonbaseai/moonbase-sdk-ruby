@@ -1,8 +1,25 @@
 module Moonbase
   module Resources
     class Forms
+      def create: (
+        name: String,
+        ?business_email_required: bool,
+        ?pages_enabled: bool,
+        ?redirect_url: String,
+        ?request_options: Moonbase::request_opts
+      ) -> Moonbase::Form
+
       def retrieve: (
         String id,
+        ?request_options: Moonbase::request_opts
+      ) -> Moonbase::Form
+
+      def update: (
+        String id,
+        ?business_email_required: bool,
+        ?name: String,
+        ?pages_enabled: bool,
+        ?redirect_url: String?,
         ?request_options: Moonbase::request_opts
       ) -> Moonbase::Form
 
@@ -12,6 +29,8 @@ module Moonbase
         ?limit: Integer,
         ?request_options: Moonbase::request_opts
       ) -> Moonbase::Internal::CursorPage[Moonbase::Form]
+
+      def delete: (String id, ?request_options: Moonbase::request_opts) -> nil
 
       def initialize: (client: Moonbase::Client) -> void
     end

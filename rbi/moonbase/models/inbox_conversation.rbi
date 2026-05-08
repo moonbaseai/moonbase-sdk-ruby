@@ -46,7 +46,7 @@ module Moonbase
       attr_accessor :subject
 
       # A list of `Tag` objects applied to this conversation.
-      sig { returns(T::Array[Moonbase::InboxConversation::Tag]) }
+      sig { returns(T::Array[Moonbase::Tag]) }
       attr_accessor :tags
 
       # `true` if the conversation is in the trash.
@@ -104,7 +104,7 @@ module Moonbase
           spam: T::Boolean,
           state: Moonbase::InboxConversation::State::OrSymbol,
           subject: String,
-          tags: T::Array[Moonbase::InboxConversation::Tag::OrHash],
+          tags: T::Array[Moonbase::Tag::OrHash],
           trash: T::Boolean,
           unread: T::Boolean,
           updated_at: Time,
@@ -171,7 +171,7 @@ module Moonbase
             spam: T::Boolean,
             state: Moonbase::InboxConversation::State::TaggedSymbol,
             subject: String,
-            tags: T::Array[Moonbase::InboxConversation::Tag],
+            tags: T::Array[Moonbase::Tag],
             trash: T::Boolean,
             type: Symbol,
             unread: T::Boolean,
@@ -208,46 +208,6 @@ module Moonbase
           )
         end
         def self.values
-        end
-      end
-
-      class Tag < Moonbase::Internal::Type::BaseModel
-        OrHash =
-          T.type_alias do
-            T.any(Moonbase::InboxConversation::Tag, Moonbase::Internal::AnyHash)
-          end
-
-        # Unique identifier for the object.
-        sig { returns(String) }
-        attr_accessor :id
-
-        # The name of the tag.
-        sig { returns(String) }
-        attr_accessor :name
-
-        # String representing the object’s type. Always `tag` for this object.
-        sig { returns(Symbol) }
-        attr_accessor :type
-
-        # A Tag is a label that can be applied to `Conversation` objects for organization
-        # and filtering.
-        sig do
-          params(id: String, name: String, type: Symbol).returns(
-            T.attached_class
-          )
-        end
-        def self.new(
-          # Unique identifier for the object.
-          id:,
-          # The name of the tag.
-          name:,
-          # String representing the object’s type. Always `tag` for this object.
-          type: :tag
-        )
-        end
-
-        sig { override.returns({ id: String, name: String, type: Symbol }) }
-        def to_hash
         end
       end
     end

@@ -3,6 +3,7 @@
 module Moonbase
   module Resources
     class Views
+      # Manage your collections and items
       class Items
         # Returns a list of items that are part of the specified view.
         sig do

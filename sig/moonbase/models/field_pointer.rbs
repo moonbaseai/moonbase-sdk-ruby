@@ -1,0 +1,35 @@
+module Moonbase
+  module Models
+    type field_pointer =
+      {
+        id: String,
+        collection: Moonbase::CollectionPointer,
+        ref: String,
+        type: :field
+      }
+
+    class FieldPointer < Moonbase::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor collection: Moonbase::CollectionPointer
+
+      attr_accessor ref: String
+
+      attr_accessor type: :field
+
+      def initialize: (
+        id: String,
+        collection: Moonbase::CollectionPointer,
+        ref: String,
+        ?type: :field
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        collection: Moonbase::CollectionPointer,
+        ref: String,
+        type: :field
+      }
+    end
+  end
+end

@@ -4,8 +4,12 @@ module Moonbase
       {
         after: String,
         before: String,
-        filter: Moonbase::ActivityListParams::Filter,
-        limit: Integer
+        constituent_entity_id: Moonbase::ActivityListParams::ConstituentEntityID,
+        constituent_entity_type: Moonbase::ActivityListParams::ConstituentEntityType,
+        constituent_relation: Moonbase::ActivityListParams::ConstituentRelation,
+        limit: Integer,
+        occurred_at: Moonbase::ActivityListParams::OccurredAt,
+        type: Moonbase::ActivityListParams::Type
       }
       & Moonbase::Internal::Type::request_parameters
 
@@ -21,162 +25,231 @@ module Moonbase
 
       def before=: (String) -> String
 
-      attr_reader filter: Moonbase::ActivityListParams::Filter?
+      attr_reader constituent_entity_id: Moonbase::ActivityListParams::ConstituentEntityID?
 
-      def filter=: (
-        Moonbase::ActivityListParams::Filter
-      ) -> Moonbase::ActivityListParams::Filter
+      def constituent_entity_id=: (
+        Moonbase::ActivityListParams::ConstituentEntityID
+      ) -> Moonbase::ActivityListParams::ConstituentEntityID
+
+      attr_reader constituent_entity_type: Moonbase::ActivityListParams::ConstituentEntityType?
+
+      def constituent_entity_type=: (
+        Moonbase::ActivityListParams::ConstituentEntityType
+      ) -> Moonbase::ActivityListParams::ConstituentEntityType
+
+      attr_reader constituent_relation: Moonbase::ActivityListParams::ConstituentRelation?
+
+      def constituent_relation=: (
+        Moonbase::ActivityListParams::ConstituentRelation
+      ) -> Moonbase::ActivityListParams::ConstituentRelation
 
       attr_reader limit: Integer?
 
       def limit=: (Integer) -> Integer
 
+      attr_reader occurred_at: Moonbase::ActivityListParams::OccurredAt?
+
+      def occurred_at=: (
+        Moonbase::ActivityListParams::OccurredAt
+      ) -> Moonbase::ActivityListParams::OccurredAt
+
+      attr_reader type: Moonbase::ActivityListParams::Type?
+
+      def type=: (
+        Moonbase::ActivityListParams::Type
+      ) -> Moonbase::ActivityListParams::Type
+
       def initialize: (
         ?after: String,
         ?before: String,
-        ?filter: Moonbase::ActivityListParams::Filter,
+        ?constituent_entity_id: Moonbase::ActivityListParams::ConstituentEntityID,
+        ?constituent_entity_type: Moonbase::ActivityListParams::ConstituentEntityType,
+        ?constituent_relation: Moonbase::ActivityListParams::ConstituentRelation,
         ?limit: Integer,
+        ?occurred_at: Moonbase::ActivityListParams::OccurredAt,
+        ?type: Moonbase::ActivityListParams::Type,
         ?request_options: Moonbase::request_opts
       ) -> void
 
       def to_hash: -> {
         after: String,
         before: String,
-        filter: Moonbase::ActivityListParams::Filter,
+        constituent_entity_id: Moonbase::ActivityListParams::ConstituentEntityID,
+        constituent_entity_type: Moonbase::ActivityListParams::ConstituentEntityType,
+        constituent_relation: Moonbase::ActivityListParams::ConstituentRelation,
         limit: Integer,
+        occurred_at: Moonbase::ActivityListParams::OccurredAt,
+        type: Moonbase::ActivityListParams::Type,
         request_options: Moonbase::RequestOptions
       }
 
-      type filter =
-        {
-          item_id: Moonbase::ActivityListParams::Filter::ItemID,
-          occurred_at: Moonbase::ActivityListParams::Filter::OccurredAt,
-          type: Moonbase::ActivityListParams::Filter::Type
-        }
+      type constituent_entity_id = { eq: String }
 
-      class Filter < Moonbase::Internal::Type::BaseModel
-        attr_reader item_id: Moonbase::ActivityListParams::Filter::ItemID?
+      class ConstituentEntityID < Moonbase::Internal::Type::BaseModel
+        attr_reader eq: String?
 
-        def item_id=: (
-          Moonbase::ActivityListParams::Filter::ItemID
-        ) -> Moonbase::ActivityListParams::Filter::ItemID
+        def eq=: (String) -> String
 
-        attr_reader occurred_at: Moonbase::ActivityListParams::Filter::OccurredAt?
+        def initialize: (?eq: String) -> void
 
-        def occurred_at=: (
-          Moonbase::ActivityListParams::Filter::OccurredAt
-        ) -> Moonbase::ActivityListParams::Filter::OccurredAt
+        def to_hash: -> { eq: String }
+      end
 
-        attr_reader type: Moonbase::ActivityListParams::Filter::Type?
+      type constituent_entity_type =
+        { eq: Moonbase::Models::ActivityListParams::ConstituentEntityType::eq }
 
-        def type=: (
-          Moonbase::ActivityListParams::Filter::Type
-        ) -> Moonbase::ActivityListParams::Filter::Type
+      class ConstituentEntityType < Moonbase::Internal::Type::BaseModel
+        attr_reader eq: Moonbase::Models::ActivityListParams::ConstituentEntityType::eq?
+
+        def eq=: (
+          Moonbase::Models::ActivityListParams::ConstituentEntityType::eq
+        ) -> Moonbase::Models::ActivityListParams::ConstituentEntityType::eq
 
         def initialize: (
-          ?item_id: Moonbase::ActivityListParams::Filter::ItemID,
-          ?occurred_at: Moonbase::ActivityListParams::Filter::OccurredAt,
-          ?type: Moonbase::ActivityListParams::Filter::Type
+          ?eq: Moonbase::Models::ActivityListParams::ConstituentEntityType::eq
         ) -> void
 
         def to_hash: -> {
-          item_id: Moonbase::ActivityListParams::Filter::ItemID,
-          occurred_at: Moonbase::ActivityListParams::Filter::OccurredAt,
-          type: Moonbase::ActivityListParams::Filter::Type
+          eq: Moonbase::Models::ActivityListParams::ConstituentEntityType::eq
         }
 
-        type item_id = { eq: String }
+        type eq =
+          :call
+          | :collection
+          | :email_message
+          | :file
+          | :item
+          | :meeting
+          | :note
+          | :program
+          | :program_message
+          | :program_template
+          | :unsubscribe
 
-        class ItemID < Moonbase::Internal::Type::BaseModel
-          attr_reader eq: String?
+        module Eq
+          extend Moonbase::Internal::Type::Enum
 
-          def eq=: (String) -> String
+          CALL: :call
+          COLLECTION: :collection
+          EMAIL_MESSAGE: :email_message
+          FILE: :file
+          ITEM: :item
+          MEETING: :meeting
+          NOTE: :note
+          PROGRAM: :program
+          PROGRAM_MESSAGE: :program_message
+          PROGRAM_TEMPLATE: :program_template
+          UNSUBSCRIBE: :unsubscribe
 
-          def initialize: (?eq: String) -> void
-
-          def to_hash: -> { eq: String }
+          def self?.values: -> ::Array[Moonbase::Models::ActivityListParams::ConstituentEntityType::eq]
         end
+      end
 
-        type occurred_at = { gte: Time, lte: Time }
+      type constituent_relation =
+        { eq: Moonbase::Models::ActivityListParams::ConstituentRelation::eq }
 
-        class OccurredAt < Moonbase::Internal::Type::BaseModel
-          attr_reader gte: Time?
+      class ConstituentRelation < Moonbase::Internal::Type::BaseModel
+        attr_reader eq: Moonbase::Models::ActivityListParams::ConstituentRelation::eq?
 
-          def gte=: (Time) -> Time
+        def eq=: (
+          Moonbase::Models::ActivityListParams::ConstituentRelation::eq
+        ) -> Moonbase::Models::ActivityListParams::ConstituentRelation::eq
 
-          attr_reader lte: Time?
+        def initialize: (
+          ?eq: Moonbase::Models::ActivityListParams::ConstituentRelation::eq
+        ) -> void
 
-          def lte=: (Time) -> Time
+        def to_hash: -> {
+          eq: Moonbase::Models::ActivityListParams::ConstituentRelation::eq
+        }
 
-          def initialize: (?gte: Time, ?lte: Time) -> void
+        type eq = :actor | :object | :target
 
-          def to_hash: -> { gte: Time, lte: Time }
+        module Eq
+          extend Moonbase::Internal::Type::Enum
+
+          ACTOR: :actor
+          OBJECT: :object
+          TARGET: :target
+
+          def self?.values: -> ::Array[Moonbase::Models::ActivityListParams::ConstituentRelation::eq]
         end
+      end
 
-        type type_ =
-          {
-            in_: ::Array[Moonbase::Models::ActivityListParams::Filter::Type::in_]
-          }
+      type occurred_at = { gte: Time, lte: Time }
 
-        class Type < Moonbase::Internal::Type::BaseModel
-          attr_reader in_: ::Array[Moonbase::Models::ActivityListParams::Filter::Type::in_]?
+      class OccurredAt < Moonbase::Internal::Type::BaseModel
+        attr_reader gte: Time?
 
-          def in_=: (
-            ::Array[Moonbase::Models::ActivityListParams::Filter::Type::in_]
-          ) -> ::Array[Moonbase::Models::ActivityListParams::Filter::Type::in_]
+        def gte=: (Time) -> Time
 
-          def initialize: (
-            ?in_: ::Array[Moonbase::Models::ActivityListParams::Filter::Type::in_]
-          ) -> void
+        attr_reader lte: Time?
 
-          def to_hash: -> {
-            in_: ::Array[Moonbase::Models::ActivityListParams::Filter::Type::in_]
-          }
+        def lte=: (Time) -> Time
 
-          type in_ =
-            :"activity/call_occurred"
-            | :"activity/form_submitted"
-            | :"activity/inbox_message_sent"
-            | :"activity/item_created"
-            | :"activity/item_mentioned"
-            | :"activity/item_merged"
-            | :"activity/file_created"
-            | :"activity/meeting_held"
-            | :"activity/meeting_scheduled"
-            | :"activity/note_created"
-            | :"activity/program_message_bounced"
-            | :"activity/program_message_clicked"
-            | :"activity/program_message_complained"
-            | :"activity/program_message_failed"
-            | :"activity/program_message_opened"
-            | :"activity/program_message_sent"
-            | :"activity/program_message_shielded"
-            | :"activity/program_message_unsubscribed"
+        def initialize: (?gte: Time, ?lte: Time) -> void
 
-          module In
-            extend Moonbase::Internal::Type::Enum
+        def to_hash: -> { gte: Time, lte: Time }
+      end
 
-            ACTIVITY_CALL_OCCURRED: :"activity/call_occurred"
-            ACTIVITY_FORM_SUBMITTED: :"activity/form_submitted"
-            ACTIVITY_INBOX_MESSAGE_SENT: :"activity/inbox_message_sent"
-            ACTIVITY_ITEM_CREATED: :"activity/item_created"
-            ACTIVITY_ITEM_MENTIONED: :"activity/item_mentioned"
-            ACTIVITY_ITEM_MERGED: :"activity/item_merged"
-            ACTIVITY_FILE_CREATED: :"activity/file_created"
-            ACTIVITY_MEETING_HELD: :"activity/meeting_held"
-            ACTIVITY_MEETING_SCHEDULED: :"activity/meeting_scheduled"
-            ACTIVITY_NOTE_CREATED: :"activity/note_created"
-            ACTIVITY_PROGRAM_MESSAGE_BOUNCED: :"activity/program_message_bounced"
-            ACTIVITY_PROGRAM_MESSAGE_CLICKED: :"activity/program_message_clicked"
-            ACTIVITY_PROGRAM_MESSAGE_COMPLAINED: :"activity/program_message_complained"
-            ACTIVITY_PROGRAM_MESSAGE_FAILED: :"activity/program_message_failed"
-            ACTIVITY_PROGRAM_MESSAGE_OPENED: :"activity/program_message_opened"
-            ACTIVITY_PROGRAM_MESSAGE_SENT: :"activity/program_message_sent"
-            ACTIVITY_PROGRAM_MESSAGE_SHIELDED: :"activity/program_message_shielded"
-            ACTIVITY_PROGRAM_MESSAGE_UNSUBSCRIBED: :"activity/program_message_unsubscribed"
+      type type_ = { eq: Moonbase::Models::ActivityListParams::Type::eq }
 
-            def self?.values: -> ::Array[Moonbase::Models::ActivityListParams::Filter::Type::in_]
-          end
+      class Type < Moonbase::Internal::Type::BaseModel
+        attr_reader eq: Moonbase::Models::ActivityListParams::Type::eq?
+
+        def eq=: (
+          Moonbase::Models::ActivityListParams::Type::eq
+        ) -> Moonbase::Models::ActivityListParams::Type::eq
+
+        def initialize: (
+          ?eq: Moonbase::Models::ActivityListParams::Type::eq
+        ) -> void
+
+        def to_hash: -> { eq: Moonbase::Models::ActivityListParams::Type::eq }
+
+        type eq =
+          :"activity/call_occurred"
+          | :"activity/form_submitted"
+          | :"activity/inbox_message_sent"
+          | :"activity/item_created"
+          | :"activity/item_mentioned"
+          | :"activity/item_merged"
+          | :"activity/file_created"
+          | :"activity/meeting_held"
+          | :"activity/meeting_scheduled"
+          | :"activity/note_created"
+          | :"activity/program_message_bounced"
+          | :"activity/program_message_clicked"
+          | :"activity/program_message_complained"
+          | :"activity/program_message_failed"
+          | :"activity/program_message_opened"
+          | :"activity/program_message_sent"
+          | :"activity/program_message_shielded"
+          | :"activity/program_message_unsubscribed"
+
+        module Eq
+          extend Moonbase::Internal::Type::Enum
+
+          ACTIVITY_CALL_OCCURRED: :"activity/call_occurred"
+          ACTIVITY_FORM_SUBMITTED: :"activity/form_submitted"
+          ACTIVITY_INBOX_MESSAGE_SENT: :"activity/inbox_message_sent"
+          ACTIVITY_ITEM_CREATED: :"activity/item_created"
+          ACTIVITY_ITEM_MENTIONED: :"activity/item_mentioned"
+          ACTIVITY_ITEM_MERGED: :"activity/item_merged"
+          ACTIVITY_FILE_CREATED: :"activity/file_created"
+          ACTIVITY_MEETING_HELD: :"activity/meeting_held"
+          ACTIVITY_MEETING_SCHEDULED: :"activity/meeting_scheduled"
+          ACTIVITY_NOTE_CREATED: :"activity/note_created"
+          ACTIVITY_PROGRAM_MESSAGE_BOUNCED: :"activity/program_message_bounced"
+          ACTIVITY_PROGRAM_MESSAGE_CLICKED: :"activity/program_message_clicked"
+          ACTIVITY_PROGRAM_MESSAGE_COMPLAINED: :"activity/program_message_complained"
+          ACTIVITY_PROGRAM_MESSAGE_FAILED: :"activity/program_message_failed"
+          ACTIVITY_PROGRAM_MESSAGE_OPENED: :"activity/program_message_opened"
+          ACTIVITY_PROGRAM_MESSAGE_SENT: :"activity/program_message_sent"
+          ACTIVITY_PROGRAM_MESSAGE_SHIELDED: :"activity/program_message_shielded"
+          ACTIVITY_PROGRAM_MESSAGE_UNSUBSCRIBED: :"activity/program_message_unsubscribed"
+
+          def self?.values: -> ::Array[Moonbase::Models::ActivityListParams::Type::eq]
         end
       end
     end

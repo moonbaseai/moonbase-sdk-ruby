@@ -2,6 +2,7 @@
 
 module Moonbase
   module Resources
+    # Manage your meetings, files, and notes
     class Files
       # Retrieves the details of an existing file.
       #
@@ -43,10 +44,11 @@ module Moonbase
       # @see Moonbase::Models::FileListParams
       def list(params = {})
         parsed, options = Moonbase::FileListParams.dump_request(params)
+        query = Moonbase::Internal::Util.encode_query_params(parsed)
         @client.request(
           method: :get,
           path: "files",
-          query: parsed,
+          query: query,
           page: Moonbase::Internal::CursorPage,
           model: Moonbase::MoonbaseFile,
           options: options
@@ -82,7 +84,7 @@ module Moonbase
       #
       # @param file [Pathname, StringIO, IO, String, Moonbase::FilePart] The File object to be uploaded.
       #
-      # @param associations [Array<Moonbase::Models::Pointer>] Link the File to Moonbase items like a person, organization, deal, task, or an i
+      # @param associations [Array<Moonbase::Models::ItemPointerParam>] Link the File to Moonbase items like a person, organization, deal, task, or an i
       #
       # @param name [String] The display name of the file.
       #

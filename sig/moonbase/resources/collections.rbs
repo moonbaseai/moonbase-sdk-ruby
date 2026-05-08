@@ -5,9 +5,21 @@ module Moonbase
 
       attr_reader items: Moonbase::Resources::Collections::Items
 
+      def create: (
+        name: String,
+        ?description: String,
+        ?request_options: Moonbase::request_opts
+      ) -> Moonbase::Collection
+
       def retrieve: (
         String id,
-        ?include: ::Array[Moonbase::Models::CollectionRetrieveParams::include_],
+        ?request_options: Moonbase::request_opts
+      ) -> Moonbase::Collection
+
+      def update: (
+        String id,
+        ?description: String,
+        ?name: String,
         ?request_options: Moonbase::request_opts
       ) -> Moonbase::Collection
 
@@ -16,7 +28,7 @@ module Moonbase
         ?before: String,
         ?limit: Integer,
         ?request_options: Moonbase::request_opts
-      ) -> Moonbase::Internal::CursorPage[Moonbase::Collection]
+      ) -> Moonbase::Internal::CursorPage[Moonbase::Models::CollectionListResponse]
 
       def initialize: (client: Moonbase::Client) -> void
     end

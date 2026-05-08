@@ -2,6 +2,7 @@
 
 module Moonbase
   module Resources
+    # Manage your meetings, files, and notes
     class Files
       # Retrieves the details of an existing file.
       sig do
@@ -60,7 +61,7 @@ module Moonbase
       sig do
         params(
           file: Moonbase::Internal::FileInput,
-          associations: T::Array[Moonbase::Pointer::OrHash],
+          associations: T::Array[Moonbase::ItemPointerParam::OrHash],
           name: String,
           request_options: Moonbase::RequestOptions::OrHash
         ).returns(Moonbase::MoonbaseFile)

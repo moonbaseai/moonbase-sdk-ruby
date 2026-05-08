@@ -2,6 +2,7 @@
 
 module Moonbase
   module Resources
+    # Manage your meetings, files, and notes
     class Meetings
       # Retrieves the details of an existing meeting.
       sig do
@@ -21,11 +22,12 @@ module Moonbase
       )
       end
 
-      # Adds a transcript or recording to an existing meeting.
+      # Adds a transcript, recording, or tags to an existing meeting.
       sig do
         params(
           id: String,
           recording: Moonbase::MeetingUpdateParams::Recording::OrHash,
+          tags: T::Array[Moonbase::TagPointerParam::OrHash],
           transcript: Moonbase::MeetingUpdateParams::Transcript::OrHash,
           request_options: Moonbase::RequestOptions::OrHash
         ).returns(Moonbase::Meeting)
@@ -35,6 +37,9 @@ module Moonbase
         id,
         # A video recording of the meeting.
         recording: nil,
+        # Optional list of tag pointers to assign to the meeting. If omitted, existing
+        # tags are unchanged. Pass an empty array to clear tags.
+        tags: nil,
         # The meeting transcript.
         transcript: nil,
         request_options: {}
@@ -46,10 +51,10 @@ module Moonbase
         params(
           after: String,
           before: String,
-          filter: Moonbase::MeetingListParams::Filter::OrHash,
+          i_cal_uid: Moonbase::MeetingListParams::ICalUid::OrHash,
           limit: Integer,
           request_options: Moonbase::RequestOptions::OrHash
-        ).returns(Moonbase::Internal::CursorPage[Moonbase::Meeting])
+        ).returns(Moonbase::Internal::CursorPage[Moonbase::MeetingPointer])
       end
       def list(
         # When specified, returns results starting immediately after the item identified
@@ -60,7 +65,7 @@ module Moonbase
         # by this cursor. Use the cursor value from the response's metadata to fetch the
         # previous page of results.
         before: nil,
-        filter: nil,
+        i_cal_uid: nil,
         # Maximum number of items to return per page. Must be between 1 and 100. Defaults
         # to 20 if not specified.
         limit: nil,

@@ -62,8 +62,8 @@ module Moonbase
       # @!attribute tags
       #   A list of `Tag` objects applied to this conversation.
       #
-      #   @return [Array<Moonbase::Models::InboxConversation::Tag>]
-      required :tags, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::InboxConversation::Tag] }
+      #   @return [Array<Moonbase::Models::Tag>]
+      required :tags, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::Tag] }
 
       # @!attribute trash
       #   `true` if the conversation is in the trash.
@@ -137,7 +137,7 @@ module Moonbase
       #
       #   @param subject [String] The subject line of the conversation.
       #
-      #   @param tags [Array<Moonbase::Models::InboxConversation::Tag>] A list of `Tag` objects applied to this conversation.
+      #   @param tags [Array<Moonbase::Models::Tag>] A list of `Tag` objects applied to this conversation.
       #
       #   @param trash [Boolean] `true` if the conversation is in the trash.
       #
@@ -166,36 +166,6 @@ module Moonbase
 
         # @!method self.values
         #   @return [Array<Symbol>]
-      end
-
-      class Tag < Moonbase::Internal::Type::BaseModel
-        # @!attribute id
-        #   Unique identifier for the object.
-        #
-        #   @return [String]
-        required :id, String
-
-        # @!attribute name
-        #   The name of the tag.
-        #
-        #   @return [String]
-        required :name, String
-
-        # @!attribute type
-        #   String representing the object’s type. Always `tag` for this object.
-        #
-        #   @return [Symbol, :tag]
-        required :type, const: :tag
-
-        # @!method initialize(id:, name:, type: :tag)
-        #   A Tag is a label that can be applied to `Conversation` objects for organization
-        #   and filtering.
-        #
-        #   @param id [String] Unique identifier for the object.
-        #
-        #   @param name [String] The name of the tag.
-        #
-        #   @param type [Symbol, :tag] String representing the object’s type. Always `tag` for this object.
       end
     end
   end

@@ -6,28 +6,24 @@ module Moonbase
       # @api private
       #
       # @example
-      #   # `field` is a `Moonbase::Field`
-      #   case field
-      #   when Moonbase::SingleLineTextField
-      #     puts(field.id)
-      #   when Moonbase::MultiLineTextField
-      #     puts(field.cardinality)
-      #   when Moonbase::IntegerField
-      #     puts(field.core)
+      #   # `date_field_default_value_param` is a `Moonbase::DateFieldDefaultValueParam`
+      #   case date_field_default_value_param
+      #   when Moonbase::DateValue
+      #     puts(date_field_default_value_param.data)
+      #   when Moonbase::CurrentDate
+      #     puts(date_field_default_value_param.type)
       #   else
-      #     puts(field)
+      #     puts(date_field_default_value_param)
       #   end
       #
       # @example
-      #   case field
-      #   in {type: :"field/text/single_line", id: id, cardinality: cardinality, core: core}
-      #     puts(id)
-      #   in {type: :"field/text/multi_line", id: id, cardinality: cardinality, core: core}
-      #     puts(cardinality)
-      #   in {type: :"field/number/unitless_integer", id: id, cardinality: cardinality, core: core}
-      #     puts(core)
+      #   case date_field_default_value_param
+      #   in {type: :"value/date", data: data}
+      #     puts(data)
+      #   in {type: :current_date}
+      #     # ...
       #   else
-      #     puts(field)
+      #     puts(date_field_default_value_param)
       #   end
       module Union
         include Moonbase::Internal::Type::Converter

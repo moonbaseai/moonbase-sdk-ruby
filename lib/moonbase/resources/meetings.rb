@@ -2,6 +2,7 @@
 
 module Moonbase
   module Resources
+    # Manage your meetings, files, and notes
     class Meetings
       # Some parameter documentations has been truncated, see
       # {Moonbase::Models::MeetingRetrieveParams} for more details.
@@ -21,22 +22,28 @@ module Moonbase
       # @see Moonbase::Models::MeetingRetrieveParams
       def retrieve(id, params = {})
         parsed, options = Moonbase::MeetingRetrieveParams.dump_request(params)
+        query = Moonbase::Internal::Util.encode_query_params(parsed)
         @client.request(
           method: :get,
           path: ["meetings/%1$s", id],
-          query: parsed,
+          query: query,
           model: Moonbase::Meeting,
           options: options
         )
       end
 
-      # Adds a transcript or recording to an existing meeting.
+      # Some parameter documentations has been truncated, see
+      # {Moonbase::Models::MeetingUpdateParams} for more details.
       #
-      # @overload update(id, recording: nil, transcript: nil, request_options: {})
+      # Adds a transcript, recording, or tags to an existing meeting.
+      #
+      # @overload update(id, recording: nil, tags: nil, transcript: nil, request_options: {})
       #
       # @param id [String] The ID of the meeting to update.
       #
       # @param recording [Moonbase::Models::MeetingUpdateParams::Recording] A video recording of the meeting.
+      #
+      # @param tags [Array<Moonbase::Models::TagPointerParam>] Optional list of tag pointers to assign to the meeting. If omitted, existing tag
       #
       # @param transcript [Moonbase::Models::MeetingUpdateParams::Transcript] The meeting transcript.
       #
@@ -61,29 +68,30 @@ module Moonbase
       #
       # Returns a list of meetings.
       #
-      # @overload list(after: nil, before: nil, filter: nil, limit: nil, request_options: {})
+      # @overload list(after: nil, before: nil, i_cal_uid: nil, limit: nil, request_options: {})
       #
       # @param after [String] When specified, returns results starting immediately after the item identified b
       #
       # @param before [String] When specified, returns results starting immediately before the item identified
       #
-      # @param filter [Moonbase::Models::MeetingListParams::Filter]
+      # @param i_cal_uid [Moonbase::Models::MeetingListParams::ICalUid]
       #
       # @param limit [Integer] Maximum number of items to return per page. Must be between 1 and 100. Defaults
       #
       # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
       #
-      # @return [Moonbase::Internal::CursorPage<Moonbase::Models::Meeting>]
+      # @return [Moonbase::Internal::CursorPage<Moonbase::Models::MeetingPointer>]
       #
       # @see Moonbase::Models::MeetingListParams
       def list(params = {})
         parsed, options = Moonbase::MeetingListParams.dump_request(params)
+        query = Moonbase::Internal::Util.encode_query_params(parsed)
         @client.request(
           method: :get,
           path: "meetings",
-          query: parsed,
+          query: query,
           page: Moonbase::Internal::CursorPage,
-          model: Moonbase::Meeting,
+          model: Moonbase::MeetingPointer,
           options: options
         )
       end

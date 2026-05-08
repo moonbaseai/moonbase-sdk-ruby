@@ -13,8 +13,14 @@ module Moonbase
         #   @return [String]
         required :collection_id, String
 
-        # @!method initialize(collection_id:, request_options: {})
+        # @!attribute id
+        #
+        #   @return [String]
+        required :id, String
+
+        # @!method initialize(collection_id:, id:, request_options: {})
         #   @param collection_id [String]
+        #   @param id [String]
         #   @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}]
       end
     end

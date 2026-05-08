@@ -7,7 +7,13 @@ module Moonbase
       extend Moonbase::Internal::Type::RequestParameters::Converter
       include Moonbase::Internal::Type::RequestParameters
 
-      # @!method initialize(request_options: {})
+      # @!attribute id
+      #
+      #   @return [String]
+      required :id, String
+
+      # @!method initialize(id:, request_options: {})
+      #   @param id [String]
       #   @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}]
     end
   end

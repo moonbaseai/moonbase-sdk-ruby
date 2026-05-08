@@ -3,6 +3,26 @@
 require_relative "../test_helper"
 
 class Moonbase::Test::Resources::TagsetsTest < Moonbase::Test::ResourceTest
+  def test_create_required_params
+    response = @moonbase.tagsets.create(name: "Support")
+
+    assert_pattern do
+      response => Moonbase::Tagset
+    end
+
+    assert_pattern do
+      response => {
+        id: String,
+        created_at: Time,
+        name: String,
+        tags: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Tag]),
+        type: Symbol,
+        updated_at: Time,
+        description: String | nil
+      }
+    end
+  end
+
   def test_retrieve
     response = @moonbase.tagsets.retrieve("id")
 
@@ -15,7 +35,27 @@ class Moonbase::Test::Resources::TagsetsTest < Moonbase::Test::ResourceTest
         id: String,
         created_at: Time,
         name: String,
-        tags: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Tagset::Tag]),
+        tags: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Tag]),
+        type: Symbol,
+        updated_at: Time,
+        description: String | nil
+      }
+    end
+  end
+
+  def test_update
+    response = @moonbase.tagsets.update("id")
+
+    assert_pattern do
+      response => Moonbase::Tagset
+    end
+
+    assert_pattern do
+      response => {
+        id: String,
+        created_at: Time,
+        name: String,
+        tags: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Tag]),
         type: Symbol,
         updated_at: Time,
         description: String | nil
@@ -42,11 +82,19 @@ class Moonbase::Test::Resources::TagsetsTest < Moonbase::Test::ResourceTest
         id: String,
         created_at: Time,
         name: String,
-        tags: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Tagset::Tag]),
+        tags: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Tag]),
         type: Symbol,
         updated_at: Time,
         description: String | nil
       }
+    end
+  end
+
+  def test_delete
+    response = @moonbase.tagsets.delete("id")
+
+    assert_pattern do
+      response => nil
     end
   end
 end

@@ -29,16 +29,18 @@ module Moonbase
       required :type, const: :message_address
 
       # @!attribute organization
-      #   A lightweight reference to another resource.
+      #   A reference to an `Item` within a specific `Collection`, providing the context
+      #   needed to locate the item.
       #
-      #   @return [Moonbase::Models::Pointer, nil]
-      optional :organization, -> { Moonbase::Pointer }
+      #   @return [Moonbase::Models::ItemPointer, nil]
+      optional :organization, -> { Moonbase::ItemPointer }
 
       # @!attribute person
-      #   A lightweight reference to another resource.
+      #   A reference to an `Item` within a specific `Collection`, providing the context
+      #   needed to locate the item.
       #
-      #   @return [Moonbase::Models::Pointer, nil]
-      optional :person, -> { Moonbase::Pointer }
+      #   @return [Moonbase::Models::ItemPointer, nil]
+      optional :person, -> { Moonbase::ItemPointer }
 
       # @!method initialize(id:, email:, role:, organization: nil, person: nil, type: :message_address)
       #   Some parameter documentations has been truncated, see
@@ -54,9 +56,9 @@ module Moonbase
       #
       #   @param role [Symbol, Moonbase::Models::Address::Role] The role of the address in the message. Can be `from`, `reply_to`, `to`, `cc`, o
       #
-      #   @param organization [Moonbase::Models::Pointer] A lightweight reference to another resource.
+      #   @param organization [Moonbase::Models::ItemPointer] A reference to an `Item` within a specific `Collection`, providing the context n
       #
-      #   @param person [Moonbase::Models::Pointer] A lightweight reference to another resource.
+      #   @param person [Moonbase::Models::ItemPointer] A reference to an `Item` within a specific `Collection`, providing the context n
       #
       #   @param type [Symbol, :message_address] String representing the object’s type. Always `message_address` for this object.
 

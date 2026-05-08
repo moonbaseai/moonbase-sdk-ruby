@@ -17,10 +17,12 @@ module Moonbase
 
       # Link the File to Moonbase items like a person, organization, deal, task, or an
       # item in a custom collection.
-      sig { returns(T.nilable(T::Array[Moonbase::Pointer])) }
+      sig { returns(T.nilable(T::Array[Moonbase::ItemPointerParam])) }
       attr_reader :associations
 
-      sig { params(associations: T::Array[Moonbase::Pointer::OrHash]).void }
+      sig do
+        params(associations: T::Array[Moonbase::ItemPointerParam::OrHash]).void
+      end
       attr_writer :associations
 
       # The display name of the file.
@@ -33,7 +35,7 @@ module Moonbase
       sig do
         params(
           file: Moonbase::Internal::FileInput,
-          associations: T::Array[Moonbase::Pointer::OrHash],
+          associations: T::Array[Moonbase::ItemPointerParam::OrHash],
           name: String,
           request_options: Moonbase::RequestOptions::OrHash
         ).returns(T.attached_class)
@@ -54,7 +56,7 @@ module Moonbase
         override.returns(
           {
             file: Moonbase::Internal::FileInput,
-            associations: T::Array[Moonbase::Pointer],
+            associations: T::Array[Moonbase::ItemPointerParam],
             name: String,
             request_options: Moonbase::RequestOptions
           }

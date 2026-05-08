@@ -1,0 +1,44 @@
+module Moonbase
+  module Models
+    module InboxMessages
+      type attachment_create_params =
+        {
+          inbox_message_id: String,
+          file: Moonbase::Internal::file_input,
+          file_id: String
+        }
+        & Moonbase::Internal::Type::request_parameters
+
+      class AttachmentCreateParams < Moonbase::Internal::Type::BaseModel
+        extend Moonbase::Internal::Type::RequestParameters::Converter
+        include Moonbase::Internal::Type::RequestParameters
+
+        attr_accessor inbox_message_id: String
+
+        attr_reader file: Moonbase::Internal::file_input?
+
+        def file=: (
+          Moonbase::Internal::file_input
+        ) -> Moonbase::Internal::file_input
+
+        attr_reader file_id: String?
+
+        def file_id=: (String) -> String
+
+        def initialize: (
+          inbox_message_id: String,
+          ?file: Moonbase::Internal::file_input,
+          ?file_id: String,
+          ?request_options: Moonbase::request_opts
+        ) -> void
+
+        def to_hash: -> {
+          inbox_message_id: String,
+          file: Moonbase::Internal::file_input,
+          file_id: String,
+          request_options: Moonbase::RequestOptions
+        }
+      end
+    end
+  end
+end

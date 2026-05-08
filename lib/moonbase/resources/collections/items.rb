@@ -3,6 +3,7 @@
 module Moonbase
   module Resources
     class Collections
+      # Manage your collections and items
       class Items
         # Creates a new item in a collection.
         #
@@ -10,7 +11,7 @@ module Moonbase
         #
         # @param collection_id [String]
         #
-        # @param values [Hash{Symbol=>Moonbase::Models::SingleLineTextValue, Moonbase::Models::MultiLineTextValue, Moonbase::Models::IntegerValue, Moonbase::Models::FloatValue, Moonbase::Models::MonetaryValue, Moonbase::Models::PercentageValue, Moonbase::Models::BooleanValue, Moonbase::Models::EmailValue, Moonbase::Models::URLValue, Moonbase::Models::DomainValue, Moonbase::Models::FieldValueParam::SocialXValueParam, Moonbase::Models::FieldValueParam::SocialLinkedInValueParam, Moonbase::Models::TelephoneNumber, Moonbase::Models::GeoValue, Moonbase::Models::DateValue, Moonbase::Models::DatetimeValue, Moonbase::Models::ChoiceValueParam, Moonbase::Models::FunnelStepValueParam, Moonbase::Models::RelationValueParam, Array<Moonbase::Models::SingleLineTextValue, Moonbase::Models::MultiLineTextValue, Moonbase::Models::IntegerValue, Moonbase::Models::FloatValue, Moonbase::Models::MonetaryValue, Moonbase::Models::PercentageValue, Moonbase::Models::BooleanValue, Moonbase::Models::EmailValue, Moonbase::Models::URLValue, Moonbase::Models::DomainValue, Moonbase::Models::ValueParam::ValueUriSocialX, Moonbase::Models::ValueParam::ValueUriSocialLinkedIn, Moonbase::Models::TelephoneNumber, Moonbase::Models::GeoValue, Moonbase::Models::DateValue, Moonbase::Models::DatetimeValue, Moonbase::Models::ChoiceValueParam, Moonbase::Models::FunnelStepValueParam, Moonbase::Models::RelationValueParam>, nil}] A hash where keys are the `ref` of a `Field` and values are the data to be set.
+        # @param values [Hash{Symbol=>Moonbase::Models::SingleLineTextValue, Moonbase::Models::MultiLineTextValue, Moonbase::Models::IdentifierValue, Moonbase::Models::IntegerValue, Moonbase::Models::FloatValue, Moonbase::Models::MonetaryValue, Moonbase::Models::PercentageValue, Moonbase::Models::BooleanValue, Moonbase::Models::EmailValue, Moonbase::Models::URLValue, Moonbase::Models::DomainValue, Moonbase::Models::SocialXValueParam, Moonbase::Models::SocialLinkedInValueParam, Moonbase::Models::TelephoneNumber, Moonbase::Models::GeoValue, Moonbase::Models::DateValue, Moonbase::Models::DatetimeValue, Moonbase::Models::ChoiceValueParam, Moonbase::Models::FunnelStepValueParam, Moonbase::Models::RelationValueParam, Array<Moonbase::Models::SingleLineTextValue, Moonbase::Models::MultiLineTextValue, Moonbase::Models::IdentifierValue, Moonbase::Models::IntegerValue, Moonbase::Models::FloatValue, Moonbase::Models::MonetaryValue, Moonbase::Models::PercentageValue, Moonbase::Models::BooleanValue, Moonbase::Models::EmailValue, Moonbase::Models::URLValue, Moonbase::Models::DomainValue, Moonbase::Models::SocialXValueParam, Moonbase::Models::SocialLinkedInValueParam, Moonbase::Models::TelephoneNumber, Moonbase::Models::GeoValue, Moonbase::Models::DateValue, Moonbase::Models::DatetimeValue, Moonbase::Models::ChoiceValueParam, Moonbase::Models::FunnelStepValueParam, Moonbase::Models::RelationValueParam>, nil}] A hash where keys are the `ref` of a `Field` and values are the data to be set.
         #
         # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
         #
@@ -66,7 +67,7 @@ module Moonbase
         #
         # @param collection_id [String] Path param
         #
-        # @param values [Hash{Symbol=>Moonbase::Models::SingleLineTextValue, Moonbase::Models::MultiLineTextValue, Moonbase::Models::IntegerValue, Moonbase::Models::FloatValue, Moonbase::Models::MonetaryValue, Moonbase::Models::PercentageValue, Moonbase::Models::BooleanValue, Moonbase::Models::EmailValue, Moonbase::Models::URLValue, Moonbase::Models::DomainValue, Moonbase::Models::FieldValueParam::SocialXValueParam, Moonbase::Models::FieldValueParam::SocialLinkedInValueParam, Moonbase::Models::TelephoneNumber, Moonbase::Models::GeoValue, Moonbase::Models::DateValue, Moonbase::Models::DatetimeValue, Moonbase::Models::ChoiceValueParam, Moonbase::Models::FunnelStepValueParam, Moonbase::Models::RelationValueParam, Array<Moonbase::Models::SingleLineTextValue, Moonbase::Models::MultiLineTextValue, Moonbase::Models::IntegerValue, Moonbase::Models::FloatValue, Moonbase::Models::MonetaryValue, Moonbase::Models::PercentageValue, Moonbase::Models::BooleanValue, Moonbase::Models::EmailValue, Moonbase::Models::URLValue, Moonbase::Models::DomainValue, Moonbase::Models::ValueParam::ValueUriSocialX, Moonbase::Models::ValueParam::ValueUriSocialLinkedIn, Moonbase::Models::TelephoneNumber, Moonbase::Models::GeoValue, Moonbase::Models::DateValue, Moonbase::Models::DatetimeValue, Moonbase::Models::ChoiceValueParam, Moonbase::Models::FunnelStepValueParam, Moonbase::Models::RelationValueParam>, nil}] Body param: A hash where keys are the `ref` of a `Field` and values are the new
+        # @param values [Hash{Symbol=>Moonbase::Models::SingleLineTextValue, Moonbase::Models::MultiLineTextValue, Moonbase::Models::IdentifierValue, Moonbase::Models::IntegerValue, Moonbase::Models::FloatValue, Moonbase::Models::MonetaryValue, Moonbase::Models::PercentageValue, Moonbase::Models::BooleanValue, Moonbase::Models::EmailValue, Moonbase::Models::URLValue, Moonbase::Models::DomainValue, Moonbase::Models::SocialXValueParam, Moonbase::Models::SocialLinkedInValueParam, Moonbase::Models::TelephoneNumber, Moonbase::Models::GeoValue, Moonbase::Models::DateValue, Moonbase::Models::DatetimeValue, Moonbase::Models::ChoiceValueParam, Moonbase::Models::FunnelStepValueParam, Moonbase::Models::RelationValueParam, Array<Moonbase::Models::SingleLineTextValue, Moonbase::Models::MultiLineTextValue, Moonbase::Models::IdentifierValue, Moonbase::Models::IntegerValue, Moonbase::Models::FloatValue, Moonbase::Models::MonetaryValue, Moonbase::Models::PercentageValue, Moonbase::Models::BooleanValue, Moonbase::Models::EmailValue, Moonbase::Models::URLValue, Moonbase::Models::DomainValue, Moonbase::Models::SocialXValueParam, Moonbase::Models::SocialLinkedInValueParam, Moonbase::Models::TelephoneNumber, Moonbase::Models::GeoValue, Moonbase::Models::DateValue, Moonbase::Models::DatetimeValue, Moonbase::Models::ChoiceValueParam, Moonbase::Models::FunnelStepValueParam, Moonbase::Models::RelationValueParam>, nil}] Body param: A hash where keys are the `ref` of a `Field` and values are the new
         #
         # @param update_many_strategy [Symbol, Moonbase::Models::Collections::ItemUpdateParams::UpdateManyStrategy] Header param: Specifies how to update fields that allow multiple values during a
         #
@@ -98,9 +99,10 @@ module Moonbase
         # Some parameter documentations has been truncated, see
         # {Moonbase::Models::Collections::ItemListParams} for more details.
         #
-        # Returns a list of items that are part of the collection.
+        # Returns a paginated list of item pointers in a collection. Use the retrieve
+        # endpoint to get full item details including field values.
         #
-        # @overload list(collection_id, after: nil, before: nil, include: nil, limit: nil, sort: nil, request_options: {})
+        # @overload list(collection_id, after: nil, before: nil, limit: nil, sort: nil, request_options: {})
         #
         # @param collection_id [String] The ID of the collection.
         #
@@ -108,25 +110,24 @@ module Moonbase
         #
         # @param before [String] When specified, returns results starting immediately before the item identified
         #
-        # @param include [Array<String>] Include only specific fields in the returned items. Specify fields by id or key.
-        #
         # @param limit [Integer] Maximum number of items to return per page. Must be between 1 and 100. Defaults
         #
         # @param sort [Array<String>] Sort items by the specified field ids or keys. Prefix a field with a hyphen/minu
         #
         # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
         #
-        # @return [Moonbase::Internal::CursorPage<Moonbase::Models::Item>]
+        # @return [Moonbase::Internal::CursorPage<Moonbase::Models::ItemPointer>]
         #
         # @see Moonbase::Models::Collections::ItemListParams
         def list(collection_id, params = {})
           parsed, options = Moonbase::Collections::ItemListParams.dump_request(params)
+          query = Moonbase::Internal::Util.encode_query_params(parsed)
           @client.request(
             method: :get,
             path: ["collections/%1$s/items", collection_id],
-            query: parsed,
+            query: query,
             page: Moonbase::Internal::CursorPage,
-            model: Moonbase::Item,
+            model: Moonbase::ItemPointer,
             options: options
           )
         end
@@ -158,6 +159,32 @@ module Moonbase
           )
         end
 
+        # Merges two items into a single item.
+        #
+        # @overload merge(collection_id, destination:, source:, request_options: {})
+        #
+        # @param collection_id [String] The ID of the collection containing the items to merge.
+        #
+        # @param destination [Moonbase::Models::ItemPointerParam] The destination item pointer. This will be the remaining merged item.
+        #
+        # @param source [Moonbase::Models::ItemPointerParam] The source item pointer. This item will be deleted.
+        #
+        # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
+        #
+        # @return [Moonbase::Models::Item]
+        #
+        # @see Moonbase::Models::Collections::ItemMergeParams
+        def merge(collection_id, params)
+          parsed, options = Moonbase::Collections::ItemMergeParams.dump_request(params)
+          @client.request(
+            method: :post,
+            path: ["collections/%1$s/items/merge", collection_id],
+            body: parsed,
+            model: Moonbase::Item,
+            options: options
+          )
+        end
+
         # Some parameter documentations has been truncated, see
         # {Moonbase::Models::Collections::ItemSearchParams} for more details.
         #
@@ -185,12 +212,13 @@ module Moonbase
         #
         # @see Moonbase::Models::Collections::ItemSearchParams
         def search(collection_id, params = {})
-          parsed, options = Moonbase::Collections::ItemSearchParams.dump_request(params)
           query_params = [:after, :before, :limit]
+          parsed, options = Moonbase::Collections::ItemSearchParams.dump_request(params)
+          query = Moonbase::Internal::Util.encode_query_params(parsed.slice(*query_params))
           @client.request(
             method: :post,
             path: ["collections/%1$s/items/search", collection_id],
-            query: parsed.slice(*query_params),
+            query: query,
             body: parsed.except(*query_params),
             page: Moonbase::Internal::CursorPage,
             model: Moonbase::Models::Collections::ItemSearchResponse,
@@ -207,9 +235,9 @@ module Moonbase
         #
         # @param collection_id [String] Path param
         #
-        # @param identifiers [Hash{Symbol=>Moonbase::Models::SingleLineTextValue, Moonbase::Models::MultiLineTextValue, Moonbase::Models::IntegerValue, Moonbase::Models::FloatValue, Moonbase::Models::MonetaryValue, Moonbase::Models::PercentageValue, Moonbase::Models::BooleanValue, Moonbase::Models::EmailValue, Moonbase::Models::URLValue, Moonbase::Models::DomainValue, Moonbase::Models::FieldValueParam::SocialXValueParam, Moonbase::Models::FieldValueParam::SocialLinkedInValueParam, Moonbase::Models::TelephoneNumber, Moonbase::Models::GeoValue, Moonbase::Models::DateValue, Moonbase::Models::DatetimeValue, Moonbase::Models::ChoiceValueParam, Moonbase::Models::FunnelStepValueParam, Moonbase::Models::RelationValueParam, Array<Moonbase::Models::SingleLineTextValue, Moonbase::Models::MultiLineTextValue, Moonbase::Models::IntegerValue, Moonbase::Models::FloatValue, Moonbase::Models::MonetaryValue, Moonbase::Models::PercentageValue, Moonbase::Models::BooleanValue, Moonbase::Models::EmailValue, Moonbase::Models::URLValue, Moonbase::Models::DomainValue, Moonbase::Models::ValueParam::ValueUriSocialX, Moonbase::Models::ValueParam::ValueUriSocialLinkedIn, Moonbase::Models::TelephoneNumber, Moonbase::Models::GeoValue, Moonbase::Models::DateValue, Moonbase::Models::DatetimeValue, Moonbase::Models::ChoiceValueParam, Moonbase::Models::FunnelStepValueParam, Moonbase::Models::RelationValueParam>, nil}] Body param: A hash where keys are the `ref` of a `Field` and values are used to
+        # @param identifiers [Hash{Symbol=>Moonbase::Models::SingleLineTextValue, Moonbase::Models::MultiLineTextValue, Moonbase::Models::IdentifierValue, Moonbase::Models::IntegerValue, Moonbase::Models::FloatValue, Moonbase::Models::MonetaryValue, Moonbase::Models::PercentageValue, Moonbase::Models::BooleanValue, Moonbase::Models::EmailValue, Moonbase::Models::URLValue, Moonbase::Models::DomainValue, Moonbase::Models::SocialXValueParam, Moonbase::Models::SocialLinkedInValueParam, Moonbase::Models::TelephoneNumber, Moonbase::Models::GeoValue, Moonbase::Models::DateValue, Moonbase::Models::DatetimeValue, Moonbase::Models::ChoiceValueParam, Moonbase::Models::FunnelStepValueParam, Moonbase::Models::RelationValueParam, Array<Moonbase::Models::SingleLineTextValue, Moonbase::Models::MultiLineTextValue, Moonbase::Models::IdentifierValue, Moonbase::Models::IntegerValue, Moonbase::Models::FloatValue, Moonbase::Models::MonetaryValue, Moonbase::Models::PercentageValue, Moonbase::Models::BooleanValue, Moonbase::Models::EmailValue, Moonbase::Models::URLValue, Moonbase::Models::DomainValue, Moonbase::Models::SocialXValueParam, Moonbase::Models::SocialLinkedInValueParam, Moonbase::Models::TelephoneNumber, Moonbase::Models::GeoValue, Moonbase::Models::DateValue, Moonbase::Models::DatetimeValue, Moonbase::Models::ChoiceValueParam, Moonbase::Models::FunnelStepValueParam, Moonbase::Models::RelationValueParam>, nil}] Body param: A hash where keys are the `ref` of a `Field` and values are used to
         #
-        # @param values [Hash{Symbol=>Moonbase::Models::SingleLineTextValue, Moonbase::Models::MultiLineTextValue, Moonbase::Models::IntegerValue, Moonbase::Models::FloatValue, Moonbase::Models::MonetaryValue, Moonbase::Models::PercentageValue, Moonbase::Models::BooleanValue, Moonbase::Models::EmailValue, Moonbase::Models::URLValue, Moonbase::Models::DomainValue, Moonbase::Models::FieldValueParam::SocialXValueParam, Moonbase::Models::FieldValueParam::SocialLinkedInValueParam, Moonbase::Models::TelephoneNumber, Moonbase::Models::GeoValue, Moonbase::Models::DateValue, Moonbase::Models::DatetimeValue, Moonbase::Models::ChoiceValueParam, Moonbase::Models::FunnelStepValueParam, Moonbase::Models::RelationValueParam, Array<Moonbase::Models::SingleLineTextValue, Moonbase::Models::MultiLineTextValue, Moonbase::Models::IntegerValue, Moonbase::Models::FloatValue, Moonbase::Models::MonetaryValue, Moonbase::Models::PercentageValue, Moonbase::Models::BooleanValue, Moonbase::Models::EmailValue, Moonbase::Models::URLValue, Moonbase::Models::DomainValue, Moonbase::Models::ValueParam::ValueUriSocialX, Moonbase::Models::ValueParam::ValueUriSocialLinkedIn, Moonbase::Models::TelephoneNumber, Moonbase::Models::GeoValue, Moonbase::Models::DateValue, Moonbase::Models::DatetimeValue, Moonbase::Models::ChoiceValueParam, Moonbase::Models::FunnelStepValueParam, Moonbase::Models::RelationValueParam>, nil}] Body param: A hash where keys are the `ref` of a `Field` and values are the data
+        # @param values [Hash{Symbol=>Moonbase::Models::SingleLineTextValue, Moonbase::Models::MultiLineTextValue, Moonbase::Models::IdentifierValue, Moonbase::Models::IntegerValue, Moonbase::Models::FloatValue, Moonbase::Models::MonetaryValue, Moonbase::Models::PercentageValue, Moonbase::Models::BooleanValue, Moonbase::Models::EmailValue, Moonbase::Models::URLValue, Moonbase::Models::DomainValue, Moonbase::Models::SocialXValueParam, Moonbase::Models::SocialLinkedInValueParam, Moonbase::Models::TelephoneNumber, Moonbase::Models::GeoValue, Moonbase::Models::DateValue, Moonbase::Models::DatetimeValue, Moonbase::Models::ChoiceValueParam, Moonbase::Models::FunnelStepValueParam, Moonbase::Models::RelationValueParam, Array<Moonbase::Models::SingleLineTextValue, Moonbase::Models::MultiLineTextValue, Moonbase::Models::IdentifierValue, Moonbase::Models::IntegerValue, Moonbase::Models::FloatValue, Moonbase::Models::MonetaryValue, Moonbase::Models::PercentageValue, Moonbase::Models::BooleanValue, Moonbase::Models::EmailValue, Moonbase::Models::URLValue, Moonbase::Models::DomainValue, Moonbase::Models::SocialXValueParam, Moonbase::Models::SocialLinkedInValueParam, Moonbase::Models::TelephoneNumber, Moonbase::Models::GeoValue, Moonbase::Models::DateValue, Moonbase::Models::DatetimeValue, Moonbase::Models::ChoiceValueParam, Moonbase::Models::FunnelStepValueParam, Moonbase::Models::RelationValueParam>, nil}] Body param: A hash where keys are the `ref` of a `Field` and values are the data
         #
         # @param update_many_strategy [Symbol, Moonbase::Models::Collections::ItemUpsertParams::UpdateManyStrategy] Header param: Specifies how to update fields that allow multiple values. Use `re
         #

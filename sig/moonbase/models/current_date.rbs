@@ -1,0 +1,13 @@
+module Moonbase
+  module Models
+    type current_date = { type: :current_date }
+
+    class CurrentDate < Moonbase::Internal::Type::BaseModel
+      attr_accessor type: :current_date
+
+      def initialize: (?type: :current_date) -> void
+
+      def to_hash: -> { type: :current_date }
+    end
+  end
+end

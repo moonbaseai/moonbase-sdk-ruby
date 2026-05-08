@@ -1,0 +1,24 @@
+module Moonbase
+  module Resources
+    class Unsubscribes
+      def create: (
+        email: String,
+        ?request_options: Moonbase::request_opts
+      ) -> Moonbase::Unsubscribe
+
+      def list: (
+        ?after: String,
+        ?before: String,
+        ?limit: Integer,
+        ?request_options: Moonbase::request_opts
+      ) -> Moonbase::Internal::CursorPage[Moonbase::Unsubscribe]
+
+      def delete: (
+        String email,
+        ?request_options: Moonbase::request_opts
+      ) -> nil
+
+      def initialize: (client: Moonbase::Client) -> void
+    end
+  end
+end

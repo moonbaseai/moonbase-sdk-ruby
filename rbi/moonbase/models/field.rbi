@@ -11,6 +11,7 @@ module Moonbase
           T.any(
             Moonbase::SingleLineTextField,
             Moonbase::MultiLineTextField,
+            Moonbase::IdentifierField,
             Moonbase::IntegerField,
             Moonbase::FloatField,
             Moonbase::MonetaryField,

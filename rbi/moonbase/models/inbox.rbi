@@ -18,6 +18,11 @@ module Moonbase
       sig { returns(String) }
       attr_accessor :name
 
+      # A list of `TagsetPointer` objects referring to the Tagsets associated with this
+      # inbox, which defines the tags available for its conversations.
+      sig { returns(T::Array[Moonbase::TagsetPointer]) }
+      attr_accessor :tagsets
+
       # String representing the object’s type. Always `inbox` for this object.
       sig { returns(Symbol) }
       attr_accessor :type
@@ -32,25 +37,15 @@ module Moonbase
       sig { params(can_read: T::Boolean).void }
       attr_writer :can_read
 
-      # The list of `Tagset` objects associated with this inbox, which defines the tags
-      # available for its conversations.
-      #
-      # **Note:** Only present when requested using the `include` query parameter.
-      sig { returns(T.nilable(T::Array[Moonbase::Tagset])) }
-      attr_reader :tagsets
-
-      sig { params(tagsets: T::Array[Moonbase::Tagset::OrHash]).void }
-      attr_writer :tagsets
-
       # The Inbox object represents a shared inbox for receiving and sending messages.
       sig do
         params(
           id: String,
           created_at: Time,
           name: String,
+          tagsets: T::Array[Moonbase::TagsetPointer::OrHash],
           updated_at: Time,
           can_read: T::Boolean,
-          tagsets: T::Array[Moonbase::Tagset::OrHash],
           type: Symbol
         ).returns(T.attached_class)
       end
@@ -61,14 +56,12 @@ module Moonbase
         created_at:,
         # The display name of the inbox.
         name:,
+        # A list of `TagsetPointer` objects referring to the Tagsets associated with this
+        # inbox, which defines the tags available for its conversations.
+        tagsets:,
         # Time at which the object was last updated, as an ISO 8601 timestamp in UTC.
         updated_at:,
         can_read: nil,
-        # The list of `Tagset` objects associated with this inbox, which defines the tags
-        # available for its conversations.
-        #
-        # **Note:** Only present when requested using the `include` query parameter.
-        tagsets: nil,
         # String representing the object’s type. Always `inbox` for this object.
         type: :inbox
       )
@@ -80,10 +73,10 @@ module Moonbase
             id: String,
             created_at: Time,
             name: String,
+            tagsets: T::Array[Moonbase::TagsetPointer],
             type: Symbol,
             updated_at: Time,
-            can_read: T::Boolean,
-            tagsets: T::Array[Moonbase::Tagset]
+            can_read: T::Boolean
           }
         )
       end

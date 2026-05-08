@@ -2,6 +2,7 @@
 
 module Moonbase
   module Resources
+    # Manage your marketing campaigns and forms
     class Programs
       # Retrieves the details of an existing program.
       sig do

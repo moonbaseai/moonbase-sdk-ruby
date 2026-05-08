@@ -12,6 +12,9 @@ module Moonbase
             T.any(Moonbase::Views::ItemListParams, Moonbase::Internal::AnyHash)
           end
 
+        sig { returns(String) }
+        attr_accessor :id
+
         # When specified, returns results starting immediately after the item identified
         # by this cursor. Use the cursor value from the previous response's metadata to
         # fetch the next page of results.
@@ -40,6 +43,7 @@ module Moonbase
 
         sig do
           params(
+            id: String,
             after: String,
             before: String,
             limit: Integer,
@@ -47,6 +51,7 @@ module Moonbase
           ).returns(T.attached_class)
         end
         def self.new(
+          id:,
           # When specified, returns results starting immediately after the item identified
           # by this cursor. Use the cursor value from the previous response's metadata to
           # fetch the next page of results.
@@ -65,6 +70,7 @@ module Moonbase
         sig do
           override.returns(
             {
+              id: String,
               after: String,
               before: String,
               limit: Integer,

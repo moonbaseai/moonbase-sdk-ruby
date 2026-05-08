@@ -7,11 +7,23 @@ module Moonbase
       extend Moonbase::Internal::Type::RequestParameters::Converter
       include Moonbase::Internal::Type::RequestParameters
 
+      # @!attribute id
+      #
+      #   @return [String]
+      required :id, String
+
       # @!attribute recording
       #   A video recording of the meeting.
       #
       #   @return [Moonbase::Models::MeetingUpdateParams::Recording, nil]
       optional :recording, -> { Moonbase::MeetingUpdateParams::Recording }
+
+      # @!attribute tags
+      #   Optional list of tag pointers to assign to the meeting. If omitted, existing
+      #   tags are unchanged. Pass an empty array to clear tags.
+      #
+      #   @return [Array<Moonbase::Models::TagPointerParam>, nil]
+      optional :tags, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::TagPointerParam] }
 
       # @!attribute transcript
       #   The meeting transcript.
@@ -19,8 +31,15 @@ module Moonbase
       #   @return [Moonbase::Models::MeetingUpdateParams::Transcript, nil]
       optional :transcript, -> { Moonbase::MeetingUpdateParams::Transcript }
 
-      # @!method initialize(recording: nil, transcript: nil, request_options: {})
+      # @!method initialize(id:, recording: nil, tags: nil, transcript: nil, request_options: {})
+      #   Some parameter documentations has been truncated, see
+      #   {Moonbase::Models::MeetingUpdateParams} for more details.
+      #
+      #   @param id [String]
+      #
       #   @param recording [Moonbase::Models::MeetingUpdateParams::Recording] A video recording of the meeting.
+      #
+      #   @param tags [Array<Moonbase::Models::TagPointerParam>] Optional list of tag pointers to assign to the meeting. If omitted, existing tag
       #
       #   @param transcript [Moonbase::Models::MeetingUpdateParams::Transcript] The meeting transcript.
       #

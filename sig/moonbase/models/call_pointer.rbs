@@ -1,0 +1,15 @@
+module Moonbase
+  module Models
+    type call_pointer = { id: String, type: :call }
+
+    class CallPointer < Moonbase::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor type: :call
+
+      def initialize: (id: String, ?type: :call) -> void
+
+      def to_hash: -> { id: String, type: :call }
+    end
+  end
+end

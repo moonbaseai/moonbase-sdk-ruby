@@ -18,6 +18,7 @@ class Moonbase::Test::Resources::MeetingsTest < Moonbase::Test::ResourceTest
         i_cal_uid: String,
         provider_id: String,
         start_at: Time,
+        tags: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Tag]),
         time_zone: String,
         type: Symbol,
         updated_at: Time,
@@ -31,7 +32,7 @@ class Moonbase::Test::Resources::MeetingsTest < Moonbase::Test::ResourceTest
         recording_url: String | nil,
         summary: Moonbase::Note | nil,
         title: String | nil,
-        transcript: Moonbase::Meeting::Transcript | nil
+        transcript: Moonbase::MeetingTranscript | nil
       }
     end
   end
@@ -51,6 +52,7 @@ class Moonbase::Test::Resources::MeetingsTest < Moonbase::Test::ResourceTest
         i_cal_uid: String,
         provider_id: String,
         start_at: Time,
+        tags: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Tag]),
         time_zone: String,
         type: Symbol,
         updated_at: Time,
@@ -64,7 +66,7 @@ class Moonbase::Test::Resources::MeetingsTest < Moonbase::Test::ResourceTest
         recording_url: String | nil,
         summary: Moonbase::Note | nil,
         title: String | nil,
-        transcript: Moonbase::Meeting::Transcript | nil
+        transcript: Moonbase::MeetingTranscript | nil
       }
     end
   end
@@ -80,31 +82,13 @@ class Moonbase::Test::Resources::MeetingsTest < Moonbase::Test::ResourceTest
     return if row.nil?
 
     assert_pattern do
-      row => Moonbase::Meeting
+      row => Moonbase::MeetingPointer
     end
 
     assert_pattern do
       row => {
         id: String,
-        created_at: Time,
-        end_at: Time,
-        i_cal_uid: String,
-        provider_id: String,
-        start_at: Time,
-        time_zone: String,
-        type: Symbol,
-        updated_at: Time,
-        attendees: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Attendee]) | nil,
-        description: String | nil,
-        duration: Float | nil,
-        location: String | nil,
-        note: Moonbase::Note | nil,
-        organizer: Moonbase::Organizer | nil,
-        provider_uri: String | nil,
-        recording_url: String | nil,
-        summary: Moonbase::Note | nil,
-        title: String | nil,
-        transcript: Moonbase::Meeting::Transcript | nil
+        type: Symbol
       }
     end
   end

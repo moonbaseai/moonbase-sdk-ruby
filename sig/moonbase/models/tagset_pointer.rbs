@@ -1,0 +1,15 @@
+module Moonbase
+  module Models
+    type tagset_pointer = { id: String, type: :tagset }
+
+    class TagsetPointer < Moonbase::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor type: :tagset
+
+      def initialize: (id: String, ?type: :tagset) -> void
+
+      def to_hash: -> { id: String, type: :tagset }
+    end
+  end
+end

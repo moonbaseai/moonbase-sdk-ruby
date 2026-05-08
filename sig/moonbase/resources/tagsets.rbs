@@ -1,8 +1,23 @@
 module Moonbase
   module Resources
     class Tagsets
+      def create: (
+        name: String,
+        ?description: String,
+        ?tags: ::Array[Moonbase::TagsetCreateParams::Tag],
+        ?request_options: Moonbase::request_opts
+      ) -> Moonbase::Tagset
+
       def retrieve: (
         String id,
+        ?request_options: Moonbase::request_opts
+      ) -> Moonbase::Tagset
+
+      def update: (
+        String id,
+        ?description: String,
+        ?name: String,
+        ?tags: ::Array[Moonbase::TagsetUpdateParams::Tag],
         ?request_options: Moonbase::request_opts
       ) -> Moonbase::Tagset
 
@@ -12,6 +27,8 @@ module Moonbase
         ?limit: Integer,
         ?request_options: Moonbase::request_opts
       ) -> Moonbase::Internal::CursorPage[Moonbase::Tagset]
+
+      def delete: (String id, ?request_options: Moonbase::request_opts) -> nil
 
       def initialize: (client: Moonbase::Client) -> void
     end

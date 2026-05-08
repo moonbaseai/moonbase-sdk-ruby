@@ -18,14 +18,34 @@ module Moonbase
         type: :list
       }
 
-      type data = { data: Moonbase::Item }
+      type data =
+        {
+          data: Moonbase::Models::SearchResponse::Data::data,
+          type: :search_result
+        }
 
       class Data < Moonbase::Internal::Type::BaseModel
-        attr_accessor data: Moonbase::Item
+        attr_accessor data: Moonbase::Models::SearchResponse::Data::data
 
-        def initialize: (data: Moonbase::Item) -> void
+        attr_accessor type: :search_result
 
-        def to_hash: -> { data: Moonbase::Item }
+        def initialize: (
+          data: Moonbase::Models::SearchResponse::Data::data,
+          ?type: :search_result
+        ) -> void
+
+        def to_hash: -> {
+          data: Moonbase::Models::SearchResponse::Data::data,
+          type: :search_result
+        }
+
+        type data = Moonbase::Item | Moonbase::MoonbaseFile
+
+        module Data
+          extend Moonbase::Internal::Type::Union
+
+          def self?.variants: -> ::Array[Moonbase::Models::SearchResponse::Data::data]
+        end
       end
     end
   end

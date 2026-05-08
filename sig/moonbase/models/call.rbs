@@ -5,19 +5,20 @@ module Moonbase
         id: String,
         created_at: Time,
         direction: Moonbase::Models::Call::direction,
-        participants: ::Array[Moonbase::Call::Participant],
+        participants: ::Array[Moonbase::CallParticipant],
         provider: Moonbase::Models::Call::provider,
         provider_id: String,
         provider_status: String,
         start_at: Time,
+        tags: ::Array[Moonbase::Tag],
         type: :call,
         updated_at: Time,
         answered_at: Time,
         end_at: Time,
-        note: Moonbase::Note,
+        note: Moonbase::Note?,
         provider_metadata: ::Hash[Symbol, top],
-        summary: Moonbase::Note,
-        transcript: Moonbase::Call::Transcript?
+        summary: Moonbase::Note?,
+        transcript: Moonbase::CallTranscript?
       }
 
     class Call < Moonbase::Internal::Type::BaseModel
@@ -27,7 +28,7 @@ module Moonbase
 
       attr_accessor direction: Moonbase::Models::Call::direction
 
-      attr_accessor participants: ::Array[Moonbase::Call::Participant]
+      attr_accessor participants: ::Array[Moonbase::CallParticipant]
 
       attr_accessor provider: Moonbase::Models::Call::provider
 
@@ -36,6 +37,8 @@ module Moonbase
       attr_accessor provider_status: String
 
       attr_accessor start_at: Time
+
+      attr_accessor tags: ::Array[Moonbase::Tag]
 
       attr_accessor type: :call
 
@@ -49,36 +52,33 @@ module Moonbase
 
       def end_at=: (Time) -> Time
 
-      attr_reader note: Moonbase::Note?
-
-      def note=: (Moonbase::Note) -> Moonbase::Note
+      attr_accessor note: Moonbase::Note?
 
       attr_reader provider_metadata: ::Hash[Symbol, top]?
 
       def provider_metadata=: (::Hash[Symbol, top]) -> ::Hash[Symbol, top]
 
-      attr_reader summary: Moonbase::Note?
+      attr_accessor summary: Moonbase::Note?
 
-      def summary=: (Moonbase::Note) -> Moonbase::Note
-
-      attr_accessor transcript: Moonbase::Call::Transcript?
+      attr_accessor transcript: Moonbase::CallTranscript?
 
       def initialize: (
         id: String,
         created_at: Time,
         direction: Moonbase::Models::Call::direction,
-        participants: ::Array[Moonbase::Call::Participant],
+        participants: ::Array[Moonbase::CallParticipant],
         provider: Moonbase::Models::Call::provider,
         provider_id: String,
         provider_status: String,
         start_at: Time,
+        tags: ::Array[Moonbase::Tag],
         updated_at: Time,
         ?answered_at: Time,
         ?end_at: Time,
-        ?note: Moonbase::Note,
+        ?note: Moonbase::Note?,
         ?provider_metadata: ::Hash[Symbol, top],
-        ?summary: Moonbase::Note,
-        ?transcript: Moonbase::Call::Transcript?,
+        ?summary: Moonbase::Note?,
+        ?transcript: Moonbase::CallTranscript?,
         ?type: :call
       ) -> void
 
@@ -86,19 +86,20 @@ module Moonbase
         id: String,
         created_at: Time,
         direction: Moonbase::Models::Call::direction,
-        participants: ::Array[Moonbase::Call::Participant],
+        participants: ::Array[Moonbase::CallParticipant],
         provider: Moonbase::Models::Call::provider,
         provider_id: String,
         provider_status: String,
         start_at: Time,
+        tags: ::Array[Moonbase::Tag],
         type: :call,
         updated_at: Time,
         answered_at: Time,
         end_at: Time,
-        note: Moonbase::Note,
+        note: Moonbase::Note?,
         provider_metadata: ::Hash[Symbol, top],
-        summary: Moonbase::Note,
-        transcript: Moonbase::Call::Transcript?
+        summary: Moonbase::Note?,
+        transcript: Moonbase::CallTranscript?
       }
 
       type direction = :incoming | :outgoing
@@ -112,64 +113,6 @@ module Moonbase
         def self?.values: -> ::Array[Moonbase::Models::Call::direction]
       end
 
-      type participant =
-        {
-          id: String,
-          phone: String,
-          role: Moonbase::Models::Call::Participant::role,
-          type: :call_participant,
-          organization: Moonbase::Pointer,
-          person: Moonbase::Pointer
-        }
-
-      class Participant < Moonbase::Internal::Type::BaseModel
-        attr_accessor id: String
-
-        attr_accessor phone: String
-
-        attr_accessor role: Moonbase::Models::Call::Participant::role
-
-        attr_accessor type: :call_participant
-
-        attr_reader organization: Moonbase::Pointer?
-
-        def organization=: (Moonbase::Pointer) -> Moonbase::Pointer
-
-        attr_reader person: Moonbase::Pointer?
-
-        def person=: (Moonbase::Pointer) -> Moonbase::Pointer
-
-        def initialize: (
-          id: String,
-          phone: String,
-          role: Moonbase::Models::Call::Participant::role,
-          ?organization: Moonbase::Pointer,
-          ?person: Moonbase::Pointer,
-          ?type: :call_participant
-        ) -> void
-
-        def to_hash: -> {
-          id: String,
-          phone: String,
-          role: Moonbase::Models::Call::Participant::role,
-          type: :call_participant,
-          organization: Moonbase::Pointer,
-          person: Moonbase::Pointer
-        }
-
-        type role = :caller | :callee | :other
-
-        module Role
-          extend Moonbase::Internal::Type::Enum
-
-          CALLER: :caller
-          CALLEE: :callee
-          OTHER: :other
-
-          def self?.values: -> ::Array[Moonbase::Models::Call::Participant::role]
-        end
-      end
-
       type provider = :openphone | :user | :zoom_phone
 
       module Provider
@@ -180,64 +123,6 @@ module Moonbase
         ZOOM_PHONE: :zoom_phone
 
         def self?.values: -> ::Array[Moonbase::Models::Call::provider]
-      end
-
-      type transcript = { cues: ::Array[Moonbase::Call::Transcript::Cue] }
-
-      class Transcript < Moonbase::Internal::Type::BaseModel
-        attr_accessor cues: ::Array[Moonbase::Call::Transcript::Cue]
-
-        def initialize: (cues: ::Array[Moonbase::Call::Transcript::Cue]) -> void
-
-        def to_hash: -> { cues: ::Array[Moonbase::Call::Transcript::Cue] }
-
-        type cue =
-          {
-            from: Float,
-            speaker: Moonbase::Call::Transcript::Cue::Speaker,
-            text: String,
-            to: Float
-          }
-
-        class Cue < Moonbase::Internal::Type::BaseModel
-          attr_accessor from: Float
-
-          attr_accessor speaker: Moonbase::Call::Transcript::Cue::Speaker
-
-          attr_accessor text: String
-
-          attr_accessor to: Float
-
-          def initialize: (
-            from: Float,
-            speaker: Moonbase::Call::Transcript::Cue::Speaker,
-            text: String,
-            to: Float
-          ) -> void
-
-          def to_hash: -> {
-            from: Float,
-            speaker: Moonbase::Call::Transcript::Cue::Speaker,
-            text: String,
-            to: Float
-          }
-
-          type speaker = { attendee_id: String, label: String }
-
-          class Speaker < Moonbase::Internal::Type::BaseModel
-            attr_reader attendee_id: String?
-
-            def attendee_id=: (String) -> String
-
-            attr_reader label: String?
-
-            def label=: (String) -> String
-
-            def initialize: (?attendee_id: String, ?label: String) -> void
-
-            def to_hash: -> { attendee_id: String, label: String }
-          end
-        end
       end
     end
   end

@@ -12,11 +12,6 @@ module Moonbase
       sig { returns(String) }
       attr_accessor :id
 
-      # If `true`, this is one of the foundational collections (People, Organizations,
-      # Deals, or Tasks).
-      sig { returns(T::Boolean) }
-      attr_accessor :core
-
       # Time at which the object was created, as an ISO 8601 timestamp in UTC.
       sig { returns(Time) }
       attr_accessor :created_at
@@ -24,6 +19,11 @@ module Moonbase
       # A list of `Field` objects that define the schema for items in this collection.
       sig { returns(T::Array[Moonbase::Field::Variants]) }
       attr_accessor :fields
+
+      # `system` collections are managed by Moonbase (e.g., People, Organizations),
+      # `form` collections back a Form, and `custom` collections are user-created.
+      sig { returns(Moonbase::Collection::Kind::TaggedSymbol) }
+      attr_accessor :kind
 
       # The user-facing name of the collection (e.g., “Organizations”).
       sig { returns(String) }
@@ -64,13 +64,13 @@ module Moonbase
       sig do
         params(
           id: String,
-          core: T::Boolean,
           created_at: Time,
           fields:
             T::Array[
               T.any(
                 Moonbase::SingleLineTextField::OrHash,
                 Moonbase::MultiLineTextField::OrHash,
+                Moonbase::IdentifierField::OrHash,
                 Moonbase::IntegerField::OrHash,
                 Moonbase::FloatField::OrHash,
                 Moonbase::MonetaryField::OrHash,
@@ -90,6 +90,7 @@ module Moonbase
                 Moonbase::RelationField::OrHash
               )
             ],
+          kind: Moonbase::Collection::Kind::OrSymbol,
           name: String,
           ref: String,
           updated_at: Time,
@@ -101,13 +102,13 @@ module Moonbase
       def self.new(
         # Unique identifier for the object.
         id:,
-        # If `true`, this is one of the foundational collections (People, Organizations,
-        # Deals, or Tasks).
-        core:,
         # Time at which the object was created, as an ISO 8601 timestamp in UTC.
         created_at:,
         # A list of `Field` objects that define the schema for items in this collection.
         fields:,
+        # `system` collections are managed by Moonbase (e.g., People, Organizations),
+        # `form` collections back a Form, and `custom` collections are user-created.
+        kind:,
         # The user-facing name of the collection (e.g., “Organizations”).
         name:,
         # A unique, stable, machine-readable identifier for the collection. This reference
@@ -130,9 +131,9 @@ module Moonbase
         override.returns(
           {
             id: String,
-            core: T::Boolean,
             created_at: Time,
             fields: T::Array[Moonbase::Field::Variants],
+            kind: Moonbase::Collection::Kind::TaggedSymbol,
             name: String,
             ref: String,
             type: Symbol,
@@ -143,6 +144,26 @@ module Moonbase
         )
       end
       def to_hash
+      end
+
+      # `system` collections are managed by Moonbase (e.g., People, Organizations),
+      # `form` collections back a Form, and `custom` collections are user-created.
+      module Kind
+        extend Moonbase::Internal::Type::Enum
+
+        TaggedSymbol =
+          T.type_alias { T.all(Symbol, Moonbase::Collection::Kind) }
+        OrSymbol = T.type_alias { T.any(Symbol, String) }
+
+        SYSTEM = T.let(:system, Moonbase::Collection::Kind::TaggedSymbol)
+        FORM = T.let(:form, Moonbase::Collection::Kind::TaggedSymbol)
+        CUSTOM = T.let(:custom, Moonbase::Collection::Kind::TaggedSymbol)
+
+        sig do
+          override.returns(T::Array[Moonbase::Collection::Kind::TaggedSymbol])
+        end
+        def self.values
+        end
       end
     end
   end

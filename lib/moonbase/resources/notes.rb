@@ -2,6 +2,7 @@
 
 module Moonbase
   module Resources
+    # Manage your meetings, files, and notes
     class Notes
       # Some parameter documentations has been truncated, see
       # {Moonbase::Models::NoteCreateParams} for more details.
@@ -12,7 +13,7 @@ module Moonbase
       #
       # @param body [Moonbase::Models::FormattedText] The main content of the note.
       #
-      # @param associations [Array<Moonbase::Models::Pointer>] Link the Note to Moonbase items (person, organization, deal, task, or an item in
+      # @param associations [Array<Moonbase::Models::CallPointer, Moonbase::Models::ItemPointerParam, Moonbase::Models::MeetingPointer>] Link the Note to Moonbase items (person, organization, deal, task, or an item in
       #
       # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
       #
@@ -90,10 +91,11 @@ module Moonbase
       # @see Moonbase::Models::NoteListParams
       def list(params = {})
         parsed, options = Moonbase::NoteListParams.dump_request(params)
+        query = Moonbase::Internal::Util.encode_query_params(parsed)
         @client.request(
           method: :get,
           path: "notes",
-          query: parsed,
+          query: query,
           page: Moonbase::Internal::CursorPage,
           model: Moonbase::Note,
           options: options

@@ -7,6 +7,11 @@ module Moonbase
       extend Moonbase::Internal::Type::RequestParameters::Converter
       include Moonbase::Internal::Type::RequestParameters
 
+      # @!attribute id
+      #
+      #   @return [String]
+      required :id, String
+
       # @!attribute include
       #   Specifies which related objects to include in the response. Valid options are
       #   `inbox`, `messages`, and `messages.addresses`.
@@ -15,9 +20,11 @@ module Moonbase
       optional :include,
                -> { Moonbase::Internal::Type::ArrayOf[enum: Moonbase::InboxConversationRetrieveParams::Include] }
 
-      # @!method initialize(include: nil, request_options: {})
+      # @!method initialize(id:, include: nil, request_options: {})
       #   Some parameter documentations has been truncated, see
       #   {Moonbase::Models::InboxConversationRetrieveParams} for more details.
+      #
+      #   @param id [String]
       #
       #   @param include [Array<Symbol, Moonbase::Models::InboxConversationRetrieveParams::Include>] Specifies which related objects to include in the response. Valid options are `i
       #

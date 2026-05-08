@@ -2,17 +2,22 @@
 
 module Moonbase
   module Resources
+    # Manage your inboxes, conversations, and messages
     class InboxMessages
+      # Manage your inboxes, conversations, and messages
+      sig { returns(Moonbase::Resources::InboxMessages::Attachments) }
+      attr_reader :attachments
+
       # Creates a new message draft.
       sig do
         params(
           body: Moonbase::FormattedText::OrHash,
           inbox_id: String,
-          bcc: T::Array[Moonbase::InboxMessageCreateParams::Bcc::OrHash],
-          cc: T::Array[Moonbase::InboxMessageCreateParams::Cc::OrHash],
+          bcc: T::Array[Moonbase::EmailMessageAddressParams::OrHash],
+          cc: T::Array[Moonbase::EmailMessageAddressParams::OrHash],
           conversation_id: String,
           subject: String,
-          to: T::Array[Moonbase::InboxMessageCreateParams::To::OrHash],
+          to: T::Array[Moonbase::EmailMessageAddressParams::OrHash],
           request_options: Moonbase::RequestOptions::OrHash
         ).returns(Moonbase::EmailMessage)
       end
@@ -59,11 +64,11 @@ module Moonbase
         params(
           id: String,
           lock_version: Integer,
-          bcc: T::Array[Moonbase::InboxMessageUpdateParams::Bcc::OrHash],
+          bcc: T::Array[Moonbase::EmailMessageAddressParams::OrHash],
           body: Moonbase::FormattedText::OrHash,
-          cc: T::Array[Moonbase::InboxMessageUpdateParams::Cc::OrHash],
+          cc: T::Array[Moonbase::EmailMessageAddressParams::OrHash],
           subject: String,
-          to: T::Array[Moonbase::InboxMessageUpdateParams::To::OrHash],
+          to: T::Array[Moonbase::EmailMessageAddressParams::OrHash],
           request_options: Moonbase::RequestOptions::OrHash
         ).returns(Moonbase::EmailMessage)
       end
@@ -91,12 +96,12 @@ module Moonbase
         params(
           after: String,
           before: String,
-          filter: Moonbase::InboxMessageListParams::Filter::OrHash,
-          include:
-            T::Array[Moonbase::InboxMessageListParams::Include::OrSymbol],
+          conversation_id:
+            Moonbase::InboxMessageListParams::ConversationID::OrHash,
+          inbox_id: Moonbase::InboxMessageListParams::InboxID::OrHash,
           limit: Integer,
           request_options: Moonbase::RequestOptions::OrHash
-        ).returns(Moonbase::Internal::CursorPage[Moonbase::EmailMessage])
+        ).returns(Moonbase::Internal::CursorPage[Moonbase::EmailMessagePointer])
       end
       def list(
         # When specified, returns results starting immediately after the item identified
@@ -107,10 +112,8 @@ module Moonbase
         # by this cursor. Use the cursor value from the response's metadata to fetch the
         # previous page of results.
         before: nil,
-        filter: nil,
-        # Specifies which related objects to include in the response. Valid options are
-        # `addresses`, `attachments`, and `conversation`.
-        include: nil,
+        conversation_id: nil,
+        inbox_id: nil,
         # Maximum number of items to return per page. Must be between 1 and 100. Defaults
         # to 20 if not specified.
         limit: nil,

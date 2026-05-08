@@ -7,6 +7,11 @@ module Moonbase
       extend Moonbase::Internal::Type::RequestParameters::Converter
       include Moonbase::Internal::Type::RequestParameters
 
+      # @!attribute id
+      #
+      #   @return [String]
+      required :id, String
+
       # @!attribute status
       #   Indicates whether the endpoint is enabled.
       #
@@ -26,7 +31,9 @@ module Moonbase
       #   @return [String, nil]
       optional :url, String
 
-      # @!method initialize(status: nil, subscriptions: nil, url: nil, request_options: {})
+      # @!method initialize(id:, status: nil, subscriptions: nil, url: nil, request_options: {})
+      #   @param id [String]
+      #
       #   @param status [Symbol, Moonbase::Models::WebhookEndpointUpdateParams::Status] Indicates whether the endpoint is enabled.
       #
       #   @param subscriptions [Array<Moonbase::Models::WebhookEndpointUpdateParams::Subscription>] An array of event types that this endpoint should receive notifications for.

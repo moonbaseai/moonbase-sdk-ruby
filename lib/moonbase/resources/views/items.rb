@@ -3,6 +3,7 @@
 module Moonbase
   module Resources
     class Views
+      # Manage your collections and items
       class Items
         # Some parameter documentations has been truncated, see
         # {Moonbase::Models::Views::ItemListParams} for more details.
@@ -26,10 +27,11 @@ module Moonbase
         # @see Moonbase::Models::Views::ItemListParams
         def list(id, params = {})
           parsed, options = Moonbase::Views::ItemListParams.dump_request(params)
+          query = Moonbase::Internal::Util.encode_query_params(parsed)
           @client.request(
             method: :get,
             path: ["views/%1$s/items", id],
-            query: parsed,
+            query: query,
             page: Moonbase::Internal::CursorPage,
             model: Moonbase::Item,
             options: options

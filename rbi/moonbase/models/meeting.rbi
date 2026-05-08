@@ -31,6 +31,10 @@ module Moonbase
       sig { returns(Time) }
       attr_accessor :start_at
 
+      # The tags currently applied to this meeting.
+      sig { returns(T::Array[Moonbase::Tag]) }
+      attr_accessor :tags
+
       # The IANA time zone in which the meeting is scheduled (e.g.,
       # `America/Los_Angeles`).
       sig { returns(String) }
@@ -74,14 +78,12 @@ module Moonbase
       sig { params(location: String).void }
       attr_writer :location
 
-      # Any personal notes taken during the meeting. It also includes the AI-generated
-      # pre-meeting briefing.
-      #
-      # **Note:** Only present when requested using the `include` query parameter.
+      # The Note object represents a block of text content, often used for meeting notes
+      # or summaries.
       sig { returns(T.nilable(Moonbase::Note)) }
       attr_reader :note
 
-      sig { params(note: Moonbase::Note::OrHash).void }
+      sig { params(note: T.nilable(Moonbase::Note::OrHash)).void }
       attr_writer :note
 
       # The `Organizer` of the meeting.
@@ -108,13 +110,12 @@ module Moonbase
       sig { params(recording_url: String).void }
       attr_writer :recording_url
 
-      # A summary of the meeting.
-      #
-      # **Note:** Only present when requested using the `include` query parameter.
+      # The Note object represents a block of text content, often used for meeting notes
+      # or summaries.
       sig { returns(T.nilable(Moonbase::Note)) }
       attr_reader :summary
 
-      sig { params(summary: Moonbase::Note::OrHash).void }
+      sig { params(summary: T.nilable(Moonbase::Note::OrHash)).void }
       attr_writer :summary
 
       # The title or subject of the meeting.
@@ -124,13 +125,11 @@ module Moonbase
       sig { params(title: String).void }
       attr_writer :title
 
-      sig { returns(T.nilable(Moonbase::Meeting::Transcript)) }
+      sig { returns(T.nilable(Moonbase::MeetingTranscript)) }
       attr_reader :transcript
 
       sig do
-        params(
-          transcript: T.nilable(Moonbase::Meeting::Transcript::OrHash)
-        ).void
+        params(transcript: T.nilable(Moonbase::MeetingTranscript::OrHash)).void
       end
       attr_writer :transcript
 
@@ -144,19 +143,20 @@ module Moonbase
           i_cal_uid: String,
           provider_id: String,
           start_at: Time,
+          tags: T::Array[Moonbase::Tag::OrHash],
           time_zone: String,
           updated_at: Time,
           attendees: T::Array[Moonbase::Attendee::OrHash],
           description: String,
           duration: Float,
           location: String,
-          note: Moonbase::Note::OrHash,
+          note: T.nilable(Moonbase::Note::OrHash),
           organizer: Moonbase::Organizer::OrHash,
           provider_uri: String,
           recording_url: String,
-          summary: Moonbase::Note::OrHash,
+          summary: T.nilable(Moonbase::Note::OrHash),
           title: String,
-          transcript: T.nilable(Moonbase::Meeting::Transcript::OrHash),
+          transcript: T.nilable(Moonbase::MeetingTranscript::OrHash),
           type: Symbol
         ).returns(T.attached_class)
       end
@@ -174,6 +174,8 @@ module Moonbase
         provider_id:,
         # The start time of the meeting, as an ISO 8601 timestamp in UTC.
         start_at:,
+        # The tags currently applied to this meeting.
+        tags:,
         # The IANA time zone in which the meeting is scheduled (e.g.,
         # `America/Los_Angeles`).
         time_zone:,
@@ -189,10 +191,8 @@ module Moonbase
         duration: nil,
         # The physical or virtual location of the meeting.
         location: nil,
-        # Any personal notes taken during the meeting. It also includes the AI-generated
-        # pre-meeting briefing.
-        #
-        # **Note:** Only present when requested using the `include` query parameter.
+        # The Note object represents a block of text content, often used for meeting notes
+        # or summaries.
         note: nil,
         # The `Organizer` of the meeting.
         #
@@ -203,9 +203,8 @@ module Moonbase
         # A temporary, signed URL to download the meeting recording. The URL expires after
         # one hour.
         recording_url: nil,
-        # A summary of the meeting.
-        #
-        # **Note:** Only present when requested using the `include` query parameter.
+        # The Note object represents a block of text content, often used for meeting notes
+        # or summaries.
         summary: nil,
         # The title or subject of the meeting.
         title: nil,
@@ -224,6 +223,7 @@ module Moonbase
             i_cal_uid: String,
             provider_id: String,
             start_at: Time,
+            tags: T::Array[Moonbase::Tag],
             time_zone: String,
             type: Symbol,
             updated_at: Time,
@@ -231,130 +231,17 @@ module Moonbase
             description: String,
             duration: Float,
             location: String,
-            note: Moonbase::Note,
+            note: T.nilable(Moonbase::Note),
             organizer: Moonbase::Organizer,
             provider_uri: String,
             recording_url: String,
-            summary: Moonbase::Note,
+            summary: T.nilable(Moonbase::Note),
             title: String,
-            transcript: T.nilable(Moonbase::Meeting::Transcript)
+            transcript: T.nilable(Moonbase::MeetingTranscript)
           }
         )
       end
       def to_hash
-      end
-
-      class Transcript < Moonbase::Internal::Type::BaseModel
-        OrHash =
-          T.type_alias do
-            T.any(Moonbase::Meeting::Transcript, Moonbase::Internal::AnyHash)
-          end
-
-        sig { returns(T::Array[Moonbase::Meeting::Transcript::Cue]) }
-        attr_accessor :cues
-
-        sig do
-          params(
-            cues: T::Array[Moonbase::Meeting::Transcript::Cue::OrHash]
-          ).returns(T.attached_class)
-        end
-        def self.new(cues:)
-        end
-
-        sig do
-          override.returns(
-            { cues: T::Array[Moonbase::Meeting::Transcript::Cue] }
-          )
-        end
-        def to_hash
-        end
-
-        class Cue < Moonbase::Internal::Type::BaseModel
-          OrHash =
-            T.type_alias do
-              T.any(
-                Moonbase::Meeting::Transcript::Cue,
-                Moonbase::Internal::AnyHash
-              )
-            end
-
-          sig { returns(Float) }
-          attr_accessor :from
-
-          sig { returns(Moonbase::Meeting::Transcript::Cue::Speaker) }
-          attr_reader :speaker
-
-          sig do
-            params(
-              speaker: Moonbase::Meeting::Transcript::Cue::Speaker::OrHash
-            ).void
-          end
-          attr_writer :speaker
-
-          sig { returns(String) }
-          attr_accessor :text
-
-          sig { returns(Float) }
-          attr_accessor :to
-
-          sig do
-            params(
-              from: Float,
-              speaker: Moonbase::Meeting::Transcript::Cue::Speaker::OrHash,
-              text: String,
-              to: Float
-            ).returns(T.attached_class)
-          end
-          def self.new(from:, speaker:, text:, to:)
-          end
-
-          sig do
-            override.returns(
-              {
-                from: Float,
-                speaker: Moonbase::Meeting::Transcript::Cue::Speaker,
-                text: String,
-                to: Float
-              }
-            )
-          end
-          def to_hash
-          end
-
-          class Speaker < Moonbase::Internal::Type::BaseModel
-            OrHash =
-              T.type_alias do
-                T.any(
-                  Moonbase::Meeting::Transcript::Cue::Speaker,
-                  Moonbase::Internal::AnyHash
-                )
-              end
-
-            sig { returns(T.nilable(String)) }
-            attr_reader :attendee_id
-
-            sig { params(attendee_id: String).void }
-            attr_writer :attendee_id
-
-            sig { returns(T.nilable(String)) }
-            attr_reader :label
-
-            sig { params(label: String).void }
-            attr_writer :label
-
-            sig do
-              params(attendee_id: String, label: String).returns(
-                T.attached_class
-              )
-            end
-            def self.new(attendee_id: nil, label: nil)
-            end
-
-            sig { override.returns({ attendee_id: String, label: String }) }
-            def to_hash
-            end
-          end
-        end
       end
     end
   end

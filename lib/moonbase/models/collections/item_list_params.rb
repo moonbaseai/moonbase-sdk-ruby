@@ -8,6 +8,11 @@ module Moonbase
         extend Moonbase::Internal::Type::RequestParameters::Converter
         include Moonbase::Internal::Type::RequestParameters
 
+        # @!attribute collection_id
+        #
+        #   @return [String]
+        required :collection_id, String
+
         # @!attribute after
         #   When specified, returns results starting immediately after the item identified
         #   by this cursor. Use the cursor value from the previous response's metadata to
@@ -24,12 +29,6 @@ module Moonbase
         #   @return [String, nil]
         optional :before, String
 
-        # @!attribute include
-        #   Include only specific fields in the returned items. Specify fields by id or key.
-        #
-        #   @return [Array<String>, nil]
-        optional :include, Moonbase::Internal::Type::ArrayOf[String]
-
         # @!attribute limit
         #   Maximum number of items to return per page. Must be between 1 and 100. Defaults
         #   to 20 if not specified.
@@ -44,15 +43,15 @@ module Moonbase
         #   @return [Array<String>, nil]
         optional :sort, Moonbase::Internal::Type::ArrayOf[String]
 
-        # @!method initialize(after: nil, before: nil, include: nil, limit: nil, sort: nil, request_options: {})
+        # @!method initialize(collection_id:, after: nil, before: nil, limit: nil, sort: nil, request_options: {})
         #   Some parameter documentations has been truncated, see
         #   {Moonbase::Models::Collections::ItemListParams} for more details.
+        #
+        #   @param collection_id [String]
         #
         #   @param after [String] When specified, returns results starting immediately after the item identified b
         #
         #   @param before [String] When specified, returns results starting immediately before the item identified
-        #
-        #   @param include [Array<String>] Include only specific fields in the returned items. Specify fields by id or key.
         #
         #   @param limit [Integer] Maximum number of items to return per page. Must be between 1 and 100. Defaults
         #

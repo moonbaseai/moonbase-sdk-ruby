@@ -32,6 +32,8 @@ module Moonbase
 
     attr_reader forms: Moonbase::Resources::Forms
 
+    attr_reader unsubscribes: Moonbase::Resources::Unsubscribes
+
     attr_reader activities: Moonbase::Resources::Activities
 
     attr_reader calls: Moonbase::Resources::Calls

@@ -4,15 +4,19 @@ module Moonbase
       def retrieve: (
         String id,
         ?request_options: Moonbase::request_opts
-      ) -> Moonbase::Models::activity
+      ) -> Moonbase::Activity
 
       def list: (
         ?after: String,
         ?before: String,
-        ?filter: Moonbase::ActivityListParams::Filter,
+        ?constituent_entity_id: Moonbase::ActivityListParams::ConstituentEntityID,
+        ?constituent_entity_type: Moonbase::ActivityListParams::ConstituentEntityType,
+        ?constituent_relation: Moonbase::ActivityListParams::ConstituentRelation,
         ?limit: Integer,
+        ?occurred_at: Moonbase::ActivityListParams::OccurredAt,
+        ?type: Moonbase::ActivityListParams::Type,
         ?request_options: Moonbase::request_opts
-      ) -> Moonbase::Internal::CursorPage[Moonbase::Models::activity]
+      ) -> Moonbase::Internal::CursorPage[Moonbase::Activity]
 
       def initialize: (client: Moonbase::Client) -> void
     end
