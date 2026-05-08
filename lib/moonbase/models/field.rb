@@ -14,6 +14,9 @@ module Moonbase
       # A field that stores multiple lines of text with line breaks preserved.
       variant :"field/text/multi_line", -> { Moonbase::MultiLineTextField }
 
+      # A field that stores opaque external identifiers verbatim.
+      variant :"field/identifier", -> { Moonbase::IdentifierField }
+
       # A field that stores whole numbers without decimal places.
       variant :"field/number/unitless_integer", -> { Moonbase::IntegerField }
 
@@ -66,7 +69,7 @@ module Moonbase
       variant :"field/relation", -> { Moonbase::RelationField }
 
       # @!method self.variants
-      #   @return [Array(Moonbase::Models::SingleLineTextField, Moonbase::Models::MultiLineTextField, Moonbase::Models::IntegerField, Moonbase::Models::FloatField, Moonbase::Models::MonetaryField, Moonbase::Models::PercentageField, Moonbase::Models::BooleanField, Moonbase::Models::EmailField, Moonbase::Models::URLField, Moonbase::Models::DomainField, Moonbase::Models::SocialXField, Moonbase::Models::SocialLinkedInField, Moonbase::Models::TelephoneNumberField, Moonbase::Models::GeoField, Moonbase::Models::DateField, Moonbase::Models::DatetimeField, Moonbase::Models::ChoiceField, Moonbase::Models::StageField, Moonbase::Models::RelationField)]
+      #   @return [Array(Moonbase::Models::SingleLineTextField, Moonbase::Models::MultiLineTextField, Moonbase::Models::IdentifierField, Moonbase::Models::IntegerField, Moonbase::Models::FloatField, Moonbase::Models::MonetaryField, Moonbase::Models::PercentageField, Moonbase::Models::BooleanField, Moonbase::Models::EmailField, Moonbase::Models::URLField, Moonbase::Models::DomainField, Moonbase::Models::SocialXField, Moonbase::Models::SocialLinkedInField, Moonbase::Models::TelephoneNumberField, Moonbase::Models::GeoField, Moonbase::Models::DateField, Moonbase::Models::DatetimeField, Moonbase::Models::ChoiceField, Moonbase::Models::StageField, Moonbase::Models::RelationField)]
     end
   end
 end

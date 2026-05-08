@@ -39,6 +39,7 @@ module Moonbase
               T.any(
                 Moonbase::SingleLineTextValue::OrHash,
                 Moonbase::MultiLineTextValue::OrHash,
+                Moonbase::IdentifierValue::OrHash,
                 Moonbase::IntegerValue::OrHash,
                 Moonbase::FloatValue::OrHash,
                 Moonbase::MonetaryValue::OrHash,
@@ -60,6 +61,7 @@ module Moonbase
                   T.any(
                     Moonbase::SingleLineTextValue::OrHash,
                     Moonbase::MultiLineTextValue::OrHash,
+                    Moonbase::IdentifierValue::OrHash,
                     Moonbase::IntegerValue::OrHash,
                     Moonbase::FloatValue::OrHash,
                     Moonbase::MonetaryValue::OrHash,

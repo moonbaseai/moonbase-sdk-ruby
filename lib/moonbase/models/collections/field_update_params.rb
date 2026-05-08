@@ -21,7 +21,7 @@ module Moonbase
         # @!attribute field
         #   Parameters for updating a field, discriminated by `type`.
         #
-        #   @return [Moonbase::Models::Collections::FieldUpdateParams::Field::FieldTextSingleLine, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldTextMultiLine, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldNumberUnitlessInteger, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldNumberUnitlessFloat, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldNumberMonetary, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldNumberPercentage, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldBoolean, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldEmail, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldUriURL, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldUriDomain, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldUriSocialX, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldUriSocialLinkedIn, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldTelephoneNumber, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldGeo, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldDate, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldDatetime, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldChoice, Moonbase::Models::StageFieldUpdateParams, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldRelation]
+        #   @return [Moonbase::Models::Collections::FieldUpdateParams::Field::FieldTextSingleLine, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldTextMultiLine, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldIdentifier, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldNumberUnitlessInteger, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldNumberUnitlessFloat, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldNumberMonetary, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldNumberPercentage, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldBoolean, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldEmail, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldUriURL, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldUriDomain, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldUriSocialX, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldUriSocialLinkedIn, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldTelephoneNumber, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldGeo, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldDate, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldDatetime, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldChoice, Moonbase::Models::StageFieldUpdateParams, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldRelation]
         required :field, union: -> { Moonbase::Collections::FieldUpdateParams::Field }
 
         # @!method initialize(collection_id:, id:, field:, request_options: {})
@@ -29,7 +29,7 @@ module Moonbase
         #
         #   @param id [String]
         #
-        #   @param field [Moonbase::Models::Collections::FieldUpdateParams::Field::FieldTextSingleLine, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldTextMultiLine, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldNumberUnitlessInteger, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldNumberUnitlessFloat, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldNumberMonetary, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldNumberPercentage, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldBoolean, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldEmail, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldUriURL, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldUriDomain, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldUriSocialX, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldUriSocialLinkedIn, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldTelephoneNumber, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldGeo, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldDate, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldDatetime, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldChoice, Moonbase::Models::StageFieldUpdateParams, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldRelation] Parameters for updating a field, discriminated by `type`.
+        #   @param field [Moonbase::Models::Collections::FieldUpdateParams::Field::FieldTextSingleLine, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldTextMultiLine, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldIdentifier, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldNumberUnitlessInteger, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldNumberUnitlessFloat, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldNumberMonetary, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldNumberPercentage, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldBoolean, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldEmail, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldUriURL, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldUriDomain, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldUriSocialX, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldUriSocialLinkedIn, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldTelephoneNumber, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldGeo, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldDate, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldDatetime, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldChoice, Moonbase::Models::StageFieldUpdateParams, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldRelation] Parameters for updating a field, discriminated by `type`.
         #
         #   @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}]
 
@@ -46,6 +46,8 @@ module Moonbase
           # Parameters for updating a multi-line text field.
           variant :"field/text/multi_line",
                   -> { Moonbase::Collections::FieldUpdateParams::Field::FieldTextMultiLine }
+
+          variant :"field/identifier", -> { Moonbase::Collections::FieldUpdateParams::Field::FieldIdentifier }
 
           # Parameters for updating an integer field.
           variant :"field/number/unitless_integer",
@@ -245,6 +247,68 @@ module Moonbase
             # Updated cardinality: `one` or `many`.
             #
             # @see Moonbase::Models::Collections::FieldUpdateParams::Field::FieldTextMultiLine#cardinality
+            module Cardinality
+              extend Moonbase::Internal::Type::Enum
+
+              ONE = :one
+              MANY = :many
+
+              # @!method self.values
+              #   @return [Array<Symbol>]
+            end
+          end
+
+          class FieldIdentifier < Moonbase::Internal::Type::BaseModel
+            # @!attribute type
+            #
+            #   @return [Symbol, :"field/identifier"]
+            required :type, const: :"field/identifier"
+
+            # @!attribute cardinality
+            #
+            #   @return [Symbol, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldIdentifier::Cardinality, nil]
+            optional :cardinality,
+                     enum: -> { Moonbase::Collections::FieldUpdateParams::Field::FieldIdentifier::Cardinality }
+
+            # @!attribute default_values
+            #
+            #   @return [Array<Moonbase::Models::IdentifierValue>, nil]
+            optional :default_values,
+                     -> {
+                       Moonbase::Internal::Type::ArrayOf[Moonbase::IdentifierValue]
+                     },
+                     nil?: true
+
+            # @!attribute description
+            #
+            #   @return [String, nil]
+            optional :description, String, nil?: true
+
+            # @!attribute name
+            #
+            #   @return [String, nil]
+            optional :name, String
+
+            # @!attribute required
+            #
+            #   @return [Boolean, nil]
+            optional :required, Moonbase::Internal::Type::Boolean
+
+            # @!attribute unique
+            #
+            #   @return [Boolean, nil]
+            optional :unique, Moonbase::Internal::Type::Boolean
+
+            # @!method initialize(cardinality: nil, default_values: nil, description: nil, name: nil, required: nil, unique: nil, type: :"field/identifier")
+            #   @param cardinality [Symbol, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldIdentifier::Cardinality]
+            #   @param default_values [Array<Moonbase::Models::IdentifierValue>, nil]
+            #   @param description [String, nil]
+            #   @param name [String]
+            #   @param required [Boolean]
+            #   @param unique [Boolean]
+            #   @param type [Symbol, :"field/identifier"]
+
+            # @see Moonbase::Models::Collections::FieldUpdateParams::Field::FieldIdentifier#cardinality
             module Cardinality
               extend Moonbase::Internal::Type::Enum
 
@@ -1644,7 +1708,7 @@ module Moonbase
           end
 
           # @!method self.variants
-          #   @return [Array(Moonbase::Models::Collections::FieldUpdateParams::Field::FieldTextSingleLine, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldTextMultiLine, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldNumberUnitlessInteger, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldNumberUnitlessFloat, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldNumberMonetary, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldNumberPercentage, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldBoolean, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldEmail, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldUriURL, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldUriDomain, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldUriSocialX, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldUriSocialLinkedIn, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldTelephoneNumber, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldGeo, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldDate, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldDatetime, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldChoice, Moonbase::Models::StageFieldUpdateParams, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldRelation)]
+          #   @return [Array(Moonbase::Models::Collections::FieldUpdateParams::Field::FieldTextSingleLine, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldTextMultiLine, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldIdentifier, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldNumberUnitlessInteger, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldNumberUnitlessFloat, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldNumberMonetary, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldNumberPercentage, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldBoolean, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldEmail, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldUriURL, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldUriDomain, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldUriSocialX, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldUriSocialLinkedIn, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldTelephoneNumber, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldGeo, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldDate, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldDatetime, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldChoice, Moonbase::Models::StageFieldUpdateParams, Moonbase::Models::Collections::FieldUpdateParams::Field::FieldRelation)]
         end
       end
     end

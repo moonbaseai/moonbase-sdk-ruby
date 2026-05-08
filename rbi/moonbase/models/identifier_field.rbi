@@ -2,10 +2,10 @@
 
 module Moonbase
   module Models
-    class ChoiceField < Moonbase::Internal::Type::BaseModel
+    class IdentifierField < Moonbase::Internal::Type::BaseModel
       OrHash =
         T.type_alias do
-          T.any(Moonbase::ChoiceField, Moonbase::Internal::AnyHash)
+          T.any(Moonbase::IdentifierField, Moonbase::Internal::AnyHash)
         end
 
       # Unique identifier for the object.
@@ -14,7 +14,7 @@ module Moonbase
 
       # Specifies whether the field can hold a single value (`one`) or multiple values
       # (`many`).
-      sig { returns(Moonbase::ChoiceField::Cardinality::TaggedSymbol) }
+      sig { returns(Moonbase::IdentifierField::Cardinality::TaggedSymbol) }
       attr_accessor :cardinality
 
       # Time at which the object was created, as an ISO 8601 timestamp in UTC.
@@ -24,19 +24,12 @@ module Moonbase
       sig { returns(T::Array[Moonbase::FieldDefaultValue::Variants]) }
       attr_accessor :default_values
 
-      # `system` fields are managed by Moonbase, `inverse` fields are the reverse side
-      # of a two-way relation, and `custom` fields are user-created.
-      sig { returns(Moonbase::ChoiceField::Kind::TaggedSymbol) }
+      sig { returns(Moonbase::IdentifierField::Kind::TaggedSymbol) }
       attr_accessor :kind
 
-      # The human-readable name of the field (e.g., "Priority").
+      # The human-readable name of the field (e.g., "Stripe Id").
       sig { returns(String) }
       attr_accessor :name
-
-      # A list of `FieldOption` objects representing the available choices for this
-      # field.
-      sig { returns(T::Array[Moonbase::ChoiceFieldOption]) }
-      attr_accessor :options
 
       # If `true`, the value of this field is system-managed and cannot be updated via
       # the API.
@@ -44,7 +37,7 @@ module Moonbase
       attr_accessor :readonly
 
       # A unique, stable, machine-readable identifier for the field within its
-      # collection (e.g., `priority`).
+      # collection (e.g., `stripe_id`).
       sig { returns(String) }
       attr_accessor :ref
 
@@ -52,7 +45,7 @@ module Moonbase
       sig { returns(T::Boolean) }
       attr_accessor :required
 
-      # The data type of the field. Always `field/choice` for this field.
+      # The data type of the field. Always `field/identifier` for this field.
       sig { returns(Symbol) }
       attr_accessor :type
 
@@ -72,11 +65,11 @@ module Moonbase
       sig { params(description: String).void }
       attr_writer :description
 
-      # A field that stores one or more predefined options from a list of choices.
+      # A field that stores opaque external identifiers verbatim.
       sig do
         params(
           id: String,
-          cardinality: Moonbase::ChoiceField::Cardinality::OrSymbol,
+          cardinality: Moonbase::IdentifierField::Cardinality::OrSymbol,
           created_at: Time,
           default_values:
             T::Array[
@@ -106,9 +99,8 @@ module Moonbase
                 Moonbase::CurrentMember::OrHash
               )
             ],
-          kind: Moonbase::ChoiceField::Kind::OrSymbol,
+          kind: Moonbase::IdentifierField::Kind::OrSymbol,
           name: String,
-          options: T::Array[Moonbase::ChoiceFieldOption::OrHash],
           readonly: T::Boolean,
           ref: String,
           required: T::Boolean,
@@ -127,19 +119,14 @@ module Moonbase
         # Time at which the object was created, as an ISO 8601 timestamp in UTC.
         created_at:,
         default_values:,
-        # `system` fields are managed by Moonbase, `inverse` fields are the reverse side
-        # of a two-way relation, and `custom` fields are user-created.
         kind:,
-        # The human-readable name of the field (e.g., "Priority").
+        # The human-readable name of the field (e.g., "Stripe Id").
         name:,
-        # A list of `FieldOption` objects representing the available choices for this
-        # field.
-        options:,
         # If `true`, the value of this field is system-managed and cannot be updated via
         # the API.
         readonly:,
         # A unique, stable, machine-readable identifier for the field within its
-        # collection (e.g., `priority`).
+        # collection (e.g., `stripe_id`).
         ref:,
         # If `true`, this field must have a value.
         required:,
@@ -150,8 +137,8 @@ module Moonbase
         updated_at:,
         # An optional, longer-form description of the field's purpose.
         description: nil,
-        # The data type of the field. Always `field/choice` for this field.
-        type: :"field/choice"
+        # The data type of the field. Always `field/identifier` for this field.
+        type: :"field/identifier"
       )
       end
 
@@ -159,12 +146,11 @@ module Moonbase
         override.returns(
           {
             id: String,
-            cardinality: Moonbase::ChoiceField::Cardinality::TaggedSymbol,
+            cardinality: Moonbase::IdentifierField::Cardinality::TaggedSymbol,
             created_at: Time,
             default_values: T::Array[Moonbase::FieldDefaultValue::Variants],
-            kind: Moonbase::ChoiceField::Kind::TaggedSymbol,
+            kind: Moonbase::IdentifierField::Kind::TaggedSymbol,
             name: String,
-            options: T::Array[Moonbase::ChoiceFieldOption],
             readonly: T::Boolean,
             ref: String,
             required: T::Boolean,
@@ -184,36 +170,37 @@ module Moonbase
         extend Moonbase::Internal::Type::Enum
 
         TaggedSymbol =
-          T.type_alias { T.all(Symbol, Moonbase::ChoiceField::Cardinality) }
+          T.type_alias { T.all(Symbol, Moonbase::IdentifierField::Cardinality) }
         OrSymbol = T.type_alias { T.any(Symbol, String) }
 
-        ONE = T.let(:one, Moonbase::ChoiceField::Cardinality::TaggedSymbol)
-        MANY = T.let(:many, Moonbase::ChoiceField::Cardinality::TaggedSymbol)
+        ONE = T.let(:one, Moonbase::IdentifierField::Cardinality::TaggedSymbol)
+        MANY =
+          T.let(:many, Moonbase::IdentifierField::Cardinality::TaggedSymbol)
 
         sig do
           override.returns(
-            T::Array[Moonbase::ChoiceField::Cardinality::TaggedSymbol]
+            T::Array[Moonbase::IdentifierField::Cardinality::TaggedSymbol]
           )
         end
         def self.values
         end
       end
 
-      # `system` fields are managed by Moonbase, `inverse` fields are the reverse side
-      # of a two-way relation, and `custom` fields are user-created.
       module Kind
         extend Moonbase::Internal::Type::Enum
 
         TaggedSymbol =
-          T.type_alias { T.all(Symbol, Moonbase::ChoiceField::Kind) }
+          T.type_alias { T.all(Symbol, Moonbase::IdentifierField::Kind) }
         OrSymbol = T.type_alias { T.any(Symbol, String) }
 
-        SYSTEM = T.let(:system, Moonbase::ChoiceField::Kind::TaggedSymbol)
-        INVERSE = T.let(:inverse, Moonbase::ChoiceField::Kind::TaggedSymbol)
-        CUSTOM = T.let(:custom, Moonbase::ChoiceField::Kind::TaggedSymbol)
+        SYSTEM = T.let(:system, Moonbase::IdentifierField::Kind::TaggedSymbol)
+        INVERSE = T.let(:inverse, Moonbase::IdentifierField::Kind::TaggedSymbol)
+        CUSTOM = T.let(:custom, Moonbase::IdentifierField::Kind::TaggedSymbol)
 
         sig do
-          override.returns(T::Array[Moonbase::ChoiceField::Kind::TaggedSymbol])
+          override.returns(
+            T::Array[Moonbase::IdentifierField::Kind::TaggedSymbol]
+          )
         end
         def self.values
         end

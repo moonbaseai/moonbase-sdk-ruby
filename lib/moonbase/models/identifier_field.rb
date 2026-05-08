@@ -2,7 +2,7 @@
 
 module Moonbase
   module Models
-    class TelephoneNumberField < Moonbase::Internal::Type::BaseModel
+    class IdentifierField < Moonbase::Internal::Type::BaseModel
       # @!attribute id
       #   Unique identifier for the object.
       #
@@ -13,8 +13,8 @@ module Moonbase
       #   Specifies whether the field can hold a single value (`one`) or multiple values
       #   (`many`).
       #
-      #   @return [Symbol, Moonbase::Models::TelephoneNumberField::Cardinality]
-      required :cardinality, enum: -> { Moonbase::TelephoneNumberField::Cardinality }
+      #   @return [Symbol, Moonbase::Models::IdentifierField::Cardinality]
+      required :cardinality, enum: -> { Moonbase::IdentifierField::Cardinality }
 
       # @!attribute created_at
       #   Time at which the object was created, as an ISO 8601 timestamp in UTC.
@@ -28,14 +28,12 @@ module Moonbase
       required :default_values, -> { Moonbase::Internal::Type::ArrayOf[union: Moonbase::FieldDefaultValue] }
 
       # @!attribute kind
-      #   `system` fields are managed by Moonbase, `inverse` fields are the reverse side
-      #   of a two-way relation, and `custom` fields are user-created.
       #
-      #   @return [Symbol, Moonbase::Models::TelephoneNumberField::Kind]
-      required :kind, enum: -> { Moonbase::TelephoneNumberField::Kind }
+      #   @return [Symbol, Moonbase::Models::IdentifierField::Kind]
+      required :kind, enum: -> { Moonbase::IdentifierField::Kind }
 
       # @!attribute name
-      #   The human-readable name of the field (e.g., "Phone").
+      #   The human-readable name of the field (e.g., "Stripe Id").
       #
       #   @return [String]
       required :name, String
@@ -49,7 +47,7 @@ module Moonbase
 
       # @!attribute ref
       #   A unique, stable, machine-readable identifier for the field within its
-      #   collection (e.g., `phone`).
+      #   collection (e.g., `stripe_id`).
       #
       #   @return [String]
       required :ref, String
@@ -61,10 +59,10 @@ module Moonbase
       required :required, Moonbase::Internal::Type::Boolean
 
       # @!attribute type
-      #   The data type of the field. Always `field/telephone_number` for this field.
+      #   The data type of the field. Always `field/identifier` for this field.
       #
-      #   @return [Symbol, :"field/telephone_number"]
-      required :type, const: :"field/telephone_number"
+      #   @return [Symbol, :"field/identifier"]
+      required :type, const: :"field/identifier"
 
       # @!attribute unique
       #   If `true`, values for this field must be unique across all items in the
@@ -85,23 +83,23 @@ module Moonbase
       #   @return [String, nil]
       optional :description, String
 
-      # @!method initialize(id:, cardinality:, created_at:, default_values:, kind:, name:, readonly:, ref:, required:, unique:, updated_at:, description: nil, type: :"field/telephone_number")
+      # @!method initialize(id:, cardinality:, created_at:, default_values:, kind:, name:, readonly:, ref:, required:, unique:, updated_at:, description: nil, type: :"field/identifier")
       #   Some parameter documentations has been truncated, see
-      #   {Moonbase::Models::TelephoneNumberField} for more details.
+      #   {Moonbase::Models::IdentifierField} for more details.
       #
-      #   A field that stores phone numbers in E.164 format.
+      #   A field that stores opaque external identifiers verbatim.
       #
       #   @param id [String] Unique identifier for the object.
       #
-      #   @param cardinality [Symbol, Moonbase::Models::TelephoneNumberField::Cardinality] Specifies whether the field can hold a single value (`one`) or multiple values (
+      #   @param cardinality [Symbol, Moonbase::Models::IdentifierField::Cardinality] Specifies whether the field can hold a single value (`one`) or multiple values (
       #
       #   @param created_at [Time] Time at which the object was created, as an ISO 8601 timestamp in UTC.
       #
       #   @param default_values [Array<Moonbase::Models::SingleLineTextValue, Moonbase::Models::MultiLineTextValue, Moonbase::Models::IdentifierValue, Moonbase::Models::IntegerValue, Moonbase::Models::FloatValue, Moonbase::Models::MonetaryValue, Moonbase::Models::PercentageValue, Moonbase::Models::BooleanValue, Moonbase::Models::EmailValue, Moonbase::Models::URLValue, Moonbase::Models::DomainValue, Moonbase::Models::SocialXValue, Moonbase::Models::SocialLinkedInValue, Moonbase::Models::TelephoneNumber, Moonbase::Models::GeoValue, Moonbase::Models::DateValue, Moonbase::Models::CurrentDate, Moonbase::Models::DatetimeValue, Moonbase::Models::CurrentDatetime, Moonbase::Models::ChoiceValue, Moonbase::Models::FunnelStepValue, Moonbase::Models::RelationValue, Moonbase::Models::CurrentMember>]
       #
-      #   @param kind [Symbol, Moonbase::Models::TelephoneNumberField::Kind] `system` fields are managed by Moonbase, `inverse` fields are the reverse side o
+      #   @param kind [Symbol, Moonbase::Models::IdentifierField::Kind]
       #
-      #   @param name [String] The human-readable name of the field (e.g., "Phone").
+      #   @param name [String] The human-readable name of the field (e.g., "Stripe Id").
       #
       #   @param readonly [Boolean] If `true`, the value of this field is system-managed and cannot be updated via t
       #
@@ -115,12 +113,12 @@ module Moonbase
       #
       #   @param description [String] An optional, longer-form description of the field's purpose.
       #
-      #   @param type [Symbol, :"field/telephone_number"] The data type of the field. Always `field/telephone_number` for this field.
+      #   @param type [Symbol, :"field/identifier"] The data type of the field. Always `field/identifier` for this field.
 
       # Specifies whether the field can hold a single value (`one`) or multiple values
       # (`many`).
       #
-      # @see Moonbase::Models::TelephoneNumberField#cardinality
+      # @see Moonbase::Models::IdentifierField#cardinality
       module Cardinality
         extend Moonbase::Internal::Type::Enum
 
@@ -131,10 +129,7 @@ module Moonbase
         #   @return [Array<Symbol>]
       end
 
-      # `system` fields are managed by Moonbase, `inverse` fields are the reverse side
-      # of a two-way relation, and `custom` fields are user-created.
-      #
-      # @see Moonbase::Models::TelephoneNumberField#kind
+      # @see Moonbase::Models::IdentifierField#kind
       module Kind
         extend Moonbase::Internal::Type::Enum
 

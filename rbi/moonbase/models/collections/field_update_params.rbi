@@ -27,6 +27,7 @@ module Moonbase
             T.any(
               Moonbase::Collections::FieldUpdateParams::Field::FieldTextSingleLine,
               Moonbase::Collections::FieldUpdateParams::Field::FieldTextMultiLine,
+              Moonbase::Collections::FieldUpdateParams::Field::FieldIdentifier,
               Moonbase::Collections::FieldUpdateParams::Field::FieldNumberUnitlessInteger,
               Moonbase::Collections::FieldUpdateParams::Field::FieldNumberUnitlessFloat,
               Moonbase::Collections::FieldUpdateParams::Field::FieldNumberMonetary,
@@ -57,6 +58,7 @@ module Moonbase
               T.any(
                 Moonbase::Collections::FieldUpdateParams::Field::FieldTextSingleLine::OrHash,
                 Moonbase::Collections::FieldUpdateParams::Field::FieldTextMultiLine::OrHash,
+                Moonbase::Collections::FieldUpdateParams::Field::FieldIdentifier::OrHash,
                 Moonbase::Collections::FieldUpdateParams::Field::FieldNumberUnitlessInteger::OrHash,
                 Moonbase::Collections::FieldUpdateParams::Field::FieldNumberUnitlessFloat::OrHash,
                 Moonbase::Collections::FieldUpdateParams::Field::FieldNumberMonetary::OrHash,
@@ -96,6 +98,7 @@ module Moonbase
                 T.any(
                   Moonbase::Collections::FieldUpdateParams::Field::FieldTextSingleLine,
                   Moonbase::Collections::FieldUpdateParams::Field::FieldTextMultiLine,
+                  Moonbase::Collections::FieldUpdateParams::Field::FieldIdentifier,
                   Moonbase::Collections::FieldUpdateParams::Field::FieldNumberUnitlessInteger,
                   Moonbase::Collections::FieldUpdateParams::Field::FieldNumberUnitlessFloat,
                   Moonbase::Collections::FieldUpdateParams::Field::FieldNumberMonetary,
@@ -130,6 +133,7 @@ module Moonbase
               T.any(
                 Moonbase::Collections::FieldUpdateParams::Field::FieldTextSingleLine,
                 Moonbase::Collections::FieldUpdateParams::Field::FieldTextMultiLine,
+                Moonbase::Collections::FieldUpdateParams::Field::FieldIdentifier,
                 Moonbase::Collections::FieldUpdateParams::Field::FieldNumberUnitlessInteger,
                 Moonbase::Collections::FieldUpdateParams::Field::FieldNumberUnitlessFloat,
                 Moonbase::Collections::FieldUpdateParams::Field::FieldNumberMonetary,
@@ -430,6 +434,136 @@ module Moonbase
                 override.returns(
                   T::Array[
                     Moonbase::Collections::FieldUpdateParams::Field::FieldTextMultiLine::Cardinality::TaggedSymbol
+                  ]
+                )
+              end
+              def self.values
+              end
+            end
+          end
+
+          class FieldIdentifier < Moonbase::Internal::Type::BaseModel
+            OrHash =
+              T.type_alias do
+                T.any(
+                  Moonbase::Collections::FieldUpdateParams::Field::FieldIdentifier,
+                  Moonbase::Internal::AnyHash
+                )
+              end
+
+            sig { returns(Symbol) }
+            attr_accessor :type
+
+            sig do
+              returns(
+                T.nilable(
+                  Moonbase::Collections::FieldUpdateParams::Field::FieldIdentifier::Cardinality::OrSymbol
+                )
+              )
+            end
+            attr_reader :cardinality
+
+            sig do
+              params(
+                cardinality:
+                  Moonbase::Collections::FieldUpdateParams::Field::FieldIdentifier::Cardinality::OrSymbol
+              ).void
+            end
+            attr_writer :cardinality
+
+            sig { returns(T.nilable(T::Array[Moonbase::IdentifierValue])) }
+            attr_accessor :default_values
+
+            sig { returns(T.nilable(String)) }
+            attr_accessor :description
+
+            sig { returns(T.nilable(String)) }
+            attr_reader :name
+
+            sig { params(name: String).void }
+            attr_writer :name
+
+            sig { returns(T.nilable(T::Boolean)) }
+            attr_reader :required
+
+            sig { params(required: T::Boolean).void }
+            attr_writer :required
+
+            sig { returns(T.nilable(T::Boolean)) }
+            attr_reader :unique
+
+            sig { params(unique: T::Boolean).void }
+            attr_writer :unique
+
+            sig do
+              params(
+                cardinality:
+                  Moonbase::Collections::FieldUpdateParams::Field::FieldIdentifier::Cardinality::OrSymbol,
+                default_values:
+                  T.nilable(T::Array[Moonbase::IdentifierValue::OrHash]),
+                description: T.nilable(String),
+                name: String,
+                required: T::Boolean,
+                unique: T::Boolean,
+                type: Symbol
+              ).returns(T.attached_class)
+            end
+            def self.new(
+              cardinality: nil,
+              default_values: nil,
+              description: nil,
+              name: nil,
+              required: nil,
+              unique: nil,
+              type: :"field/identifier"
+            )
+            end
+
+            sig do
+              override.returns(
+                {
+                  type: Symbol,
+                  cardinality:
+                    Moonbase::Collections::FieldUpdateParams::Field::FieldIdentifier::Cardinality::OrSymbol,
+                  default_values:
+                    T.nilable(T::Array[Moonbase::IdentifierValue]),
+                  description: T.nilable(String),
+                  name: String,
+                  required: T::Boolean,
+                  unique: T::Boolean
+                }
+              )
+            end
+            def to_hash
+            end
+
+            module Cardinality
+              extend Moonbase::Internal::Type::Enum
+
+              TaggedSymbol =
+                T.type_alias do
+                  T.all(
+                    Symbol,
+                    Moonbase::Collections::FieldUpdateParams::Field::FieldIdentifier::Cardinality
+                  )
+                end
+              OrSymbol = T.type_alias { T.any(Symbol, String) }
+
+              ONE =
+                T.let(
+                  :one,
+                  Moonbase::Collections::FieldUpdateParams::Field::FieldIdentifier::Cardinality::TaggedSymbol
+                )
+              MANY =
+                T.let(
+                  :many,
+                  Moonbase::Collections::FieldUpdateParams::Field::FieldIdentifier::Cardinality::TaggedSymbol
+                )
+
+              sig do
+                override.returns(
+                  T::Array[
+                    Moonbase::Collections::FieldUpdateParams::Field::FieldIdentifier::Cardinality::TaggedSymbol
                   ]
                 )
               end

@@ -31,6 +31,7 @@ module Moonbase
         type field =
           Moonbase::Collections::FieldCreateParams::Field::FieldTextSingleLine
           | Moonbase::Collections::FieldCreateParams::Field::FieldTextMultiLine
+          | Moonbase::Collections::FieldCreateParams::Field::FieldIdentifier
           | Moonbase::Collections::FieldCreateParams::Field::FieldNumberUnitlessInteger
           | Moonbase::Collections::FieldCreateParams::Field::FieldNumberUnitlessFloat
           | Moonbase::Collections::FieldCreateParams::Field::FieldNumberMonetary
@@ -193,6 +194,78 @@ module Moonbase
               MANY: :many
 
               def self?.values: -> ::Array[Moonbase::Models::Collections::FieldCreateParams::Field::FieldTextMultiLine::cardinality]
+            end
+          end
+
+          type field_identifier =
+            {
+              name: String,
+              type: :"field/identifier",
+              cardinality: Moonbase::Models::Collections::FieldCreateParams::Field::FieldIdentifier::cardinality,
+              default_values: ::Array[Moonbase::IdentifierValue],
+              description: String,
+              required: bool,
+              unique: bool
+            }
+
+          class FieldIdentifier < Moonbase::Internal::Type::BaseModel
+            attr_accessor name: String
+
+            attr_accessor type: :"field/identifier"
+
+            attr_reader cardinality: Moonbase::Models::Collections::FieldCreateParams::Field::FieldIdentifier::cardinality?
+
+            def cardinality=: (
+              Moonbase::Models::Collections::FieldCreateParams::Field::FieldIdentifier::cardinality
+            ) -> Moonbase::Models::Collections::FieldCreateParams::Field::FieldIdentifier::cardinality
+
+            attr_reader default_values: ::Array[Moonbase::IdentifierValue]?
+
+            def default_values=: (
+              ::Array[Moonbase::IdentifierValue]
+            ) -> ::Array[Moonbase::IdentifierValue]
+
+            attr_reader description: String?
+
+            def description=: (String) -> String
+
+            attr_reader required: bool?
+
+            def required=: (bool) -> bool
+
+            attr_reader unique: bool?
+
+            def unique=: (bool) -> bool
+
+            def initialize: (
+              name: String,
+              ?cardinality: Moonbase::Models::Collections::FieldCreateParams::Field::FieldIdentifier::cardinality,
+              ?default_values: ::Array[Moonbase::IdentifierValue],
+              ?description: String,
+              ?required: bool,
+              ?unique: bool,
+              ?type: :"field/identifier"
+            ) -> void
+
+            def to_hash: -> {
+              name: String,
+              type: :"field/identifier",
+              cardinality: Moonbase::Models::Collections::FieldCreateParams::Field::FieldIdentifier::cardinality,
+              default_values: ::Array[Moonbase::IdentifierValue],
+              description: String,
+              required: bool,
+              unique: bool
+            }
+
+            type cardinality = :one | :many
+
+            module Cardinality
+              extend Moonbase::Internal::Type::Enum
+
+              ONE: :one
+              MANY: :many
+
+              def self?.values: -> ::Array[Moonbase::Models::Collections::FieldCreateParams::Field::FieldIdentifier::cardinality]
             end
           end
 
