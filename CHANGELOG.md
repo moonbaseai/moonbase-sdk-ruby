@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.11 (2026-05-14)
+
+Full Changelog: [v0.1.0-alpha.10...v0.1.0-alpha.11](https://github.com/moonbaseai/moonbase-sdk-ruby/compare/v0.1.0-alpha.10...v0.1.0-alpha.11)
+
+### Bug Fixes
+
+* **client:** elide content type header on requests without body ([4e046cc](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/4e046cc11d997a0775a7a64d586f1a70d1bf0212))
+
 ## 0.1.0-alpha.10 (2026-05-08)
 
 Full Changelog: [v0.1.0-alpha.9...v0.1.0-alpha.10](https://github.com/moonbaseai/moonbase-sdk-ruby/compare/v0.1.0-alpha.9...v0.1.0-alpha.10)
