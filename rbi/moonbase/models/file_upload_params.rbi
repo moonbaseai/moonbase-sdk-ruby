@@ -11,7 +11,8 @@ module Moonbase
           T.any(Moonbase::FileUploadParams, Moonbase::Internal::AnyHash)
         end
 
-      # The File object to be uploaded.
+      # The raw file content to upload in a multipart/form-data request. Must be 5 MB or
+      # smaller.
       sig { returns(Moonbase::Internal::FileInput) }
       attr_accessor :file
 
@@ -41,7 +42,8 @@ module Moonbase
         ).returns(T.attached_class)
       end
       def self.new(
-        # The File object to be uploaded.
+        # The raw file content to upload in a multipart/form-data request. Must be 5 MB or
+        # smaller.
         file:,
         # Link the File to Moonbase items like a person, organization, deal, task, or an
         # item in a custom collection.

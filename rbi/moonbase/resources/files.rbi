@@ -57,7 +57,7 @@ module Moonbase
       )
       end
 
-      # Upload a file
+      # Uploads a file to your library. The file must be 5 MB or smaller.
       sig do
         params(
           file: Moonbase::Internal::FileInput,
@@ -67,7 +67,8 @@ module Moonbase
         ).returns(Moonbase::MoonbaseFile)
       end
       def upload(
-        # The File object to be uploaded.
+        # The raw file content to upload in a multipart/form-data request. Must be 5 MB or
+        # smaller.
         file:,
         # Link the File to Moonbase items like a person, organization, deal, task, or an
         # item in a custom collection.

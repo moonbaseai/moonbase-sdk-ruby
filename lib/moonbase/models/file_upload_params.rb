@@ -8,7 +8,8 @@ module Moonbase
       include Moonbase::Internal::Type::RequestParameters
 
       # @!attribute file
-      #   The File object to be uploaded.
+      #   The raw file content to upload in a multipart/form-data request. Must be 5 MB or
+      #   smaller.
       #
       #   @return [Pathname, StringIO, IO, String, Moonbase::FilePart]
       required :file, Moonbase::Internal::Type::FileInput
@@ -30,7 +31,7 @@ module Moonbase
       #   Some parameter documentations has been truncated, see
       #   {Moonbase::Models::FileUploadParams} for more details.
       #
-      #   @param file [Pathname, StringIO, IO, String, Moonbase::FilePart] The File object to be uploaded.
+      #   @param file [Pathname, StringIO, IO, String, Moonbase::FilePart] The raw file content to upload in a multipart/form-data request. Must be 5 MB or
       #
       #   @param associations [Array<Moonbase::Models::ItemPointerParam>] Link the File to Moonbase items like a person, organization, deal, task, or an i
       #

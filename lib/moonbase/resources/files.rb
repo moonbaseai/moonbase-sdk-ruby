@@ -78,11 +78,11 @@ module Moonbase
       # Some parameter documentations has been truncated, see
       # {Moonbase::Models::FileUploadParams} for more details.
       #
-      # Upload a file
+      # Uploads a file to your library. The file must be 5 MB or smaller.
       #
       # @overload upload(file:, associations: nil, name: nil, request_options: {})
       #
-      # @param file [Pathname, StringIO, IO, String, Moonbase::FilePart] The File object to be uploaded.
+      # @param file [Pathname, StringIO, IO, String, Moonbase::FilePart] The raw file content to upload in a multipart/form-data request. Must be 5 MB or
       #
       # @param associations [Array<Moonbase::Models::ItemPointerParam>] Link the File to Moonbase items like a person, organization, deal, task, or an i
       #
