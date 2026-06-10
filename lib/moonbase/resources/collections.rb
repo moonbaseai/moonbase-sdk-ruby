@@ -117,6 +117,26 @@ module Moonbase
         )
       end
 
+      # Permanently deletes a collection.
+      #
+      # @overload delete(id, request_options: {})
+      #
+      # @param id [String] The ID or `ref` of the Collection to delete.
+      #
+      # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
+      #
+      # @return [nil]
+      #
+      # @see Moonbase::Models::CollectionDeleteParams
+      def delete(id, params = {})
+        @client.request(
+          method: :delete,
+          path: ["collections/%1$s", id],
+          model: NilClass,
+          options: params[:request_options]
+        )
+      end
+
       # @api private
       #
       # @param client [Moonbase::Client]
