@@ -94,6 +94,8 @@ module Moonbase
 
   CollectionCreateParams = Moonbase::Models::CollectionCreateParams
 
+  CollectionDeleteParams = Moonbase::Models::CollectionDeleteParams
+
   CollectionListParams = Moonbase::Models::CollectionListParams
 
   CollectionPointer = Moonbase::Models::CollectionPointer

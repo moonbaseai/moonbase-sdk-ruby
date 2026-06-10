@@ -94,6 +94,20 @@ module Moonbase
       )
       end
 
+      # Permanently deletes a collection.
+      sig do
+        params(
+          id: String,
+          request_options: Moonbase::RequestOptions::OrHash
+        ).void
+      end
+      def delete(
+        # The ID or `ref` of the Collection to delete.
+        id,
+        request_options: {}
+      )
+      end
+
       # @api private
       sig { params(client: Moonbase::Client).returns(T.attached_class) }
       def self.new(client:)
