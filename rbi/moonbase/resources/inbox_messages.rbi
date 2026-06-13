@@ -11,31 +11,18 @@ module Moonbase
       # Creates a new message draft.
       sig do
         params(
-          body: Moonbase::FormattedText::OrHash,
-          inbox_id: String,
-          bcc: T::Array[Moonbase::EmailMessageAddressParams::OrHash],
-          cc: T::Array[Moonbase::EmailMessageAddressParams::OrHash],
-          conversation_id: String,
-          subject: String,
-          to: T::Array[Moonbase::EmailMessageAddressParams::OrHash],
+          body:
+            T.any(
+              Moonbase::InboxMessageCreateParams::Body::EmailMessageNewConversationCreateParams::OrHash,
+              Moonbase::InboxMessageCreateParams::Body::EmailMessageReplyCreateParams::OrHash
+            ),
           request_options: Moonbase::RequestOptions::OrHash
         ).returns(Moonbase::EmailMessage)
       end
       def create(
-        # The email body.
+        # Parameters for creating an email message draft. Provide either the fields for a
+        # new conversation, or a `conversation_id` to reply to an existing conversation.
         body:,
-        # The inbox to use for sending the email.
-        inbox_id:,
-        # A list of the BCC recipients.
-        bcc: nil,
-        # A list of the CC recipients.
-        cc: nil,
-        # The ID of the conversation, if responding to an existing conversation.
-        conversation_id: nil,
-        # The subject line of the email.
-        subject: nil,
-        # A list of recipients.
-        to: nil,
         request_options: {}
       )
       end

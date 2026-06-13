@@ -4,13 +4,7 @@ module Moonbase
       attr_reader attachments: Moonbase::Resources::InboxMessages::Attachments
 
       def create: (
-        body: Moonbase::FormattedText,
-        inbox_id: String,
-        ?bcc: ::Array[Moonbase::EmailMessageAddressParams],
-        ?cc: ::Array[Moonbase::EmailMessageAddressParams],
-        ?conversation_id: String,
-        ?subject: String,
-        ?to: ::Array[Moonbase::EmailMessageAddressParams],
+        body: Moonbase::Models::InboxMessageCreateParams::body,
         ?request_options: Moonbase::request_opts
       ) -> Moonbase::EmailMessage
 

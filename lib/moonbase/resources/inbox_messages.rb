@@ -8,23 +8,14 @@ module Moonbase
       # @return [Moonbase::Resources::InboxMessages::Attachments]
       attr_reader :attachments
 
+      # Some parameter documentations has been truncated, see
+      # {Moonbase::Models::InboxMessageCreateParams} for more details.
+      #
       # Creates a new message draft.
       #
-      # @overload create(body:, inbox_id:, bcc: nil, cc: nil, conversation_id: nil, subject: nil, to: nil, request_options: {})
+      # @overload create(body:, request_options: {})
       #
-      # @param body [Moonbase::Models::FormattedText] The email body.
-      #
-      # @param inbox_id [String] The inbox to use for sending the email.
-      #
-      # @param bcc [Array<Moonbase::Models::EmailMessageAddressParams>] A list of the BCC recipients.
-      #
-      # @param cc [Array<Moonbase::Models::EmailMessageAddressParams>] A list of the CC recipients.
-      #
-      # @param conversation_id [String] The ID of the conversation, if responding to an existing conversation.
-      #
-      # @param subject [String] The subject line of the email.
-      #
-      # @param to [Array<Moonbase::Models::EmailMessageAddressParams>] A list of recipients.
+      # @param body [Moonbase::Models::InboxMessageCreateParams::Body::EmailMessageNewConversationCreateParams, Moonbase::Models::InboxMessageCreateParams::Body::EmailMessageReplyCreateParams] Parameters for creating an email message draft. Provide either the fields for a
       #
       # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
       #
@@ -36,7 +27,7 @@ module Moonbase
         @client.request(
           method: :post,
           path: "inbox_messages",
-          body: parsed,
+          body: parsed[:body],
           model: Moonbase::EmailMessage,
           options: options
         )
