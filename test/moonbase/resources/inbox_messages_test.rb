@@ -4,7 +4,15 @@ require_relative "../test_helper"
 
 class Moonbase::Test::Resources::InboxMessagesTest < Moonbase::Test::ResourceTest
   def test_create_required_params
-    response = @moonbase.inbox_messages.create(body: {}, inbox_id: "1CLJt2v6KXDyzDuM57pQqo")
+    response =
+      @moonbase.inbox_messages.create(
+        body: {
+          body: {},
+          inbox_id: "1CLJt2v6KXDyzDuM57pQqo",
+          subject: "Test Subject",
+          to: [{email: "bob@example.com"}, {email: "jack@example.com"}]
+        }
+      )
 
     assert_pattern do
       response => Moonbase::EmailMessage
