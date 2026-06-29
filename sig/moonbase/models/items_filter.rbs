@@ -1,11 +1,11 @@
 module Moonbase
   module Models
     type items_filter =
-      Moonbase::ItemsFilterValueMatches
-      | Moonbase::ItemsFilterValueExists
+      Moonbase::ItemsFilterValueExists
       | Moonbase::ItemsFilterAndGroup
       | Moonbase::ItemsFilterOrGroup
       | Moonbase::ItemsFilterNotGroup
+      | Moonbase::ItemsFilterValueMatches
 
     module ItemsFilter
       extend Moonbase::Internal::Type::Union

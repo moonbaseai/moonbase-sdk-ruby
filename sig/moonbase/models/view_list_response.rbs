@@ -1,0 +1,61 @@
+module Moonbase
+  module Models
+    type view_list_response =
+      {
+        id: String,
+        collection: Moonbase::CollectionPointer,
+        created_at: Time,
+        name: String,
+        type: :view,
+        updated_at: Time,
+        view_type: Moonbase::Models::ViewListResponse::view_type
+      }
+
+    class ViewListResponse < Moonbase::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor collection: Moonbase::CollectionPointer
+
+      attr_accessor created_at: Time
+
+      attr_accessor name: String
+
+      attr_accessor type: :view
+
+      attr_accessor updated_at: Time
+
+      attr_accessor view_type: Moonbase::Models::ViewListResponse::view_type
+
+      def initialize: (
+        id: String,
+        collection: Moonbase::CollectionPointer,
+        created_at: Time,
+        name: String,
+        updated_at: Time,
+        view_type: Moonbase::Models::ViewListResponse::view_type,
+        ?type: :view
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        collection: Moonbase::CollectionPointer,
+        created_at: Time,
+        name: String,
+        type: :view,
+        updated_at: Time,
+        view_type: Moonbase::Models::ViewListResponse::view_type
+      }
+
+      type view_type = :table | :board
+
+      module ViewType
+        extend Moonbase::Internal::Type::Enum
+
+        TABLE: :table
+        BOARD: :board
+
+        def self?.values: -> ::Array[Moonbase::Models::ViewListResponse::view_type]
+      end
+    end
+  end
+end

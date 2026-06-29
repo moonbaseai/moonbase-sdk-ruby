@@ -52,10 +52,10 @@ module Moonbase
       # A list of saved `View` objects for presenting the collection's data.
       #
       # **Note:** Only present when requested using the `include` query parameter.
-      sig { returns(T.nilable(T::Array[Moonbase::View])) }
+      sig { returns(T.nilable(T::Array[Moonbase::Collection::View])) }
       attr_reader :views
 
-      sig { params(views: T::Array[Moonbase::View]).void }
+      sig { params(views: T::Array[Moonbase::Collection::View::OrHash]).void }
       attr_writer :views
 
       # A Collection is a container for structured data, similar to a database table or
@@ -95,7 +95,7 @@ module Moonbase
           ref: String,
           updated_at: Time,
           description: String,
-          views: T::Array[Moonbase::View],
+          views: T::Array[Moonbase::Collection::View::OrHash],
           type: Symbol
         ).returns(T.attached_class)
       end
@@ -139,7 +139,7 @@ module Moonbase
             type: Symbol,
             updated_at: Time,
             description: String,
-            views: T::Array[Moonbase::View]
+            views: T::Array[Moonbase::Collection::View]
           }
         )
       end
@@ -163,6 +163,100 @@ module Moonbase
           override.returns(T::Array[Moonbase::Collection::Kind::TaggedSymbol])
         end
         def self.values
+        end
+      end
+
+      class View < Moonbase::Internal::Type::BaseModel
+        OrHash =
+          T.type_alias do
+            T.any(Moonbase::Collection::View, Moonbase::Internal::AnyHash)
+          end
+
+        sig { returns(String) }
+        attr_accessor :id
+
+        # A lightweight reference to a `Collection`, containing the minimal information
+        # needed to identify it.
+        sig { returns(Moonbase::CollectionPointer) }
+        attr_reader :collection
+
+        sig { params(collection: Moonbase::CollectionPointer::OrHash).void }
+        attr_writer :collection
+
+        sig { returns(Time) }
+        attr_accessor :created_at
+
+        sig { returns(String) }
+        attr_accessor :name
+
+        sig { returns(Symbol) }
+        attr_accessor :type
+
+        sig { returns(Time) }
+        attr_accessor :updated_at
+
+        sig { returns(Moonbase::Collection::View::ViewType::TaggedSymbol) }
+        attr_accessor :view_type
+
+        sig do
+          params(
+            id: String,
+            collection: Moonbase::CollectionPointer::OrHash,
+            created_at: Time,
+            name: String,
+            updated_at: Time,
+            view_type: Moonbase::Collection::View::ViewType::OrSymbol,
+            type: Symbol
+          ).returns(T.attached_class)
+        end
+        def self.new(
+          id:,
+          # A lightweight reference to a `Collection`, containing the minimal information
+          # needed to identify it.
+          collection:,
+          created_at:,
+          name:,
+          updated_at:,
+          view_type:,
+          type: :view
+        )
+        end
+
+        sig do
+          override.returns(
+            {
+              id: String,
+              collection: Moonbase::CollectionPointer,
+              created_at: Time,
+              name: String,
+              type: Symbol,
+              updated_at: Time,
+              view_type: Moonbase::Collection::View::ViewType::TaggedSymbol
+            }
+          )
+        end
+        def to_hash
+        end
+
+        module ViewType
+          extend Moonbase::Internal::Type::Enum
+
+          TaggedSymbol =
+            T.type_alias { T.all(Symbol, Moonbase::Collection::View::ViewType) }
+          OrSymbol = T.type_alias { T.any(Symbol, String) }
+
+          TABLE =
+            T.let(:table, Moonbase::Collection::View::ViewType::TaggedSymbol)
+          BOARD =
+            T.let(:board, Moonbase::Collection::View::ViewType::TaggedSymbol)
+
+          sig do
+            override.returns(
+              T::Array[Moonbase::Collection::View::ViewType::TaggedSymbol]
+            )
+          end
+          def self.values
+          end
         end
       end
     end

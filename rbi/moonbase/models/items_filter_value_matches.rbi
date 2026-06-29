@@ -8,7 +8,8 @@ module Moonbase
           T.any(Moonbase::ItemsFilterValueMatches, Moonbase::Internal::AnyHash)
         end
 
-      # The id or key of the field in which values are matched.
+      # The id or key of the field in which values are matched, or a path to the field
+      # in which values are matched.
       sig { returns(String) }
       attr_accessor :field
 
@@ -33,7 +34,8 @@ module Moonbase
         ).returns(T.attached_class)
       end
       def self.new(
-        # The id or key of the field in which values are matched.
+        # The id or key of the field in which values are matched, or a path to the field
+        # in which values are matched.
         field:,
         # The matching operator for this filter.
         op:,

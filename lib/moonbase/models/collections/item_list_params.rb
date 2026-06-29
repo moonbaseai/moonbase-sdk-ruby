@@ -37,8 +37,9 @@ module Moonbase
         optional :limit, Integer
 
         # @!attribute sort
-        #   Sort items by the specified field ids or keys. Prefix a field with a
-        #   hyphen/minus (`-`) to sort in descending order by that field.
+        #   Sort items returned by the specified fields, specified directly by (`name`) or
+        #   through relations (`organization.name`, `deals.owner.email`). Prefix with a
+        #   hyphen/minus (`-`) to sort in descending order.
         #
         #   @return [Array<String>, nil]
         optional :sort, Moonbase::Internal::Type::ArrayOf[String]
@@ -55,7 +56,7 @@ module Moonbase
         #
         #   @param limit [Integer] Maximum number of items to return per page. Must be between 1 and 100. Defaults
         #
-        #   @param sort [Array<String>] Sort items by the specified field ids or keys. Prefix a field with a hyphen/minu
+        #   @param sort [Array<String>] Sort items returned by the specified fields, specified directly by (`name`) or t
         #
         #   @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}]
       end

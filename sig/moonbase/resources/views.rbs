@@ -3,11 +3,45 @@ module Moonbase
     class Views
       attr_reader items: Moonbase::Resources::Views::Items
 
-      def retrieve: (
-        String id,
-        ?include: ::Array[Moonbase::Models::ViewRetrieveParams::include_],
+      def create: (
+        collection: Moonbase::ViewCreateParams::Collection,
+        fields: ::Array[Moonbase::ViewField],
+        name: String,
+        view_type: Moonbase::Models::ViewCreateParams::view_type,
+        ?aggregates: ::Array[Moonbase::Models::view_aggregate],
+        ?filter: Moonbase::Models::items_filter,
+        ?groups: ::Array[String],
+        ?relation_value_filters: ::Array[Moonbase::ViewRelationValueFilter],
+        ?sort: ::Array[String],
         ?request_options: Moonbase::request_opts
       ) -> Moonbase::View
+
+      def retrieve: (
+        String id,
+        ?request_options: Moonbase::request_opts
+      ) -> Moonbase::View
+
+      def update: (
+        String id,
+        ?aggregates: ::Array[Moonbase::Models::view_aggregate],
+        ?fields: ::Array[Moonbase::ViewField],
+        ?filter: Moonbase::Models::items_filter?,
+        ?groups: ::Array[String],
+        ?name: String,
+        ?relation_value_filters: ::Array[Moonbase::ViewRelationValueFilter],
+        ?sort: ::Array[String],
+        ?view_type: Moonbase::Models::ViewUpdateParams::view_type,
+        ?request_options: Moonbase::request_opts
+      ) -> Moonbase::View
+
+      def list: (
+        ?after: String,
+        ?before: String,
+        ?limit: Integer,
+        ?request_options: Moonbase::request_opts
+      ) -> Moonbase::Internal::CursorPage[Moonbase::Models::ViewListResponse]
+
+      def delete: (String id, ?request_options: Moonbase::request_opts) -> nil
 
       def initialize: (client: Moonbase::Client) -> void
     end

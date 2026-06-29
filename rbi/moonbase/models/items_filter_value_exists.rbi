@@ -8,7 +8,8 @@ module Moonbase
           T.any(Moonbase::ItemsFilterValueExists, Moonbase::Internal::AnyHash)
         end
 
-      # The id or key of the field for which a value must exist.
+      # The id or key of the field for which a value must exist, or a path to the field
+      # for which a value must exist.
       sig { returns(String) }
       attr_accessor :field
 
@@ -18,7 +19,8 @@ module Moonbase
       # Include only items that have a value in the given `field`.
       sig { params(field: String, op: Symbol).returns(T.attached_class) }
       def self.new(
-        # The id or key of the field for which a value must exist.
+        # The id or key of the field for which a value must exist, or a path to the field
+        # for which a value must exist.
         field:,
         op: :exists
       )

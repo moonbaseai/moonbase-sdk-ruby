@@ -65,8 +65,8 @@ module Moonbase
       #
       #   **Note:** Only present when requested using the `include` query parameter.
       #
-      #   @return [Array<Moonbase::Models::View>, nil]
-      optional :views, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::View] }
+      #   @return [Array<Moonbase::Models::Collection::View>, nil]
+      optional :views, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::Collection::View] }
 
       # @!method initialize(id:, created_at:, fields:, kind:, name:, ref:, updated_at:, description: nil, views: nil, type: :collection)
       #   Some parameter documentations has been truncated, see
@@ -92,7 +92,7 @@ module Moonbase
       #
       #   @param description [String] An optional, longer-form description of the collection's purpose.
       #
-      #   @param views [Array<Moonbase::Models::View>] A list of saved `View` objects for presenting the collection's data.
+      #   @param views [Array<Moonbase::Models::Collection::View>] A list of saved `View` objects for presenting the collection's data.
       #
       #   @param type [Symbol, :collection] String representing the object’s type. Always `collection` for this object.
 
@@ -109,6 +109,74 @@ module Moonbase
 
         # @!method self.values
         #   @return [Array<Symbol>]
+      end
+
+      class View < Moonbase::Internal::Type::BaseModel
+        # @!attribute id
+        #
+        #   @return [String]
+        required :id, String
+
+        # @!attribute collection
+        #   A lightweight reference to a `Collection`, containing the minimal information
+        #   needed to identify it.
+        #
+        #   @return [Moonbase::Models::CollectionPointer]
+        required :collection, -> { Moonbase::CollectionPointer }
+
+        # @!attribute created_at
+        #
+        #   @return [Time]
+        required :created_at, Time
+
+        # @!attribute name
+        #
+        #   @return [String]
+        required :name, String
+
+        # @!attribute type
+        #
+        #   @return [Symbol, :view]
+        required :type, const: :view
+
+        # @!attribute updated_at
+        #
+        #   @return [Time]
+        required :updated_at, Time
+
+        # @!attribute view_type
+        #
+        #   @return [Symbol, Moonbase::Models::Collection::View::ViewType]
+        required :view_type, enum: -> { Moonbase::Collection::View::ViewType }
+
+        # @!method initialize(id:, collection:, created_at:, name:, updated_at:, view_type:, type: :view)
+        #   Some parameter documentations has been truncated, see
+        #   {Moonbase::Models::Collection::View} for more details.
+        #
+        #   @param id [String]
+        #
+        #   @param collection [Moonbase::Models::CollectionPointer] A lightweight reference to a `Collection`, containing the minimal information ne
+        #
+        #   @param created_at [Time]
+        #
+        #   @param name [String]
+        #
+        #   @param updated_at [Time]
+        #
+        #   @param view_type [Symbol, Moonbase::Models::Collection::View::ViewType]
+        #
+        #   @param type [Symbol, :view]
+
+        # @see Moonbase::Models::Collection::View#view_type
+        module ViewType
+          extend Moonbase::Internal::Type::Enum
+
+          TABLE = :table
+          BOARD = :board
+
+          # @!method self.values
+          #   @return [Array<Symbol>]
+        end
       end
     end
   end
