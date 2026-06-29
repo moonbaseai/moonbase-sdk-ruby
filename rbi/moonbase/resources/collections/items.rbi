@@ -201,8 +201,9 @@ module Moonbase
           # Maximum number of items to return per page. Must be between 1 and 100. Defaults
           # to 20 if not specified.
           limit: nil,
-          # Sort items by the specified field ids or keys. Prefix a field with a
-          # hyphen/minus (`-`) to sort in descending order by that field.
+          # Sort items returned by the specified fields, specified directly by (`name`) or
+          # through relations (`organization.name`, `deals.owner.email`). Prefix with a
+          # hyphen/minus (`-`) to sort in descending order.
           sort: nil,
           request_options: {}
         )
@@ -253,11 +254,11 @@ module Moonbase
             limit: Integer,
             filter:
               T.any(
-                Moonbase::ItemsFilterValueMatches::OrHash,
                 Moonbase::ItemsFilterValueExists::OrHash,
                 Moonbase::ItemsFilterAndGroup,
                 Moonbase::ItemsFilterOrGroup,
-                Moonbase::ItemsFilterNotGroup
+                Moonbase::ItemsFilterNotGroup,
+                Moonbase::ItemsFilterValueMatches::OrHash
               ),
             include: T::Array[String],
             sort: T::Array[String],
@@ -288,8 +289,9 @@ module Moonbase
           # Body param: Include only specific fields in the returned items. Specify fields
           # by id or key.
           include: nil,
-          # Body param: Sort items by the specified field ids or keys. Prefix a field with a
-          # hyphen/minus (`-`) to sort in descending order by that field.
+          # Body param: Sort items returned by the specified fields, specified directly by
+          # (`name`) or through relations (`organization.name`, `deals.owner.email`). Prefix
+          # with a hyphen/minus (`-`) to sort in descending order.
           sort: nil,
           request_options: {}
         )

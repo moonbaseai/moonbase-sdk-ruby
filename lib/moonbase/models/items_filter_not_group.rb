@@ -15,6 +15,8 @@ module Moonbase
       required :op, const: :not
 
       # @!method initialize(filter:, op: :not)
+      #   Include only items that do NOT match the nested `filter`.
+      #
       #   @param filter [Moonbase::Models::ItemsFilter] A nested filter which must NOT match in order for this `not` filter to match.
       #
       #   @param op [Symbol, :not]

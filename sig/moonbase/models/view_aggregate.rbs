@@ -1,0 +1,12 @@
+module Moonbase
+  module Models
+    type view_aggregate =
+      Moonbase::ViewAggregateItemCount | Moonbase::ViewAggregateFieldStatistic
+
+    module ViewAggregate
+      extend Moonbase::Internal::Type::Union
+
+      def self?.variants: -> ::Array[Moonbase::Models::view_aggregate]
+    end
+  end
+end

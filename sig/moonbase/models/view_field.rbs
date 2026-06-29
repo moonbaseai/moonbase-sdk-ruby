@@ -1,0 +1,61 @@
+module Moonbase
+  module Models
+    type view_field =
+      {
+        field: String,
+        display_fields: ::Array[String],
+        is_pinned: bool,
+        is_wrapped: bool,
+        size: Moonbase::Models::ViewField::size
+      }
+
+    class ViewField < Moonbase::Internal::Type::BaseModel
+      attr_accessor field: String
+
+      attr_reader display_fields: ::Array[String]?
+
+      def display_fields=: (::Array[String]) -> ::Array[String]
+
+      attr_reader is_pinned: bool?
+
+      def is_pinned=: (bool) -> bool
+
+      attr_reader is_wrapped: bool?
+
+      def is_wrapped=: (bool) -> bool
+
+      attr_reader size: Moonbase::Models::ViewField::size?
+
+      def size=: (
+        Moonbase::Models::ViewField::size
+      ) -> Moonbase::Models::ViewField::size
+
+      def initialize: (
+        field: String,
+        ?display_fields: ::Array[String],
+        ?is_pinned: bool,
+        ?is_wrapped: bool,
+        ?size: Moonbase::Models::ViewField::size
+      ) -> void
+
+      def to_hash: -> {
+        field: String,
+        display_fields: ::Array[String],
+        is_pinned: bool,
+        is_wrapped: bool,
+        size: Moonbase::Models::ViewField::size
+      }
+
+      type size = Float | :fit | :flex
+
+      module Size
+        extend Moonbase::Internal::Type::Union
+
+        def self?.variants: -> ::Array[Moonbase::Models::ViewField::size]
+
+        FIT: :fit
+        FLEX: :flex
+      end
+    end
+  end
+end

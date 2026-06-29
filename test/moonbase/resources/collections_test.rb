@@ -21,7 +21,7 @@ class Moonbase::Test::Resources::CollectionsTest < Moonbase::Test::ResourceTest
         type: Symbol,
         updated_at: Time,
         description: String | nil,
-        views: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::View]) | nil
+        views: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Collection::View]) | nil
       }
     end
   end
@@ -44,7 +44,7 @@ class Moonbase::Test::Resources::CollectionsTest < Moonbase::Test::ResourceTest
         type: Symbol,
         updated_at: Time,
         description: String | nil,
-        views: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::View]) | nil
+        views: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Collection::View]) | nil
       }
     end
   end
@@ -67,7 +67,7 @@ class Moonbase::Test::Resources::CollectionsTest < Moonbase::Test::ResourceTest
         type: Symbol,
         updated_at: Time,
         description: String | nil,
-        views: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::View]) | nil
+        views: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Collection::View]) | nil
       }
     end
   end

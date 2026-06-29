@@ -407,9 +407,27 @@ module Moonbase
 
   class View = Moonbase::Models::View
 
+  module ViewAggregate = Moonbase::Models::ViewAggregate
+
+  class ViewAggregateFieldStatistic = Moonbase::Models::ViewAggregateFieldStatistic
+
+  class ViewAggregateItemCount = Moonbase::Models::ViewAggregateItemCount
+
+  class ViewCreateParams = Moonbase::Models::ViewCreateParams
+
+  class ViewDeleteParams = Moonbase::Models::ViewDeleteParams
+
+  class ViewField = Moonbase::Models::ViewField
+
+  class ViewListParams = Moonbase::Models::ViewListParams
+
+  class ViewRelationValueFilter = Moonbase::Models::ViewRelationValueFilter
+
   class ViewRetrieveParams = Moonbase::Models::ViewRetrieveParams
 
   module Views = Moonbase::Models::Views
+
+  class ViewUpdateParams = Moonbase::Models::ViewUpdateParams
 
   class WebhookEndpointCreateParams = Moonbase::Models::WebhookEndpointCreateParams
 

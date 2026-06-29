@@ -3,20 +3,40 @@ module Moonbase
     type view =
       {
         id: String,
+        aggregates: ::Array[Moonbase::Models::view_aggregate],
+        collection: Moonbase::CollectionPointer,
         created_at: Time,
+        fields: ::Array[Moonbase::ViewField],
+        filter: Moonbase::Models::items_filter?,
+        groups: ::Array[String],
         name: String,
+        relation_value_filters: ::Array[Moonbase::ViewRelationValueFilter],
+        sort: ::Array[String],
         type: :view,
         updated_at: Time,
-        view_type: Moonbase::Models::View::view_type,
-        collection: Moonbase::Collection
+        view_type: Moonbase::Models::View::view_type
       }
 
     class View < Moonbase::Internal::Type::BaseModel
       attr_accessor id: String
 
+      attr_accessor aggregates: ::Array[Moonbase::Models::view_aggregate]
+
+      attr_accessor collection: Moonbase::CollectionPointer
+
       attr_accessor created_at: Time
 
+      attr_accessor fields: ::Array[Moonbase::ViewField]
+
+      attr_accessor filter: Moonbase::Models::items_filter?
+
+      attr_accessor groups: ::Array[String]
+
       attr_accessor name: String
+
+      attr_accessor relation_value_filters: ::Array[Moonbase::ViewRelationValueFilter]
+
+      attr_accessor sort: ::Array[String]
 
       attr_accessor type: :view
 
@@ -24,28 +44,36 @@ module Moonbase
 
       attr_accessor view_type: Moonbase::Models::View::view_type
 
-      attr_reader collection: Moonbase::Collection?
-
-      def collection=: (Moonbase::Collection) -> Moonbase::Collection
-
       def initialize: (
         id: String,
+        aggregates: ::Array[Moonbase::Models::view_aggregate],
+        collection: Moonbase::CollectionPointer,
         created_at: Time,
+        fields: ::Array[Moonbase::ViewField],
+        filter: Moonbase::Models::items_filter?,
+        groups: ::Array[String],
         name: String,
+        relation_value_filters: ::Array[Moonbase::ViewRelationValueFilter],
+        sort: ::Array[String],
         updated_at: Time,
         view_type: Moonbase::Models::View::view_type,
-        ?collection: Moonbase::Collection,
         ?type: :view
       ) -> void
 
       def to_hash: -> {
         id: String,
+        aggregates: ::Array[Moonbase::Models::view_aggregate],
+        collection: Moonbase::CollectionPointer,
         created_at: Time,
+        fields: ::Array[Moonbase::ViewField],
+        filter: Moonbase::Models::items_filter?,
+        groups: ::Array[String],
         name: String,
+        relation_value_filters: ::Array[Moonbase::ViewRelationValueFilter],
+        sort: ::Array[String],
         type: :view,
         updated_at: Time,
-        view_type: Moonbase::Models::View::view_type,
-        collection: Moonbase::Collection
+        view_type: Moonbase::Models::View::view_type
       }
 
       type view_type = :table | :board

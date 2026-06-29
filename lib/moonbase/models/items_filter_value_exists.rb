@@ -4,7 +4,8 @@ module Moonbase
   module Models
     class ItemsFilterValueExists < Moonbase::Internal::Type::BaseModel
       # @!attribute field
-      #   The id or key of the field for which a value must exist.
+      #   The id or key of the field for which a value must exist, or a path to the field
+      #   for which a value must exist.
       #
       #   @return [String]
       required :field, String
@@ -15,9 +16,12 @@ module Moonbase
       required :op, const: :exists
 
       # @!method initialize(field:, op: :exists)
+      #   Some parameter documentations has been truncated, see
+      #   {Moonbase::Models::ItemsFilterValueExists} for more details.
+      #
       #   Include only items that have a value in the given `field`.
       #
-      #   @param field [String] The id or key of the field for which a value must exist.
+      #   @param field [String] The id or key of the field for which a value must exist, or a path to the field
       #
       #   @param op [Symbol, :exists]
     end

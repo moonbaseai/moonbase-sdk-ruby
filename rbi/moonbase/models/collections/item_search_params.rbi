@@ -50,11 +50,11 @@ module Moonbase
           returns(
             T.nilable(
               T.any(
-                Moonbase::ItemsFilterValueMatches,
                 Moonbase::ItemsFilterValueExists,
                 Moonbase::ItemsFilterAndGroup,
                 Moonbase::ItemsFilterOrGroup,
-                Moonbase::ItemsFilterNotGroup
+                Moonbase::ItemsFilterNotGroup,
+                Moonbase::ItemsFilterValueMatches
               )
             )
           )
@@ -65,11 +65,11 @@ module Moonbase
           params(
             filter:
               T.any(
-                Moonbase::ItemsFilterValueMatches::OrHash,
                 Moonbase::ItemsFilterValueExists::OrHash,
                 Moonbase::ItemsFilterAndGroup,
                 Moonbase::ItemsFilterOrGroup,
-                Moonbase::ItemsFilterNotGroup
+                Moonbase::ItemsFilterNotGroup,
+                Moonbase::ItemsFilterValueMatches::OrHash
               )
           ).void
         end
@@ -82,8 +82,9 @@ module Moonbase
         sig { params(include: T::Array[String]).void }
         attr_writer :include
 
-        # Sort items by the specified field ids or keys. Prefix a field with a
-        # hyphen/minus (`-`) to sort in descending order by that field.
+        # Sort items returned by the specified fields, specified directly by (`name`) or
+        # through relations (`organization.name`, `deals.owner.email`). Prefix with a
+        # hyphen/minus (`-`) to sort in descending order.
         sig { returns(T.nilable(T::Array[String])) }
         attr_reader :sort
 
@@ -98,11 +99,11 @@ module Moonbase
             limit: Integer,
             filter:
               T.any(
-                Moonbase::ItemsFilterValueMatches::OrHash,
                 Moonbase::ItemsFilterValueExists::OrHash,
                 Moonbase::ItemsFilterAndGroup,
                 Moonbase::ItemsFilterOrGroup,
-                Moonbase::ItemsFilterNotGroup
+                Moonbase::ItemsFilterNotGroup,
+                Moonbase::ItemsFilterValueMatches::OrHash
               ),
             include: T::Array[String],
             sort: T::Array[String],
@@ -127,8 +128,9 @@ module Moonbase
           filter: nil,
           # Include only specific fields in the returned items. Specify fields by id or key.
           include: nil,
-          # Sort items by the specified field ids or keys. Prefix a field with a
-          # hyphen/minus (`-`) to sort in descending order by that field.
+          # Sort items returned by the specified fields, specified directly by (`name`) or
+          # through relations (`organization.name`, `deals.owner.email`). Prefix with a
+          # hyphen/minus (`-`) to sort in descending order.
           sort: nil,
           request_options: {}
         )
@@ -143,11 +145,11 @@ module Moonbase
               limit: Integer,
               filter:
                 T.any(
-                  Moonbase::ItemsFilterValueMatches,
                   Moonbase::ItemsFilterValueExists,
                   Moonbase::ItemsFilterAndGroup,
                   Moonbase::ItemsFilterOrGroup,
-                  Moonbase::ItemsFilterNotGroup
+                  Moonbase::ItemsFilterNotGroup,
+                  Moonbase::ItemsFilterValueMatches
                 ),
               include: T::Array[String],
               sort: T::Array[String],

@@ -15,6 +15,7 @@ module Moonbase
       sig { returns(Symbol) }
       attr_accessor :op
 
+      # Include only items that do NOT match the nested `filter`.
       sig do
         params(filter: Moonbase::ItemsFilter, op: Symbol).returns(
           T.attached_class

@@ -4,7 +4,8 @@ module Moonbase
   module Models
     class ItemsFilterValueMatches < Moonbase::Internal::Type::BaseModel
       # @!attribute field
-      #   The id or key of the field in which values are matched.
+      #   The id or key of the field in which values are matched, or a path to the field
+      #   in which values are matched.
       #
       #   @return [String]
       required :field, String
@@ -31,7 +32,7 @@ module Moonbase
       #   Include only items with a value in the given `field` that satisfies the `op`
       #   condition.
       #
-      #   @param field [String] The id or key of the field in which values are matched.
+      #   @param field [String] The id or key of the field in which values are matched, or a path to the field i
       #
       #   @param op [Symbol, Moonbase::Models::ItemsFilterValueMatches::Op] The matching operator for this filter.
       #

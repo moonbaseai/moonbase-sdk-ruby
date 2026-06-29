@@ -10,11 +10,11 @@ module Moonbase
       Variants =
         T.type_alias do
           T.any(
-            Moonbase::ItemsFilterValueMatches,
             Moonbase::ItemsFilterValueExists,
             Moonbase::ItemsFilterAndGroup,
             Moonbase::ItemsFilterOrGroup,
-            Moonbase::ItemsFilterNotGroup
+            Moonbase::ItemsFilterNotGroup,
+            Moonbase::ItemsFilterValueMatches
           )
         end
 

@@ -1,0 +1,19 @@
+module Moonbase
+  module Models
+    type view_relation_value_filter =
+      { field: String, filter: Moonbase::Models::items_filter }
+
+    class ViewRelationValueFilter < Moonbase::Internal::Type::BaseModel
+      attr_accessor field: String
+
+      attr_accessor filter: Moonbase::Models::items_filter
+
+      def initialize: (
+        field: String,
+        filter: Moonbase::Models::items_filter
+      ) -> void
+
+      def to_hash: -> { field: String, filter: Moonbase::Models::items_filter }
+    end
+  end
+end

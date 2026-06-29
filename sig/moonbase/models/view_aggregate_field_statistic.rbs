@@ -1,0 +1,59 @@
+module Moonbase
+  module Models
+    type view_aggregate_field_statistic =
+      {
+        statistic: Moonbase::Models::ViewAggregateFieldStatistic::statistic,
+        type: :field_statistic,
+        value: String,
+        group: String,
+        weight: String
+      }
+
+    class ViewAggregateFieldStatistic < Moonbase::Internal::Type::BaseModel
+      attr_accessor statistic: Moonbase::Models::ViewAggregateFieldStatistic::statistic
+
+      attr_accessor type: :field_statistic
+
+      attr_accessor value: String
+
+      attr_reader group: String?
+
+      def group=: (String) -> String
+
+      attr_reader weight: String?
+
+      def weight=: (String) -> String
+
+      def initialize: (
+        statistic: Moonbase::Models::ViewAggregateFieldStatistic::statistic,
+        value: String,
+        ?group: String,
+        ?weight: String,
+        ?type: :field_statistic
+      ) -> void
+
+      def to_hash: -> {
+        statistic: Moonbase::Models::ViewAggregateFieldStatistic::statistic,
+        type: :field_statistic,
+        value: String,
+        group: String,
+        weight: String
+      }
+
+      type statistic = :count | :sum | :mean | :max | :min | :filled_percentage
+
+      module Statistic
+        extend Moonbase::Internal::Type::Enum
+
+        COUNT: :count
+        SUM: :sum
+        MEAN: :mean
+        MAX: :max
+        MIN: :min
+        FILLED_PERCENTAGE: :filled_percentage
+
+        def self?.values: -> ::Array[Moonbase::Models::ViewAggregateFieldStatistic::statistic]
+      end
+    end
+  end
+end

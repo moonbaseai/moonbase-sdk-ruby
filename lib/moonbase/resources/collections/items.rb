@@ -112,7 +112,7 @@ module Moonbase
         #
         # @param limit [Integer] Maximum number of items to return per page. Must be between 1 and 100. Defaults
         #
-        # @param sort [Array<String>] Sort items by the specified field ids or keys. Prefix a field with a hyphen/minu
+        # @param sort [Array<String>] Sort items returned by the specified fields, specified directly by (`name`) or t
         #
         # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
         #
@@ -200,11 +200,11 @@ module Moonbase
         #
         # @param limit [Integer] Query param: Maximum number of items to return per page. Must be between 1 and 1
         #
-        # @param filter [Moonbase::Models::ItemsFilterValueMatches, Moonbase::Models::ItemsFilterValueExists, Moonbase::Models::ItemsFilterAndGroup, Moonbase::Models::ItemsFilterOrGroup, Moonbase::Models::ItemsFilterNotGroup] Body param: Return only items that match the filter conditions. Complex filters
+        # @param filter [Moonbase::Models::ItemsFilterValueExists, Moonbase::Models::ItemsFilterAndGroup, Moonbase::Models::ItemsFilterOrGroup, Moonbase::Models::ItemsFilterNotGroup, Moonbase::Models::ItemsFilterValueMatches] Body param: Return only items that match the filter conditions. Complex filters
         #
         # @param include [Array<String>] Body param: Include only specific fields in the returned items. Specify fields b
         #
-        # @param sort [Array<String>] Body param: Sort items by the specified field ids or keys. Prefix a field with a
+        # @param sort [Array<String>] Body param: Sort items returned by the specified fields, specified directly by (
         #
         # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
         #
