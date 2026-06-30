@@ -1,0 +1,15 @@
+module Moonbase
+  module Models
+    type message_pointer = { id: String, type: :message }
+
+    class MessagePointer < Moonbase::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor type: :message
+
+      def initialize: (id: String, ?type: :message) -> void
+
+      def to_hash: -> { id: String, type: :message }
+    end
+  end
+end

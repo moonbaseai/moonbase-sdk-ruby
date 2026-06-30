@@ -1,6 +1,6 @@
 module Moonbase
   module Models
-    type email_message =
+    type slack_message =
       {
         id: String,
         body: Moonbase::FormattedText,
@@ -11,15 +11,15 @@ module Moonbase
         spam: bool,
         subject: String,
         trash: bool,
-        type: :email_message,
+        type: :slack_message,
         unread: bool,
-        addresses: ::Array[Moonbase::EmailMessageAddress],
+        addresses: ::Array[Moonbase::Models::slack_message_address],
         attachments: ::Array[Moonbase::MessageAttachment],
         conversation: Moonbase::InboxConversation,
         summary: String
       }
 
-    class EmailMessage < Moonbase::Internal::Type::BaseModel
+    class SlackMessage < Moonbase::Internal::Type::BaseModel
       attr_accessor id: String
 
       attr_accessor body: Moonbase::FormattedText
@@ -38,15 +38,15 @@ module Moonbase
 
       attr_accessor trash: bool
 
-      attr_accessor type: :email_message
+      attr_accessor type: :slack_message
 
       attr_accessor unread: bool
 
-      attr_reader addresses: ::Array[Moonbase::EmailMessageAddress]?
+      attr_reader addresses: ::Array[Moonbase::Models::slack_message_address]?
 
       def addresses=: (
-        ::Array[Moonbase::EmailMessageAddress]
-      ) -> ::Array[Moonbase::EmailMessageAddress]
+        ::Array[Moonbase::Models::slack_message_address]
+      ) -> ::Array[Moonbase::Models::slack_message_address]
 
       attr_reader attachments: ::Array[Moonbase::MessageAttachment]?
 
@@ -75,11 +75,11 @@ module Moonbase
         subject: String,
         trash: bool,
         unread: bool,
-        ?addresses: ::Array[Moonbase::EmailMessageAddress],
+        ?addresses: ::Array[Moonbase::Models::slack_message_address],
         ?attachments: ::Array[Moonbase::MessageAttachment],
         ?conversation: Moonbase::InboxConversation,
         ?summary: String,
-        ?type: :email_message
+        ?type: :slack_message
       ) -> void
 
       def to_hash: -> {
@@ -92,9 +92,9 @@ module Moonbase
         spam: bool,
         subject: String,
         trash: bool,
-        type: :email_message,
+        type: :slack_message,
         unread: bool,
-        addresses: ::Array[Moonbase::EmailMessageAddress],
+        addresses: ::Array[Moonbase::Models::slack_message_address],
         attachments: ::Array[Moonbase::MessageAttachment],
         conversation: Moonbase::InboxConversation,
         summary: String

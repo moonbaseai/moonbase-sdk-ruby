@@ -46,8 +46,6 @@ module Moonbase
 
   ActivityRetrieveParams = Moonbase::Models::ActivityRetrieveParams
 
-  Address = Moonbase::Models::Address
-
   AgentSettingRetrieveParams = Moonbase::Models::AgentSettingRetrieveParams
 
   AgentSettingUpdateParams = Moonbase::Models::AgentSettingUpdateParams
@@ -137,9 +135,9 @@ module Moonbase
 
   EmailMessage = Moonbase::Models::EmailMessage
 
-  EmailMessageAddressParams = Moonbase::Models::EmailMessageAddressParams
+  EmailMessageAddress = Moonbase::Models::EmailMessageAddress
 
-  EmailMessagePointer = Moonbase::Models::EmailMessagePointer
+  EmailMessageAddressParams = Moonbase::Models::EmailMessageAddressParams
 
   EmailValue = Moonbase::Models::EmailValue
 
@@ -280,6 +278,8 @@ module Moonbase
 
   MessageAttachment = Moonbase::Models::MessageAttachment
 
+  MessagePointer = Moonbase::Models::MessagePointer
+
   MonetaryField = Moonbase::Models::MonetaryField
 
   MonetaryValue = Moonbase::Models::MonetaryValue
@@ -351,6 +351,12 @@ module Moonbase
   SingleLineTextField = Moonbase::Models::SingleLineTextField
 
   SingleLineTextValue = Moonbase::Models::SingleLineTextValue
+
+  SlackMessage = Moonbase::Models::SlackMessage
+
+  SlackMessageAddress = Moonbase::Models::SlackMessageAddress
+
+  SlackMessageAddressParams = Moonbase::Models::SlackMessageAddressParams
 
   SocialLinkedInField = Moonbase::Models::SocialLinkedInField
 

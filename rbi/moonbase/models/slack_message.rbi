@@ -2,10 +2,10 @@
 
 module Moonbase
   module Models
-    class EmailMessage < Moonbase::Internal::Type::BaseModel
+    class SlackMessage < Moonbase::Internal::Type::BaseModel
       OrHash =
         T.type_alias do
-          T.any(Moonbase::EmailMessage, Moonbase::Internal::AnyHash)
+          T.any(Moonbase::SlackMessage, Moonbase::Internal::AnyHash)
         end
 
       # Unique identifier for the object.
@@ -40,7 +40,9 @@ module Moonbase
       sig { returns(T::Boolean) }
       attr_accessor :spam
 
-      # The subject line of the email.
+      # The subject line of the message (for messages received from Slack, this is a
+      # snippet of the message; for messages sent to Slack, it can be set, but is not
+      # sent to Slack).
       sig { returns(String) }
       attr_accessor :subject
 
@@ -48,7 +50,7 @@ module Moonbase
       sig { returns(T::Boolean) }
       attr_accessor :trash
 
-      # String representing the object’s type. Always `email_message` for this object.
+      # String representing the object’s type. Always `slack_message` for this object.
       sig { returns(Symbol) }
       attr_accessor :type
 
@@ -56,14 +58,25 @@ module Moonbase
       sig { returns(T::Boolean) }
       attr_accessor :unread
 
-      # A list of `Address` objects associated with the message (sender and recipients).
+      # A list of `SlackMessageAddress` objects associated with the message (sender and
+      # recipients).
       #
       # **Note:** Only present when requested using the `include` query parameter.
-      sig { returns(T.nilable(T::Array[Moonbase::EmailMessageAddress])) }
+      sig do
+        returns(T.nilable(T::Array[Moonbase::SlackMessageAddress::Variants]))
+      end
       attr_reader :addresses
 
       sig do
-        params(addresses: T::Array[Moonbase::EmailMessageAddress::OrHash]).void
+        params(
+          addresses:
+            T::Array[
+              T.any(
+                Moonbase::SlackMessageAddress::SlackMessageChannelAddress::OrHash,
+                Moonbase::SlackMessageAddress::SlackMessageUserAddress::OrHash
+              )
+            ]
+        ).void
       end
       attr_writer :addresses
 
@@ -87,14 +100,14 @@ module Moonbase
       sig { params(conversation: Moonbase::InboxConversation).void }
       attr_writer :conversation
 
-      # A concise, system-generated summary of the email content.
+      # A concise, system-generated summary of the message content.
       sig { returns(T.nilable(String)) }
       attr_reader :summary
 
       sig { params(summary: String).void }
       attr_writer :summary
 
-      # The Email Message object represents a single email within a `Conversation`.
+      # The Slack Message object represents a single Slack post within a `Conversation`.
       sig do
         params(
           id: String,
@@ -107,7 +120,13 @@ module Moonbase
           subject: String,
           trash: T::Boolean,
           unread: T::Boolean,
-          addresses: T::Array[Moonbase::EmailMessageAddress::OrHash],
+          addresses:
+            T::Array[
+              T.any(
+                Moonbase::SlackMessageAddress::SlackMessageChannelAddress::OrHash,
+                Moonbase::SlackMessageAddress::SlackMessageUserAddress::OrHash
+              )
+            ],
           attachments: T::Array[Moonbase::MessageAttachment::OrHash],
           conversation: Moonbase::InboxConversation,
           summary: String,
@@ -130,13 +149,16 @@ module Moonbase
         lock_version:,
         # `true` if the message is classified as spam.
         spam:,
-        # The subject line of the email.
+        # The subject line of the message (for messages received from Slack, this is a
+        # snippet of the message; for messages sent to Slack, it can be set, but is not
+        # sent to Slack).
         subject:,
         # `true` if the message is in the trash.
         trash:,
         # `true` if the message has not been read.
         unread:,
-        # A list of `Address` objects associated with the message (sender and recipients).
+        # A list of `SlackMessageAddress` objects associated with the message (sender and
+        # recipients).
         #
         # **Note:** Only present when requested using the `include` query parameter.
         addresses: nil,
@@ -148,10 +170,10 @@ module Moonbase
         #
         # **Note:** Only present when requested using the `include` query parameter.
         conversation: nil,
-        # A concise, system-generated summary of the email content.
+        # A concise, system-generated summary of the message content.
         summary: nil,
-        # String representing the object’s type. Always `email_message` for this object.
-        type: :email_message
+        # String representing the object’s type. Always `slack_message` for this object.
+        type: :slack_message
       )
       end
 
@@ -169,7 +191,7 @@ module Moonbase
             trash: T::Boolean,
             type: Symbol,
             unread: T::Boolean,
-            addresses: T::Array[Moonbase::EmailMessageAddress],
+            addresses: T::Array[Moonbase::SlackMessageAddress::Variants],
             attachments: T::Array[Moonbase::MessageAttachment],
             conversation: Moonbase::InboxConversation,
             summary: String

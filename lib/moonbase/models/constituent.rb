@@ -7,7 +7,7 @@ module Moonbase
       #   A lightweight reference to the entity of `Constituent`, containing information
       #   about what type of entity it is as well as the entity's id.
       #
-      #   @return [Moonbase::Models::CallPointer, Moonbase::Models::CollectionPointer, Moonbase::Models::ItemPointer, Moonbase::Models::FilePointer, Moonbase::Models::MeetingPointer, Moonbase::Models::EmailMessagePointer, Moonbase::Models::NotePointer, Moonbase::Models::ProgramPointer, Moonbase::Models::ProgramMessagePointer, Moonbase::Models::ProgramTemplatePointer, Moonbase::Models::UnsubscribePointer]
+      #   @return [Moonbase::Models::CallPointer, Moonbase::Models::CollectionPointer, Moonbase::Models::ItemPointer, Moonbase::Models::FilePointer, Moonbase::Models::MeetingPointer, Moonbase::Models::MessagePointer, Moonbase::Models::NotePointer, Moonbase::Models::ProgramPointer, Moonbase::Models::ProgramMessagePointer, Moonbase::Models::ProgramTemplatePointer, Moonbase::Models::UnsubscribePointer]
       required :entity, union: -> { Moonbase::ConstituentEntityPointer }
 
       # @!attribute relation
@@ -27,7 +27,7 @@ module Moonbase
       #   The Constituent object represents information about something that was involved
       #   in a particular activity.
       #
-      #   @param entity [Moonbase::Models::CallPointer, Moonbase::Models::CollectionPointer, Moonbase::Models::ItemPointer, Moonbase::Models::FilePointer, Moonbase::Models::MeetingPointer, Moonbase::Models::EmailMessagePointer, Moonbase::Models::NotePointer, Moonbase::Models::ProgramPointer, Moonbase::Models::ProgramMessagePointer, Moonbase::Models::ProgramTemplatePointer, Moonbase::Models::UnsubscribePointer] A lightweight reference to the entity of `Constituent`, containing information a
+      #   @param entity [Moonbase::Models::CallPointer, Moonbase::Models::CollectionPointer, Moonbase::Models::ItemPointer, Moonbase::Models::FilePointer, Moonbase::Models::MeetingPointer, Moonbase::Models::MessagePointer, Moonbase::Models::NotePointer, Moonbase::Models::ProgramPointer, Moonbase::Models::ProgramMessagePointer, Moonbase::Models::ProgramTemplatePointer, Moonbase::Models::UnsubscribePointer] A lightweight reference to the entity of `Constituent`, containing information a
       #
       #   @param relation [Symbol, Moonbase::Models::Constituent::Relation]
       #
