@@ -99,12 +99,12 @@ module Moonbase
       optional :inbox, -> { Moonbase::Inbox }
 
       # @!attribute messages
-      #   The `EmailMessage` objects that belong to this conversation.
+      #   The `Message` objects that belong to this conversation.
       #
       #   **Note:** Only present when requested using the `include` query parameter.
       #
-      #   @return [Array<Moonbase::Models::EmailMessage>, nil]
-      optional :messages, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::EmailMessage] }
+      #   @return [Array<Object>, nil]
+      optional :messages, Moonbase::Internal::Type::ArrayOf[Moonbase::Internal::Type::Unknown]
 
       # @!attribute unsnooze_at
       #   If the conversation is snoozed, this is the time it will reappear in the inbox,
@@ -147,7 +147,7 @@ module Moonbase
       #
       #   @param inbox [Moonbase::Models::Inbox] The `Inbox` that this conversations belongs to.
       #
-      #   @param messages [Array<Moonbase::Models::EmailMessage>] The `EmailMessage` objects that belong to this conversation.
+      #   @param messages [Array<Object>] The `Message` objects that belong to this conversation.
       #
       #   @param unsnooze_at [Time] If the conversation is snoozed, this is the time it will reappear in the inbox,
       #

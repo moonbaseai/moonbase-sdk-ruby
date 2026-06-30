@@ -3,7 +3,7 @@
 module Moonbase
   module Models
     # @see Moonbase::Resources::InboxMessages#list
-    class EmailMessagePointer < Moonbase::Internal::Type::BaseModel
+    class MessagePointer < Moonbase::Internal::Type::BaseModel
       # @!attribute id
       #
       #   @return [String]
@@ -11,12 +11,12 @@ module Moonbase
 
       # @!attribute type
       #
-      #   @return [Symbol, :email_message]
-      required :type, const: :email_message
+      #   @return [Symbol, :message]
+      required :type, const: :message
 
-      # @!method initialize(id:, type: :email_message)
+      # @!method initialize(id:, type: :message)
       #   @param id [String]
-      #   @param type [Symbol, :email_message]
+      #   @param type [Symbol, :message]
     end
   end
 end

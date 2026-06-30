@@ -21,7 +21,7 @@ module Moonbase
 
       variant :meeting, -> { Moonbase::MeetingPointer }
 
-      variant :email_message, -> { Moonbase::EmailMessagePointer }
+      variant :message, -> { Moonbase::MessagePointer }
 
       variant :note, -> { Moonbase::NotePointer }
 
@@ -34,7 +34,7 @@ module Moonbase
       variant :unsubscribe, -> { Moonbase::UnsubscribePointer }
 
       # @!method self.variants
-      #   @return [Array(Moonbase::Models::CallPointer, Moonbase::Models::CollectionPointer, Moonbase::Models::ItemPointer, Moonbase::Models::FilePointer, Moonbase::Models::MeetingPointer, Moonbase::Models::EmailMessagePointer, Moonbase::Models::NotePointer, Moonbase::Models::ProgramPointer, Moonbase::Models::ProgramMessagePointer, Moonbase::Models::ProgramTemplatePointer, Moonbase::Models::UnsubscribePointer)]
+      #   @return [Array(Moonbase::Models::CallPointer, Moonbase::Models::CollectionPointer, Moonbase::Models::ItemPointer, Moonbase::Models::FilePointer, Moonbase::Models::MeetingPointer, Moonbase::Models::MessagePointer, Moonbase::Models::NotePointer, Moonbase::Models::ProgramPointer, Moonbase::Models::ProgramMessagePointer, Moonbase::Models::ProgramTemplatePointer, Moonbase::Models::UnsubscribePointer)]
     end
   end
 end

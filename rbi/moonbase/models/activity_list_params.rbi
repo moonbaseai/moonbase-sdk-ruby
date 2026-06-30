@@ -267,11 +267,6 @@ module Moonbase
               :collection,
               Moonbase::ActivityListParams::ConstituentEntityType::Eq::TaggedSymbol
             )
-          EMAIL_MESSAGE =
-            T.let(
-              :email_message,
-              Moonbase::ActivityListParams::ConstituentEntityType::Eq::TaggedSymbol
-            )
           FILE =
             T.let(
               :file,
@@ -285,6 +280,11 @@ module Moonbase
           MEETING =
             T.let(
               :meeting,
+              Moonbase::ActivityListParams::ConstituentEntityType::Eq::TaggedSymbol
+            )
+          MESSAGE =
+            T.let(
+              :message,
               Moonbase::ActivityListParams::ConstituentEntityType::Eq::TaggedSymbol
             )
           NOTE =

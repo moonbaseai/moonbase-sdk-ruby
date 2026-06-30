@@ -119,10 +119,10 @@ module Moonbase
 
           CALL = :call
           COLLECTION = :collection
-          EMAIL_MESSAGE = :email_message
           FILE = :file
           ITEM = :item
           MEETING = :meeting
+          MESSAGE = :message
           NOTE = :note
           PROGRAM = :program
           PROGRAM_MESSAGE = :program_message

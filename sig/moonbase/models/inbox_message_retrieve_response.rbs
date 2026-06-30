@@ -1,0 +1,12 @@
+module Moonbase
+  module Models
+    type inbox_message_retrieve_response =
+      Moonbase::EmailMessage | Moonbase::SlackMessage
+
+    module InboxMessageRetrieveResponse
+      extend Moonbase::Internal::Type::Union
+
+      def self?.variants: -> ::Array[Moonbase::Models::inbox_message_retrieve_response]
+    end
+  end
+end

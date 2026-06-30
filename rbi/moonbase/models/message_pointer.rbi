@@ -2,10 +2,10 @@
 
 module Moonbase
   module Models
-    class EmailMessagePointer < Moonbase::Internal::Type::BaseModel
+    class MessagePointer < Moonbase::Internal::Type::BaseModel
       OrHash =
         T.type_alias do
-          T.any(Moonbase::EmailMessagePointer, Moonbase::Internal::AnyHash)
+          T.any(Moonbase::MessagePointer, Moonbase::Internal::AnyHash)
         end
 
       sig { returns(String) }
@@ -15,7 +15,7 @@ module Moonbase
       attr_accessor :type
 
       sig { params(id: String, type: Symbol).returns(T.attached_class) }
-      def self.new(id:, type: :email_message)
+      def self.new(id:, type: :message)
       end
 
       sig { override.returns({ id: String, type: Symbol }) }

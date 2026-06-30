@@ -2,7 +2,7 @@
 
 module Moonbase
   module Models
-    class EmailMessage < Moonbase::Internal::Type::BaseModel
+    class SlackMessage < Moonbase::Internal::Type::BaseModel
       # @!attribute id
       #   Unique identifier for the object.
       #
@@ -47,7 +47,9 @@ module Moonbase
       required :spam, Moonbase::Internal::Type::Boolean
 
       # @!attribute subject
-      #   The subject line of the email.
+      #   The subject line of the message (for messages received from Slack, this is a
+      #   snippet of the message; for messages sent to Slack, it can be set, but is not
+      #   sent to Slack).
       #
       #   @return [String]
       required :subject, String
@@ -59,10 +61,10 @@ module Moonbase
       required :trash, Moonbase::Internal::Type::Boolean
 
       # @!attribute type
-      #   String representing the object’s type. Always `email_message` for this object.
+      #   String representing the object’s type. Always `slack_message` for this object.
       #
-      #   @return [Symbol, :email_message]
-      required :type, const: :email_message
+      #   @return [Symbol, :slack_message]
+      required :type, const: :slack_message
 
       # @!attribute unread
       #   `true` if the message has not been read.
@@ -71,12 +73,13 @@ module Moonbase
       required :unread, Moonbase::Internal::Type::Boolean
 
       # @!attribute addresses
-      #   A list of `Address` objects associated with the message (sender and recipients).
+      #   A list of `SlackMessageAddress` objects associated with the message (sender and
+      #   recipients).
       #
       #   **Note:** Only present when requested using the `include` query parameter.
       #
-      #   @return [Array<Moonbase::Models::EmailMessageAddress>, nil]
-      optional :addresses, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::EmailMessageAddress] }
+      #   @return [Array<Moonbase::Models::SlackMessageAddress::SlackMessageChannelAddress, Moonbase::Models::SlackMessageAddress::SlackMessageUserAddress>, nil]
+      optional :addresses, -> { Moonbase::Internal::Type::ArrayOf[union: Moonbase::SlackMessageAddress] }
 
       # @!attribute attachments
       #   A list of `Attachment` objects on the message.
@@ -95,16 +98,16 @@ module Moonbase
       optional :conversation, -> { Moonbase::InboxConversation }
 
       # @!attribute summary
-      #   A concise, system-generated summary of the email content.
+      #   A concise, system-generated summary of the message content.
       #
       #   @return [String, nil]
       optional :summary, String
 
-      # @!method initialize(id:, body:, bulk:, created_at:, draft:, lock_version:, spam:, subject:, trash:, unread:, addresses: nil, attachments: nil, conversation: nil, summary: nil, type: :email_message)
+      # @!method initialize(id:, body:, bulk:, created_at:, draft:, lock_version:, spam:, subject:, trash:, unread:, addresses: nil, attachments: nil, conversation: nil, summary: nil, type: :slack_message)
       #   Some parameter documentations has been truncated, see
-      #   {Moonbase::Models::EmailMessage} for more details.
+      #   {Moonbase::Models::SlackMessage} for more details.
       #
-      #   The Email Message object represents a single email within a `Conversation`.
+      #   The Slack Message object represents a single Slack post within a `Conversation`.
       #
       #   @param id [String] Unique identifier for the object.
       #
@@ -120,21 +123,21 @@ module Moonbase
       #
       #   @param spam [Boolean] `true` if the message is classified as spam.
       #
-      #   @param subject [String] The subject line of the email.
+      #   @param subject [String] The subject line of the message (for messages received from Slack, this is a sni
       #
       #   @param trash [Boolean] `true` if the message is in the trash.
       #
       #   @param unread [Boolean] `true` if the message has not been read.
       #
-      #   @param addresses [Array<Moonbase::Models::EmailMessageAddress>] A list of `Address` objects associated with the message (sender and recipients).
+      #   @param addresses [Array<Moonbase::Models::SlackMessageAddress::SlackMessageChannelAddress, Moonbase::Models::SlackMessageAddress::SlackMessageUserAddress>] A list of `SlackMessageAddress` objects associated with the message (sender and
       #
       #   @param attachments [Array<Moonbase::Models::MessageAttachment>] A list of `Attachment` objects on the message.
       #
       #   @param conversation [Moonbase::Models::InboxConversation] The `Conversation` thread this message is part of.
       #
-      #   @param summary [String] A concise, system-generated summary of the email content.
+      #   @param summary [String] A concise, system-generated summary of the message content.
       #
-      #   @param type [Symbol, :email_message] String representing the object’s type. Always `email_message` for this object.
+      #   @param type [Symbol, :slack_message] String representing the object’s type. Always `slack_message` for this object.
     end
   end
 end

@@ -15,7 +15,7 @@ module Moonbase
             Moonbase::ItemPointer,
             Moonbase::FilePointer,
             Moonbase::MeetingPointer,
-            Moonbase::EmailMessagePointer,
+            Moonbase::MessagePointer,
             Moonbase::NotePointer,
             Moonbase::ProgramPointer,
             Moonbase::ProgramMessagePointer,

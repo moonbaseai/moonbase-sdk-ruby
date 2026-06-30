@@ -12,13 +12,11 @@ module Moonbase
       sig { returns(String) }
       attr_accessor :id
 
-      # The `EmailMessage` that was sent.
-      sig { returns(T.nilable(Moonbase::EmailMessagePointer)) }
+      # The `Message` that was sent.
+      sig { returns(T.nilable(Moonbase::MessagePointer)) }
       attr_reader :message
 
-      sig do
-        params(message: T.nilable(Moonbase::EmailMessagePointer::OrHash)).void
-      end
+      sig { params(message: T.nilable(Moonbase::MessagePointer::OrHash)).void }
       attr_writer :message
 
       # The time at which the event occurred, as an ISO 8601 timestamp in UTC.
@@ -33,7 +31,7 @@ module Moonbase
       sig do
         params(
           id: String,
-          message: T.nilable(Moonbase::EmailMessagePointer::OrHash),
+          message: T.nilable(Moonbase::MessagePointer::OrHash),
           occurred_at: Time,
           type: Symbol
         ).returns(T.attached_class)
@@ -41,7 +39,7 @@ module Moonbase
       def self.new(
         # Unique identifier for the object.
         id:,
-        # The `EmailMessage` that was sent.
+        # The `Message` that was sent.
         message:,
         # The time at which the event occurred, as an ISO 8601 timestamp in UTC.
         occurred_at:,
@@ -54,7 +52,7 @@ module Moonbase
         override.returns(
           {
             id: String,
-            message: T.nilable(Moonbase::EmailMessagePointer),
+            message: T.nilable(Moonbase::MessagePointer),
             occurred_at: Time,
             type: Symbol
           }

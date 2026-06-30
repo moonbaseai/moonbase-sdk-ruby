@@ -75,13 +75,13 @@ module Moonbase
       sig { params(inbox: Moonbase::Inbox::OrHash).void }
       attr_writer :inbox
 
-      # The `EmailMessage` objects that belong to this conversation.
+      # The `Message` objects that belong to this conversation.
       #
       # **Note:** Only present when requested using the `include` query parameter.
-      sig { returns(T.nilable(T::Array[Moonbase::EmailMessage])) }
+      sig { returns(T.nilable(T::Array[T.anything])) }
       attr_reader :messages
 
-      sig { params(messages: T::Array[Moonbase::EmailMessage]).void }
+      sig { params(messages: T::Array[T.anything]).void }
       attr_writer :messages
 
       # If the conversation is snoozed, this is the time it will reappear in the inbox,
@@ -109,7 +109,7 @@ module Moonbase
           unread: T::Boolean,
           updated_at: Time,
           inbox: Moonbase::Inbox::OrHash,
-          messages: T::Array[Moonbase::EmailMessage],
+          messages: T::Array[T.anything],
           unsnooze_at: Time,
           type: Symbol
         ).returns(T.attached_class)
@@ -146,7 +146,7 @@ module Moonbase
         #
         # **Note:** Only present when requested using the `include` query parameter.
         inbox: nil,
-        # The `EmailMessage` objects that belong to this conversation.
+        # The `Message` objects that belong to this conversation.
         #
         # **Note:** Only present when requested using the `include` query parameter.
         messages: nil,
@@ -177,7 +177,7 @@ module Moonbase
             unread: T::Boolean,
             updated_at: Time,
             inbox: Moonbase::Inbox,
-            messages: T::Array[Moonbase::EmailMessage],
+            messages: T::Array[T.anything],
             unsnooze_at: Time
           }
         )

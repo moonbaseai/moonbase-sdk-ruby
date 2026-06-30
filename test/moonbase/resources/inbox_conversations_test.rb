@@ -27,7 +27,7 @@ class Moonbase::Test::Resources::InboxConversationsTest < Moonbase::Test::Resour
         unread: Moonbase::Internal::Type::Boolean,
         updated_at: Time,
         inbox: Moonbase::Inbox | nil,
-        messages: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::EmailMessage]) | nil,
+        messages: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Internal::Type::Unknown]) | nil,
         unsnooze_at: Time | nil
       }
     end

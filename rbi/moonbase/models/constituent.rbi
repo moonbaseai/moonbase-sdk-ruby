@@ -30,7 +30,7 @@ module Moonbase
               Moonbase::ItemPointer::OrHash,
               Moonbase::FilePointer::OrHash,
               Moonbase::MeetingPointer::OrHash,
-              Moonbase::EmailMessagePointer::OrHash,
+              Moonbase::MessagePointer::OrHash,
               Moonbase::NotePointer::OrHash,
               Moonbase::ProgramPointer::OrHash,
               Moonbase::ProgramMessagePointer::OrHash,

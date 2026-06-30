@@ -116,10 +116,10 @@ module Moonbase
         type eq =
           :call
           | :collection
-          | :email_message
           | :file
           | :item
           | :meeting
+          | :message
           | :note
           | :program
           | :program_message
@@ -131,10 +131,10 @@ module Moonbase
 
           CALL: :call
           COLLECTION: :collection
-          EMAIL_MESSAGE: :email_message
           FILE: :file
           ITEM: :item
           MEETING: :meeting
+          MESSAGE: :message
           NOTE: :note
           PROGRAM: :program
           PROGRAM_MESSAGE: :program_message

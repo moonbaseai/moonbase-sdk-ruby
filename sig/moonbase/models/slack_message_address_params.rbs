@@ -1,0 +1,28 @@
+module Moonbase
+  module Models
+    type slack_message_address_params =
+      { provider_id: String, type: :slack_channel, name: String }
+
+    class SlackMessageAddressParams < Moonbase::Internal::Type::BaseModel
+      attr_accessor provider_id: String
+
+      attr_accessor type: :slack_channel
+
+      attr_reader name: String?
+
+      def name=: (String) -> String
+
+      def initialize: (
+        provider_id: String,
+        ?name: String,
+        ?type: :slack_channel
+      ) -> void
+
+      def to_hash: -> {
+        provider_id: String,
+        type: :slack_channel,
+        name: String
+      }
+    end
+  end
+end

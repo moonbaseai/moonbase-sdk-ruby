@@ -1,23 +1,23 @@
 module Moonbase
   module Models
-    type address =
+    type email_message_address =
       {
         id: String,
         email: String,
-        role: Moonbase::Models::Address::role,
-        type: :message_address,
+        role: Moonbase::Models::EmailMessageAddress::role,
+        type: :email_message_address,
         organization: Moonbase::ItemPointer,
         person: Moonbase::ItemPointer
       }
 
-    class Address < Moonbase::Internal::Type::BaseModel
+    class EmailMessageAddress < Moonbase::Internal::Type::BaseModel
       attr_accessor id: String
 
       attr_accessor email: String
 
-      attr_accessor role: Moonbase::Models::Address::role
+      attr_accessor role: Moonbase::Models::EmailMessageAddress::role
 
-      attr_accessor type: :message_address
+      attr_accessor type: :email_message_address
 
       attr_reader organization: Moonbase::ItemPointer?
 
@@ -30,17 +30,17 @@ module Moonbase
       def initialize: (
         id: String,
         email: String,
-        role: Moonbase::Models::Address::role,
+        role: Moonbase::Models::EmailMessageAddress::role,
         ?organization: Moonbase::ItemPointer,
         ?person: Moonbase::ItemPointer,
-        ?type: :message_address
+        ?type: :email_message_address
       ) -> void
 
       def to_hash: -> {
         id: String,
         email: String,
-        role: Moonbase::Models::Address::role,
-        type: :message_address,
+        role: Moonbase::Models::EmailMessageAddress::role,
+        type: :email_message_address,
         organization: Moonbase::ItemPointer,
         person: Moonbase::ItemPointer
       }
@@ -56,7 +56,7 @@ module Moonbase
         CC: :cc
         BCC: :bcc
 
-        def self?.values: -> ::Array[Moonbase::Models::Address::role]
+        def self?.values: -> ::Array[Moonbase::Models::EmailMessageAddress::role]
       end
     end
   end

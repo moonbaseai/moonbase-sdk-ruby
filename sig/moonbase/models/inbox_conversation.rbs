@@ -17,7 +17,7 @@ module Moonbase
         unread: bool,
         updated_at: Time,
         inbox: Moonbase::Inbox,
-        messages: ::Array[Moonbase::EmailMessage],
+        messages: ::Array[top],
         unsnooze_at: Time
       }
 
@@ -54,11 +54,9 @@ module Moonbase
 
       def inbox=: (Moonbase::Inbox) -> Moonbase::Inbox
 
-      attr_reader messages: ::Array[Moonbase::EmailMessage]?
+      attr_reader messages: ::Array[top]?
 
-      def messages=: (
-        ::Array[Moonbase::EmailMessage]
-      ) -> ::Array[Moonbase::EmailMessage]
+      def messages=: (::Array[top]) -> ::Array[top]
 
       attr_reader unsnooze_at: Time?
 
@@ -79,7 +77,7 @@ module Moonbase
         unread: bool,
         updated_at: Time,
         ?inbox: Moonbase::Inbox,
-        ?messages: ::Array[Moonbase::EmailMessage],
+        ?messages: ::Array[top],
         ?unsnooze_at: Time,
         ?type: :inbox_conversation
       ) -> void
@@ -100,7 +98,7 @@ module Moonbase
         unread: bool,
         updated_at: Time,
         inbox: Moonbase::Inbox,
-        messages: ::Array[Moonbase::EmailMessage],
+        messages: ::Array[top],
         unsnooze_at: Time
       }
 

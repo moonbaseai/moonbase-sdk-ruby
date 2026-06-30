@@ -1,30 +1,32 @@
 module Moonbase
   module Models
     type inbox_message_create_params =
-      { body: Moonbase::Models::InboxMessageCreateParams::body }
+      { message: Moonbase::Models::InboxMessageCreateParams::message }
       & Moonbase::Internal::Type::request_parameters
 
     class InboxMessageCreateParams < Moonbase::Internal::Type::BaseModel
       extend Moonbase::Internal::Type::RequestParameters::Converter
       include Moonbase::Internal::Type::RequestParameters
 
-      attr_accessor body: Moonbase::Models::InboxMessageCreateParams::body
+      attr_accessor message: Moonbase::Models::InboxMessageCreateParams::message
 
       def initialize: (
-        body: Moonbase::Models::InboxMessageCreateParams::body,
+        message: Moonbase::Models::InboxMessageCreateParams::message,
         ?request_options: Moonbase::request_opts
       ) -> void
 
       def to_hash: -> {
-        body: Moonbase::Models::InboxMessageCreateParams::body,
+        message: Moonbase::Models::InboxMessageCreateParams::message,
         request_options: Moonbase::RequestOptions
       }
 
-      type body =
-        Moonbase::InboxMessageCreateParams::Body::EmailMessageNewConversationCreateParams
-        | Moonbase::InboxMessageCreateParams::Body::EmailMessageReplyCreateParams
+      type message =
+        Moonbase::InboxMessageCreateParams::Message::EmailMessageNewConversationCreateParams
+        | Moonbase::InboxMessageCreateParams::Message::SlackMessageNewConversationCreateParams
+        | Moonbase::InboxMessageCreateParams::Message::EmailMessageReplyCreateParams
+        | Moonbase::InboxMessageCreateParams::Message::SlackMessageReplyCreateParams
 
-      module Body
+      module Message
         extend Moonbase::Internal::Type::Union
 
         type email_message_new_conversation_create_params =
@@ -33,6 +35,7 @@ module Moonbase
             inbox_id: String,
             subject: String,
             to: ::Array[Moonbase::EmailMessageAddressParams],
+            type: :email_message,
             bcc: ::Array[Moonbase::EmailMessageAddressParams],
             cc: ::Array[Moonbase::EmailMessageAddressParams]
           }
@@ -45,6 +48,8 @@ module Moonbase
           attr_accessor subject: String
 
           attr_accessor to: ::Array[Moonbase::EmailMessageAddressParams]
+
+          attr_accessor type: :email_message
 
           attr_reader bcc: ::Array[Moonbase::EmailMessageAddressParams]?
 
@@ -64,7 +69,8 @@ module Moonbase
             subject: String,
             to: ::Array[Moonbase::EmailMessageAddressParams],
             ?bcc: ::Array[Moonbase::EmailMessageAddressParams],
-            ?cc: ::Array[Moonbase::EmailMessageAddressParams]
+            ?cc: ::Array[Moonbase::EmailMessageAddressParams],
+            ?type: :email_message
           ) -> void
 
           def to_hash: -> {
@@ -72,8 +78,46 @@ module Moonbase
             inbox_id: String,
             subject: String,
             to: ::Array[Moonbase::EmailMessageAddressParams],
+            type: :email_message,
             bcc: ::Array[Moonbase::EmailMessageAddressParams],
             cc: ::Array[Moonbase::EmailMessageAddressParams]
+          }
+        end
+
+        type slack_message_new_conversation_create_params =
+          {
+            body: Moonbase::FormattedText,
+            inbox_id: String,
+            subject: String,
+            to: ::Array[Moonbase::SlackMessageAddressParams],
+            type: :slack_message
+          }
+
+        class SlackMessageNewConversationCreateParams < Moonbase::Internal::Type::BaseModel
+          attr_accessor body: Moonbase::FormattedText
+
+          attr_accessor inbox_id: String
+
+          attr_accessor subject: String
+
+          attr_accessor to: ::Array[Moonbase::SlackMessageAddressParams]
+
+          attr_accessor type: :slack_message
+
+          def initialize: (
+            body: Moonbase::FormattedText,
+            inbox_id: String,
+            subject: String,
+            to: ::Array[Moonbase::SlackMessageAddressParams],
+            ?type: :slack_message
+          ) -> void
+
+          def to_hash: -> {
+            body: Moonbase::FormattedText,
+            inbox_id: String,
+            subject: String,
+            to: ::Array[Moonbase::SlackMessageAddressParams],
+            type: :slack_message
           }
         end
 
@@ -82,6 +126,7 @@ module Moonbase
             body: Moonbase::FormattedText,
             conversation_id: String,
             inbox_id: String,
+            type: :email_message,
             bcc: ::Array[Moonbase::EmailMessageAddressParams],
             cc: ::Array[Moonbase::EmailMessageAddressParams],
             to: ::Array[Moonbase::EmailMessageAddressParams]
@@ -93,6 +138,8 @@ module Moonbase
           attr_accessor conversation_id: String
 
           attr_accessor inbox_id: String
+
+          attr_accessor type: :email_message
 
           attr_reader bcc: ::Array[Moonbase::EmailMessageAddressParams]?
 
@@ -118,20 +165,63 @@ module Moonbase
             inbox_id: String,
             ?bcc: ::Array[Moonbase::EmailMessageAddressParams],
             ?cc: ::Array[Moonbase::EmailMessageAddressParams],
-            ?to: ::Array[Moonbase::EmailMessageAddressParams]
+            ?to: ::Array[Moonbase::EmailMessageAddressParams],
+            ?type: :email_message
           ) -> void
 
           def to_hash: -> {
             body: Moonbase::FormattedText,
             conversation_id: String,
             inbox_id: String,
+            type: :email_message,
             bcc: ::Array[Moonbase::EmailMessageAddressParams],
             cc: ::Array[Moonbase::EmailMessageAddressParams],
             to: ::Array[Moonbase::EmailMessageAddressParams]
           }
         end
 
-        def self?.variants: -> ::Array[Moonbase::Models::InboxMessageCreateParams::body]
+        type slack_message_reply_create_params =
+          {
+            body: Moonbase::FormattedText,
+            conversation_id: String,
+            inbox_id: String,
+            type: :slack_message,
+            to: ::Array[Moonbase::SlackMessageAddressParams]
+          }
+
+        class SlackMessageReplyCreateParams < Moonbase::Internal::Type::BaseModel
+          attr_accessor body: Moonbase::FormattedText
+
+          attr_accessor conversation_id: String
+
+          attr_accessor inbox_id: String
+
+          attr_accessor type: :slack_message
+
+          attr_reader to: ::Array[Moonbase::SlackMessageAddressParams]?
+
+          def to=: (
+            ::Array[Moonbase::SlackMessageAddressParams]
+          ) -> ::Array[Moonbase::SlackMessageAddressParams]
+
+          def initialize: (
+            body: Moonbase::FormattedText,
+            conversation_id: String,
+            inbox_id: String,
+            ?to: ::Array[Moonbase::SlackMessageAddressParams],
+            ?type: :slack_message
+          ) -> void
+
+          def to_hash: -> {
+            body: Moonbase::FormattedText,
+            conversation_id: String,
+            inbox_id: String,
+            type: :slack_message,
+            to: ::Array[Moonbase::SlackMessageAddressParams]
+          }
+        end
+
+        def self?.variants: -> ::Array[Moonbase::Models::InboxMessageCreateParams::message]
       end
     end
   end
