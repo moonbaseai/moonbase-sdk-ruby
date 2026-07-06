@@ -8,6 +8,14 @@ module Moonbase
       sig do
         params(
           name: String,
+          associations:
+            T::Array[
+              T.any(
+                Moonbase::TagsetAssociation::Calls::OrHash,
+                Moonbase::TagsetAssociation::Meetings::OrHash,
+                Moonbase::TagsetAssociation::Inbox::OrHash
+              )
+            ],
           description: String,
           tags: T::Array[Moonbase::TagsetCreateParams::Tag::OrHash],
           request_options: Moonbase::RequestOptions::OrHash
@@ -16,6 +24,9 @@ module Moonbase
       def create(
         # The name of the tagset.
         name:,
+        # Optional list of associations for this tagset. Include `{type: "calls"}`,
+        # `{type: "meetings"}`, or `{type: "inbox", id}`.
+        associations: nil,
         # An optional description of the tagset's purpose.
         description: nil,
         # Optional list of tags to create with this tagset. Tags are ordered by their
@@ -43,6 +54,14 @@ module Moonbase
       sig do
         params(
           id: String,
+          associations:
+            T::Array[
+              T.any(
+                Moonbase::TagsetAssociation::Calls::OrHash,
+                Moonbase::TagsetAssociation::Meetings::OrHash,
+                Moonbase::TagsetAssociation::Inbox::OrHash
+              )
+            ],
           description: String,
           name: String,
           tags: T::Array[Moonbase::TagsetUpdateParams::Tag::OrHash],
@@ -52,6 +71,10 @@ module Moonbase
       def update(
         # The ID of the tagset to update.
         id,
+        # Optional full list of associations for this tagset. If provided, it replaces all
+        # existing associations. An empty array clears all associations, and omitting it
+        # preserves existing associations.
+        associations: nil,
         # An updated description of the tagset.
         description: nil,
         # The new name of the tagset.

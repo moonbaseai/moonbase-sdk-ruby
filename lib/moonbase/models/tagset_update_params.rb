@@ -12,6 +12,14 @@ module Moonbase
       #   @return [String]
       required :id, String
 
+      # @!attribute associations
+      #   Optional full list of associations for this tagset. If provided, it replaces all
+      #   existing associations. An empty array clears all associations, and omitting it
+      #   preserves existing associations.
+      #
+      #   @return [Array<Moonbase::Models::TagsetAssociation::Calls, Moonbase::Models::TagsetAssociation::Meetings, Moonbase::Models::TagsetAssociation::Inbox>, nil]
+      optional :associations, -> { Moonbase::Internal::Type::ArrayOf[union: Moonbase::TagsetAssociation] }
+
       # @!attribute description
       #   An updated description of the tagset.
       #
@@ -31,11 +39,13 @@ module Moonbase
       #   @return [Array<Moonbase::Models::TagsetUpdateParams::Tag>, nil]
       optional :tags, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::TagsetUpdateParams::Tag] }
 
-      # @!method initialize(id:, description: nil, name: nil, tags: nil, request_options: {})
+      # @!method initialize(id:, associations: nil, description: nil, name: nil, tags: nil, request_options: {})
       #   Some parameter documentations has been truncated, see
       #   {Moonbase::Models::TagsetUpdateParams} for more details.
       #
       #   @param id [String]
+      #
+      #   @param associations [Array<Moonbase::Models::TagsetAssociation::Calls, Moonbase::Models::TagsetAssociation::Meetings, Moonbase::Models::TagsetAssociation::Inbox>] Optional full list of associations for this tagset. If provided, it replaces all
       #
       #   @param description [String] An updated description of the tagset.
       #

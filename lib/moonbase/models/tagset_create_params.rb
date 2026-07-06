@@ -13,6 +13,13 @@ module Moonbase
       #   @return [String]
       required :name, String
 
+      # @!attribute associations
+      #   Optional list of associations for this tagset. Include `{type: "calls"}`,
+      #   `{type: "meetings"}`, or `{type: "inbox", id}`.
+      #
+      #   @return [Array<Moonbase::Models::TagsetAssociation::Calls, Moonbase::Models::TagsetAssociation::Meetings, Moonbase::Models::TagsetAssociation::Inbox>, nil]
+      optional :associations, -> { Moonbase::Internal::Type::ArrayOf[union: Moonbase::TagsetAssociation] }
+
       # @!attribute description
       #   An optional description of the tagset's purpose.
       #
@@ -26,11 +33,13 @@ module Moonbase
       #   @return [Array<Moonbase::Models::TagsetCreateParams::Tag>, nil]
       optional :tags, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::TagsetCreateParams::Tag] }
 
-      # @!method initialize(name:, description: nil, tags: nil, request_options: {})
+      # @!method initialize(name:, associations: nil, description: nil, tags: nil, request_options: {})
       #   Some parameter documentations has been truncated, see
       #   {Moonbase::Models::TagsetCreateParams} for more details.
       #
       #   @param name [String] The name of the tagset.
+      #
+      #   @param associations [Array<Moonbase::Models::TagsetAssociation::Calls, Moonbase::Models::TagsetAssociation::Meetings, Moonbase::Models::TagsetAssociation::Inbox>] Optional list of associations for this tagset. Include `{type: "calls"}`, `{type
       #
       #   @param description [String] An optional description of the tagset's purpose.
       #
