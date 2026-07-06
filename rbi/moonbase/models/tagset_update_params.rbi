@@ -14,6 +14,38 @@ module Moonbase
       sig { returns(String) }
       attr_accessor :id
 
+      # Optional full list of associations for this tagset. If provided, it replaces all
+      # existing associations. An empty array clears all associations, and omitting it
+      # preserves existing associations.
+      sig do
+        returns(
+          T.nilable(
+            T::Array[
+              T.any(
+                Moonbase::TagsetAssociation::Calls,
+                Moonbase::TagsetAssociation::Meetings,
+                Moonbase::TagsetAssociation::Inbox
+              )
+            ]
+          )
+        )
+      end
+      attr_reader :associations
+
+      sig do
+        params(
+          associations:
+            T::Array[
+              T.any(
+                Moonbase::TagsetAssociation::Calls::OrHash,
+                Moonbase::TagsetAssociation::Meetings::OrHash,
+                Moonbase::TagsetAssociation::Inbox::OrHash
+              )
+            ]
+        ).void
+      end
+      attr_writer :associations
+
       # An updated description of the tagset.
       sig { returns(T.nilable(String)) }
       attr_reader :description
@@ -41,6 +73,14 @@ module Moonbase
       sig do
         params(
           id: String,
+          associations:
+            T::Array[
+              T.any(
+                Moonbase::TagsetAssociation::Calls::OrHash,
+                Moonbase::TagsetAssociation::Meetings::OrHash,
+                Moonbase::TagsetAssociation::Inbox::OrHash
+              )
+            ],
           description: String,
           name: String,
           tags: T::Array[Moonbase::TagsetUpdateParams::Tag::OrHash],
@@ -49,6 +89,10 @@ module Moonbase
       end
       def self.new(
         id:,
+        # Optional full list of associations for this tagset. If provided, it replaces all
+        # existing associations. An empty array clears all associations, and omitting it
+        # preserves existing associations.
+        associations: nil,
         # An updated description of the tagset.
         description: nil,
         # The new name of the tagset.
@@ -64,6 +108,14 @@ module Moonbase
         override.returns(
           {
             id: String,
+            associations:
+              T::Array[
+                T.any(
+                  Moonbase::TagsetAssociation::Calls,
+                  Moonbase::TagsetAssociation::Meetings,
+                  Moonbase::TagsetAssociation::Inbox
+                )
+              ],
             description: String,
             name: String,
             tags: T::Array[Moonbase::TagsetUpdateParams::Tag],

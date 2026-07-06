@@ -88,7 +88,9 @@ module Moonbase
           before: String,
           limit: Integer,
           request_options: Moonbase::RequestOptions::OrHash
-        ).returns(Moonbase::Internal::CursorPage[Moonbase::Form])
+        ).returns(
+          Moonbase::Internal::CursorPage[Moonbase::Models::FormListResponse]
+        )
       end
       def list(
         # When specified, returns results starting immediately after the item identified

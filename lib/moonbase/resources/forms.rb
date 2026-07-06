@@ -97,7 +97,7 @@ module Moonbase
       #
       # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
       #
-      # @return [Moonbase::Internal::CursorPage<Moonbase::Models::Form>]
+      # @return [Moonbase::Internal::CursorPage<Moonbase::Models::FormListResponse>]
       #
       # @see Moonbase::Models::FormListParams
       def list(params = {})
@@ -108,7 +108,7 @@ module Moonbase
           path: "forms",
           query: query,
           page: Moonbase::Internal::CursorPage,
-          model: Moonbase::Form,
+          model: Moonbase::Models::FormListResponse,
           options: options
         )
       end

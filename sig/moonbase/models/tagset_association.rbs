@@ -1,0 +1,46 @@
+module Moonbase
+  module Models
+    type tagset_association =
+      Moonbase::TagsetAssociation::Calls
+      | Moonbase::TagsetAssociation::Meetings
+      | Moonbase::TagsetAssociation::Inbox
+
+    module TagsetAssociation
+      extend Moonbase::Internal::Type::Union
+
+      type calls = { type: :calls }
+
+      class Calls < Moonbase::Internal::Type::BaseModel
+        attr_accessor type: :calls
+
+        def initialize: (?type: :calls) -> void
+
+        def to_hash: -> { type: :calls }
+      end
+
+      type meetings = { type: :meetings }
+
+      class Meetings < Moonbase::Internal::Type::BaseModel
+        attr_accessor type: :meetings
+
+        def initialize: (?type: :meetings) -> void
+
+        def to_hash: -> { type: :meetings }
+      end
+
+      type inbox = { id: String, type: :inbox }
+
+      class Inbox < Moonbase::Internal::Type::BaseModel
+        attr_accessor id: String
+
+        attr_accessor type: :inbox
+
+        def initialize: (id: String, ?type: :inbox) -> void
+
+        def to_hash: -> { id: String, type: :inbox }
+      end
+
+      def self?.variants: -> ::Array[Moonbase::Models::tagset_association]
+    end
+  end
+end

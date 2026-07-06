@@ -13,6 +13,7 @@ class Moonbase::Test::Resources::TagsetsTest < Moonbase::Test::ResourceTest
     assert_pattern do
       response => {
         id: String,
+        associations: ^(Moonbase::Internal::Type::ArrayOf[union: Moonbase::TagsetAssociation]),
         created_at: Time,
         name: String,
         tags: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Tag]),
@@ -33,6 +34,7 @@ class Moonbase::Test::Resources::TagsetsTest < Moonbase::Test::ResourceTest
     assert_pattern do
       response => {
         id: String,
+        associations: ^(Moonbase::Internal::Type::ArrayOf[union: Moonbase::TagsetAssociation]),
         created_at: Time,
         name: String,
         tags: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Tag]),
@@ -53,6 +55,7 @@ class Moonbase::Test::Resources::TagsetsTest < Moonbase::Test::ResourceTest
     assert_pattern do
       response => {
         id: String,
+        associations: ^(Moonbase::Internal::Type::ArrayOf[union: Moonbase::TagsetAssociation]),
         created_at: Time,
         name: String,
         tags: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Tag]),
@@ -80,6 +83,7 @@ class Moonbase::Test::Resources::TagsetsTest < Moonbase::Test::ResourceTest
     assert_pattern do
       row => {
         id: String,
+        associations: ^(Moonbase::Internal::Type::ArrayOf[union: Moonbase::TagsetAssociation]),
         created_at: Time,
         name: String,
         tags: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Tag]),

@@ -3,6 +3,7 @@ module Moonbase
     type tagset_update_params =
       {
         id: String,
+        associations: ::Array[Moonbase::Models::tagset_association],
         description: String,
         name: String,
         tags: ::Array[Moonbase::TagsetUpdateParams::Tag]
@@ -14,6 +15,12 @@ module Moonbase
       include Moonbase::Internal::Type::RequestParameters
 
       attr_accessor id: String
+
+      attr_reader associations: ::Array[Moonbase::Models::tagset_association]?
+
+      def associations=: (
+        ::Array[Moonbase::Models::tagset_association]
+      ) -> ::Array[Moonbase::Models::tagset_association]
 
       attr_reader description: String?
 
@@ -31,6 +38,7 @@ module Moonbase
 
       def initialize: (
         id: String,
+        ?associations: ::Array[Moonbase::Models::tagset_association],
         ?description: String,
         ?name: String,
         ?tags: ::Array[Moonbase::TagsetUpdateParams::Tag],
@@ -39,6 +47,7 @@ module Moonbase
 
       def to_hash: -> {
         id: String,
+        associations: ::Array[Moonbase::Models::tagset_association],
         description: String,
         name: String,
         tags: ::Array[Moonbase::TagsetUpdateParams::Tag],

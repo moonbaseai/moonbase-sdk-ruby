@@ -417,6 +417,8 @@ module Moonbase
 
   Tagset = Moonbase::Models::Tagset
 
+  TagsetAssociation = Moonbase::Models::TagsetAssociation
+
   TagsetCreateParams = Moonbase::Models::TagsetCreateParams
 
   TagsetDeleteParams = Moonbase::Models::TagsetDeleteParams

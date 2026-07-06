@@ -15,6 +15,37 @@ module Moonbase
       sig { returns(String) }
       attr_accessor :name
 
+      # Optional list of associations for this tagset. Include `{type: "calls"}`,
+      # `{type: "meetings"}`, or `{type: "inbox", id}`.
+      sig do
+        returns(
+          T.nilable(
+            T::Array[
+              T.any(
+                Moonbase::TagsetAssociation::Calls,
+                Moonbase::TagsetAssociation::Meetings,
+                Moonbase::TagsetAssociation::Inbox
+              )
+            ]
+          )
+        )
+      end
+      attr_reader :associations
+
+      sig do
+        params(
+          associations:
+            T::Array[
+              T.any(
+                Moonbase::TagsetAssociation::Calls::OrHash,
+                Moonbase::TagsetAssociation::Meetings::OrHash,
+                Moonbase::TagsetAssociation::Inbox::OrHash
+              )
+            ]
+        ).void
+      end
+      attr_writer :associations
+
       # An optional description of the tagset's purpose.
       sig { returns(T.nilable(String)) }
       attr_reader :description
@@ -35,6 +66,14 @@ module Moonbase
       sig do
         params(
           name: String,
+          associations:
+            T::Array[
+              T.any(
+                Moonbase::TagsetAssociation::Calls::OrHash,
+                Moonbase::TagsetAssociation::Meetings::OrHash,
+                Moonbase::TagsetAssociation::Inbox::OrHash
+              )
+            ],
           description: String,
           tags: T::Array[Moonbase::TagsetCreateParams::Tag::OrHash],
           request_options: Moonbase::RequestOptions::OrHash
@@ -43,6 +82,9 @@ module Moonbase
       def self.new(
         # The name of the tagset.
         name:,
+        # Optional list of associations for this tagset. Include `{type: "calls"}`,
+        # `{type: "meetings"}`, or `{type: "inbox", id}`.
+        associations: nil,
         # An optional description of the tagset's purpose.
         description: nil,
         # Optional list of tags to create with this tagset. Tags are ordered by their
@@ -56,6 +98,14 @@ module Moonbase
         override.returns(
           {
             name: String,
+            associations:
+              T::Array[
+                T.any(
+                  Moonbase::TagsetAssociation::Calls,
+                  Moonbase::TagsetAssociation::Meetings,
+                  Moonbase::TagsetAssociation::Inbox
+                )
+              ],
             description: String,
             tags: T::Array[Moonbase::TagsetCreateParams::Tag],
             request_options: Moonbase::RequestOptions

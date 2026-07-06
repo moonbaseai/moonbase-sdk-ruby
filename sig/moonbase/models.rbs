@@ -377,6 +377,8 @@ module Moonbase
 
   class Tagset = Moonbase::Models::Tagset
 
+  module TagsetAssociation = Moonbase::Models::TagsetAssociation
+
   class TagsetCreateParams = Moonbase::Models::TagsetCreateParams
 
   class TagsetDeleteParams = Moonbase::Models::TagsetDeleteParams

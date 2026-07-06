@@ -3,6 +3,7 @@ module Moonbase
     class Tagsets
       def create: (
         name: String,
+        ?associations: ::Array[Moonbase::Models::tagset_association],
         ?description: String,
         ?tags: ::Array[Moonbase::TagsetCreateParams::Tag],
         ?request_options: Moonbase::request_opts
@@ -15,6 +16,7 @@ module Moonbase
 
       def update: (
         String id,
+        ?associations: ::Array[Moonbase::Models::tagset_association],
         ?description: String,
         ?name: String,
         ?tags: ::Array[Moonbase::TagsetUpdateParams::Tag],

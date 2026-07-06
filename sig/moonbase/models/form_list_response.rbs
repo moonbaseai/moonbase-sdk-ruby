@@ -1,12 +1,11 @@
 module Moonbase
   module Models
-    type form =
+    type form_list_response =
       {
         id: String,
         business_email_required: bool,
         collection: Moonbase::CollectionPointer,
         created_at: Time,
-        html_embed: String,
         name: String,
         pages_enabled: bool,
         type: :form,
@@ -15,7 +14,7 @@ module Moonbase
         redirect_url: String
       }
 
-    class Form < Moonbase::Internal::Type::BaseModel
+    class FormListResponse < Moonbase::Internal::Type::BaseModel
       attr_accessor id: String
 
       attr_accessor business_email_required: bool
@@ -23,8 +22,6 @@ module Moonbase
       attr_accessor collection: Moonbase::CollectionPointer
 
       attr_accessor created_at: Time
-
-      attr_accessor html_embed: String
 
       attr_accessor name: String
 
@@ -47,7 +44,6 @@ module Moonbase
         business_email_required: bool,
         collection: Moonbase::CollectionPointer,
         created_at: Time,
-        html_embed: String,
         name: String,
         pages_enabled: bool,
         updated_at: Time,
@@ -61,7 +57,6 @@ module Moonbase
         business_email_required: bool,
         collection: Moonbase::CollectionPointer,
         created_at: Time,
-        html_embed: String,
         name: String,
         pages_enabled: bool,
         type: :form,

@@ -28,7 +28,7 @@ module Moonbase
         ?before: String,
         ?limit: Integer,
         ?request_options: Moonbase::request_opts
-      ) -> Moonbase::Internal::CursorPage[Moonbase::Form]
+      ) -> Moonbase::Internal::CursorPage[Moonbase::Models::FormListResponse]
 
       def delete: (String id, ?request_options: Moonbase::request_opts) -> nil
 
