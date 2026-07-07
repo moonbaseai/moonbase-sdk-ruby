@@ -900,6 +900,11 @@ module Moonbase
                 )
               end
 
+            # The default currency for the field, as a 3-letter uppercase ISO 4217 code (e.g.,
+            # `USD`, `EUR`, `GBP`).
+            sig { returns(String) }
+            attr_accessor :default_unit
+
             # The human-readable name for the field.
             sig { returns(String) }
             attr_accessor :name
@@ -926,14 +931,6 @@ module Moonbase
               ).void
             end
             attr_writer :cardinality
-
-            # The default currency for the field, as a 3-letter ISO 4217 code (e.g., `USD`,
-            # `EUR`, `GBP`).
-            sig { returns(T.nilable(String)) }
-            attr_reader :default_unit
-
-            sig { params(default_unit: String).void }
-            attr_writer :default_unit
 
             sig { returns(T.nilable(T::Array[Moonbase::MonetaryValue])) }
             attr_reader :default_values
@@ -969,10 +966,10 @@ module Moonbase
             # Parameters for creating a monetary field.
             sig do
               params(
+                default_unit: String,
                 name: String,
                 cardinality:
                   Moonbase::Collections::FieldCreateParams::Field::FieldNumberMonetary::Cardinality::OrSymbol,
-                default_unit: String,
                 default_values: T::Array[Moonbase::MonetaryValue::OrHash],
                 description: String,
                 required: T::Boolean,
@@ -981,14 +978,14 @@ module Moonbase
               ).returns(T.attached_class)
             end
             def self.new(
+              # The default currency for the field, as a 3-letter uppercase ISO 4217 code (e.g.,
+              # `USD`, `EUR`, `GBP`).
+              default_unit:,
               # The human-readable name for the field.
               name:,
               # Whether the field holds a single value (`one`) or multiple values (`many`).
               # Defaults to `one`.
               cardinality: nil,
-              # The default currency for the field, as a 3-letter ISO 4217 code (e.g., `USD`,
-              # `EUR`, `GBP`).
-              default_unit: nil,
               default_values: nil,
               # An optional description of the field's purpose.
               description: nil,
@@ -1004,11 +1001,11 @@ module Moonbase
             sig do
               override.returns(
                 {
+                  default_unit: String,
                   name: String,
                   type: Symbol,
                   cardinality:
                     Moonbase::Collections::FieldCreateParams::Field::FieldNumberMonetary::Cardinality::OrSymbol,
-                  default_unit: String,
                   default_values: T::Array[Moonbase::MonetaryValue],
                   description: String,
                   required: T::Boolean,
