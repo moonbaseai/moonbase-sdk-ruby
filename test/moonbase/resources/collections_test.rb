@@ -21,6 +21,7 @@ class Moonbase::Test::Resources::CollectionsTest < Moonbase::Test::ResourceTest
         type: Symbol,
         updated_at: Time,
         description: String | nil,
+        icon_name: String | nil,
         views: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Collection::View]) | nil
       }
     end
@@ -44,6 +45,7 @@ class Moonbase::Test::Resources::CollectionsTest < Moonbase::Test::ResourceTest
         type: Symbol,
         updated_at: Time,
         description: String | nil,
+        icon_name: String | nil,
         views: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Collection::View]) | nil
       }
     end
@@ -67,6 +69,7 @@ class Moonbase::Test::Resources::CollectionsTest < Moonbase::Test::ResourceTest
         type: Symbol,
         updated_at: Time,
         description: String | nil,
+        icon_name: String | nil,
         views: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Collection::View]) | nil
       }
     end
@@ -95,7 +98,8 @@ class Moonbase::Test::Resources::CollectionsTest < Moonbase::Test::ResourceTest
         ref: String,
         type: Symbol,
         updated_at: Time,
-        description: String | nil
+        description: String | nil,
+        icon_name: String | nil
       }
     end
   end

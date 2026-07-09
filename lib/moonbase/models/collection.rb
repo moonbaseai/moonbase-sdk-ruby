@@ -60,6 +60,13 @@ module Moonbase
       #   @return [String, nil]
       optional :description, String
 
+      # @!attribute icon_name
+      #   The collection's icon, as a Phosphor icon name in kebab-case (e.g. `users`,
+      #   `chart-bar`). Only present when an icon is set.
+      #
+      #   @return [String, nil]
+      optional :icon_name, String
+
       # @!attribute views
       #   A list of saved `View` objects for presenting the collection's data.
       #
@@ -68,7 +75,7 @@ module Moonbase
       #   @return [Array<Moonbase::Models::Collection::View>, nil]
       optional :views, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::Collection::View] }
 
-      # @!method initialize(id:, created_at:, fields:, kind:, name:, ref:, updated_at:, description: nil, views: nil, type: :collection)
+      # @!method initialize(id:, created_at:, fields:, kind:, name:, ref:, updated_at:, description: nil, icon_name: nil, views: nil, type: :collection)
       #   Some parameter documentations has been truncated, see
       #   {Moonbase::Models::Collection} for more details.
       #
@@ -91,6 +98,8 @@ module Moonbase
       #   @param updated_at [Time] Time at which the object was last updated, as an ISO 8601 timestamp in UTC.
       #
       #   @param description [String] An optional, longer-form description of the collection's purpose.
+      #
+      #   @param icon_name [String] The collection's icon, as a Phosphor icon name in kebab-case (e.g. `users`, `cha
       #
       #   @param views [Array<Moonbase::Models::Collection::View>] A list of saved `View` objects for presenting the collection's data.
       #

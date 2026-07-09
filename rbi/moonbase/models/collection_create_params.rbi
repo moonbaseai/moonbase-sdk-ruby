@@ -23,10 +23,19 @@ module Moonbase
       sig { params(description: String).void }
       attr_writer :description
 
+      # An optional icon for the collection, as a Phosphor icon name in kebab-case (e.g.
+      # `users`, `chart-bar`).
+      sig { returns(T.nilable(String)) }
+      attr_reader :icon_name
+
+      sig { params(icon_name: String).void }
+      attr_writer :icon_name
+
       sig do
         params(
           name: String,
           description: String,
+          icon_name: String,
           request_options: Moonbase::RequestOptions::OrHash
         ).returns(T.attached_class)
       end
@@ -36,6 +45,9 @@ module Moonbase
         name:,
         # An optional, longer-form description of the collection's purpose.
         description: nil,
+        # An optional icon for the collection, as a Phosphor icon name in kebab-case (e.g.
+        # `users`, `chart-bar`).
+        icon_name: nil,
         request_options: {}
       )
       end
@@ -45,6 +57,7 @@ module Moonbase
           {
             name: String,
             description: String,
+            icon_name: String,
             request_options: Moonbase::RequestOptions
           }
         )
