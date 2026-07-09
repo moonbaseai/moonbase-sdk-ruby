@@ -8,6 +8,7 @@ module Moonbase
       def create: (
         name: String,
         ?description: String,
+        ?icon_name: String,
         ?request_options: Moonbase::request_opts
       ) -> Moonbase::Collection
 
@@ -19,6 +20,7 @@ module Moonbase
       def update: (
         String id,
         ?description: String,
+        ?icon_name: String?,
         ?name: String,
         ?request_options: Moonbase::request_opts
       ) -> Moonbase::Collection

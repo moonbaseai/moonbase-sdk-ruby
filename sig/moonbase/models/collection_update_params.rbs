@@ -1,7 +1,7 @@
 module Moonbase
   module Models
     type collection_update_params =
-      { id: String, description: String, name: String }
+      { id: String, description: String, icon_name: String?, name: String }
       & Moonbase::Internal::Type::request_parameters
 
     class CollectionUpdateParams < Moonbase::Internal::Type::BaseModel
@@ -14,6 +14,8 @@ module Moonbase
 
       def description=: (String) -> String
 
+      attr_accessor icon_name: String?
+
       attr_reader name: String?
 
       def name=: (String) -> String
@@ -21,6 +23,7 @@ module Moonbase
       def initialize: (
         id: String,
         ?description: String,
+        ?icon_name: String?,
         ?name: String,
         ?request_options: Moonbase::request_opts
       ) -> void
@@ -28,6 +31,7 @@ module Moonbase
       def to_hash: -> {
         id: String,
         description: String,
+        icon_name: String?,
         name: String,
         request_options: Moonbase::RequestOptions
       }

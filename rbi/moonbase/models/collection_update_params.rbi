@@ -21,6 +21,11 @@ module Moonbase
       sig { params(description: String).void }
       attr_writer :description
 
+      # The collection's icon, as a Phosphor icon name in kebab-case (e.g. `users`,
+      # `chart-bar`), or `null` to clear it.
+      sig { returns(T.nilable(String)) }
+      attr_accessor :icon_name
+
       # The user-facing name of the collection.
       sig { returns(T.nilable(String)) }
       attr_reader :name
@@ -32,6 +37,7 @@ module Moonbase
         params(
           id: String,
           description: String,
+          icon_name: T.nilable(String),
           name: String,
           request_options: Moonbase::RequestOptions::OrHash
         ).returns(T.attached_class)
@@ -40,6 +46,9 @@ module Moonbase
         id:,
         # An optional, longer-form description of the collection's purpose.
         description: nil,
+        # The collection's icon, as a Phosphor icon name in kebab-case (e.g. `users`,
+        # `chart-bar`), or `null` to clear it.
+        icon_name: nil,
         # The user-facing name of the collection.
         name: nil,
         request_options: {}
@@ -51,6 +60,7 @@ module Moonbase
           {
             id: String,
             description: String,
+            icon_name: T.nilable(String),
             name: String,
             request_options: Moonbase::RequestOptions
           }

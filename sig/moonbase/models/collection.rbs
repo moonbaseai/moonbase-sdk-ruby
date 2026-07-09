@@ -11,6 +11,7 @@ module Moonbase
         type: :collection,
         updated_at: Time,
         description: String,
+        icon_name: String,
         views: ::Array[Moonbase::Collection::View]
       }
 
@@ -35,6 +36,10 @@ module Moonbase
 
       def description=: (String) -> String
 
+      attr_reader icon_name: String?
+
+      def icon_name=: (String) -> String
+
       attr_reader views: ::Array[Moonbase::Collection::View]?
 
       def views=: (
@@ -50,6 +55,7 @@ module Moonbase
         ref: String,
         updated_at: Time,
         ?description: String,
+        ?icon_name: String,
         ?views: ::Array[Moonbase::Collection::View],
         ?type: :collection
       ) -> void
@@ -64,6 +70,7 @@ module Moonbase
         type: :collection,
         updated_at: Time,
         description: String,
+        icon_name: String,
         views: ::Array[Moonbase::Collection::View]
       }
 

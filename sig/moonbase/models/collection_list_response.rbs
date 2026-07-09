@@ -9,7 +9,8 @@ module Moonbase
         ref: String,
         type: :collection,
         updated_at: Time,
-        description: String
+        description: String,
+        icon_name: String
       }
 
     class CollectionListResponse < Moonbase::Internal::Type::BaseModel
@@ -31,6 +32,10 @@ module Moonbase
 
       def description=: (String) -> String
 
+      attr_reader icon_name: String?
+
+      def icon_name=: (String) -> String
+
       def initialize: (
         id: String,
         created_at: Time,
@@ -39,6 +44,7 @@ module Moonbase
         ref: String,
         updated_at: Time,
         ?description: String,
+        ?icon_name: String,
         ?type: :collection
       ) -> void
 
@@ -50,7 +56,8 @@ module Moonbase
         ref: String,
         type: :collection,
         updated_at: Time,
-        description: String
+        description: String,
+        icon_name: String
       }
 
       type kind = :system | :form | :custom

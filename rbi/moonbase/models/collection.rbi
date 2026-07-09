@@ -49,6 +49,14 @@ module Moonbase
       sig { params(description: String).void }
       attr_writer :description
 
+      # The collection's icon, as a Phosphor icon name in kebab-case (e.g. `users`,
+      # `chart-bar`). Only present when an icon is set.
+      sig { returns(T.nilable(String)) }
+      attr_reader :icon_name
+
+      sig { params(icon_name: String).void }
+      attr_writer :icon_name
+
       # A list of saved `View` objects for presenting the collection's data.
       #
       # **Note:** Only present when requested using the `include` query parameter.
@@ -95,6 +103,7 @@ module Moonbase
           ref: String,
           updated_at: Time,
           description: String,
+          icon_name: String,
           views: T::Array[Moonbase::Collection::View::OrHash],
           type: Symbol
         ).returns(T.attached_class)
@@ -118,6 +127,9 @@ module Moonbase
         updated_at:,
         # An optional, longer-form description of the collection's purpose.
         description: nil,
+        # The collection's icon, as a Phosphor icon name in kebab-case (e.g. `users`,
+        # `chart-bar`). Only present when an icon is set.
+        icon_name: nil,
         # A list of saved `View` objects for presenting the collection's data.
         #
         # **Note:** Only present when requested using the `include` query parameter.
@@ -139,6 +151,7 @@ module Moonbase
             type: Symbol,
             updated_at: Time,
             description: String,
+            icon_name: String,
             views: T::Array[Moonbase::Collection::View]
           }
         )
