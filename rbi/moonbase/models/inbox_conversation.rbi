@@ -16,6 +16,11 @@ module Moonbase
       sig { returns(T::Boolean) }
       attr_accessor :bulk
 
+      # The communication channel of the conversation, which can be `email`, `chat`, or
+      # `slack`.
+      sig { returns(Moonbase::InboxConversation::Channel::TaggedSymbol) }
+      attr_accessor :channel
+
       # Time at which the object was created, as an ISO 8601 timestamp in UTC.
       sig { returns(Time) }
       attr_accessor :created_at
@@ -97,6 +102,7 @@ module Moonbase
         params(
           id: String,
           bulk: T::Boolean,
+          channel: Moonbase::InboxConversation::Channel::OrSymbol,
           created_at: Time,
           draft: T::Boolean,
           follow_up: T::Boolean,
@@ -119,6 +125,9 @@ module Moonbase
         id:,
         # `true` if the conversation appears to be part of a bulk mailing.
         bulk:,
+        # The communication channel of the conversation, which can be `email`, `chat`, or
+        # `slack`.
+        channel:,
         # Time at which the object was created, as an ISO 8601 timestamp in UTC.
         created_at:,
         # `true` if a new draft reply to this conversation has been started.
@@ -164,6 +173,7 @@ module Moonbase
           {
             id: String,
             bulk: T::Boolean,
+            channel: Moonbase::InboxConversation::Channel::TaggedSymbol,
             created_at: Time,
             draft: T::Boolean,
             follow_up: T::Boolean,
@@ -183,6 +193,30 @@ module Moonbase
         )
       end
       def to_hash
+      end
+
+      # The communication channel of the conversation, which can be `email`, `chat`, or
+      # `slack`.
+      module Channel
+        extend Moonbase::Internal::Type::Enum
+
+        TaggedSymbol =
+          T.type_alias { T.all(Symbol, Moonbase::InboxConversation::Channel) }
+        OrSymbol = T.type_alias { T.any(Symbol, String) }
+
+        EMAIL =
+          T.let(:email, Moonbase::InboxConversation::Channel::TaggedSymbol)
+        CHAT = T.let(:chat, Moonbase::InboxConversation::Channel::TaggedSymbol)
+        SLACK =
+          T.let(:slack, Moonbase::InboxConversation::Channel::TaggedSymbol)
+
+        sig do
+          override.returns(
+            T::Array[Moonbase::InboxConversation::Channel::TaggedSymbol]
+          )
+        end
+        def self.values
+        end
       end
 
       # The current state, which can be `unassigned`, `active`, `closed`, or `waiting`.

@@ -14,6 +14,7 @@ class Moonbase::Test::Resources::InboxConversationsTest < Moonbase::Test::Resour
       response => {
         id: String,
         bulk: Moonbase::Internal::Type::Boolean,
+        channel: Moonbase::InboxConversation::Channel,
         created_at: Time,
         draft: Moonbase::Internal::Type::Boolean,
         follow_up: Moonbase::Internal::Type::Boolean,
