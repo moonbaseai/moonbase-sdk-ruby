@@ -13,7 +13,7 @@ module Moonbase
         trash: bool,
         type: :email_message,
         unread: bool,
-        addresses: ::Array[Moonbase::Address],
+        addresses: ::Array[Moonbase::EmailMessageAddress],
         attachments: ::Array[Moonbase::MessageAttachment],
         conversation: Moonbase::InboxConversation,
         summary: String
@@ -42,9 +42,11 @@ module Moonbase
 
       attr_accessor unread: bool
 
-      attr_reader addresses: ::Array[Moonbase::Address]?
+      attr_reader addresses: ::Array[Moonbase::EmailMessageAddress]?
 
-      def addresses=: (::Array[Moonbase::Address]) -> ::Array[Moonbase::Address]
+      def addresses=: (
+        ::Array[Moonbase::EmailMessageAddress]
+      ) -> ::Array[Moonbase::EmailMessageAddress]
 
       attr_reader attachments: ::Array[Moonbase::MessageAttachment]?
 
@@ -73,7 +75,7 @@ module Moonbase
         subject: String,
         trash: bool,
         unread: bool,
-        ?addresses: ::Array[Moonbase::Address],
+        ?addresses: ::Array[Moonbase::EmailMessageAddress],
         ?attachments: ::Array[Moonbase::MessageAttachment],
         ?conversation: Moonbase::InboxConversation,
         ?summary: String,
@@ -92,7 +94,7 @@ module Moonbase
         trash: bool,
         type: :email_message,
         unread: bool,
-        addresses: ::Array[Moonbase::Address],
+        addresses: ::Array[Moonbase::EmailMessageAddress],
         attachments: ::Array[Moonbase::MessageAttachment],
         conversation: Moonbase::InboxConversation,
         summary: String

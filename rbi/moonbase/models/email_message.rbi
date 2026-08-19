@@ -59,10 +59,12 @@ module Moonbase
       # A list of `Address` objects associated with the message (sender and recipients).
       #
       # **Note:** Only present when requested using the `include` query parameter.
-      sig { returns(T.nilable(T::Array[Moonbase::Address])) }
+      sig { returns(T.nilable(T::Array[Moonbase::EmailMessageAddress])) }
       attr_reader :addresses
 
-      sig { params(addresses: T::Array[Moonbase::Address::OrHash]).void }
+      sig do
+        params(addresses: T::Array[Moonbase::EmailMessageAddress::OrHash]).void
+      end
       attr_writer :addresses
 
       # A list of `Attachment` objects on the message.
@@ -105,7 +107,7 @@ module Moonbase
           subject: String,
           trash: T::Boolean,
           unread: T::Boolean,
-          addresses: T::Array[Moonbase::Address::OrHash],
+          addresses: T::Array[Moonbase::EmailMessageAddress::OrHash],
           attachments: T::Array[Moonbase::MessageAttachment::OrHash],
           conversation: Moonbase::InboxConversation,
           summary: String,
@@ -167,7 +169,7 @@ module Moonbase
             trash: T::Boolean,
             type: Symbol,
             unread: T::Boolean,
-            addresses: T::Array[Moonbase::Address],
+            addresses: T::Array[Moonbase::EmailMessageAddress],
             attachments: T::Array[Moonbase::MessageAttachment],
             conversation: Moonbase::InboxConversation,
             summary: String

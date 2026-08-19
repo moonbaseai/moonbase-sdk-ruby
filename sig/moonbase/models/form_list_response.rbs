@@ -1,0 +1,69 @@
+module Moonbase
+  module Models
+    type form_list_response =
+      {
+        id: String,
+        business_email_required: bool,
+        collection: Moonbase::CollectionPointer,
+        created_at: Time,
+        name: String,
+        pages_enabled: bool,
+        type: :form,
+        updated_at: Time,
+        pages_url: String,
+        redirect_url: String
+      }
+
+    class FormListResponse < Moonbase::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor business_email_required: bool
+
+      attr_accessor collection: Moonbase::CollectionPointer
+
+      attr_accessor created_at: Time
+
+      attr_accessor name: String
+
+      attr_accessor pages_enabled: bool
+
+      attr_accessor type: :form
+
+      attr_accessor updated_at: Time
+
+      attr_reader pages_url: String?
+
+      def pages_url=: (String) -> String
+
+      attr_reader redirect_url: String?
+
+      def redirect_url=: (String) -> String
+
+      def initialize: (
+        id: String,
+        business_email_required: bool,
+        collection: Moonbase::CollectionPointer,
+        created_at: Time,
+        name: String,
+        pages_enabled: bool,
+        updated_at: Time,
+        ?pages_url: String,
+        ?redirect_url: String,
+        ?type: :form
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        business_email_required: bool,
+        collection: Moonbase::CollectionPointer,
+        created_at: Time,
+        name: String,
+        pages_enabled: bool,
+        type: :form,
+        updated_at: Time,
+        pages_url: String,
+        redirect_url: String
+      }
+    end
+  end
+end

@@ -4,8 +4,9 @@ module Moonbase
       {
         id: String,
         business_email_required: bool,
-        collection: Moonbase::Collection,
+        collection: Moonbase::CollectionPointer,
         created_at: Time,
+        html_embed: String,
         name: String,
         pages_enabled: bool,
         type: :form,
@@ -19,9 +20,11 @@ module Moonbase
 
       attr_accessor business_email_required: bool
 
-      attr_accessor collection: Moonbase::Collection
+      attr_accessor collection: Moonbase::CollectionPointer
 
       attr_accessor created_at: Time
+
+      attr_accessor html_embed: String
 
       attr_accessor name: String
 
@@ -42,8 +45,9 @@ module Moonbase
       def initialize: (
         id: String,
         business_email_required: bool,
-        collection: Moonbase::Collection,
+        collection: Moonbase::CollectionPointer,
         created_at: Time,
+        html_embed: String,
         name: String,
         pages_enabled: bool,
         updated_at: Time,
@@ -55,8 +59,9 @@ module Moonbase
       def to_hash: -> {
         id: String,
         business_email_required: bool,
-        collection: Moonbase::Collection,
+        collection: Moonbase::CollectionPointer,
         created_at: Time,
+        html_embed: String,
         name: String,
         pages_enabled: bool,
         type: :form,

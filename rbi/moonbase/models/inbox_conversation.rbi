@@ -16,6 +16,11 @@ module Moonbase
       sig { returns(T::Boolean) }
       attr_accessor :bulk
 
+      # The communication channel of the conversation, which can be `email`, `chat`, or
+      # `slack`.
+      sig { returns(Moonbase::InboxConversation::Channel::TaggedSymbol) }
+      attr_accessor :channel
+
       # Time at which the object was created, as an ISO 8601 timestamp in UTC.
       sig { returns(Time) }
       attr_accessor :created_at
@@ -75,13 +80,13 @@ module Moonbase
       sig { params(inbox: Moonbase::Inbox::OrHash).void }
       attr_writer :inbox
 
-      # The `EmailMessage` objects that belong to this conversation.
+      # The `Message` objects that belong to this conversation.
       #
       # **Note:** Only present when requested using the `include` query parameter.
-      sig { returns(T.nilable(T::Array[Moonbase::EmailMessage])) }
+      sig { returns(T.nilable(T::Array[T.anything])) }
       attr_reader :messages
 
-      sig { params(messages: T::Array[Moonbase::EmailMessage]).void }
+      sig { params(messages: T::Array[T.anything]).void }
       attr_writer :messages
 
       # If the conversation is snoozed, this is the time it will reappear in the inbox,
@@ -97,6 +102,7 @@ module Moonbase
         params(
           id: String,
           bulk: T::Boolean,
+          channel: Moonbase::InboxConversation::Channel::OrSymbol,
           created_at: Time,
           draft: T::Boolean,
           follow_up: T::Boolean,
@@ -109,7 +115,7 @@ module Moonbase
           unread: T::Boolean,
           updated_at: Time,
           inbox: Moonbase::Inbox::OrHash,
-          messages: T::Array[Moonbase::EmailMessage],
+          messages: T::Array[T.anything],
           unsnooze_at: Time,
           type: Symbol
         ).returns(T.attached_class)
@@ -119,6 +125,9 @@ module Moonbase
         id:,
         # `true` if the conversation appears to be part of a bulk mailing.
         bulk:,
+        # The communication channel of the conversation, which can be `email`, `chat`, or
+        # `slack`.
+        channel:,
         # Time at which the object was created, as an ISO 8601 timestamp in UTC.
         created_at:,
         # `true` if a new draft reply to this conversation has been started.
@@ -146,7 +155,7 @@ module Moonbase
         #
         # **Note:** Only present when requested using the `include` query parameter.
         inbox: nil,
-        # The `EmailMessage` objects that belong to this conversation.
+        # The `Message` objects that belong to this conversation.
         #
         # **Note:** Only present when requested using the `include` query parameter.
         messages: nil,
@@ -164,6 +173,7 @@ module Moonbase
           {
             id: String,
             bulk: T::Boolean,
+            channel: Moonbase::InboxConversation::Channel::TaggedSymbol,
             created_at: Time,
             draft: T::Boolean,
             follow_up: T::Boolean,
@@ -177,12 +187,36 @@ module Moonbase
             unread: T::Boolean,
             updated_at: Time,
             inbox: Moonbase::Inbox,
-            messages: T::Array[Moonbase::EmailMessage],
+            messages: T::Array[T.anything],
             unsnooze_at: Time
           }
         )
       end
       def to_hash
+      end
+
+      # The communication channel of the conversation, which can be `email`, `chat`, or
+      # `slack`.
+      module Channel
+        extend Moonbase::Internal::Type::Enum
+
+        TaggedSymbol =
+          T.type_alias { T.all(Symbol, Moonbase::InboxConversation::Channel) }
+        OrSymbol = T.type_alias { T.any(Symbol, String) }
+
+        EMAIL =
+          T.let(:email, Moonbase::InboxConversation::Channel::TaggedSymbol)
+        CHAT = T.let(:chat, Moonbase::InboxConversation::Channel::TaggedSymbol)
+        SLACK =
+          T.let(:slack, Moonbase::InboxConversation::Channel::TaggedSymbol)
+
+        sig do
+          override.returns(
+            T::Array[Moonbase::InboxConversation::Channel::TaggedSymbol]
+          )
+        end
+        def self.values
+        end
       end
 
       # The current state, which can be `unassigned`, `active`, `closed`, or `waiting`.

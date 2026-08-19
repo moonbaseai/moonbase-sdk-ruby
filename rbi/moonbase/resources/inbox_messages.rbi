@@ -11,31 +11,20 @@ module Moonbase
       # Creates a new message draft.
       sig do
         params(
-          body: Moonbase::FormattedText::OrHash,
-          inbox_id: String,
-          bcc: T::Array[Moonbase::EmailMessageAddressParams::OrHash],
-          cc: T::Array[Moonbase::EmailMessageAddressParams::OrHash],
-          conversation_id: String,
-          subject: String,
-          to: T::Array[Moonbase::EmailMessageAddressParams::OrHash],
+          message:
+            T.any(
+              Moonbase::InboxMessageCreateParams::Message::EmailMessageNewConversationCreateParams::OrHash,
+              Moonbase::InboxMessageCreateParams::Message::SlackMessageNewConversationCreateParams::OrHash,
+              Moonbase::InboxMessageCreateParams::Message::EmailMessageReplyCreateParams::OrHash,
+              Moonbase::InboxMessageCreateParams::Message::SlackMessageReplyCreateParams::OrHash
+            ),
           request_options: Moonbase::RequestOptions::OrHash
-        ).returns(Moonbase::EmailMessage)
+        ).returns(Moonbase::Models::InboxMessageCreateResponse::Variants)
       end
       def create(
-        # The email body.
-        body:,
-        # The inbox to use for sending the email.
-        inbox_id:,
-        # A list of the BCC recipients.
-        bcc: nil,
-        # A list of the CC recipients.
-        cc: nil,
-        # The ID of the conversation, if responding to an existing conversation.
-        conversation_id: nil,
-        # The subject line of the email.
-        subject: nil,
-        # A list of recipients.
-        to: nil,
+        # Parameters for creating an email message draft. Provide either the fields for a
+        # new conversation, or a `conversation_id` to reply to an existing conversation.
+        message:,
         request_options: {}
       )
       end
@@ -47,7 +36,7 @@ module Moonbase
           include:
             T::Array[Moonbase::InboxMessageRetrieveParams::Include::OrSymbol],
           request_options: Moonbase::RequestOptions::OrHash
-        ).returns(Moonbase::EmailMessage)
+        ).returns(Moonbase::Models::InboxMessageRetrieveResponse::Variants)
       end
       def retrieve(
         # The ID of the Message to retrieve.
@@ -63,30 +52,19 @@ module Moonbase
       sig do
         params(
           id: String,
-          lock_version: Integer,
-          bcc: T::Array[Moonbase::EmailMessageAddressParams::OrHash],
-          body: Moonbase::FormattedText::OrHash,
-          cc: T::Array[Moonbase::EmailMessageAddressParams::OrHash],
-          subject: String,
-          to: T::Array[Moonbase::EmailMessageAddressParams::OrHash],
+          message:
+            T.any(
+              Moonbase::InboxMessageUpdateParams::Message::EmailMessageUpdateParams::OrHash,
+              Moonbase::InboxMessageUpdateParams::Message::SlackMessageUpdateParams::OrHash
+            ),
           request_options: Moonbase::RequestOptions::OrHash
-        ).returns(Moonbase::EmailMessage)
+        ).returns(Moonbase::Models::InboxMessageUpdateResponse::Variants)
       end
       def update(
         # The ID of the message to update.
         id,
-        # The current lock version of the draft for optimistic concurrency control.
-        lock_version:,
-        # A list of the BCC recipients.
-        bcc: nil,
-        # The email body.
-        body: nil,
-        # A list of the CC recipients.
-        cc: nil,
-        # The subject line of the email.
-        subject: nil,
-        # A list of the recipients.
-        to: nil,
+        # Parameters for updating a draft message in an existing conversation.
+        message:,
         request_options: {}
       )
       end
@@ -101,7 +79,7 @@ module Moonbase
           inbox_id: Moonbase::InboxMessageListParams::InboxID::OrHash,
           limit: Integer,
           request_options: Moonbase::RequestOptions::OrHash
-        ).returns(Moonbase::Internal::CursorPage[Moonbase::EmailMessagePointer])
+        ).returns(Moonbase::Internal::CursorPage[Moonbase::MessagePointer])
       end
       def list(
         # When specified, returns results starting immediately after the item identified

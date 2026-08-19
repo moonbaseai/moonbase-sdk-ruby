@@ -16,6 +16,13 @@ module Moonbase
       #   @return [Boolean]
       required :bulk, Moonbase::Internal::Type::Boolean
 
+      # @!attribute channel
+      #   The communication channel of the conversation, which can be `email`, `chat`, or
+      #   `slack`.
+      #
+      #   @return [Symbol, Moonbase::Models::InboxConversation::Channel]
+      required :channel, enum: -> { Moonbase::InboxConversation::Channel }
+
       # @!attribute created_at
       #   Time at which the object was created, as an ISO 8601 timestamp in UTC.
       #
@@ -99,12 +106,12 @@ module Moonbase
       optional :inbox, -> { Moonbase::Inbox }
 
       # @!attribute messages
-      #   The `EmailMessage` objects that belong to this conversation.
+      #   The `Message` objects that belong to this conversation.
       #
       #   **Note:** Only present when requested using the `include` query parameter.
       #
-      #   @return [Array<Moonbase::Models::EmailMessage>, nil]
-      optional :messages, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::EmailMessage] }
+      #   @return [Array<Object>, nil]
+      optional :messages, Moonbase::Internal::Type::ArrayOf[Moonbase::Internal::Type::Unknown]
 
       # @!attribute unsnooze_at
       #   If the conversation is snoozed, this is the time it will reappear in the inbox,
@@ -113,7 +120,7 @@ module Moonbase
       #   @return [Time, nil]
       optional :unsnooze_at, Time
 
-      # @!method initialize(id:, bulk:, created_at:, draft:, follow_up:, last_message_at:, spam:, state:, subject:, tags:, trash:, unread:, updated_at:, inbox: nil, messages: nil, unsnooze_at: nil, type: :inbox_conversation)
+      # @!method initialize(id:, bulk:, channel:, created_at:, draft:, follow_up:, last_message_at:, spam:, state:, subject:, tags:, trash:, unread:, updated_at:, inbox: nil, messages: nil, unsnooze_at: nil, type: :inbox_conversation)
       #   Some parameter documentations has been truncated, see
       #   {Moonbase::Models::InboxConversation} for more details.
       #
@@ -122,6 +129,8 @@ module Moonbase
       #   @param id [String] Unique identifier for the object.
       #
       #   @param bulk [Boolean] `true` if the conversation appears to be part of a bulk mailing.
+      #
+      #   @param channel [Symbol, Moonbase::Models::InboxConversation::Channel] The communication channel of the conversation, which can be `email`, `chat`, or
       #
       #   @param created_at [Time] Time at which the object was created, as an ISO 8601 timestamp in UTC.
       #
@@ -147,11 +156,26 @@ module Moonbase
       #
       #   @param inbox [Moonbase::Models::Inbox] The `Inbox` that this conversations belongs to.
       #
-      #   @param messages [Array<Moonbase::Models::EmailMessage>] The `EmailMessage` objects that belong to this conversation.
+      #   @param messages [Array<Object>] The `Message` objects that belong to this conversation.
       #
       #   @param unsnooze_at [Time] If the conversation is snoozed, this is the time it will reappear in the inbox,
       #
       #   @param type [Symbol, :inbox_conversation] String representing the object’s type. Always `inbox_conversation` for this obje
+
+      # The communication channel of the conversation, which can be `email`, `chat`, or
+      # `slack`.
+      #
+      # @see Moonbase::Models::InboxConversation#channel
+      module Channel
+        extend Moonbase::Internal::Type::Enum
+
+        EMAIL = :email
+        CHAT = :chat
+        SLACK = :slack
+
+        # @!method self.values
+        #   @return [Array<Symbol>]
+      end
 
       # The current state, which can be `unassigned`, `active`, `closed`, or `waiting`.
       #

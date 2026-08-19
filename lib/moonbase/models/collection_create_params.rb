@@ -20,13 +20,22 @@ module Moonbase
       #   @return [String, nil]
       optional :description, String
 
-      # @!method initialize(name:, description: nil, request_options: {})
+      # @!attribute icon_name
+      #   An optional icon for the collection, as a Phosphor icon name in kebab-case (e.g.
+      #   `users`, `chart-bar`).
+      #
+      #   @return [String, nil]
+      optional :icon_name, String
+
+      # @!method initialize(name:, description: nil, icon_name: nil, request_options: {})
       #   Some parameter documentations has been truncated, see
       #   {Moonbase::Models::CollectionCreateParams} for more details.
       #
       #   @param name [String] The user-facing name of the collection (e.g., "Leads"). A `ref` is automatically
       #
       #   @param description [String] An optional, longer-form description of the collection's purpose.
+      #
+      #   @param icon_name [String] An optional icon for the collection, as a Phosphor icon name in kebab-case (e.g.
       #
       #   @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}]
     end

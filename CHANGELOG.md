@@ -1,5 +1,37 @@
 # Changelog
 
+## 0.1.0-alpha.11 (2026-08-03)
+
+Full Changelog: [v0.1.0-alpha.10...v0.1.0-alpha.11](https://github.com/moonbaseai/moonbase-sdk-ruby/compare/v0.1.0-alpha.10...v0.1.0-alpha.11)
+
+### Features
+
+* **api:** add aggregates/fields/filter/groups/sort fields and types to view ([efe3bfc](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/efe3bfc5b3372ac2ef240aa8e1b598bd36308359))
+* **api:** add associations field, parameter, and TagsetAssociation model to tagsets ([8a27988](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/8a279886858e345599d48f4189da6d93e5aeffcc))
+* **api:** add channel field to inbox_conversation model ([c1936ad](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/c1936ade52e5c0dcbf0fb6df17a881d9f257bc4b))
+* **api:** add delete method to collections ([6c5037e](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/6c5037ea99c563925955ff00894d890ef6fbe68c))
+* **api:** add icon_name field to collections ([61f088a](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/61f088a041c4208eb9c2ced53212e10f759a2f91))
+* **api:** add Slack support to address/message models and create/update params ([dd8de30](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/dd8de30e0198b5d81de104f8a1282a86a4fde719))
+* **stlc:** configurable CI runner and private-production-repo support in workflow templates ([44f8d0a](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/44f8d0afada99a0cb34ed5fe09667f9e319b2710))
+
+
+### Bug Fixes
+
+* **client:** elide content type header on requests without body ([4e046cc](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/4e046cc11d997a0775a7a64d586f1a70d1bf0212))
+* **client:** send content-type header for requests with an omitted optional body ([e8e3578](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/e8e3578e96598b6efa2c085d1435106d07e6a12c))
+* **types:** make default_unit required in FieldNumberMonetary ([9574fd2](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/9574fd218665c43efc9da43ee09eced0a07150ef))
+* **types:** restructure inbox message create params into union type for new/reply ([758be9e](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/758be9e5e0eb9a07aec7cadd48929db738c4bfef))
+
+
+### Chores
+
+* **internal:** bound formatter parallelism to CPU count ([0927451](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/09274515a24af564100bcc82602894429c400a67))
+
+
+### Documentation
+
+* **api:** update file parameter documentation in files resource ([555c669](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/555c6695abccfd9f1c71344ba926dca3a81f9382))
+
 ## 0.1.0-alpha.10 (2026-05-08)
 
 Full Changelog: [v0.1.0-alpha.9...v0.1.0-alpha.10](https://github.com/moonbaseai/moonbase-sdk-ruby/compare/v0.1.0-alpha.9...v0.1.0-alpha.10)

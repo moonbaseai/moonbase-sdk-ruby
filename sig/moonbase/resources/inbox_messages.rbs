@@ -4,32 +4,21 @@ module Moonbase
       attr_reader attachments: Moonbase::Resources::InboxMessages::Attachments
 
       def create: (
-        body: Moonbase::FormattedText,
-        inbox_id: String,
-        ?bcc: ::Array[Moonbase::EmailMessageAddressParams],
-        ?cc: ::Array[Moonbase::EmailMessageAddressParams],
-        ?conversation_id: String,
-        ?subject: String,
-        ?to: ::Array[Moonbase::EmailMessageAddressParams],
+        message: Moonbase::Models::InboxMessageCreateParams::message,
         ?request_options: Moonbase::request_opts
-      ) -> Moonbase::EmailMessage
+      ) -> Moonbase::Models::inbox_message_create_response
 
       def retrieve: (
         String id,
         ?include: ::Array[Moonbase::Models::InboxMessageRetrieveParams::include_],
         ?request_options: Moonbase::request_opts
-      ) -> Moonbase::EmailMessage
+      ) -> Moonbase::Models::inbox_message_retrieve_response
 
       def update: (
         String id,
-        lock_version: Integer,
-        ?bcc: ::Array[Moonbase::EmailMessageAddressParams],
-        ?body: Moonbase::FormattedText,
-        ?cc: ::Array[Moonbase::EmailMessageAddressParams],
-        ?subject: String,
-        ?to: ::Array[Moonbase::EmailMessageAddressParams],
+        message: Moonbase::Models::InboxMessageUpdateParams::message,
         ?request_options: Moonbase::request_opts
-      ) -> Moonbase::EmailMessage
+      ) -> Moonbase::Models::inbox_message_update_response
 
       def list: (
         ?after: String,
@@ -38,7 +27,7 @@ module Moonbase
         ?inbox_id: Moonbase::InboxMessageListParams::InboxID,
         ?limit: Integer,
         ?request_options: Moonbase::request_opts
-      ) -> Moonbase::Internal::CursorPage[Moonbase::EmailMessagePointer]
+      ) -> Moonbase::Internal::CursorPage[Moonbase::MessagePointer]
 
       def delete: (String id, ?request_options: Moonbase::request_opts) -> nil
 

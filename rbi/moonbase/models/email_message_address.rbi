@@ -2,9 +2,11 @@
 
 module Moonbase
   module Models
-    class Address < Moonbase::Internal::Type::BaseModel
+    class EmailMessageAddress < Moonbase::Internal::Type::BaseModel
       OrHash =
-        T.type_alias { T.any(Moonbase::Address, Moonbase::Internal::AnyHash) }
+        T.type_alias do
+          T.any(Moonbase::EmailMessageAddress, Moonbase::Internal::AnyHash)
+        end
 
       # Unique identifier for the object.
       sig { returns(String) }
@@ -16,7 +18,7 @@ module Moonbase
 
       # The role of the address in the message. Can be `from`, `reply_to`, `to`, `cc`,
       # or `bcc`.
-      sig { returns(Moonbase::Address::Role::TaggedSymbol) }
+      sig { returns(Moonbase::EmailMessageAddress::Role::TaggedSymbol) }
       attr_accessor :role
 
       # String representing the object’s type. Always `message_address` for this object.
@@ -39,14 +41,14 @@ module Moonbase
       sig { params(person: Moonbase::ItemPointer::OrHash).void }
       attr_writer :person
 
-      # The Address object represents a recipient or sender of a message. It contains an
-      # email address and can be linked to a person and an organization in your
-      # collections.
+      # The EmailMessageAddress object represents a recipient or sender of a message. It
+      # contains an email address and can be linked to a person and an organization in
+      # your collections.
       sig do
         params(
           id: String,
           email: String,
-          role: Moonbase::Address::Role::OrSymbol,
+          role: Moonbase::EmailMessageAddress::Role::OrSymbol,
           organization: Moonbase::ItemPointer::OrHash,
           person: Moonbase::ItemPointer::OrHash,
           type: Symbol
@@ -67,7 +69,7 @@ module Moonbase
         # needed to locate the item.
         person: nil,
         # String representing the object’s type. Always `message_address` for this object.
-        type: :message_address
+        type: :email_message_address
       )
       end
 
@@ -76,7 +78,7 @@ module Moonbase
           {
             id: String,
             email: String,
-            role: Moonbase::Address::Role::TaggedSymbol,
+            role: Moonbase::EmailMessageAddress::Role::TaggedSymbol,
             type: Symbol,
             organization: Moonbase::ItemPointer,
             person: Moonbase::ItemPointer
@@ -91,17 +93,21 @@ module Moonbase
       module Role
         extend Moonbase::Internal::Type::Enum
 
-        TaggedSymbol = T.type_alias { T.all(Symbol, Moonbase::Address::Role) }
+        TaggedSymbol =
+          T.type_alias { T.all(Symbol, Moonbase::EmailMessageAddress::Role) }
         OrSymbol = T.type_alias { T.any(Symbol, String) }
 
-        FROM = T.let(:from, Moonbase::Address::Role::TaggedSymbol)
-        REPLY_TO = T.let(:reply_to, Moonbase::Address::Role::TaggedSymbol)
-        TO = T.let(:to, Moonbase::Address::Role::TaggedSymbol)
-        CC = T.let(:cc, Moonbase::Address::Role::TaggedSymbol)
-        BCC = T.let(:bcc, Moonbase::Address::Role::TaggedSymbol)
+        FROM = T.let(:from, Moonbase::EmailMessageAddress::Role::TaggedSymbol)
+        REPLY_TO =
+          T.let(:reply_to, Moonbase::EmailMessageAddress::Role::TaggedSymbol)
+        TO = T.let(:to, Moonbase::EmailMessageAddress::Role::TaggedSymbol)
+        CC = T.let(:cc, Moonbase::EmailMessageAddress::Role::TaggedSymbol)
+        BCC = T.let(:bcc, Moonbase::EmailMessageAddress::Role::TaggedSymbol)
 
         sig do
-          override.returns(T::Array[Moonbase::Address::Role::TaggedSymbol])
+          override.returns(
+            T::Array[Moonbase::EmailMessageAddress::Role::TaggedSymbol]
+          )
         end
         def self.values
         end

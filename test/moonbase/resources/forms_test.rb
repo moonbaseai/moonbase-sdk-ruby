@@ -14,8 +14,9 @@ class Moonbase::Test::Resources::FormsTest < Moonbase::Test::ResourceTest
       response => {
         id: String,
         business_email_required: Moonbase::Internal::Type::Boolean,
-        collection: Moonbase::Collection,
+        collection: Moonbase::CollectionPointer,
         created_at: Time,
+        html_embed: String,
         name: String,
         pages_enabled: Moonbase::Internal::Type::Boolean,
         type: Symbol,
@@ -37,8 +38,9 @@ class Moonbase::Test::Resources::FormsTest < Moonbase::Test::ResourceTest
       response => {
         id: String,
         business_email_required: Moonbase::Internal::Type::Boolean,
-        collection: Moonbase::Collection,
+        collection: Moonbase::CollectionPointer,
         created_at: Time,
+        html_embed: String,
         name: String,
         pages_enabled: Moonbase::Internal::Type::Boolean,
         type: Symbol,
@@ -60,8 +62,9 @@ class Moonbase::Test::Resources::FormsTest < Moonbase::Test::ResourceTest
       response => {
         id: String,
         business_email_required: Moonbase::Internal::Type::Boolean,
-        collection: Moonbase::Collection,
+        collection: Moonbase::CollectionPointer,
         created_at: Time,
+        html_embed: String,
         name: String,
         pages_enabled: Moonbase::Internal::Type::Boolean,
         type: Symbol,
@@ -83,14 +86,14 @@ class Moonbase::Test::Resources::FormsTest < Moonbase::Test::ResourceTest
     return if row.nil?
 
     assert_pattern do
-      row => Moonbase::Form
+      row => Moonbase::Models::FormListResponse
     end
 
     assert_pattern do
       row => {
         id: String,
         business_email_required: Moonbase::Internal::Type::Boolean,
-        collection: Moonbase::Collection,
+        collection: Moonbase::CollectionPointer,
         created_at: Time,
         name: String,
         pages_enabled: Moonbase::Internal::Type::Boolean,

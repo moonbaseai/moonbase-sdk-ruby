@@ -10,6 +10,10 @@ module Moonbase
       sig { returns(String) }
       attr_accessor :id
 
+      # Where a tagset is available (`calls`, `meetings`, or `inbox` with an inbox ID).
+      sig { returns(T::Array[Moonbase::TagsetAssociation::Variants]) }
+      attr_accessor :associations
+
       # Time at which the object was created, as an ISO 8601 timestamp in UTC.
       sig { returns(Time) }
       attr_accessor :created_at
@@ -42,6 +46,14 @@ module Moonbase
       sig do
         params(
           id: String,
+          associations:
+            T::Array[
+              T.any(
+                Moonbase::TagsetAssociation::Calls::OrHash,
+                Moonbase::TagsetAssociation::Meetings::OrHash,
+                Moonbase::TagsetAssociation::Inbox::OrHash
+              )
+            ],
           created_at: Time,
           name: String,
           tags: T::Array[Moonbase::Tag::OrHash],
@@ -53,6 +65,8 @@ module Moonbase
       def self.new(
         # Unique identifier for the object.
         id:,
+        # Where a tagset is available (`calls`, `meetings`, or `inbox` with an inbox ID).
+        associations:,
         # Time at which the object was created, as an ISO 8601 timestamp in UTC.
         created_at:,
         # The name of the tagset.
@@ -72,6 +86,7 @@ module Moonbase
         override.returns(
           {
             id: String,
+            associations: T::Array[Moonbase::TagsetAssociation::Variants],
             created_at: Time,
             name: String,
             tags: T::Array[Moonbase::Tag],

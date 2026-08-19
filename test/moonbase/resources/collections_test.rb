@@ -21,7 +21,8 @@ class Moonbase::Test::Resources::CollectionsTest < Moonbase::Test::ResourceTest
         type: Symbol,
         updated_at: Time,
         description: String | nil,
-        views: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::View]) | nil
+        icon_name: String | nil,
+        views: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Collection::View]) | nil
       }
     end
   end
@@ -44,7 +45,8 @@ class Moonbase::Test::Resources::CollectionsTest < Moonbase::Test::ResourceTest
         type: Symbol,
         updated_at: Time,
         description: String | nil,
-        views: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::View]) | nil
+        icon_name: String | nil,
+        views: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Collection::View]) | nil
       }
     end
   end
@@ -67,7 +69,8 @@ class Moonbase::Test::Resources::CollectionsTest < Moonbase::Test::ResourceTest
         type: Symbol,
         updated_at: Time,
         description: String | nil,
-        views: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::View]) | nil
+        icon_name: String | nil,
+        views: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Collection::View]) | nil
       }
     end
   end
@@ -95,8 +98,17 @@ class Moonbase::Test::Resources::CollectionsTest < Moonbase::Test::ResourceTest
         ref: String,
         type: Symbol,
         updated_at: Time,
-        description: String | nil
+        description: String | nil,
+        icon_name: String | nil
       }
+    end
+  end
+
+  def test_delete
+    response = @moonbase.collections.delete("id")
+
+    assert_pattern do
+      response => nil
     end
   end
 end

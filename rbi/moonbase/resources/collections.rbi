@@ -18,6 +18,7 @@ module Moonbase
         params(
           name: String,
           description: String,
+          icon_name: String,
           request_options: Moonbase::RequestOptions::OrHash
         ).returns(Moonbase::Collection)
       end
@@ -27,6 +28,9 @@ module Moonbase
         name:,
         # An optional, longer-form description of the collection's purpose.
         description: nil,
+        # An optional icon for the collection, as a Phosphor icon name in kebab-case (e.g.
+        # `users`, `chart-bar`).
+        icon_name: nil,
         request_options: {}
       )
       end
@@ -50,6 +54,7 @@ module Moonbase
         params(
           id: String,
           description: String,
+          icon_name: T.nilable(String),
           name: String,
           request_options: Moonbase::RequestOptions::OrHash
         ).returns(Moonbase::Collection)
@@ -59,6 +64,9 @@ module Moonbase
         id,
         # An optional, longer-form description of the collection's purpose.
         description: nil,
+        # The collection's icon, as a Phosphor icon name in kebab-case (e.g. `users`,
+        # `chart-bar`), or `null` to clear it.
+        icon_name: nil,
         # The user-facing name of the collection.
         name: nil,
         request_options: {}
@@ -90,6 +98,20 @@ module Moonbase
         # Maximum number of items to return per page. Must be between 1 and 100. Defaults
         # to 20 if not specified.
         limit: nil,
+        request_options: {}
+      )
+      end
+
+      # Permanently deletes a collection.
+      sig do
+        params(
+          id: String,
+          request_options: Moonbase::RequestOptions::OrHash
+        ).void
+      end
+      def delete(
+        # The ID or `ref` of the Collection to delete.
+        id,
         request_options: {}
       )
       end

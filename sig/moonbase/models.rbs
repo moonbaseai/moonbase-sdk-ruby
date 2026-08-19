@@ -39,8 +39,6 @@ module Moonbase
 
   class ActivityRetrieveParams = Moonbase::Models::ActivityRetrieveParams
 
-  class Address = Moonbase::Models::Address
-
   class AgentSettingRetrieveParams = Moonbase::Models::AgentSettingRetrieveParams
 
   class AgentSettingUpdateParams = Moonbase::Models::AgentSettingUpdateParams
@@ -87,6 +85,8 @@ module Moonbase
 
   class CollectionCreateParams = Moonbase::Models::CollectionCreateParams
 
+  class CollectionDeleteParams = Moonbase::Models::CollectionDeleteParams
+
   class CollectionListParams = Moonbase::Models::CollectionListParams
 
   class CollectionPointer = Moonbase::Models::CollectionPointer
@@ -127,9 +127,9 @@ module Moonbase
 
   class EmailMessage = Moonbase::Models::EmailMessage
 
-  class EmailMessageAddressParams = Moonbase::Models::EmailMessageAddressParams
+  class EmailMessageAddress = Moonbase::Models::EmailMessageAddress
 
-  class EmailMessagePointer = Moonbase::Models::EmailMessagePointer
+  class EmailMessageAddressParams = Moonbase::Models::EmailMessageAddressParams
 
   class EmailValue = Moonbase::Models::EmailValue
 
@@ -269,6 +269,8 @@ module Moonbase
 
   class MessageAttachment = Moonbase::Models::MessageAttachment
 
+  class MessagePointer = Moonbase::Models::MessagePointer
+
   class MonetaryField = Moonbase::Models::MonetaryField
 
   class MonetaryValue = Moonbase::Models::MonetaryValue
@@ -339,6 +341,12 @@ module Moonbase
 
   class SingleLineTextValue = Moonbase::Models::SingleLineTextValue
 
+  class SlackMessage = Moonbase::Models::SlackMessage
+
+  module SlackMessageAddress = Moonbase::Models::SlackMessageAddress
+
+  class SlackMessageAddressParams = Moonbase::Models::SlackMessageAddressParams
+
   class SocialLinkedInField = Moonbase::Models::SocialLinkedInField
 
   class SocialLinkedInValue = Moonbase::Models::SocialLinkedInValue
@@ -368,6 +376,8 @@ module Moonbase
   class TagPointerParam = Moonbase::Models::TagPointerParam
 
   class Tagset = Moonbase::Models::Tagset
+
+  module TagsetAssociation = Moonbase::Models::TagsetAssociation
 
   class TagsetCreateParams = Moonbase::Models::TagsetCreateParams
 
@@ -405,9 +415,27 @@ module Moonbase
 
   class View = Moonbase::Models::View
 
+  module ViewAggregate = Moonbase::Models::ViewAggregate
+
+  class ViewAggregateFieldStatistic = Moonbase::Models::ViewAggregateFieldStatistic
+
+  class ViewAggregateItemCount = Moonbase::Models::ViewAggregateItemCount
+
+  class ViewCreateParams = Moonbase::Models::ViewCreateParams
+
+  class ViewDeleteParams = Moonbase::Models::ViewDeleteParams
+
+  class ViewField = Moonbase::Models::ViewField
+
+  class ViewListParams = Moonbase::Models::ViewListParams
+
+  class ViewRelationValueFilter = Moonbase::Models::ViewRelationValueFilter
+
   class ViewRetrieveParams = Moonbase::Models::ViewRetrieveParams
 
   module Views = Moonbase::Models::Views
+
+  class ViewUpdateParams = Moonbase::Models::ViewUpdateParams
 
   class WebhookEndpointCreateParams = Moonbase::Models::WebhookEndpointCreateParams
 

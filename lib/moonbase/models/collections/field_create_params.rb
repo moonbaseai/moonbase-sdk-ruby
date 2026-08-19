@@ -478,6 +478,13 @@ module Moonbase
           end
 
           class FieldNumberMonetary < Moonbase::Internal::Type::BaseModel
+            # @!attribute default_unit
+            #   The default currency for the field, as a 3-letter uppercase ISO 4217 code (e.g.,
+            #   `USD`, `EUR`, `GBP`).
+            #
+            #   @return [String]
+            required :default_unit, String
+
             # @!attribute name
             #   The human-readable name for the field.
             #
@@ -497,13 +504,6 @@ module Moonbase
             #   @return [Symbol, Moonbase::Models::Collections::FieldCreateParams::Field::FieldNumberMonetary::Cardinality, nil]
             optional :cardinality,
                      enum: -> { Moonbase::Collections::FieldCreateParams::Field::FieldNumberMonetary::Cardinality }
-
-            # @!attribute default_unit
-            #   The default currency for the field, as a 3-letter ISO 4217 code (e.g., `USD`,
-            #   `EUR`, `GBP`).
-            #
-            #   @return [String, nil]
-            optional :default_unit, String
 
             # @!attribute default_values
             #
@@ -528,18 +528,18 @@ module Moonbase
             #   @return [Boolean, nil]
             optional :unique, Moonbase::Internal::Type::Boolean
 
-            # @!method initialize(name:, cardinality: nil, default_unit: nil, default_values: nil, description: nil, required: nil, unique: nil, type: :"field/number/monetary")
+            # @!method initialize(default_unit:, name:, cardinality: nil, default_values: nil, description: nil, required: nil, unique: nil, type: :"field/number/monetary")
             #   Some parameter documentations has been truncated, see
             #   {Moonbase::Models::Collections::FieldCreateParams::Field::FieldNumberMonetary}
             #   for more details.
             #
             #   Parameters for creating a monetary field.
             #
+            #   @param default_unit [String] The default currency for the field, as a 3-letter uppercase ISO 4217 code (e.g.,
+            #
             #   @param name [String] The human-readable name for the field.
             #
             #   @param cardinality [Symbol, Moonbase::Models::Collections::FieldCreateParams::Field::FieldNumberMonetary::Cardinality] Whether the field holds a single value (`one`) or multiple values (`many`). Defa
-            #
-            #   @param default_unit [String] The default currency for the field, as a 3-letter ISO 4217 code (e.g., `USD`, `E
             #
             #   @param default_values [Array<Moonbase::Models::MonetaryValue>]
             #

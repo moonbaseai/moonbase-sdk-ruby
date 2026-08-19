@@ -11,7 +11,8 @@ module Moonbase
         type: :collection,
         updated_at: Time,
         description: String,
-        views: ::Array[Moonbase::View]
+        icon_name: String,
+        views: ::Array[Moonbase::Collection::View]
       }
 
     class Collection < Moonbase::Internal::Type::BaseModel
@@ -35,9 +36,15 @@ module Moonbase
 
       def description=: (String) -> String
 
-      attr_reader views: ::Array[Moonbase::View]?
+      attr_reader icon_name: String?
 
-      def views=: (::Array[Moonbase::View]) -> ::Array[Moonbase::View]
+      def icon_name=: (String) -> String
+
+      attr_reader views: ::Array[Moonbase::Collection::View]?
+
+      def views=: (
+        ::Array[Moonbase::Collection::View]
+      ) -> ::Array[Moonbase::Collection::View]
 
       def initialize: (
         id: String,
@@ -48,7 +55,8 @@ module Moonbase
         ref: String,
         updated_at: Time,
         ?description: String,
-        ?views: ::Array[Moonbase::View],
+        ?icon_name: String,
+        ?views: ::Array[Moonbase::Collection::View],
         ?type: :collection
       ) -> void
 
@@ -62,7 +70,8 @@ module Moonbase
         type: :collection,
         updated_at: Time,
         description: String,
-        views: ::Array[Moonbase::View]
+        icon_name: String,
+        views: ::Array[Moonbase::Collection::View]
       }
 
       type kind = :system | :form | :custom
@@ -75,6 +84,64 @@ module Moonbase
         CUSTOM: :custom
 
         def self?.values: -> ::Array[Moonbase::Models::Collection::kind]
+      end
+
+      type view =
+        {
+          id: String,
+          collection: Moonbase::CollectionPointer,
+          created_at: Time,
+          name: String,
+          type: :view,
+          updated_at: Time,
+          view_type: Moonbase::Models::Collection::View::view_type
+        }
+
+      class View < Moonbase::Internal::Type::BaseModel
+        attr_accessor id: String
+
+        attr_accessor collection: Moonbase::CollectionPointer
+
+        attr_accessor created_at: Time
+
+        attr_accessor name: String
+
+        attr_accessor type: :view
+
+        attr_accessor updated_at: Time
+
+        attr_accessor view_type: Moonbase::Models::Collection::View::view_type
+
+        def initialize: (
+          id: String,
+          collection: Moonbase::CollectionPointer,
+          created_at: Time,
+          name: String,
+          updated_at: Time,
+          view_type: Moonbase::Models::Collection::View::view_type,
+          ?type: :view
+        ) -> void
+
+        def to_hash: -> {
+          id: String,
+          collection: Moonbase::CollectionPointer,
+          created_at: Time,
+          name: String,
+          type: :view,
+          updated_at: Time,
+          view_type: Moonbase::Models::Collection::View::view_type
+        }
+
+        type view_type = :table | :board
+
+        module ViewType
+          extend Moonbase::Internal::Type::Enum
+
+          TABLE: :table
+          BOARD: :board
+
+          def self?.values: -> ::Array[Moonbase::Models::Collection::View::view_type]
+        end
       end
     end
   end

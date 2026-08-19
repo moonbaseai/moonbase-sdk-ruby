@@ -40,7 +40,7 @@ module Moonbase
         #   Return only items that match the filter conditions. Complex filters can be
         #   created by nesting filters inside of `AND`, `OR`, and `NOT` filters.
         #
-        #   @return [Moonbase::Models::ItemsFilterValueMatches, Moonbase::Models::ItemsFilterValueExists, Moonbase::Models::ItemsFilterAndGroup, Moonbase::Models::ItemsFilterOrGroup, Moonbase::Models::ItemsFilterNotGroup, nil]
+        #   @return [Moonbase::Models::ItemsFilterValueExists, Moonbase::Models::ItemsFilterAndGroup, Moonbase::Models::ItemsFilterOrGroup, Moonbase::Models::ItemsFilterNotGroup, Moonbase::Models::ItemsFilterValueMatches, nil]
         optional :filter, union: -> { Moonbase::ItemsFilter }
 
         # @!attribute include
@@ -50,8 +50,9 @@ module Moonbase
         optional :include, Moonbase::Internal::Type::ArrayOf[String]
 
         # @!attribute sort
-        #   Sort items by the specified field ids or keys. Prefix a field with a
-        #   hyphen/minus (`-`) to sort in descending order by that field.
+        #   Sort items returned by the specified fields, specified directly by (`name`) or
+        #   through relations (`organization.name`, `deals.owner.email`). Prefix with a
+        #   hyphen/minus (`-`) to sort in descending order.
         #
         #   @return [Array<String>, nil]
         optional :sort, Moonbase::Internal::Type::ArrayOf[String]
@@ -68,11 +69,11 @@ module Moonbase
         #
         #   @param limit [Integer] Maximum number of items to return per page. Must be between 1 and 100. Defaults
         #
-        #   @param filter [Moonbase::Models::ItemsFilterValueMatches, Moonbase::Models::ItemsFilterValueExists, Moonbase::Models::ItemsFilterAndGroup, Moonbase::Models::ItemsFilterOrGroup, Moonbase::Models::ItemsFilterNotGroup] Return only items that match the filter conditions. Complex filters can be creat
+        #   @param filter [Moonbase::Models::ItemsFilterValueExists, Moonbase::Models::ItemsFilterAndGroup, Moonbase::Models::ItemsFilterOrGroup, Moonbase::Models::ItemsFilterNotGroup, Moonbase::Models::ItemsFilterValueMatches] Return only items that match the filter conditions. Complex filters can be creat
         #
         #   @param include [Array<String>] Include only specific fields in the returned items. Specify fields by id or key.
         #
-        #   @param sort [Array<String>] Sort items by the specified field ids or keys. Prefix a field with a hyphen/minu
+        #   @param sort [Array<String>] Sort items returned by the specified fields, specified directly by (`name`) or t
         #
         #   @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}]
       end

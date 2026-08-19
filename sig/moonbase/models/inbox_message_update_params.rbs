@@ -3,12 +3,7 @@ module Moonbase
     type inbox_message_update_params =
       {
         id: String,
-        lock_version: Integer,
-        bcc: ::Array[Moonbase::EmailMessageAddressParams],
-        body: Moonbase::FormattedText,
-        cc: ::Array[Moonbase::EmailMessageAddressParams],
-        subject: String,
-        to: ::Array[Moonbase::EmailMessageAddressParams]
+        message: Moonbase::Models::InboxMessageUpdateParams::message
       }
       & Moonbase::Internal::Type::request_parameters
 
@@ -18,55 +13,137 @@ module Moonbase
 
       attr_accessor id: String
 
-      attr_accessor lock_version: Integer
-
-      attr_reader bcc: ::Array[Moonbase::EmailMessageAddressParams]?
-
-      def bcc=: (
-        ::Array[Moonbase::EmailMessageAddressParams]
-      ) -> ::Array[Moonbase::EmailMessageAddressParams]
-
-      attr_reader body: Moonbase::FormattedText?
-
-      def body=: (Moonbase::FormattedText) -> Moonbase::FormattedText
-
-      attr_reader cc: ::Array[Moonbase::EmailMessageAddressParams]?
-
-      def cc=: (
-        ::Array[Moonbase::EmailMessageAddressParams]
-      ) -> ::Array[Moonbase::EmailMessageAddressParams]
-
-      attr_reader subject: String?
-
-      def subject=: (String) -> String
-
-      attr_reader to: ::Array[Moonbase::EmailMessageAddressParams]?
-
-      def to=: (
-        ::Array[Moonbase::EmailMessageAddressParams]
-      ) -> ::Array[Moonbase::EmailMessageAddressParams]
+      attr_accessor message: Moonbase::Models::InboxMessageUpdateParams::message
 
       def initialize: (
         id: String,
-        lock_version: Integer,
-        ?bcc: ::Array[Moonbase::EmailMessageAddressParams],
-        ?body: Moonbase::FormattedText,
-        ?cc: ::Array[Moonbase::EmailMessageAddressParams],
-        ?subject: String,
-        ?to: ::Array[Moonbase::EmailMessageAddressParams],
+        message: Moonbase::Models::InboxMessageUpdateParams::message,
         ?request_options: Moonbase::request_opts
       ) -> void
 
       def to_hash: -> {
         id: String,
-        lock_version: Integer,
-        bcc: ::Array[Moonbase::EmailMessageAddressParams],
-        body: Moonbase::FormattedText,
-        cc: ::Array[Moonbase::EmailMessageAddressParams],
-        subject: String,
-        to: ::Array[Moonbase::EmailMessageAddressParams],
+        message: Moonbase::Models::InboxMessageUpdateParams::message,
         request_options: Moonbase::RequestOptions
       }
+
+      type message =
+        Moonbase::InboxMessageUpdateParams::Message::EmailMessageUpdateParams
+        | Moonbase::InboxMessageUpdateParams::Message::SlackMessageUpdateParams
+
+      module Message
+        extend Moonbase::Internal::Type::Union
+
+        type email_message_update_params =
+          {
+            lock_version: Integer,
+            type: :email_message,
+            bcc: ::Array[Moonbase::EmailMessageAddressParams],
+            body: Moonbase::FormattedText,
+            cc: ::Array[Moonbase::EmailMessageAddressParams],
+            subject: String,
+            to: ::Array[Moonbase::EmailMessageAddressParams]
+          }
+
+        class EmailMessageUpdateParams < Moonbase::Internal::Type::BaseModel
+          attr_accessor lock_version: Integer
+
+          attr_accessor type: :email_message
+
+          attr_reader bcc: ::Array[Moonbase::EmailMessageAddressParams]?
+
+          def bcc=: (
+            ::Array[Moonbase::EmailMessageAddressParams]
+          ) -> ::Array[Moonbase::EmailMessageAddressParams]
+
+          attr_reader body: Moonbase::FormattedText?
+
+          def body=: (Moonbase::FormattedText) -> Moonbase::FormattedText
+
+          attr_reader cc: ::Array[Moonbase::EmailMessageAddressParams]?
+
+          def cc=: (
+            ::Array[Moonbase::EmailMessageAddressParams]
+          ) -> ::Array[Moonbase::EmailMessageAddressParams]
+
+          attr_reader subject: String?
+
+          def subject=: (String) -> String
+
+          attr_reader to: ::Array[Moonbase::EmailMessageAddressParams]?
+
+          def to=: (
+            ::Array[Moonbase::EmailMessageAddressParams]
+          ) -> ::Array[Moonbase::EmailMessageAddressParams]
+
+          def initialize: (
+            lock_version: Integer,
+            ?bcc: ::Array[Moonbase::EmailMessageAddressParams],
+            ?body: Moonbase::FormattedText,
+            ?cc: ::Array[Moonbase::EmailMessageAddressParams],
+            ?subject: String,
+            ?to: ::Array[Moonbase::EmailMessageAddressParams],
+            ?type: :email_message
+          ) -> void
+
+          def to_hash: -> {
+            lock_version: Integer,
+            type: :email_message,
+            bcc: ::Array[Moonbase::EmailMessageAddressParams],
+            body: Moonbase::FormattedText,
+            cc: ::Array[Moonbase::EmailMessageAddressParams],
+            subject: String,
+            to: ::Array[Moonbase::EmailMessageAddressParams]
+          }
+        end
+
+        type slack_message_update_params =
+          {
+            lock_version: Integer,
+            type: :slack_message,
+            body: Moonbase::FormattedText,
+            subject: String,
+            to: ::Array[Moonbase::SlackMessageAddressParams]
+          }
+
+        class SlackMessageUpdateParams < Moonbase::Internal::Type::BaseModel
+          attr_accessor lock_version: Integer
+
+          attr_accessor type: :slack_message
+
+          attr_reader body: Moonbase::FormattedText?
+
+          def body=: (Moonbase::FormattedText) -> Moonbase::FormattedText
+
+          attr_reader subject: String?
+
+          def subject=: (String) -> String
+
+          attr_reader to: ::Array[Moonbase::SlackMessageAddressParams]?
+
+          def to=: (
+            ::Array[Moonbase::SlackMessageAddressParams]
+          ) -> ::Array[Moonbase::SlackMessageAddressParams]
+
+          def initialize: (
+            lock_version: Integer,
+            ?body: Moonbase::FormattedText,
+            ?subject: String,
+            ?to: ::Array[Moonbase::SlackMessageAddressParams],
+            ?type: :slack_message
+          ) -> void
+
+          def to_hash: -> {
+            lock_version: Integer,
+            type: :slack_message,
+            body: Moonbase::FormattedText,
+            subject: String,
+            to: ::Array[Moonbase::SlackMessageAddressParams]
+          }
+        end
+
+        def self?.variants: -> ::Array[Moonbase::Models::InboxMessageUpdateParams::message]
+      end
     end
   end
 end

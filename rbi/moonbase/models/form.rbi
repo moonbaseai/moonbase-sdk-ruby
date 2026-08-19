@@ -16,15 +16,19 @@ module Moonbase
       attr_accessor :business_email_required
 
       # The `Collection` that submissions to this form are saved to.
-      sig { returns(Moonbase::Collection) }
+      sig { returns(Moonbase::CollectionPointer) }
       attr_reader :collection
 
-      sig { params(collection: Moonbase::Collection::OrHash).void }
+      sig { params(collection: Moonbase::CollectionPointer::OrHash).void }
       attr_writer :collection
 
       # Time at which the object was created, as an ISO 8601 timestamp in UTC.
       sig { returns(Time) }
       attr_accessor :created_at
+
+      # The HTML snippet for embedding the form on your website.
+      sig { returns(String) }
+      attr_accessor :html_embed
 
       # The name of the form, used as the title on its public page.
       sig { returns(String) }
@@ -70,8 +74,9 @@ module Moonbase
         params(
           id: String,
           business_email_required: T::Boolean,
-          collection: Moonbase::Collection::OrHash,
+          collection: Moonbase::CollectionPointer::OrHash,
           created_at: Time,
+          html_embed: String,
           name: String,
           pages_enabled: T::Boolean,
           updated_at: Time,
@@ -90,6 +95,8 @@ module Moonbase
         collection:,
         # Time at which the object was created, as an ISO 8601 timestamp in UTC.
         created_at:,
+        # The HTML snippet for embedding the form on your website.
+        html_embed:,
         # The name of the form, used as the title on its public page.
         name:,
         # If `true`, a Moonbase Pages hosted page is enabled for this form, providing a
@@ -118,8 +125,9 @@ module Moonbase
           {
             id: String,
             business_email_required: T::Boolean,
-            collection: Moonbase::Collection,
+            collection: Moonbase::CollectionPointer,
             created_at: Time,
+            html_embed: String,
             name: String,
             pages_enabled: T::Boolean,
             type: Symbol,

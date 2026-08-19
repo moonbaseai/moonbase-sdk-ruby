@@ -14,6 +14,7 @@ class Moonbase::Test::Resources::InboxConversationsTest < Moonbase::Test::Resour
       response => {
         id: String,
         bulk: Moonbase::Internal::Type::Boolean,
+        channel: Moonbase::InboxConversation::Channel,
         created_at: Time,
         draft: Moonbase::Internal::Type::Boolean,
         follow_up: Moonbase::Internal::Type::Boolean,
@@ -27,7 +28,7 @@ class Moonbase::Test::Resources::InboxConversationsTest < Moonbase::Test::Resour
         unread: Moonbase::Internal::Type::Boolean,
         updated_at: Time,
         inbox: Moonbase::Inbox | nil,
-        messages: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::EmailMessage]) | nil,
+        messages: ^(Moonbase::Internal::Type::ArrayOf[Moonbase::Internal::Type::Unknown]) | nil,
         unsnooze_at: Time | nil
       }
     end

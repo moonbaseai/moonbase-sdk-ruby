@@ -9,9 +9,11 @@ module Moonbase
       #
       # Create a new tagset.
       #
-      # @overload create(name:, description: nil, tags: nil, request_options: {})
+      # @overload create(name:, associations: nil, description: nil, tags: nil, request_options: {})
       #
       # @param name [String] The name of the tagset.
+      #
+      # @param associations [Array<Moonbase::Models::TagsetAssociation::Calls, Moonbase::Models::TagsetAssociation::Meetings, Moonbase::Models::TagsetAssociation::Inbox>] Optional list of associations for this tagset. Include `{type: "calls"}`, `{type
       #
       # @param description [String] An optional description of the tagset's purpose.
       #
@@ -58,9 +60,11 @@ module Moonbase
       #
       # Updates an existing tagset.
       #
-      # @overload update(id, description: nil, name: nil, tags: nil, request_options: {})
+      # @overload update(id, associations: nil, description: nil, name: nil, tags: nil, request_options: {})
       #
       # @param id [String] The ID of the tagset to update.
+      #
+      # @param associations [Array<Moonbase::Models::TagsetAssociation::Calls, Moonbase::Models::TagsetAssociation::Meetings, Moonbase::Models::TagsetAssociation::Inbox>] Optional full list of associations for this tagset. If provided, it replaces all
       #
       # @param description [String] An updated description of the tagset.
       #

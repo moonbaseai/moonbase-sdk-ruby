@@ -415,10 +415,10 @@ module Moonbase
 
           type field_number_monetary =
             {
+              default_unit: String,
               name: String,
               type: :"field/number/monetary",
               cardinality: Moonbase::Models::Collections::FieldCreateParams::Field::FieldNumberMonetary::cardinality,
-              default_unit: String,
               default_values: ::Array[Moonbase::MonetaryValue],
               description: String,
               required: bool,
@@ -426,6 +426,8 @@ module Moonbase
             }
 
           class FieldNumberMonetary < Moonbase::Internal::Type::BaseModel
+            attr_accessor default_unit: String
+
             attr_accessor name: String
 
             attr_accessor type: :"field/number/monetary"
@@ -435,10 +437,6 @@ module Moonbase
             def cardinality=: (
               Moonbase::Models::Collections::FieldCreateParams::Field::FieldNumberMonetary::cardinality
             ) -> Moonbase::Models::Collections::FieldCreateParams::Field::FieldNumberMonetary::cardinality
-
-            attr_reader default_unit: String?
-
-            def default_unit=: (String) -> String
 
             attr_reader default_values: ::Array[Moonbase::MonetaryValue]?
 
@@ -459,9 +457,9 @@ module Moonbase
             def unique=: (bool) -> bool
 
             def initialize: (
+              default_unit: String,
               name: String,
               ?cardinality: Moonbase::Models::Collections::FieldCreateParams::Field::FieldNumberMonetary::cardinality,
-              ?default_unit: String,
               ?default_values: ::Array[Moonbase::MonetaryValue],
               ?description: String,
               ?required: bool,
@@ -470,10 +468,10 @@ module Moonbase
             ) -> void
 
             def to_hash: -> {
+              default_unit: String,
               name: String,
               type: :"field/number/monetary",
               cardinality: Moonbase::Models::Collections::FieldCreateParams::Field::FieldNumberMonetary::cardinality,
-              default_unit: String,
               default_values: ::Array[Moonbase::MonetaryValue],
               description: String,
               required: bool,

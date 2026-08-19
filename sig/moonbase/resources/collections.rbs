@@ -8,6 +8,7 @@ module Moonbase
       def create: (
         name: String,
         ?description: String,
+        ?icon_name: String,
         ?request_options: Moonbase::request_opts
       ) -> Moonbase::Collection
 
@@ -19,6 +20,7 @@ module Moonbase
       def update: (
         String id,
         ?description: String,
+        ?icon_name: String?,
         ?name: String,
         ?request_options: Moonbase::request_opts
       ) -> Moonbase::Collection
@@ -29,6 +31,8 @@ module Moonbase
         ?limit: Integer,
         ?request_options: Moonbase::request_opts
       ) -> Moonbase::Internal::CursorPage[Moonbase::Models::CollectionListResponse]
+
+      def delete: (String id, ?request_options: Moonbase::request_opts) -> nil
 
       def initialize: (client: Moonbase::Client) -> void
     end

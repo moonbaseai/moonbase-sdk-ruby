@@ -10,6 +10,12 @@ module Moonbase
       #   @return [String]
       required :id, String
 
+      # @!attribute associations
+      #   Where a tagset is available (`calls`, `meetings`, or `inbox` with an inbox ID).
+      #
+      #   @return [Array<Moonbase::Models::TagsetAssociation::Calls, Moonbase::Models::TagsetAssociation::Meetings, Moonbase::Models::TagsetAssociation::Inbox>]
+      required :associations, -> { Moonbase::Internal::Type::ArrayOf[union: Moonbase::TagsetAssociation] }
+
       # @!attribute created_at
       #   Time at which the object was created, as an ISO 8601 timestamp in UTC.
       #
@@ -46,11 +52,13 @@ module Moonbase
       #   @return [String, nil]
       optional :description, String
 
-      # @!method initialize(id:, created_at:, name:, tags:, updated_at:, description: nil, type: :tagset)
+      # @!method initialize(id:, associations:, created_at:, name:, tags:, updated_at:, description: nil, type: :tagset)
       #   A Tagset is a collection of `Tag` objects whose tags can be applied to
       #   conversations, calls, and meetings.
       #
       #   @param id [String] Unique identifier for the object.
+      #
+      #   @param associations [Array<Moonbase::Models::TagsetAssociation::Calls, Moonbase::Models::TagsetAssociation::Meetings, Moonbase::Models::TagsetAssociation::Inbox>] Where a tagset is available (`calls`, `meetings`, or `inbox` with an inbox ID).
       #
       #   @param created_at [Time] Time at which the object was created, as an ISO 8601 timestamp in UTC.
       #

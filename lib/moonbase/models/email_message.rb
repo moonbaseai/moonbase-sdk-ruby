@@ -2,7 +2,6 @@
 
 module Moonbase
   module Models
-    # @see Moonbase::Resources::InboxMessages#create
     class EmailMessage < Moonbase::Internal::Type::BaseModel
       # @!attribute id
       #   Unique identifier for the object.
@@ -76,8 +75,8 @@ module Moonbase
       #
       #   **Note:** Only present when requested using the `include` query parameter.
       #
-      #   @return [Array<Moonbase::Models::Address>, nil]
-      optional :addresses, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::Address] }
+      #   @return [Array<Moonbase::Models::EmailMessageAddress>, nil]
+      optional :addresses, -> { Moonbase::Internal::Type::ArrayOf[Moonbase::EmailMessageAddress] }
 
       # @!attribute attachments
       #   A list of `Attachment` objects on the message.
@@ -127,7 +126,7 @@ module Moonbase
       #
       #   @param unread [Boolean] `true` if the message has not been read.
       #
-      #   @param addresses [Array<Moonbase::Models::Address>] A list of `Address` objects associated with the message (sender and recipients).
+      #   @param addresses [Array<Moonbase::Models::EmailMessageAddress>] A list of `Address` objects associated with the message (sender and recipients).
       #
       #   @param attachments [Array<Moonbase::Models::MessageAttachment>] A list of `Attachment` objects on the message.
       #

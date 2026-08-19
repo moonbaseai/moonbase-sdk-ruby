@@ -1,0 +1,111 @@
+module Moonbase
+  module Models
+    type view_create_params =
+      {
+        collection: Moonbase::ViewCreateParams::Collection,
+        fields: ::Array[Moonbase::ViewField],
+        name: String,
+        view_type: Moonbase::Models::ViewCreateParams::view_type,
+        aggregates: ::Array[Moonbase::Models::view_aggregate],
+        filter: Moonbase::Models::items_filter,
+        groups: ::Array[String],
+        relation_value_filters: ::Array[Moonbase::ViewRelationValueFilter],
+        sort: ::Array[String]
+      }
+      & Moonbase::Internal::Type::request_parameters
+
+    class ViewCreateParams < Moonbase::Internal::Type::BaseModel
+      extend Moonbase::Internal::Type::RequestParameters::Converter
+      include Moonbase::Internal::Type::RequestParameters
+
+      attr_accessor collection: Moonbase::ViewCreateParams::Collection
+
+      attr_accessor fields: ::Array[Moonbase::ViewField]
+
+      attr_accessor name: String
+
+      attr_accessor view_type: Moonbase::Models::ViewCreateParams::view_type
+
+      attr_reader aggregates: ::Array[Moonbase::Models::view_aggregate]?
+
+      def aggregates=: (
+        ::Array[Moonbase::Models::view_aggregate]
+      ) -> ::Array[Moonbase::Models::view_aggregate]
+
+      attr_reader filter: Moonbase::Models::items_filter?
+
+      def filter=: (
+        Moonbase::Models::items_filter
+      ) -> Moonbase::Models::items_filter
+
+      attr_reader groups: ::Array[String]?
+
+      def groups=: (::Array[String]) -> ::Array[String]
+
+      attr_reader relation_value_filters: ::Array[Moonbase::ViewRelationValueFilter]?
+
+      def relation_value_filters=: (
+        ::Array[Moonbase::ViewRelationValueFilter]
+      ) -> ::Array[Moonbase::ViewRelationValueFilter]
+
+      attr_reader sort: ::Array[String]?
+
+      def sort=: (::Array[String]) -> ::Array[String]
+
+      def initialize: (
+        collection: Moonbase::ViewCreateParams::Collection,
+        fields: ::Array[Moonbase::ViewField],
+        name: String,
+        view_type: Moonbase::Models::ViewCreateParams::view_type,
+        ?aggregates: ::Array[Moonbase::Models::view_aggregate],
+        ?filter: Moonbase::Models::items_filter,
+        ?groups: ::Array[String],
+        ?relation_value_filters: ::Array[Moonbase::ViewRelationValueFilter],
+        ?sort: ::Array[String],
+        ?request_options: Moonbase::request_opts
+      ) -> void
+
+      def to_hash: -> {
+        collection: Moonbase::ViewCreateParams::Collection,
+        fields: ::Array[Moonbase::ViewField],
+        name: String,
+        view_type: Moonbase::Models::ViewCreateParams::view_type,
+        aggregates: ::Array[Moonbase::Models::view_aggregate],
+        filter: Moonbase::Models::items_filter,
+        groups: ::Array[String],
+        relation_value_filters: ::Array[Moonbase::ViewRelationValueFilter],
+        sort: ::Array[String],
+        request_options: Moonbase::RequestOptions
+      }
+
+      type collection = { type: :collection, id: String, ref: String }
+
+      class Collection < Moonbase::Internal::Type::BaseModel
+        attr_accessor type: :collection
+
+        attr_reader id: String?
+
+        def id=: (String) -> String
+
+        attr_reader ref: String?
+
+        def ref=: (String) -> String
+
+        def initialize: (?id: String, ?ref: String, ?type: :collection) -> void
+
+        def to_hash: -> { type: :collection, id: String, ref: String }
+      end
+
+      type view_type = :table | :board
+
+      module ViewType
+        extend Moonbase::Internal::Type::Enum
+
+        TABLE: :table
+        BOARD: :board
+
+        def self?.values: -> ::Array[Moonbase::Models::ViewCreateParams::view_type]
+      end
+    end
+  end
+end

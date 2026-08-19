@@ -18,11 +18,13 @@ module Moonbase
       # Creates a new collection with default fields (name, created_at, updated_at) and
       # a default view.
       #
-      # @overload create(name:, description: nil, request_options: {})
+      # @overload create(name:, description: nil, icon_name: nil, request_options: {})
       #
       # @param name [String] The user-facing name of the collection (e.g., "Leads"). A `ref` is automatically
       #
       # @param description [String] An optional, longer-form description of the collection's purpose.
+      #
+      # @param icon_name [String] An optional icon for the collection, as a Phosphor icon name in kebab-case (e.g.
       #
       # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
       #
@@ -60,13 +62,18 @@ module Moonbase
         )
       end
 
+      # Some parameter documentations has been truncated, see
+      # {Moonbase::Models::CollectionUpdateParams} for more details.
+      #
       # Updates an existing collection.
       #
-      # @overload update(id, description: nil, name: nil, request_options: {})
+      # @overload update(id, description: nil, icon_name: nil, name: nil, request_options: {})
       #
       # @param id [String] The ID or `ref` of the Collection to update.
       #
       # @param description [String] An optional, longer-form description of the collection's purpose.
+      #
+      # @param icon_name [String, nil] The collection's icon, as a Phosphor icon name in kebab-case (e.g. `users`, `cha
       #
       # @param name [String] The user-facing name of the collection.
       #
@@ -114,6 +121,26 @@ module Moonbase
           page: Moonbase::Internal::CursorPage,
           model: Moonbase::Models::CollectionListResponse,
           options: options
+        )
+      end
+
+      # Permanently deletes a collection.
+      #
+      # @overload delete(id, request_options: {})
+      #
+      # @param id [String] The ID or `ref` of the Collection to delete.
+      #
+      # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
+      #
+      # @return [nil]
+      #
+      # @see Moonbase::Models::CollectionDeleteParams
+      def delete(id, params = {})
+        @client.request(
+          method: :delete,
+          path: ["collections/%1$s", id],
+          model: NilClass,
+          options: params[:request_options]
         )
       end
 

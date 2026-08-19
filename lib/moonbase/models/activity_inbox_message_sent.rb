@@ -10,10 +10,10 @@ module Moonbase
       required :id, String
 
       # @!attribute message
-      #   The `EmailMessage` that was sent.
+      #   The `Message` that was sent.
       #
-      #   @return [Moonbase::Models::EmailMessagePointer, nil]
-      required :message, -> { Moonbase::EmailMessagePointer }, nil?: true
+      #   @return [Moonbase::Models::MessagePointer, nil]
+      required :message, -> { Moonbase::MessagePointer }, nil?: true
 
       # @!attribute occurred_at
       #   The time at which the event occurred, as an ISO 8601 timestamp in UTC.
@@ -32,7 +32,7 @@ module Moonbase
       #
       #   @param id [String] Unique identifier for the object.
       #
-      #   @param message [Moonbase::Models::EmailMessagePointer, nil] The `EmailMessage` that was sent.
+      #   @param message [Moonbase::Models::MessagePointer, nil] The `Message` that was sent.
       #
       #   @param occurred_at [Time] The time at which the event occurred, as an ISO 8601 timestamp in UTC.
       #

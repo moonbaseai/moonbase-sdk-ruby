@@ -1,0 +1,17 @@
+module Moonbase
+  module Models
+    type view_aggregate_item_count = { type: :item_count, group: String }
+
+    class ViewAggregateItemCount < Moonbase::Internal::Type::BaseModel
+      attr_accessor type: :item_count
+
+      attr_reader group: String?
+
+      def group=: (String) -> String
+
+      def initialize: (?group: String, ?type: :item_count) -> void
+
+      def to_hash: -> { type: :item_count, group: String }
+    end
+  end
+end

@@ -1,0 +1,104 @@
+module Moonbase
+  module Models
+    type slack_message =
+      {
+        id: String,
+        body: Moonbase::FormattedText,
+        bulk: bool,
+        created_at: Time,
+        draft: bool,
+        lock_version: Integer,
+        spam: bool,
+        subject: String,
+        trash: bool,
+        type: :slack_message,
+        unread: bool,
+        addresses: ::Array[Moonbase::Models::slack_message_address],
+        attachments: ::Array[Moonbase::MessageAttachment],
+        conversation: Moonbase::InboxConversation,
+        summary: String
+      }
+
+    class SlackMessage < Moonbase::Internal::Type::BaseModel
+      attr_accessor id: String
+
+      attr_accessor body: Moonbase::FormattedText
+
+      attr_accessor bulk: bool
+
+      attr_accessor created_at: Time
+
+      attr_accessor draft: bool
+
+      attr_accessor lock_version: Integer
+
+      attr_accessor spam: bool
+
+      attr_accessor subject: String
+
+      attr_accessor trash: bool
+
+      attr_accessor type: :slack_message
+
+      attr_accessor unread: bool
+
+      attr_reader addresses: ::Array[Moonbase::Models::slack_message_address]?
+
+      def addresses=: (
+        ::Array[Moonbase::Models::slack_message_address]
+      ) -> ::Array[Moonbase::Models::slack_message_address]
+
+      attr_reader attachments: ::Array[Moonbase::MessageAttachment]?
+
+      def attachments=: (
+        ::Array[Moonbase::MessageAttachment]
+      ) -> ::Array[Moonbase::MessageAttachment]
+
+      attr_reader conversation: Moonbase::InboxConversation?
+
+      def conversation=: (
+        Moonbase::InboxConversation
+      ) -> Moonbase::InboxConversation
+
+      attr_reader summary: String?
+
+      def summary=: (String) -> String
+
+      def initialize: (
+        id: String,
+        body: Moonbase::FormattedText,
+        bulk: bool,
+        created_at: Time,
+        draft: bool,
+        lock_version: Integer,
+        spam: bool,
+        subject: String,
+        trash: bool,
+        unread: bool,
+        ?addresses: ::Array[Moonbase::Models::slack_message_address],
+        ?attachments: ::Array[Moonbase::MessageAttachment],
+        ?conversation: Moonbase::InboxConversation,
+        ?summary: String,
+        ?type: :slack_message
+      ) -> void
+
+      def to_hash: -> {
+        id: String,
+        body: Moonbase::FormattedText,
+        bulk: bool,
+        created_at: Time,
+        draft: bool,
+        lock_version: Integer,
+        spam: bool,
+        subject: String,
+        trash: bool,
+        type: :slack_message,
+        unread: bool,
+        addresses: ::Array[Moonbase::Models::slack_message_address],
+        attachments: ::Array[Moonbase::MessageAttachment],
+        conversation: Moonbase::InboxConversation,
+        summary: String
+      }
+    end
+  end
+end

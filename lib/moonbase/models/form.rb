@@ -20,14 +20,20 @@ module Moonbase
       # @!attribute collection
       #   The `Collection` that submissions to this form are saved to.
       #
-      #   @return [Moonbase::Models::Collection]
-      required :collection, -> { Moonbase::Collection }
+      #   @return [Moonbase::Models::CollectionPointer]
+      required :collection, -> { Moonbase::CollectionPointer }
 
       # @!attribute created_at
       #   Time at which the object was created, as an ISO 8601 timestamp in UTC.
       #
       #   @return [Time]
       required :created_at, Time
+
+      # @!attribute html_embed
+      #   The HTML snippet for embedding the form on your website.
+      #
+      #   @return [String]
+      required :html_embed, String
 
       # @!attribute name
       #   The name of the form, used as the title on its public page.
@@ -73,7 +79,7 @@ module Moonbase
       #   @return [String, nil]
       optional :redirect_url, String
 
-      # @!method initialize(id:, business_email_required:, collection:, created_at:, name:, pages_enabled:, updated_at:, pages_url: nil, redirect_url: nil, type: :form)
+      # @!method initialize(id:, business_email_required:, collection:, created_at:, html_embed:, name:, pages_enabled:, updated_at:, pages_url: nil, redirect_url: nil, type: :form)
       #   Some parameter documentations has been truncated, see {Moonbase::Models::Form}
       #   for more details.
       #
@@ -84,9 +90,11 @@ module Moonbase
       #
       #   @param business_email_required [Boolean] `true` if submissions require a business email address, blocking free and dispos
       #
-      #   @param collection [Moonbase::Models::Collection] The `Collection` that submissions to this form are saved to.
+      #   @param collection [Moonbase::Models::CollectionPointer] The `Collection` that submissions to this form are saved to.
       #
       #   @param created_at [Time] Time at which the object was created, as an ISO 8601 timestamp in UTC.
+      #
+      #   @param html_embed [String] The HTML snippet for embedding the form on your website.
       #
       #   @param name [String] The name of the form, used as the title on its public page.
       #

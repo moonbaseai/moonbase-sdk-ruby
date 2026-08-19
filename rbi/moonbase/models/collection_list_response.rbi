@@ -40,6 +40,12 @@ module Moonbase
       sig { params(description: String).void }
       attr_writer :description
 
+      sig { returns(T.nilable(String)) }
+      attr_reader :icon_name
+
+      sig { params(icon_name: String).void }
+      attr_writer :icon_name
+
       # Information about the most essential attributes of a Collection (does not
       # include the collection's field definitions).
       sig do
@@ -51,6 +57,7 @@ module Moonbase
           ref: String,
           updated_at: Time,
           description: String,
+          icon_name: String,
           type: Symbol
         ).returns(T.attached_class)
       end
@@ -62,6 +69,7 @@ module Moonbase
         ref:,
         updated_at:,
         description: nil,
+        icon_name: nil,
         type: :collection
       )
       end
@@ -76,7 +84,8 @@ module Moonbase
             ref: String,
             type: Symbol,
             updated_at: Time,
-            description: String
+            description: String,
+            icon_name: String
           }
         )
       end

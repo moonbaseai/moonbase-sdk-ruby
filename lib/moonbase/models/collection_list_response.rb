@@ -44,7 +44,12 @@ module Moonbase
       #   @return [String, nil]
       optional :description, String
 
-      # @!method initialize(id:, created_at:, kind:, name:, ref:, updated_at:, description: nil, type: :collection)
+      # @!attribute icon_name
+      #
+      #   @return [String, nil]
+      optional :icon_name, String
+
+      # @!method initialize(id:, created_at:, kind:, name:, ref:, updated_at:, description: nil, icon_name: nil, type: :collection)
       #   Information about the most essential attributes of a Collection (does not
       #   include the collection's field definitions).
       #
@@ -55,6 +60,7 @@ module Moonbase
       #   @param ref [String]
       #   @param updated_at [Time]
       #   @param description [String]
+      #   @param icon_name [String]
       #   @param type [Symbol, :collection]
 
       # @see Moonbase::Models::CollectionListResponse#kind

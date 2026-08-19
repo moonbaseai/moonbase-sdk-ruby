@@ -8,27 +8,18 @@ module Moonbase
       # @return [Moonbase::Resources::InboxMessages::Attachments]
       attr_reader :attachments
 
+      # Some parameter documentations has been truncated, see
+      # {Moonbase::Models::InboxMessageCreateParams} for more details.
+      #
       # Creates a new message draft.
       #
-      # @overload create(body:, inbox_id:, bcc: nil, cc: nil, conversation_id: nil, subject: nil, to: nil, request_options: {})
+      # @overload create(message:, request_options: {})
       #
-      # @param body [Moonbase::Models::FormattedText] The email body.
-      #
-      # @param inbox_id [String] The inbox to use for sending the email.
-      #
-      # @param bcc [Array<Moonbase::Models::EmailMessageAddressParams>] A list of the BCC recipients.
-      #
-      # @param cc [Array<Moonbase::Models::EmailMessageAddressParams>] A list of the CC recipients.
-      #
-      # @param conversation_id [String] The ID of the conversation, if responding to an existing conversation.
-      #
-      # @param subject [String] The subject line of the email.
-      #
-      # @param to [Array<Moonbase::Models::EmailMessageAddressParams>] A list of recipients.
+      # @param message [Moonbase::Models::InboxMessageCreateParams::Message::EmailMessageNewConversationCreateParams, Moonbase::Models::InboxMessageCreateParams::Message::SlackMessageNewConversationCreateParams, Moonbase::Models::InboxMessageCreateParams::Message::EmailMessageReplyCreateParams, Moonbase::Models::InboxMessageCreateParams::Message::SlackMessageReplyCreateParams] Parameters for creating an email message draft. Provide either the fields for a
       #
       # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
       #
-      # @return [Moonbase::Models::EmailMessage]
+      # @return [Moonbase::Models::EmailMessage, Moonbase::Models::SlackMessage]
       #
       # @see Moonbase::Models::InboxMessageCreateParams
       def create(params)
@@ -36,8 +27,8 @@ module Moonbase
         @client.request(
           method: :post,
           path: "inbox_messages",
-          body: parsed,
-          model: Moonbase::EmailMessage,
+          body: parsed[:message],
+          model: Moonbase::Models::InboxMessageCreateResponse,
           options: options
         )
       end
@@ -55,7 +46,7 @@ module Moonbase
       #
       # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
       #
-      # @return [Moonbase::Models::EmailMessage]
+      # @return [Moonbase::Models::EmailMessage, Moonbase::Models::SlackMessage]
       #
       # @see Moonbase::Models::InboxMessageRetrieveParams
       def retrieve(id, params = {})
@@ -65,32 +56,22 @@ module Moonbase
           method: :get,
           path: ["inbox_messages/%1$s", id],
           query: query,
-          model: Moonbase::EmailMessage,
+          model: Moonbase::Models::InboxMessageRetrieveResponse,
           options: options
         )
       end
 
       # Updates an existing message draft.
       #
-      # @overload update(id, lock_version:, bcc: nil, body: nil, cc: nil, subject: nil, to: nil, request_options: {})
+      # @overload update(id, message:, request_options: {})
       #
       # @param id [String] The ID of the message to update.
       #
-      # @param lock_version [Integer] The current lock version of the draft for optimistic concurrency control.
-      #
-      # @param bcc [Array<Moonbase::Models::EmailMessageAddressParams>] A list of the BCC recipients.
-      #
-      # @param body [Moonbase::Models::FormattedText] The email body.
-      #
-      # @param cc [Array<Moonbase::Models::EmailMessageAddressParams>] A list of the CC recipients.
-      #
-      # @param subject [String] The subject line of the email.
-      #
-      # @param to [Array<Moonbase::Models::EmailMessageAddressParams>] A list of the recipients.
+      # @param message [Moonbase::Models::InboxMessageUpdateParams::Message::EmailMessageUpdateParams, Moonbase::Models::InboxMessageUpdateParams::Message::SlackMessageUpdateParams] Parameters for updating a draft message in an existing conversation.
       #
       # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
       #
-      # @return [Moonbase::Models::EmailMessage]
+      # @return [Moonbase::Models::EmailMessage, Moonbase::Models::SlackMessage]
       #
       # @see Moonbase::Models::InboxMessageUpdateParams
       def update(id, params)
@@ -98,8 +79,8 @@ module Moonbase
         @client.request(
           method: :patch,
           path: ["inbox_messages/%1$s", id],
-          body: parsed,
-          model: Moonbase::EmailMessage,
+          body: parsed[:message],
+          model: Moonbase::Models::InboxMessageUpdateResponse,
           options: options
         )
       end
@@ -123,7 +104,7 @@ module Moonbase
       #
       # @param request_options [Moonbase::RequestOptions, Hash{Symbol=>Object}, nil]
       #
-      # @return [Moonbase::Internal::CursorPage<Moonbase::Models::EmailMessagePointer>]
+      # @return [Moonbase::Internal::CursorPage<Moonbase::Models::MessagePointer>]
       #
       # @see Moonbase::Models::InboxMessageListParams
       def list(params = {})
@@ -134,7 +115,7 @@ module Moonbase
           path: "inbox_messages",
           query: query,
           page: Moonbase::Internal::CursorPage,
-          model: Moonbase::EmailMessagePointer,
+          model: Moonbase::MessagePointer,
           options: options
         )
       end

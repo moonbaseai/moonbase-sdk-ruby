@@ -79,8 +79,6 @@ module Moonbase
 
   ActivityRetrieveParams = Moonbase::Models::ActivityRetrieveParams
 
-  Address = Moonbase::Models::Address
-
   AgentSettingRetrieveParams = Moonbase::Models::AgentSettingRetrieveParams
 
   AgentSettingUpdateParams = Moonbase::Models::AgentSettingUpdateParams
@@ -127,6 +125,8 @@ module Moonbase
 
   CollectionCreateParams = Moonbase::Models::CollectionCreateParams
 
+  CollectionDeleteParams = Moonbase::Models::CollectionDeleteParams
+
   CollectionListParams = Moonbase::Models::CollectionListParams
 
   CollectionPointer = Moonbase::Models::CollectionPointer
@@ -167,9 +167,9 @@ module Moonbase
 
   EmailMessage = Moonbase::Models::EmailMessage
 
-  EmailMessageAddressParams = Moonbase::Models::EmailMessageAddressParams
+  EmailMessageAddress = Moonbase::Models::EmailMessageAddress
 
-  EmailMessagePointer = Moonbase::Models::EmailMessagePointer
+  EmailMessageAddressParams = Moonbase::Models::EmailMessageAddressParams
 
   EmailValue = Moonbase::Models::EmailValue
 
@@ -309,6 +309,8 @@ module Moonbase
 
   MessageAttachment = Moonbase::Models::MessageAttachment
 
+  MessagePointer = Moonbase::Models::MessagePointer
+
   MonetaryField = Moonbase::Models::MonetaryField
 
   MonetaryValue = Moonbase::Models::MonetaryValue
@@ -379,6 +381,12 @@ module Moonbase
 
   SingleLineTextValue = Moonbase::Models::SingleLineTextValue
 
+  SlackMessage = Moonbase::Models::SlackMessage
+
+  SlackMessageAddress = Moonbase::Models::SlackMessageAddress
+
+  SlackMessageAddressParams = Moonbase::Models::SlackMessageAddressParams
+
   SocialLinkedInField = Moonbase::Models::SocialLinkedInField
 
   SocialLinkedInValue = Moonbase::Models::SocialLinkedInValue
@@ -408,6 +416,8 @@ module Moonbase
   TagPointerParam = Moonbase::Models::TagPointerParam
 
   Tagset = Moonbase::Models::Tagset
+
+  TagsetAssociation = Moonbase::Models::TagsetAssociation
 
   TagsetCreateParams = Moonbase::Models::TagsetCreateParams
 
@@ -445,9 +455,27 @@ module Moonbase
 
   View = Moonbase::Models::View
 
+  ViewAggregate = Moonbase::Models::ViewAggregate
+
+  ViewAggregateFieldStatistic = Moonbase::Models::ViewAggregateFieldStatistic
+
+  ViewAggregateItemCount = Moonbase::Models::ViewAggregateItemCount
+
+  ViewCreateParams = Moonbase::Models::ViewCreateParams
+
+  ViewDeleteParams = Moonbase::Models::ViewDeleteParams
+
+  ViewField = Moonbase::Models::ViewField
+
+  ViewListParams = Moonbase::Models::ViewListParams
+
+  ViewRelationValueFilter = Moonbase::Models::ViewRelationValueFilter
+
   ViewRetrieveParams = Moonbase::Models::ViewRetrieveParams
 
   Views = Moonbase::Models::Views
+
+  ViewUpdateParams = Moonbase::Models::ViewUpdateParams
 
   WebhookEndpointCreateParams = Moonbase::Models::WebhookEndpointCreateParams
 

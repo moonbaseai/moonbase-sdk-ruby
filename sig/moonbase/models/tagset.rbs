@@ -3,6 +3,7 @@ module Moonbase
     type tagset =
       {
         id: String,
+        associations: ::Array[Moonbase::Models::tagset_association],
         created_at: Time,
         name: String,
         tags: ::Array[Moonbase::Tag],
@@ -13,6 +14,8 @@ module Moonbase
 
     class Tagset < Moonbase::Internal::Type::BaseModel
       attr_accessor id: String
+
+      attr_accessor associations: ::Array[Moonbase::Models::tagset_association]
 
       attr_accessor created_at: Time
 
@@ -30,6 +33,7 @@ module Moonbase
 
       def initialize: (
         id: String,
+        associations: ::Array[Moonbase::Models::tagset_association],
         created_at: Time,
         name: String,
         tags: ::Array[Moonbase::Tag],
@@ -40,6 +44,7 @@ module Moonbase
 
       def to_hash: -> {
         id: String,
+        associations: ::Array[Moonbase::Models::tagset_association],
         created_at: Time,
         name: String,
         tags: ::Array[Moonbase::Tag],
