@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.12 (2026-08-20)
+
+Full Changelog: [v0.1.0-alpha.11...v0.1.0-alpha.12](https://github.com/moonbaseai/moonbase-sdk-ruby/compare/v0.1.0-alpha.11...v0.1.0-alpha.12)
+
+### Chores
+
+* **internal:** allow the mock server port to be set with STAINLESS_MOCK_PORT ([302b976](https://github.com/moonbaseai/moonbase-sdk-ruby/commit/302b976a2de50e5329522189f38eccd6963dbd2e))
+
 ## 0.1.0-alpha.11 (2026-08-03)
 
 Full Changelog: [v0.1.0-alpha.10...v0.1.0-alpha.11](https://github.com/moonbaseai/moonbase-sdk-ruby/compare/v0.1.0-alpha.10...v0.1.0-alpha.11)
